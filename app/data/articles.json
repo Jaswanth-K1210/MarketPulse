@@ -1,0 +1,30 @@
+[
+  {
+    "id": "01b2ff6a-b9f0-422b-91ea-30f035e429c7",
+    "title": "NVIDIA Announces Revolutionary AI Chip - Stock Surges 3%",
+    "url": "https://example.com/nvidia-breakthrough-2025",
+    "source": "TechCrunch",
+    "published_at": "2025-12-12T23:04:35.914648",
+    "content": "NVIDIA Corporation today unveiled its next-generation AI chip architecture,\nthe 'Blackwell Ultra', promising unprecedented performance improvements.\nThe new chip delivers 5x faster AI training compared to current generation.\nCEO Jensen Huang called it \"the biggest leap in AI computing history.\"\nThe announcement triggered a 3% stock price surge in after-hours trading.\nAnalysts immediately raised price targets, with several predicting the chip\nwill solidify NVIDIA's dominance in the AI market for years to come.",
+    "companies_mentioned": [
+      "NVIDIA",
+      "AMD",
+      "Intel"
+    ],
+    "event_type": "product_launch",
+    "processed_at": "2025-12-12T23:04:35.914657"
+  },
+  {
+    "id": "05f33255-673b-46a7-ac15-8660afb773e8",
+    "title": "Apple Wins Partial Relief in Epic Appeals Ruling",
+    "url": "https://finnhub.io/api/news?id=082c7bf2d4ab7b63223b2e964a57f0375660ab4af4c47a49acf73fdb42b89a9f",
+    "source": "Yahoo",
+    "published_at": "2025-12-12T21:31:07",
+    "content": "Court reverses parts of contempt order but leaves key App Store limits in place",
+    "companies_mentioned": [
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  }
+]

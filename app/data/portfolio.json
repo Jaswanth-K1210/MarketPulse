@@ -1,0 +1,37 @@
+[
+  {
+    "user_name": "Jaswanth",
+    "portfolio": [
+      {
+        "company": "Apple Inc.",
+        "ticker": "AAPL",
+        "quantity": 150,
+        "purchase_price": 145.5
+      },
+      {
+        "company": "NVIDIA Corporation",
+        "ticker": "NVDA",
+        "quantity": 80,
+        "purchase_price": 420.0
+      },
+      {
+        "company": "Advanced Micro Devices",
+        "ticker": "AMD",
+        "quantity": 120,
+        "purchase_price": 95.0
+      },
+      {
+        "company": "Intel Corporation",
+        "ticker": "INTC",
+        "quantity": 200,
+        "purchase_price": 42.5
+      },
+      {
+        "company": "Broadcom Inc.",
+        "ticker": "AVGO",
+        "quantity": 60,
+        "purchase_price": 540.0
+      }
+    ]
+  }
+]

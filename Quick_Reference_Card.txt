@@ -1,0 +1,364 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                   MARKETPULSE-X: QUICK REFERENCE CARD                    ║
+║                    For Claude Code Assistant Execution                    ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ USER PROFILE                                                            │
+├─────────────────────────────────────────────────────────────────────────┤
+│ Name: Jaswanth                                                          │
+│ Role: Portfolio Manager                                                 │
+│ Tracked Companies: 10 (5 portfolio + 5 influential)                     │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ JASWANTH'S PORTFOLIO (5 Companies)                                      │
+├─────────────────────────────────────────────────────────────────────────┤
+│ 1. Apple Inc. (AAPL)                                                    │
+│    └─ Quantity: 150 shares                                              │
+│    └─ Purpose: WATCH for supply chain impact                            │
+│                                                                          │
+│ 2. NVIDIA Corporation (NVDA)                                            │
+│    └─ Quantity: 80 shares                                               │
+│    └─ Purpose: WATCH for supply chain impact                            │
+│                                                                          │
+│ 3. Advanced Micro Devices (AMD)                                         │
+│    └─ Quantity: 120 shares                                              │
+│    └─ Purpose: WATCH for supply chain impact                            │
+│                                                                          │
+│ 4. Intel Corporation (INTC)                                             │
+│    └─ Quantity: 200 shares                                              │
+│    └─ Purpose: WATCH for supply chain impact                            │
+│                                                                          │
+│ 5. Broadcom Inc. (AVGO)                                                 │
+│    └─ Quantity: 60 shares                                               │
+│    └─ Purpose: WATCH for supply chain impact                            │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ INFLUENTIAL SUPPLY CHAIN COMPANIES (5 Companies)                        │
+├─────────────────────────────────────────────────────────────────────────┤
+│ 1. Taiwan Semiconductor Manufacturing Company (TSMC)                    │
+│    └─ Ticker: TSM                                                       │
+│    └─ Criticality: CRITICAL SUPPLIER (supplies Apple, AMD, etc.)       │
+│    └─ Purpose: NEWS TRIGGER (disruptions impact portfolio)              │
+│                                                                          │
+│ 2. Samsung Electronics (SSNLF)                                          │
+│    └─ Ticker: SSNLF                                                     │
+│    └─ Criticality: HIGH (memory & chip manufacturer)                    │
+│    └─ Purpose: NEWS TRIGGER (competes with TSMC)                        │
+│                                                                          │
+│ 3. MediaTek (MTCR)                                                      │
+│    └─ Ticker: MTCR                                                      │
+│    └─ Criticality: MEDIUM (chip designer)                               │
+│    └─ Purpose: NEWS TRIGGER (supplies smartphone chips)                 │
+│                                                                          │
+│ 4. ARM Holdings (ARM)                                                   │
+│    └─ Ticker: ARM                                                       │
+│    └─ Criticality: HIGH (IP provider for all chips)                     │
+│    └─ Purpose: NEWS TRIGGER (affects all chip designers)                │
+│                                                                          │
+│ 5. ASML Holding (ASML)                                                  │
+│    └─ Ticker: ASML                                                      │
+│    └─ Criticality: CRITICAL (chip manufacturing equipment)              │
+│    └─ Purpose: NEWS TRIGGER (supplies to TSMC, Samsung, etc.)           │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ REQUIRED API KEYS (3 Total - All Free Tier)                            │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│ 1. GEMINI_API_KEY (REQUIRED)                                            │
+│    └─ Source: https://makersuite.google.com/app/apikey                 │
+│    └─ Cost: FREE                                                        │
+│    └─ Limits: 60 requests/min, 1500 requests/day                        │
+│    └─ Usage: Relation extraction, cascade inference, explanations       │
+│    └─ How to get:                                                       │
+│        • Open URL above                                                 │
+│        • Login with Google                                              │
+│        • Click "Create API Key"                                         │
+│        • Copy and save                                                  │
+│                                                                          │
+│ 2. NEWSAPI_KEY (REQUIRED)                                               │
+│    └─ Source: https://newsapi.org                                       │
+│    └─ Cost: FREE (100 requests/day)                                     │
+│    └─ Limits: 100 requests per day                                      │
+│    └─ Usage: Fetch tech news from 50+ sources                           │
+│    └─ How to get:                                                       │
+│        • Open URL above                                                 │
+│        • Click "Sign Up"                                                │
+│        • Choose "Free" plan                                             │
+│        • Verify email                                                   │
+│        • Copy API key                                                   │
+│                                                                          │
+│ 3. NEWSDATA_IO_KEY (REQUIRED)                                           │
+│    └─ Source: https://newsdata.io                                       │
+│    └─ Cost: FREE (200 requests/day)                                     │
+│    └─ Limits: 200 requests per day                                      │
+│    └─ Usage: Alternative news source for redundancy                     │
+│    └─ How to get:                                                       │
+│        • Open URL above                                                 │
+│        • Click "Sign Up"                                                │
+│        • Choose "Free" plan                                             │
+│        • Verify email                                                   │
+│        • Copy API key                                                   │
+│                                                                          │
+│ Total Daily API Budget:                                                 │
+│   • Gemini: 1500 calls                                                  │
+│   • NewsAPI: 100 calls                                                  │
+│   • NewsData: 200 calls                                                 │
+│   → Estimated usage: ~50 calls/day (plenty of headroom)                 │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ .ENV FILE TEMPLATE                                                      │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│ GEMINI_API_KEY=your_gemini_key_here                                     │
+│ NEWSAPI_KEY=your_newsapi_key_here                                       │
+│ NEWSDATA_IO_KEY=your_newsdata_key_here                                  │
+│ ENVIRONMENT=development                                                 │
+│ DEBUG=True                                                              │
+│ PORT=8000                                                               │
+│ HOST=0.0.0.0                                                            │
+│ FRONTEND_URL=http://localhost:3000                                      │
+│ LOG_LEVEL=INFO                                                          │
+│                                                                          │
+│ IMPORTANT:                                                              │
+│  • Create in: backend/.env                                              │
+│  • Replace placeholder values with actual keys                          │
+│  • Add to .gitignore (never commit secrets!)                            │
+│  • Keep in separate .env.template for reference                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ PYTHON DEPENDENCIES (pip install)                                       │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│ Core Framework:                                                         │
+│  • fastapi==0.104.1          (REST API framework)                       │
+│  • uvicorn==0.24.0           (ASGI server)                              │
+│  • python-dotenv==1.0.0      (Environment config)                       │
+│  • pydantic==2.5.0           (Data validation)                          │
+│                                                                          │
+│ News Fetching:                                                          │
+│  • feedparser==6.0.10        (RSS feed parsing)                         │
+│  • requests==2.31.0          (HTTP requests)                            │
+│  • beautifulsoup4==4.12.2    (Web scraping)                             │
+│  • newspaper3k==0.0.10       (Article extraction)                       │
+│  • lxml==4.9.3               (HTML parsing)                             │
+│                                                                          │
+│ AI/LLM:                                                                 │
+│  • google-generativeai==0.3.0 (Gemini API)                              │
+│                                                                          │
+│ Background Jobs:                                                        │
+│  • APScheduler==3.10.4       (Scheduled tasks)                          │
+│                                                                          │
+│ Real-time:                                                              │
+│  • websockets==12.0          (WebSocket support)                        │
+│  • python-socketio==5.9.0    (Socket.io)                                │
+│                                                                          │
+│ Testing:                                                                │
+│  • pytest==7.4.3             (Unit testing)                             │
+│  • pytest-asyncio==0.21.1    (Async testing)                            │
+│                                                                          │
+│ Optional:                                                               │
+│  • sqlalchemy==2.0.23        (Database ORM)                             │
+│  • PyYAML==6.0.1             (Config files)                             │
+│  • redis==5.0.1              (Caching)                                  │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ FRONTEND DEPENDENCIES (npm install)                                     │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│  • react@18                  (UI framework)                             │
+│  • typescript                (Type safety)                              │
+│  • axios                     (HTTP client)                              │
+│  • zustand                   (State management)                         │
+│  • @socket.io/client         (WebSocket client)                         │
+│  • tailwindcss               (Styling)                                  │
+│  • shadcn/ui                 (Components)                               │
+│  • lucide-react              (Icons)                                    │
+│  • recharts                  (Charts)                                   │
+│  • react-hook-form           (Form handling)                            │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ FILES TO BUILD (20 Total)                                               │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│ BACKEND (Python - 11 files):                                            │
+│  1. app/main.py               FastAPI setup                             │
+│  2. app/config.py             Configuration loading                     │
+│  3. services/gemini_client.py  Gemini API wrapper                       │
+│  4. services/news_aggregator.py News fetching (5 min cycles)            │
+│  5. services/pipeline.py       Processing pipeline                      │
+│  6. services/database.py       Data persistence                         │
+│  7. models/article.py          Article dataclass                        │
+│  8. models/alert.py            Alert dataclass                          │
+│  9. models/knowledge_graph.py   Graph dataclass                         │
+│  10. api/routes.py             REST endpoints                           │
+│  11. api/websocket.py          WebSocket handlers                       │
+│                                                                          │
+│ FRONTEND (React - 8 files):                                             │
+│  12. App.jsx                   Main React app                           │
+│  13. components/Dashboard.jsx   Portfolio dashboard                     │
+│  14. components/AlertCard.jsx   Alert display                           │
+│  15. components/OpportunityCard.jsx Opportunity display                 │
+│  16. components/KnowledgeGraph.jsx Supply chain viz                     │
+│  17. components/AgentChat.jsx   Agent Q&A interface                     │
+│  18. services/api.js           API client                               │
+│  19. services/websocket.js     WebSocket connection                     │
+│                                                                          │
+│ AGENT (Python - 1 file):                                                │
+│  20. services/agent.py         Agentic exploration mode                 │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ SYSTEM LAYERS & RESPONSIBILITIES                                        │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│ LAYER 1: Continuous News Monitoring (Background)                        │
+│  └─ Fetches news every 5 minutes from 5+ sources                        │
+│  └─ Detects events affecting 10 tracked companies                       │
+│  └─ Checks if event impacts Jaswanth's portfolio                        │
+│  └─ Queues events for pipeline processing                               │
+│                                                                          │
+│ LAYER 2: Deterministic Processing Pipeline                              │
+│  └─ EventValidator: Validates and cleans article                        │
+│  └─ RelationExtractor: Gemini API → extract relationships               │
+│  └─ RelationVerifier: Verify relationship exists                        │
+│  └─ CascadeInferencer: Gemini API → find downstream impacts             │
+│  └─ ImpactScorer: Calculate impact % on Jaswanth's portfolio            │
+│  └─ ExplanationGenerator: Gemini API → human-readable text              │
+│  └─ GraphOrchestrator: Build knowledge graph                            │
+│  └─ Output: Alert object with all details                               │
+│                                                                          │
+│ LAYER 3: Agentic Exploration (On-Demand)                                │
+│  └─ User asks follow-up questions                                       │
+│  └─ Agent autonomously selects tools                                    │
+│  └─ Tools: get_sector_companies, get_suppliers, estimate_impact, etc.   │
+│  └─ Uses Gemini for reasoning                                           │
+│  └─ Returns: Structured answer with evidence                            │
+│                                                                          │
+│ LAYER 4: API & Frontend                                                 │
+│  └─ FastAPI: REST endpoints + WebSocket support                         │
+│  └─ React: Dashboard for alerts, opportunities, graphs                  │
+│  └─ Real-time: WebSocket notifications to connected users               │
+│  └─ Visualization: Knowledge graphs, charts, recommendations            │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ SAMPLE EVENT FLOW                                                       │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│ Event: "TSMC announces production halt"                                 │
+│                                                                          │
+│ ① LAYER 1 detects: TSMC mentioned + new article                         │
+│    └─ Triggers pipeline                                                 │
+│                                                                          │
+│ ② LAYER 2 processes:                                                    │
+│    • RelationExtractor (Gemini): TSMC → Apple supply                     │
+│    • RelationExtractor (Gemini): TSMC → AMD supply                       │
+│    • RelationExtractor (Gemini): TSMC → NVIDIA supply                    │
+│    • CascadeInferencer (Gemini): Halt → Chip shortage → Price drop       │
+│    • ImpactScorer: -2.1% for Apple, -1.8% for AMD, -2.3% for NVIDIA     │
+│    • ExplanationGenerator (Gemini): "TSMC halt reduces supply..."        │
+│    • GraphOrchestrator: Build node/edge graph                            │
+│                                                                          │
+│ ③ LAYER 4 sends alert:                                                  │
+│    • WebSocket: Alert to frontend                                       │
+│    • Alert Card: Shows event, impact %, dollar loss                      │
+│    • Knowledge Graph: Visualizes supply chain impact                     │
+│    • Recommendation: "HOLD or MONITOR"                                   │
+│    • Confidence: 92%                                                    │
+│    • Sources: Links to 3 articles                                        │
+│                                                                          │
+│ ④ Jaswanth can ask (LAYER 3):                                           │
+│    Q: "Will semiconductor companies be hit harder?"                      │
+│    A: "Yes, 85% impact vs 35% others. Reason: TSMC is critical."        │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ RUNNING THE SYSTEM                                                      │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│ TERMINAL 1 - Start Backend:                                             │
+│  $ cd backend                                                           │
+│  $ source venv/bin/activate                                             │
+│  $ python run.py                                                        │
+│  ✓ Uvicorn running on http://127.0.0.1:8000                             │
+│  ✓ News aggregator started - checking every 5 minutes                   │
+│                                                                          │
+│ TERMINAL 2 - Start Frontend:                                            │
+│  $ cd frontend                                                          │
+│  $ npm install (first time only)                                        │
+│  $ npm run dev                                                          │
+│  ✓ Local: http://localhost:3000                                         │
+│                                                                          │
+│ BROWSER - Access Application:                                           │
+│  Open: http://localhost:3000                                            │
+│  Dashboard shows: Portfolio + Real-time alerts + Opportunities           │
+│                                                                          │
+│ API DOCUMENTATION:                                                      │
+│  Open: http://127.0.0.1:8000/docs (Swagger UI)                          │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ WHAT CLAUDE CODE NEEDS TO KNOW                                          │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│ 1. USER CONTEXT                                                         │
+│    └─ Name: Jaswanth                                                    │
+│    └─ Portfolio: 5 companies with specific quantities                   │
+│    └─ Goal: Real-time alerts on supply chain impacts                    │
+│                                                                          │
+│ 2. COMPANIES TO TRACK                                                   │
+│    └─ 5 portfolio companies (Apple, NVIDIA, AMD, Intel, Broadcom)       │
+│    └─ 5 influential companies (TSMC, Samsung, MediaTek, ARM, ASML)      │
+│                                                                          │
+│ 3. API KEYS PROVIDED                                                    │
+│    └─ Gemini, NewsAPI, NewsData.io keys in .env                         │
+│                                                                          │
+│ 4. ARCHITECTURE LAYERS                                                  │
+│    └─ Layer 1: News monitoring (5-min cycles)                           │
+│    └─ Layer 2: Deterministic pipeline (Gemini-based processing)         │
+│    └─ Layer 3: Agentic exploration (on-demand Q&A)                      │
+│    └─ Layer 4: API + Frontend (real-time UI)                            │
+│                                                                          │
+│ 5. BUILD ORDER                                                          │
+│    └─ Start with backend infrastructure files (main.py, config.py)      │
+│    └─ Build services in order (gemini, news_aggregator, pipeline)       │
+│    └─ Build API endpoints                                               │
+│    └─ Build frontend components                                         │
+│    └─ Add agent mode last                                               │
+│                                                                          │
+│ 6. TESTING DATA                                                         │
+│    └─ Sample article: TSMC halt announcement                            │
+│    └─ Expected output: Alert with -2% impact on portfolio               │
+│                                                                          │
+│ 7. SUCCESS CRITERIA                                                     │
+│    └─ News fetching works every 5 minutes                               │
+│    └─ Pipeline processes articles in <10 seconds                        │
+│    └─ Alerts appear in frontend within 30 seconds                       │
+│    └─ Knowledge graph visualizes supply chain                           │
+│    └─ Agent can answer follow-up questions                              │
+└─────────────────────────────────────────────────────────────────────────┘
+
+═════════════════════════════════════════════════════════════════════════════
+
+READY TO BUILD? Follow these steps:
+
+1. ✅ Get the 3 API keys (Gemini, NewsAPI, NewsData.io)
+2. ✅ Create .env file with API keys
+3. ✅ Create project structure
+4. ✅ Install Python & Node dependencies
+5. ✅ Copy prompt from Claude_Code_Complete_Prompt.md
+6. ✅ Paste into Claude Code assistant
+7. ✅ Let Claude Code build all 20 files
+8. ✅ Run backend: python run.py
+9. ✅ Run frontend: npm run dev
+10. ✅ Access at http://localhost:3000
+
+═════════════════════════════════════════════════════════════════════════════
