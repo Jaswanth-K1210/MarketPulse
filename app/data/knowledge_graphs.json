@@ -1,0 +1,71 @@
+[
+  {
+    "id": "cb35c0e5-446a-4914-86d2-65a24006de84",
+    "alert_id": "a70a6a08-b689-468b-bba0-4f6ffb176e1a",
+    "nodes": [
+      {
+        "id": "event_1",
+        "type": "event",
+        "label": "NVIDIA Breakthrough Chip Launch",
+        "metadata": {}
+      },
+      {
+        "id": "company_NVIDIA",
+        "type": "company",
+        "label": "NVIDIA",
+        "metadata": {}
+      },
+      {
+        "id": "impact_portfolio",
+        "type": "impact",
+        "label": "+1.8% Portfolio Impact",
+        "metadata": {}
+      }
+    ],
+    "edges": [
+      {
+        "from_node": "event_1",
+        "to_node": "company_NVIDIA",
+        "type": "directly_affects",
+        "confidence": 1.0,
+        "metadata": {}
+      },
+      {
+        "from_node": "company_NVIDIA",
+        "to_node": "impact_portfolio",
+        "type": "impacts",
+        "confidence": 0.85,
+        "metadata": {}
+      }
+    ],
+    "created_at": "2025-12-12T23:04:35.916019"
+  },
+  {
+    "id": "ca3509c6-d7fd-4681-b119-c8aedc0b0f90",
+    "alert_id": "24fd8613-2283-4443-8e9d-a0ee63bc8a9a",
+    "nodes": [
+      {
+        "id": "event_1",
+        "type": "event",
+        "label": "Apple receives partial legal relief in Epic appeals ruling.",
+        "metadata": {}
+      },
+      {
+        "id": "company_Apple",
+        "type": "company",
+        "label": "Apple",
+        "metadata": {}
+      }
+    ],
+    "edges": [
+      {
+        "from_node": "event_1",
+        "to_node": "company_Apple",
+        "type": "directly_affects",
+        "confidence": 1.0,
+        "metadata": {}
+      }
+    ],
+    "created_at": "2025-12-12T23:29:56.772191"
+  }
+]

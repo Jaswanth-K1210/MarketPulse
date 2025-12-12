@@ -1,0 +1,11 @@
+[
+  {
+    "from_company": "NVIDIA",
+    "to_company": "AI Market",
+    "relationship_type": "dominates",
+    "confidence": 0.9,
+    "article_id": "01b2ff6a-b9f0-422b-91ea-30f035e429c7",
+    "alert_id": "a70a6a08-b689-468b-bba0-4f6ffb176e1a",
+    "created_at": "2025-12-12T23:04:35.915746"
+  }
+]

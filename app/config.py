@@ -1,0 +1,237 @@
+"""
+MarketPulse-X Configuration
+Loads environment variables and defines system constants
+"""
+
+import os
+import logging
+from typing import Dict, List
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+# ═══════════════════════════════════════════════════════════════════════════
+# API KEYS & CREDENTIALS
+# ═══════════════════════════════════════════════════════════════════════════
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+NEWSAPI_KEY = os.getenv("NEWSAPI_KEY")
+NEWSDATA_IO_KEY = os.getenv("NEWSDATA_IO_KEY")
+FINNHUB_API_KEY = os.getenv("FINNHUB_API_KEY")
+
+# Validate required API keys
+if not GEMINI_API_KEY:
+    raise ValueError("GEMINI_API_KEY is required in .env file")
+
+# News API keys are optional - at least one should be configured
+if not any([NEWSAPI_KEY, NEWSDATA_IO_KEY, FINNHUB_API_KEY]):
+    raise ValueError("At least one news API key is required (NEWSAPI_KEY, NEWSDATA_IO_KEY, or FINNHUB_API_KEY)")
+
+# ═══════════════════════════════════════════════════════════════════════════
+# SERVER CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════
+
+ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
+DEBUG = os.getenv("DEBUG", "True").lower() == "true"
+PORT = int(os.getenv("PORT", 8000))
+HOST = os.getenv("HOST", "0.0.0.0")
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
+LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PORTFOLIO CONFIGURATION - JASWANTH'S HOLDINGS
+# ═══════════════════════════════════════════════════════════════════════════
+
+PORTFOLIO_COMPANIES: Dict[str, str] = {
+    "Apple": "AAPL",
+    "NVIDIA": "NVDA",
+    "AMD": "AMD",
+    "Intel": "INTC",
+    "Broadcom": "AVGO"
+}
+
+# Default portfolio for Jaswanth
+DEFAULT_PORTFOLIO = [
+    {"company": "Apple Inc.", "ticker": "AAPL", "quantity": 150, "purchase_price": 145.50},
+    {"company": "NVIDIA Corporation", "ticker": "NVDA", "quantity": 80, "purchase_price": 420.00},
+    {"company": "Advanced Micro Devices", "ticker": "AMD", "quantity": 120, "purchase_price": 95.00},
+    {"company": "Intel Corporation", "ticker": "INTC", "quantity": 200, "purchase_price": 42.50},
+    {"company": "Broadcom Inc.", "ticker": "AVGO", "quantity": 60, "purchase_price": 540.00}
+]
+
+# ═══════════════════════════════════════════════════════════════════════════
+# SUPPLY CHAIN COMPANIES TO MONITOR
+# ═══════════════════════════════════════════════════════════════════════════
+
+SUPPLY_CHAIN_COMPANIES: Dict[str, str] = {
+    "TSMC": "TSM",
+    "Taiwan Semiconductor": "TSM",
+    "Samsung": "SSNLF",
+    "Samsung Electronics": "SSNLF",
+    "MediaTek": "MTCR",
+    "ARM": "ARM",
+    "ARM Holdings": "ARM",
+    "ASML": "ASML",
+    "ASML Holding": "ASML"
+}
+
+# All tracked companies (portfolio + supply chain)
+TRACKED_COMPANIES: List[str] = [
+    "Apple", "NVIDIA", "AMD", "Intel", "Broadcom",  # Portfolio
+    "TSMC", "Taiwan Semiconductor", "Samsung", "Samsung Electronics",  # Supply chain
+    "MediaTek", "ARM", "ARM Holdings", "ASML", "ASML Holding"
+]
+
+# Ticker mapping for all companies
+COMPANY_TICKERS: Dict[str, str] = {
+    **PORTFOLIO_COMPANIES,
+    **SUPPLY_CHAIN_COMPANIES
+}
+
+# ═══════════════════════════════════════════════════════════════════════════
+# NEWS AGGREGATION CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════
+
+NEWS_SOURCES = [
+    "google_news",
+    "newsapi",
+    "newsdata_io",
+    "times_of_india",
+    "bbc",
+    "reuters"
+]
+
+# ═══════════════════════════════════════════════════════════════════════════
+# NEWS FETCHING CONFIGURATION - HYBRID INTERVAL STRATEGY FOR HACKATHON
+# ═══════════════════════════════════════════════════════════════════════════
+# IMPORTANT: Gemini free tier = 20 RPM (NOT 60!)
+# Strategy: Different fetch intervals for different sources to respect limits
+
+NEWS_FETCH_INTERVAL = 5  # Primary interval: Finnhub + Google News (minimal Gemini)
+
+# Gemini call budget for hackathon (free tier: 20 RPM max)
+GEMINI_DAILY_BUDGET = 200  # Conservative estimate: 20 RPM * 10 hours active
+GEMINI_CALLS_PER_ARTICLE = 1  # Each article needs 1 Gemini call
+MAX_ARTICLES_PER_FETCH = 3  # Limit to 3 articles max per cycle to stay under budget
+
+# FETCH INTERVALS BY PRIORITY (respects Gemini budget):
+FINNHUB_FETCH_INTERVAL = 5  # Primary source (60/min limit = safe @ 0.2/min)
+GOOGLE_NEWS_FETCH_INTERVAL = 5  # Secondary (no rate limit)
+NEWSAPI_FETCH_INTERVAL = 60  # Tertiary (100/day limit = safe @ 24/day)
+NEWSDATA_FETCH_INTERVAL = 120  # Quaternary (200/day limit = safe @ 12/day)
+
+# API Configuration
+NEWSAPI_BASE_URL = "https://newsapi.org/v2"
+NEWSAPI_RATE_LIMIT = 100  # requests per day
+
+NEWSDATA_BASE_URL = "https://newsdata.io/api/1"
+NEWSDATA_RATE_LIMIT = 200  # requests per day
+
+# Finnhub (PRIMARY for Gemini budget optimization)
+FINNHUB_BASE_URL = "https://finnhub.io/api/v1"
+FINNHUB_RATE_LIMIT = 60  # requests per minute (free tier) - SAFE for 5-min intervals
+
+# ═══════════════════════════════════════════════════════════════════════════
+# GEMINI API CONFIGURATION - HACKATHON MODE (Free Tier)
+# ═══════════════════════════════════════════════════════════════════════════
+# CRITICAL: Free tier limit is 20 RPM, NOT 60!
+# Safeguards implemented:
+# - Max 3 articles per fetch cycle
+# - Daily budget tracking (200 calls/day)
+# - Fallback to keyword matching without Gemini
+# - Skip Gemini on low-priority sources
+
+GEMINI_MODEL = "gemini-2.0-flash-exp"  # Free tier optimized model
+GEMINI_RATE_LIMIT = 20  # ACTUAL free tier limit: 20 RPM (updated from 60)
+GEMINI_TEMPERATURE = 0.2  # Lower temperature for more deterministic outputs
+GEMINI_TIMEOUT = 30  # Timeout for API calls
+GEMINI_MAX_RETRIES = 2  # Reduced from 3 to conserve budget
+
+# ═══════════════════════════════════════════════════════════════════════════
+# DATABASE CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════
+
+DATABASE_TYPE = "json"  # json or postgres
+DATABASE_URL = os.getenv("DATABASE_URL", "")
+
+# JSON file storage paths
+DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "app", "data")
+ARTICLES_DB = os.path.join(DATA_DIR, "articles.json")
+ALERTS_DB = os.path.join(DATA_DIR, "alerts.json")
+RELATIONSHIPS_DB = os.path.join(DATA_DIR, "relationships.json")
+PORTFOLIO_DB = os.path.join(DATA_DIR, "portfolio.json")
+KNOWLEDGE_GRAPHS_DB = os.path.join(DATA_DIR, "knowledge_graphs.json")
+
+# Create data directory if it doesn't exist
+os.makedirs(DATA_DIR, exist_ok=True)
+
+# ═══════════════════════════════════════════════════════════════════════════
+# PIPELINE CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════
+
+# Event types
+EVENT_TYPES = [
+    "production_halt",
+    "supply_chain_disruption",
+    "acquisition",
+    "partnership",
+    "product_launch",
+    "earnings_report",
+    "regulatory_action",
+    "natural_disaster",
+    "geopolitical_event",
+    "technology_breakthrough",
+    "factory_fire",
+    "chip_shortage",
+    "trade_restriction"
+]
+
+# Alert severity thresholds
+SEVERITY_THRESHOLDS = {
+    "high": 2.0,     # >2% portfolio impact
+    "medium": 0.5,   # 0.5-2% portfolio impact
+    "low": 0.0       # <0.5% portfolio impact
+}
+
+# Confidence thresholds
+MIN_CONFIDENCE = 0.6  # Minimum confidence to generate alert
+
+# ═══════════════════════════════════════════════════════════════════════════
+# AGENT CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════
+
+AGENT_TYPES = [
+    "analyst",      # Market analysis
+    "researcher",   # Information gathering
+    "calculator",   # Impact quantification
+    "synthesizer"   # Response synthesis
+]
+
+# Agent routing keywords
+AGENT_ROUTING_KEYWORDS = {
+    "analyst": ["price", "valuation", "pe ratio", "market", "fundamental", "trend", "sector"],
+    "researcher": ["news", "search", "find", "what happened", "verify", "source", "announcement"],
+    "calculator": ["impact", "calculate", "estimate", "percentage", "quantify", "scenario"],
+    "synthesizer": ["explain", "summarize", "combine", "overall", "synthesize"]
+}
+
+# ═══════════════════════════════════════════════════════════════════════════
+# LOGGING CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════
+
+# Configure logging
+logging.basicConfig(
+    level=getattr(logging, LOG_LEVEL),
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler(os.path.join(DATA_DIR, 'marketpulse.log'))
+    ]
+)
+
+logger = logging.getLogger(__name__)
+logger.info(f"MarketPulse-X Configuration Loaded - Environment: {ENVIRONMENT}")
+logger.info(f"Tracking {len(TRACKED_COMPANIES)} companies")
+logger.info(f"Portfolio companies: {list(PORTFOLIO_COMPANIES.keys())}")
+logger.info(f"Supply chain companies: {list(SUPPLY_CHAIN_COMPANIES.keys())}")
