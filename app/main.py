@@ -35,7 +35,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL, "http://localhost:3000", "http://localhost:5173"],
+    allow_origins=[FRONTEND_URL, "http://localhost:3000", "http://localhost:5173", "http://localhost:5174"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -77,17 +77,35 @@ async def news_monitoring_task():
             logger.info("No new articles found")
             return
 
+        logger.info(f"Fetched {len(articles)} articles")
+
+        # CRITICAL: Save ALL articles to database immediately (before processing)
+        # This ensures fresh articles are available even if Gemini processing fails
+        logger.info("💾 Saving articles to database...")
+        articles_saved = 0
+        for article in articles:
+            try:
+                database.save_article(article)
+                articles_saved += 1
+            except Exception as e:
+                logger.warning(f"Failed to save article {article.title[:50]}: {str(e)}")
+        logger.info(f"✓ Saved {articles_saved}/{len(articles)} articles to database")
+
         logger.info(f"Processing {len(articles)} articles...")
 
         # Process each article through pipeline
         alerts_generated = 0
         for article in articles:
-            alert = pipeline.process_article(article)
-            if alert:
-                alerts_generated += 1
-
-                # Broadcast alert via WebSocket
-                await manager.broadcast_alert(alert.to_dict())
+            try:
+                alert = pipeline.process_article(article)
+                if alert:
+                    alerts_generated += 1
+                    # Broadcast alert via WebSocket
+                    await manager.broadcast_alert(alert.to_dict())
+            except Exception as e:
+                logger.error(f"Error processing article {article.title[:50]}: {str(e)}")
+                # Continue with next article - article is already saved above
+                continue
 
         logger.info(f"Generated {alerts_generated} alerts from {len(articles)} articles")
         logger.info("="*70 + "\n")

@@ -85,9 +85,12 @@ class Database:
         return None
 
     def get_all_articles(self, limit: int = 100) -> List[Article]:
-        """Get all articles"""
+        """Get all articles, sorted by most recent first"""
         articles = self._read_file(ARTICLES_DB)
-        return [Article.from_dict(a) for a in articles[-limit:]]
+        article_objects = [Article.from_dict(a) for a in articles]
+        # Sort by published_at descending (most recent first)
+        article_objects.sort(key=lambda x: x.published_at, reverse=True)
+        return article_objects[:limit]
 
     def get_recent_articles(self, hours: int = 24) -> List[Article]:
         """Get articles from last N hours"""

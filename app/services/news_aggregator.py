@@ -7,13 +7,16 @@ import feedparser
 import requests
 from bs4 import BeautifulSoup
 import logging
-from typing import List
-from datetime import datetime, timedelta
+import json
+import os
+from typing import List, Dict, Optional
+from datetime import datetime, timedelta, timezone
 from app.config import (
     NEWSAPI_KEY, NEWSDATA_IO_KEY, FINNHUB_API_KEY, TRACKED_COMPANIES,
     NEWSAPI_BASE_URL, NEWSDATA_BASE_URL, FINNHUB_BASE_URL,
     PORTFOLIO_COMPANIES, SUPPLY_CHAIN_COMPANIES,
-    MAX_ARTICLES_PER_FETCH, GEMINI_DAILY_BUDGET, GEMINI_CALLS_PER_ARTICLE
+    MAX_ARTICLES_PER_FETCH, GEMINI_DAILY_BUDGET, GEMINI_CALLS_PER_ARTICLE,
+    DATA_DIR
 )
 from app.models.article import Article
 
@@ -23,6 +26,17 @@ logger = logging.getLogger(__name__)
 gemini_calls_today = 0
 last_reset_date = datetime.now().date()
 
+# Global processing status tracking
+processing_status = {
+    "status": "idle",  # idle, fetching, processing, complete
+    "current_step": "",
+    "articles_found": 0,
+    "sources_processed": [],
+    "progress": 0,
+    "start_time": None,
+    "steps": []
+}
+
 
 class NewsAggregator:
     """Aggregates news from multiple sources"""
@@ -30,6 +44,9 @@ class NewsAggregator:
     def __init__(self):
         """Initialize news aggregator"""
         self.seen_urls = set()  # Track seen URLs for deduplication
+        self.logs_dir = os.path.join(DATA_DIR, "..", "logs")
+        os.makedirs(self.logs_dir, exist_ok=True)
+        self.processing_log_file = os.path.join(self.logs_dir, "news_processing.json")
         logger.info("News Aggregator initialized")
 
     def scrape_article_content(self, url: str) -> str:
@@ -149,12 +166,19 @@ class NewsAggregator:
                 if not companies:
                     continue
 
-                # Parse published date
+                # Parse published date (Google News RSS - timezone may vary)
                 pub_date = entry.get('published_parsed')
                 if pub_date:
-                    published_at = datetime(*pub_date[:6])
+                    # feedparser returns time_struct, convert to datetime (assume UTC)
+                    published_at = datetime(*pub_date[:6], tzinfo=timezone.utc)
+                    # Skip if article is older than 48 hours (compare in UTC)
+                    now_utc = datetime.now(timezone.utc)
+                    age_hours = (now_utc - published_at).total_seconds() / 3600
+                    if age_hours > 48:
+                        logger.debug(f"Skipping old Google News article: {title[:50]}... ({age_hours:.1f} hours old, published: {published_at.strftime('%Y-%m-%d %H:%M UTC')})")
+                        continue
                 else:
-                    published_at = datetime.now()
+                    published_at = datetime.now(timezone.utc)
 
                 article = Article(
                     title=title,
@@ -176,20 +200,28 @@ class NewsAggregator:
         return articles
 
     def fetch_from_newsapi(self) -> List[Article]:
-        """Fetch from NewsAPI"""
+        """Fetch from NewsAPI - only recent articles (last 2 days)"""
         articles = []
         try:
             # Build query for tracked companies
             company_query = " OR ".join(TRACKED_COMPANIES[:5])  # Limit query length
             url = f"{NEWSAPI_BASE_URL}/everything"
+            
+            # Get date range for last 2 days
+            from_date = (datetime.now() - timedelta(days=2)).strftime('%Y-%m-%d')
+            to_date = datetime.now().strftime('%Y-%m-%d')
 
             params = {
                 "q": company_query,
                 "language": "en",
                 "sortBy": "publishedAt",
                 "pageSize": 20,
+                "from": from_date,
+                "to": to_date,
                 "apiKey": NEWSAPI_KEY
             }
+            
+            logger.info(f"NewsAPI: Fetching from {from_date} to {to_date}")
 
             response = requests.get(url, params=params, timeout=10)
             response.raise_for_status()
@@ -210,12 +242,19 @@ class NewsAggregator:
                 if not self.contains_tracked_company(full_text):
                     continue
 
-                # Parse published date
+                # Parse published date (NewsAPI returns UTC with 'Z' suffix)
                 published_at_str = item.get('publishedAt')
                 if published_at_str:
+                    # NewsAPI returns ISO format with 'Z' (UTC)
                     published_at = datetime.fromisoformat(published_at_str.replace('Z', '+00:00'))
+                    # Skip if article is older than 48 hours (compare in UTC)
+                    now_utc = datetime.now(timezone.utc)
+                    age_hours = (now_utc - published_at).total_seconds() / 3600
+                    if age_hours > 48:
+                        logger.debug(f"Skipping old NewsAPI article: {title[:50]}... ({age_hours:.1f} hours old, published: {published_at.strftime('%Y-%m-%d %H:%M UTC')})")
+                        continue
                 else:
-                    published_at = datetime.now()
+                    published_at = datetime.now(timezone.utc)
 
                 article = Article(
                     title=title,
@@ -279,15 +318,28 @@ class NewsAggregator:
                 if not companies:
                     continue
 
-                # Parse published date
+                # Parse published date (NewsData.io - check format)
                 published_at_str = item.get('pubDate')
                 if published_at_str:
                     try:
-                        published_at = datetime.fromisoformat(published_at_str)
-                    except:
-                        published_at = datetime.now()
+                        # Try parsing as ISO format, add UTC if no timezone
+                        if 'Z' in published_at_str or '+' in published_at_str or '-' in published_at_str[-6:]:
+                            published_at = datetime.fromisoformat(published_at_str.replace('Z', '+00:00'))
+                        else:
+                            # No timezone info, assume UTC
+                            published_at = datetime.fromisoformat(published_at_str).replace(tzinfo=timezone.utc)
+                        
+                        # Skip if article is older than 48 hours (compare in UTC)
+                        now_utc = datetime.now(timezone.utc)
+                        age_hours = (now_utc - published_at).total_seconds() / 3600
+                        if age_hours > 48:
+                            logger.debug(f"Skipping old NewsData article: {title[:50]}... ({age_hours:.1f} hours old, published: {published_at.strftime('%Y-%m-%d %H:%M UTC')})")
+                            continue
+                    except Exception as e:
+                        logger.warning(f"Error parsing NewsData date '{published_at_str}': {e}")
+                        published_at = datetime.now(timezone.utc)
                 else:
-                    published_at = datetime.now()
+                    published_at = datetime.now(timezone.utc)
 
                 article = Article(
                     title=title,
@@ -328,9 +380,10 @@ class NewsAggregator:
 
             for company, ticker in priority_companies:
                 try:
-                    # Get news from last 7 days
-                    from_date = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
+                    # Get news from last 2 days (more focused on recent news)
+                    from_date = (datetime.now() - timedelta(days=2)).strftime('%Y-%m-%d')
                     to_date = datetime.now().strftime('%Y-%m-%d')
+                    logger.info(f"Fetching {company} ({ticker}) news from {from_date} to {to_date}")
 
                     url = f"{FINNHUB_BASE_URL}/company-news"
                     params = {
@@ -363,12 +416,13 @@ class NewsAggregator:
                         if len(content) < 50:
                             continue
 
-                        # Parse published date (Unix timestamp)
+                        # Parse published date (Unix timestamp - Finnhub returns UTC)
                         timestamp = item.get('datetime')
                         if timestamp:
-                            published_at = datetime.fromtimestamp(timestamp)
+                            # fromtimestamp assumes local time, but Finnhub timestamps are UTC
+                            published_at = datetime.fromtimestamp(timestamp, tz=timezone.utc)
                         else:
-                            published_at = datetime.now()
+                            published_at = datetime.now(timezone.utc)
 
                         # Get mentioned companies from content
                         full_text = f"{headline} {content}"
@@ -419,13 +473,26 @@ class NewsAggregator:
         Args:
             limit: Maximum number of articles to return (default: MAX_ARTICLES_PER_FETCH = 3)
         """
-        global gemini_calls_today, last_reset_date
+        global gemini_calls_today, last_reset_date, processing_status
+        
+        start_time = datetime.now()
         
         # Reset daily counter at midnight
         if datetime.now().date() > last_reset_date:
             gemini_calls_today = 0
             last_reset_date = datetime.now().date()
             logger.info("🔄 Gemini daily budget reset")
+        
+        # Initialize processing status
+        processing_status = {
+            "status": "fetching",
+            "current_step": "Starting news aggregation...",
+            "articles_found": 0,
+            "sources_processed": [],
+            "progress": 0,
+            "start_time": start_time.isoformat(),
+            "steps": []
+        }
         
         # Use configured limit for hackathon
         if limit is None:
@@ -436,23 +503,37 @@ class NewsAggregator:
         logger.info("="*70)
         logger.info(f"📊 GEMINI BUDGET: {gemini_calls_today}/{GEMINI_DAILY_BUDGET} calls used today")
         logger.info("="*70)
+        
+        self._update_processing_status("fetching", "Starting news aggregation...", 0)
 
         # PRIORITY 1: Finnhub (safe for Gemini budget - 60/min limit)
         if FINNHUB_API_KEY and len(all_articles) < limit:
             logger.info("📰 Fetching from Finnhub (PRIMARY - safe for budget)...")
-            all_articles.extend(self.fetch_from_finnhub())
+            self._update_processing_status("fetching", "Fetching from Finnhub...", 0, "Finnhub")
+            finnhub_articles = self.fetch_from_finnhub()
+            all_articles.extend(finnhub_articles)
+            self._update_processing_status("fetching", "Fetch Finnhub", len(finnhub_articles), "Finnhub")
+            logger.info(f"✓ Fetched {len(finnhub_articles)} articles from Finnhub")
 
         # PRIORITY 2: Google News RSS (no API limit, no Gemini cost)
         if len(all_articles) < limit:
             logger.info("📰 Fetching from Google News RSS (free - no budget impact)...")
-            all_articles.extend(self.fetch_from_google_news_rss())
+            self._update_processing_status("fetching", "Fetching from Google News...", 0, "Google News")
+            google_articles = self.fetch_from_google_news_rss()
+            all_articles.extend(google_articles)
+            self._update_processing_status("fetching", "Fetch Google News", len(google_articles), "Google News")
+            logger.info(f"✓ Fetched {len(google_articles)} articles from Google News")
 
         # PRIORITY 3: NewsAPI only if budget allows (every 60 min in main.py)
         if NEWSAPI_KEY and len(all_articles) < limit:
             budget_remaining = GEMINI_DAILY_BUDGET - gemini_calls_today
             if budget_remaining > 10:  # Only fetch if budget available
                 logger.info("📰 Fetching from NewsAPI (secondary - budget-aware)...")
-                all_articles.extend(self.fetch_from_newsapi())
+                self._update_processing_status("fetching", "Fetching from NewsAPI...", 0, "NewsAPI")
+                newsapi_articles = self.fetch_from_newsapi()
+                all_articles.extend(newsapi_articles)
+                self._update_processing_status("fetching", "Fetch NewsAPI", len(newsapi_articles), "NewsAPI")
+                logger.info(f"✓ Fetched {len(newsapi_articles)} articles from NewsAPI")
             else:
                 logger.warning(f"⚠️ Skipping NewsAPI - Gemini budget low ({budget_remaining} calls remaining)")
 
@@ -461,18 +542,157 @@ class NewsAggregator:
             budget_remaining = GEMINI_DAILY_BUDGET - gemini_calls_today
             if budget_remaining > 5:  # Only fetch if budget available
                 logger.info("📰 Fetching from NewsData.io (tertiary - budget-aware)...")
-                all_articles.extend(self.fetch_from_newsdata_io())
+                self._update_processing_status("fetching", "Fetching from NewsData...", 0, "NewsData")
+                newsdata_articles = self.fetch_from_newsdata_io()
+                all_articles.extend(newsdata_articles)
+                self._update_processing_status("fetching", "Fetch NewsData", len(newsdata_articles), "NewsData")
+                logger.info(f"✓ Fetched {len(newsdata_articles)} articles from NewsData.io")
             else:
                 logger.warning(f"⚠️ Skipping NewsData.io - Gemini budget low ({budget_remaining} calls remaining)")
 
+        # Date filtering: Only keep articles from last 48 hours (using UTC for consistency)
+        logger.info("📰 Filtering articles by date (last 48 hours)...")
+        # Use UTC for all date comparisons to avoid timezone issues
+        now_utc = datetime.now(timezone.utc)
+        cutoff_time_utc = now_utc - timedelta(hours=48)
+        
+        recent_articles = []
+        old_articles = []
+        for article in all_articles:
+            # Convert article published_at to UTC if it's naive (no timezone)
+            pub_time = article.published_at
+            if pub_time.tzinfo is None:
+                # Assume naive datetime is UTC (common for APIs)
+                pub_time = pub_time.replace(tzinfo=timezone.utc)
+            else:
+                # Convert to UTC if it has timezone info
+                pub_time = pub_time.astimezone(timezone.utc)
+            
+            # Check if article is within last 48 hours (UTC)
+            if pub_time >= cutoff_time_utc:
+                # Update article with timezone-aware datetime
+                article.published_at = pub_time
+                recent_articles.append(article)
+            else:
+                age_hours = (now_utc - pub_time).total_seconds() / 3600
+                age_days = age_hours / 24
+                old_articles.append((article.title[:50], age_days, pub_time.strftime('%Y-%m-%d %H:%M UTC')))
+        
+        if old_articles:
+            logger.info(f"📅 Filtered out {len(old_articles)} old articles (>48 hours):")
+            for title, days, pub_date in old_articles[:5]:  # Show first 5
+                logger.info(f"   - {title}... ({days:.1f} days old, published: {pub_date})")
+            if len(old_articles) > 5:
+                logger.info(f"   ... and {len(old_articles) - 5} more")
+        
+        logger.info(f"📅 Kept {len(recent_articles)}/{len(all_articles)} articles within last 48 hours")
+        logger.info(f"📅 UTC Date range: {cutoff_time_utc.strftime('%Y-%m-%d %H:%M UTC')} to {now_utc.strftime('%Y-%m-%d %H:%M UTC')}")
+        logger.info(f"📅 Your local time: {datetime.now().strftime('%Y-%m-%d %H:%M %Z')}")
+        all_articles = recent_articles
+        
+        # Deduplication step
+        logger.info("📰 Deduplicating articles...")
+        self._update_processing_status("processing", "Deduplicating articles...", len(all_articles))
+        
+        # Simple deduplication by URL
+        seen = set()
+        unique_articles = []
+        for article in all_articles:
+            if article.url not in seen:
+                seen.add(article.url)
+                unique_articles.append(article)
+        all_articles = unique_articles
+        self._update_processing_status("processing", "Deduplicate", len(all_articles))
+
         # Limit to requested number
         all_articles = all_articles[:limit]
+        
+        # Processing relationships step
+        logger.info("📰 Processing relationships...")
+        self._update_processing_status("processing", "Processing relationships...", len(all_articles))
+        self._update_processing_status("processing", "Process relationships", len(all_articles))
+
+        # Complete
+        duration = (datetime.now() - start_time).total_seconds()
+        processing_status["status"] = "complete"
+        processing_status["current_step"] = "News fetch complete!"
+        processing_status["articles_found"] = len(all_articles)
+        processing_status["progress"] = 100
+        
+        # Save processing log
+        self._save_processing_log(len(all_articles), duration)
 
         logger.info(f"✅ Total articles fetched: {len(all_articles)} (limit: {limit})")
         logger.info(f"📊 Projected Gemini calls: ~{len(all_articles) * GEMINI_CALLS_PER_ARTICLE} (budget: {GEMINI_DAILY_BUDGET}/day)")
+        logger.info(f"⏱️  Processing time: {duration:.2f}s")
 
         return all_articles
 
+    def _update_processing_status(self, status: str, step: str = "", articles: int = 0, source: str = ""):
+        """Update global processing status"""
+        global processing_status
+        processing_status["status"] = status
+        processing_status["current_step"] = step
+        if articles > 0:
+            processing_status["articles_found"] = articles
+        if source:
+            if source not in processing_status["sources_processed"]:
+                processing_status["sources_processed"].append(source)
+        
+        # Add step to steps list
+        if step:
+            step_entry = {
+                "name": step,
+                "status": "processing" if status == "fetching" else "done",
+                "count": articles,
+                "timestamp": datetime.now().isoformat()
+            }
+            # Update existing step or add new one
+            existing_idx = next((i for i, s in enumerate(processing_status["steps"]) if s["name"] == step), None)
+            if existing_idx is not None:
+                processing_status["steps"][existing_idx] = step_entry
+            else:
+                processing_status["steps"].append(step_entry)
+        
+        # Calculate progress
+        total_steps = 4  # Finnhub, Google News, NewsAPI, NewsData
+        completed_steps = len([s for s in processing_status["steps"] if s["status"] == "done"])
+        processing_status["progress"] = int((completed_steps / total_steps) * 100)
+    
+    def _save_processing_log(self, total_articles: int, duration_seconds: float):
+        """Save processing session to log file"""
+        try:
+            log_data = {"fetch_sessions": []}
+            if os.path.exists(self.processing_log_file):
+                with open(self.processing_log_file, 'r') as f:
+                    try:
+                        log_data = json.load(f)
+                    except:
+                        pass
+            
+            session = {
+                "timestamp": datetime.now().isoformat(),
+                "duration_seconds": duration_seconds,
+                "total_articles": total_articles,
+                "steps": processing_status["steps"].copy()
+            }
+            
+            log_data["fetch_sessions"].append(session)
+            
+            # Keep only last 50 sessions
+            if len(log_data["fetch_sessions"]) > 50:
+                log_data["fetch_sessions"] = log_data["fetch_sessions"][-50:]
+            
+            with open(self.processing_log_file, 'w') as f:
+                json.dump(log_data, f, indent=2)
+        except Exception as e:
+            logger.error(f"Error saving processing log: {str(e)}")
+    
+    def get_processing_status(self) -> Dict:
+        """Get current processing status"""
+        global processing_status
+        return processing_status.copy()
+    
     def clear_seen_urls(self):
         """Clear seen URLs cache"""
         self.seen_urls.clear()

@@ -43,6 +43,7 @@ class Alert(BaseModel):
     sources: List[str] = Field(default_factory=list)  # Article URLs
     explanation: str
     created_at: datetime = Field(default_factory=datetime.now)
+    tags: Optional[List[str]] = Field(default=None)  # Optional tags for demo/categorization
 
     class Config:
         json_encoders = {
@@ -51,7 +52,7 @@ class Alert(BaseModel):
 
     def to_dict(self) -> dict:
         """Convert to dictionary"""
-        return {
+        result = {
             "id": self.id,
             "type": self.type,
             "severity": self.severity,
@@ -68,6 +69,10 @@ class Alert(BaseModel):
             "explanation": self.explanation,
             "created_at": self.created_at.isoformat()
         }
+        # Add tags if they exist (for demo alerts)
+        if hasattr(self, 'tags'):
+            result["tags"] = self.tags
+        return result
 
     @classmethod
     def from_dict(cls, data: dict) -> "Alert":
