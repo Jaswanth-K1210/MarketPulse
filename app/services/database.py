@@ -89,7 +89,12 @@ class Database:
         articles = self._read_file(ARTICLES_DB)
         article_objects = [Article.from_dict(a) for a in articles]
         # Sort by published_at descending (most recent first)
-        article_objects.sort(key=lambda x: x.published_at, reverse=True)
+        # Handle both timezone-aware and naive datetimes
+        try:
+            article_objects.sort(key=lambda x: x.published_at if x.published_at else datetime.min, reverse=True)
+        except TypeError:
+            # If comparison fails due to timezone mismatch, convert all to timestamps
+            article_objects.sort(key=lambda x: x.published_at.timestamp() if x.published_at else 0, reverse=True)
         return article_objects[:limit]
 
     def get_recent_articles(self, hours: int = 24) -> List[Article]:
