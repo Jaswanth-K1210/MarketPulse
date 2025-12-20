@@ -3,18 +3,25 @@ Multi-Agent System
 Collaborative AI agents for market intelligence analysis
 """
 
-from app.agents.base_agent import BaseAgent
-from app.agents.analyst_agent import analyst_agent
-from app.agents.researcher_agent import researcher_agent
-from app.agents.calculator_agent import calculator_agent
-from app.agents.synthesizer_agent import synthesizer_agent
-from app.agents.agent_orchestrator import agent_orchestrator
+# Re-exporting the new LangGraph components for v3.0 logic
+from app.agents.workflow import app as workflow_app
+from app.agents.nodes import (
+    agent_1_news_monitor,
+    agent_2_classifier,
+    agent_3a_matcher_fast,
+    agent_3b_discovery,
+    agent_4_impact_calculator,
+    agent_5_validator,
+    agent_6_alerts
+)
 
 __all__ = [
-    "BaseAgent",
-    "analyst_agent",
-    "researcher_agent",
-    "calculator_agent",
-    "synthesizer_agent",
-    "agent_orchestrator"
+    "workflow_app",
+    "agent_1_news_monitor",
+    "agent_2_classifier",
+    "agent_3a_matcher_fast",
+    "agent_3b_discovery",
+    "agent_4_impact_calculator",
+    "agent_5_validator",
+    "agent_6_alerts"
 ]

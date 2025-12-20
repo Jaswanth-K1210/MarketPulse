@@ -26,5 +26,591 @@
     ],
     "event_type": null,
     "processed_at": null
+  },
+  {
+    "id": "8f9d5599-8dfc-4461-9891-19599d74c855",
+    "title": "Inside ASML's $430 Billion AI Monopoly: The Chipmaker Even Nvidia Can't Live Without",
+    "url": "https://finnhub.io/api/news?id=51d52c4cbc2df25101c22223a0247bd9973eded3d40db7934b96afd7fddfd805",
+    "source": "Yahoo",
+    "published_at": "2025-12-12T16:19:44+00:00",
+    "content": "Christophe Fouquet's ultra-secretive machines are powering the AI arms race--and no rival is even close.",
+    "companies_mentioned": [
+      "NVIDIA",
+      "ARM",
+      "ASML",
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "8d0d5636-bbb3-4fac-b196-5598f0661f6c",
+    "title": "Has the cash ISA shakeup encouraged you to start investing? How readers voted",
+    "url": "https://finnhub.io/api/news?id=faa2934602da82656274a010bec73588e19dac4e9432c13150c18932c70e2790",
+    "source": "Yahoo",
+    "published_at": "2025-12-12T15:07:43+00:00",
+    "content": "Rachel Reeves announced in the autumn budget that the government will cut the tax-free allowance on cash ISAs for most people.",
+    "companies_mentioned": [
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "1375e82d-2578-4ac2-bc4e-c72750769db8",
+    "title": "Capturing The Evolving AI Landscape: WTAI's November 2025 Rebalance Through 5 Core Pillars",
+    "url": "https://finnhub.io/api/news?id=603ba0a8471fd537be9115e3154b0e2490e6095b7d0d24020735340d1ef4b83c",
+    "source": "SeekingAlpha",
+    "published_at": "2025-12-13T00:20:00+00:00",
+    "content": "With memory and networking becoming new bottlenecks, the Index added exposure to firms like SK Hynix, Broadcom and Astera Labs, all critical to AI scalability. Read more here.",
+    "companies_mentioned": [
+      "Broadcom",
+      "NVIDIA"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "ba947707-4e59-4da3-aa1b-f226ff08151f",
+    "title": "Buy And Hold Portfolio For Next 10 Years: Potential $5,500 Monthly Income",
+    "url": "https://finnhub.io/api/news?id=dd15392ca51db5a89acfae5a8d3d3f0acc9ad497fd9fb1958a937ca70f7bd127",
+    "source": "SeekingAlpha",
+    "published_at": "2025-12-13T08:00:00+00:00",
+    "content": "Discover a diversified portfolio of ETFs & CEFs for 6%+ income yield, market-matching growth, and lower tech risk.",
+    "companies_mentioned": [
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "967b062e-3e25-4f5c-beda-d5a5ce8255bb",
+    "title": "These 2 Are, By Far, My Favorite Mag-7 Stocks",
+    "url": "https://finnhub.io/api/news?id=06fe89a01bf13ebaf815739ebd0a994c43a9c42bae7381049be7d2895d6cfbd4",
+    "source": "SeekingAlpha",
+    "published_at": "2025-12-13T07:30:00+00:00",
+    "content": "Discover the top 2 Big Tech stocks set to outperform, chosen by a value-focused investor.",
+    "companies_mentioned": [
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "6bc9e30f-1c31-4cc4-a3df-c9552f892dc2",
+    "title": "AI Isn't A Bubble, This Dip Is A Blessing",
+    "url": "https://finnhub.io/api/news?id=441c899f49aa9e59a432392135ca5a6905080a691b1b2e15a8a9490824ee819b",
+    "source": "SeekingAlpha",
+    "published_at": "2025-12-13T10:00:00+00:00",
+    "content": "The AI trade remains intact as Nasdaq weakness signals consolidation, value rotation builds, and long-term AI budgets grow. Read more on the dip here.",
+    "companies_mentioned": [
+      "NVIDIA"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "1532775a-c1ed-4308-a5d3-8d459e30596c",
+    "title": "Could This Underrated AI Company Break Out Next Year?",
+    "url": "https://finnhub.io/api/news?id=71da411f3f2e091d7beae5b556db8f3b1975d7d1c2f55f19a1cd040f83472187",
+    "source": "Yahoo",
+    "published_at": "2025-12-16T10:01:00+00:00",
+    "content": "Nokia has long traded in a range, but a recent Nvidia partnership could boost the stock in 2026.",
+    "companies_mentioned": [
+      "NVIDIA",
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "f7f73fd8-2442-4a75-9606-9e751ec3f1f7",
+    "title": "Rising chip costs to push global smartphone shipments down in 2026, Counterpoint says",
+    "url": "https://finnhub.io/api/news?id=9b1113e1cbf5bfe6bafae6ec4ca72ec6d84d19830e0aec9a810253003b9e8cd3",
+    "source": "Yahoo",
+    "published_at": "2025-12-16T09:20:08+00:00",
+    "content": "Global smartphone shipments are expected to decline 2.1% next year as rising chip costs \u200bare likely to impact demand, technology-focused market research firm \u200cCounterpoint said on Tuesday.  Electronics supply chains around the world have been hit \u200cby a shortage of legacy memory chips in recent months as manufacturers turned their focus to high-end memory chips suited for semiconductors designed for AI applications.  What we are seeing now \u2060is the low end \u200cof the market (below $200) being impacted most severely, with bill-of-materials costs (total cost of parts) increasing by \u200d20% to 30% since the beginning of the year, Counterpoint's Research Director MS Hwang said.",
+    "companies_mentioned": [
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "43198ca3-2562-4c25-bd4a-c716bfee1c42",
+    "title": "UK unemployment rises and wage growth slows ahead of Bank of England interest rate decision",
+    "url": "https://finnhub.io/api/news?id=612ebbdc7198af30b5842384c44ecf1280c5ca5c0ae3fde3b856a1402bfa4510",
+    "source": "Yahoo",
+    "published_at": "2025-12-16T07:34:07+00:00",
+    "content": "The rate of UK unemployment rose to 5.1% in August to October, ticking up from 5% in the previous three months.",
+    "companies_mentioned": [
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "cc5d9a2d-3813-43a5-8643-fb2ec54dd51d",
+    "title": "What are Google TPUs, and why are they bad news for Nvidia? - Business Insider",
+    "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOUUhlRnVEU01YZGk1RTV2V0Rtb09xd3dxeUhiYUhaYjJLTWZrV2JYdGxwdG5DS1pGQXdkQzExWURHZ2plUmlxMmpQeTBOb3NsaFJuWTk3Sjc5MEV3WGxNRmRaSmVtMlpCZFU0NGZ1M0ZOc2d4WElZNzY2elY3LVp3ag?oc=5",
+    "source": "Google News",
+    "published_at": "2025-12-16T13:52:00+00:00",
+    "content": "<a href=\"https://news.google.com/rss/articles/CBMigAFBVV95cUxOUUhlRnVEU01YZGk1RTV2V0Rtb09xd3dxeUhiYUhaYjJLTWZrV2JYdGxwdG5DS1pGQXdkQzExWURHZ2plUmlxMmpQeTBOb3NsaFJuWTk3Sjc5MEV3WGxNRmRaSmVtMlpCZFU0NGZ1M0ZOc2d4WElZNzY2elY3LVp3ag?oc=5\" target=\"_blank\">What are Google TPUs, and why are they bad news for Nvidia?</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Business Insider</font>",
+    "companies_mentioned": [
+      "NVIDIA"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "8fb33dcb-e140-41d3-a46f-ef1833d53dfa",
+    "title": "Taiwan Semiconductor: This Is The GARP Moment You\u2019ve Waited For (NYSE:TSM) - Seeking Alpha",
+    "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQNEZLQ0t2UDJ0dFgxWEgxcnlhcktHNW5KSWpmR3h5OTRwNF9ORzZ3V1o0VThjV3RvV2lQWU5URjJSVkFJMTFldGpsNUU2Z3RINjRqYWFfZlJnMEVGQ0xrVWJCa2NxMEhMRUpKUTdCXzl2eDJGMm16akVhRm8xRjZEQW53LWZYLXVrVl8tOE9BelhRVTJRekMySzk0ek82N3FtMERTSg?oc=5",
+    "source": "Google News",
+    "published_at": "2025-12-16T19:48:24+00:00",
+    "content": "<a href=\"https://news.google.com/rss/articles/CBMipAFBVV95cUxQNEZLQ0t2UDJ0dFgxWEgxcnlhcktHNW5KSWpmR3h5OTRwNF9ORzZ3V1o0VThjV3RvV2lQWU5URjJSVkFJMTFldGpsNUU2Z3RINjRqYWFfZlJnMEVGQ0xrVWJCa2NxMEhMRUpKUTdCXzl2eDJGMm16akVhRm8xRjZEQW53LWZYLXVrVl8tOE9BelhRVTJRekMySzk0ek82N3FtMERTSg?oc=5\" target=\"_blank\">Taiwan Semiconductor: This Is The GARP Moment You\u2019ve Waited For (NYSE:TSM)</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Seeking Alpha</font>",
+    "companies_mentioned": [
+      "Taiwan Semiconductor"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "9623df34-ffb4-4a94-884d-4709b5289fdf",
+    "title": "Apple announces changes to iOS in Japan",
+    "url": "https://finnhub.io/api/news?id=5afb4f3c62f0512891a055d9ad90f923e0863b74fa828288449aaad16dbbbec1",
+    "source": "Yahoo",
+    "published_at": "2025-12-18T01:00:00+00:00",
+    "content": "CUPERTINO, Calif., December 18, 2025--Apple\u00ae today announced changes impacting iOS apps in Japan to comply with the Mobile Software Competition Act (MSCA). These updates create new options for developers to distribute apps on alternative app marketplaces and to process app payments for digital goods and services outside of Apple In-App Purchase. Across these changes, Apple has worked to reduce new privacy and security risks the law creates to provide users in Japan the best and safest experience",
+    "companies_mentioned": [
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "f0894a96-2519-40a9-98a2-d9da11ac7345",
+    "title": "Prediction: This AI Stock Could Be the Next $4 Trillion Company in 2026",
+    "url": "https://finnhub.io/api/news?id=8342c465a25ad630ad7883b14337e96ae22de6e1ad1a66cf37ff6dadb167e3ef",
+    "source": "Yahoo",
+    "published_at": "2025-12-17T22:50:00+00:00",
+    "content": "Don't count out the reemerging search and artificial intelligence (AI) giant.",
+    "companies_mentioned": [
+      "Intel",
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "6ec5b3af-c432-4785-ae25-8361bc6b76b3",
+    "title": "Nasdaq Composite Logs Worst Day in Nearly 4 Weeks Amid Tech Selloff",
+    "url": "https://finnhub.io/api/news?id=8780c56650292452a7351647f3f0c0fb746a17c77403444068cdcb265d6870f5",
+    "source": "Yahoo",
+    "published_at": "2025-12-17T22:03:13+00:00",
+    "content": "The Nasdaq Composite on Wednesday posted its worst day in nearly four weeks, with technology stocks",
+    "companies_mentioned": [
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "ed34d1aa-a08b-48e9-b7ed-076a72e0b059",
+    "title": "MetaX and Moore Threads' IPOs underscore Chinese chipmakers' growing challenge to Nvidia - CNBC",
+    "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOVUZmZDdVZWozLUtTWWc3QjA5aU9TVXVCenJTaFMyREpCemR5WEVoX2RSR0NaQXJMQjZIRlBfakl6TjVhOWNVdUFQV0d4QXlqTnhIbXctYVBhdndCdWhSb1B0OGJ6WWRfLXpTN0xWZEFzZDRNNXAyYU80bHNLOEROU0cyZ29tekJxZldWXzgyS0XSAZYBQVVfeXFMTmcyNEtyY09pYzUtbzN6MmV2cHJxNW9nSnFrUkhNRFI4dGE3NWhNYkFSbmNrSGpOY2Z2UWpyalpRSUlhS1ZsZVZTVnpVS1dKODRSRHVZNkt1cXllcGt4d0hrczJUcS1KazFNVkpKcmZOUFlMWVNCNFlHVUVRTG1nZUMyUFFib2lVOWdLS2d5dGx3QlcwcDFB?oc=5",
+    "source": "Google News",
+    "published_at": "2025-12-18T01:00:00+00:00",
+    "content": "<a href=\"https://news.google.com/rss/articles/CBMikAFBVV95cUxOVUZmZDdVZWozLUtTWWc3QjA5aU9TVXVCenJTaFMyREpCemR5WEVoX2RSR0NaQXJMQjZIRlBfakl6TjVhOWNVdUFQV0d4QXlqTnhIbXctYVBhdndCdWhSb1B0OGJ6WWRfLXpTN0xWZEFzZDRNNXAyYU80bHNLOEROU0cyZ29tekJxZldWXzgyS0XSAZYBQVVfeXFMTmcyNEtyY09pYzUtbzN6MmV2cHJxNW9nSnFrUkhNRFI4dGE3NWhNYkFSbmNrSGpOY2Z2UWpyalpRSUlhS1ZsZVZTVnpVS1dKODRSRHVZNkt1cXllcGt4d0hrczJUcS1KazFNVkpKcmZOUFlMWVNCNFlHVUVRTG1nZUMyUFFib2lVOWdLS2d5dGx3QlcwcDFB?oc=5\" target=\"_blank\">MetaX and Moore Threads' IPOs underscore Chinese chipmakers' growing challenge to Nvidia</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">CNBC</font>",
+    "companies_mentioned": [
+      "NVIDIA"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "67075157-e06f-4f0c-a31b-c1c42d073a19",
+    "title": "These Christmas Tree Tortilla Chips Are the Easiest Holiday Appetizer - Taste of Home",
+    "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBXU2d4YmNhbzFuUU1QSktlcElNd3N0ZXQyZmtzamdYeWwzSjI0NUJjeDVHcDJRTkJsUHQwQ2JBR3BjdHMwaEpfeG8xQ0dNVE5DS0ZNX29MTVY5d0ZCb2twXy1KQ19iRTFJU1dndGxXTHFwQ2VM?oc=5",
+    "source": "Google News",
+    "published_at": "2025-12-18T02:16:02+00:00",
+    "content": "<a href=\"https://news.google.com/rss/articles/CBMidEFVX3lxTFBXU2d4YmNhbzFuUU1QSktlcElNd3N0ZXQyZmtzamdYeWwzSjI0NUJjeDVHcDJRTkJsUHQwQ2JBR3BjdHMwaEpfeG8xQ0dNVE5DS0ZNX29MTVY5d0ZCb2twXy1KQ19iRTFJU1dndGxXTHFwQ2VM?oc=5\" target=\"_blank\">These Christmas Tree Tortilla Chips Are the Easiest Holiday Appetizer</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Taste of Home</font>",
+    "companies_mentioned": [
+      "AMD"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "dff7c241-c0e0-4ba1-9114-5c9f01d5a15e",
+    "title": "China reportedly has a prototype EUV machine built by ex-ASML employees - Engadget",
+    "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNX2g5dVVXRUw1SEE5RU11M1lFX1E5ZDNhTGViNnVKcnJtT3FYX0ZaLXVJNkxSVGZac1NnLTVsNnppUDBmYW5VNFNVMU5VbktSUEFvakQ0T2NNS3hmSVo3N2pjUXpwM0x0QXFHbDdqWVduSDJFZmVYam93RGtMNEZDeUl1RVVLUWhtZFpnaU93NnA3aFNmcG90MjA2cDlFUXN3dEE1dlFJemtKc0oxc1hlVjZucjdZRjgwbmJ6OQ?oc=5",
+    "source": "Google News",
+    "published_at": "2025-12-17T23:58:33+00:00",
+    "content": "<a href=\"https://news.google.com/rss/articles/CBMivAFBVV95cUxNX2g5dVVXRUw1SEE5RU11M1lFX1E5ZDNhTGViNnVKcnJtT3FYX0ZaLXVJNkxSVGZac1NnLTVsNnppUDBmYW5VNFNVMU5VbktSUEFvakQ0T2NNS3hmSVo3N2pjUXpwM0x0QXFHbDdqWVduSDJFZmVYam93RGtMNEZDeUl1RVVLUWhtZFpnaU93NnA3aFNmcG90MjA2cDlFUXN3dEE1dlFJemtKc0oxc1hlVjZucjdZRjgwbmJ6OQ?oc=5\" target=\"_blank\">China reportedly has a prototype EUV machine built by ex-ASML employees</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Engadget</font>",
+    "companies_mentioned": [
+      "ASML"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "f5bb6d4e-54ab-4a09-afb3-78012d54ebd6",
+    "title": "Gradient Investments LLC Purchases 1,850 Shares of Taiwan Semiconductor Manufacturing Company Ltd. $TSM - MarketBeat",
+    "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxNVWhDWjVITFJtWlA3R2c3TnBybTZwMlBiZHEwbE9pSTU1Wmlwd2Fsb0xUV2RtODNId1JkQ1otMWtUSnN0Sy01ck9Mc1JJS3BKalR5WjFqWTdvUFhURXo2eVdCQ1hkTm5JTXJTUktrSkE1NEZLSnFXeHJaTkpNaWpYTDNKMzlzZUx1UUZKVGt2NERVbmZUamdRWmFlRXlkWDM0dmtUaVlxUkNLNk9ubkx4QmxmQnVQVUJNUk1rcVJnVlNvTlFyRGNLWWVIREFieTB3S1B3WVFmckxpYk14MDdDMHlEd2U1RlQyblFMVlEyVzFKR28?oc=5",
+    "source": "Google News",
+    "published_at": "2025-12-18T09:10:49+00:00",
+    "content": "<a href=\"https://news.google.com/rss/articles/CBMi8wFBVV95cUxNVWhDWjVITFJtWlA3R2c3TnBybTZwMlBiZHEwbE9pSTU1Wmlwd2Fsb0xUV2RtODNId1JkQ1otMWtUSnN0Sy01ck9Mc1JJS3BKalR5WjFqWTdvUFhURXo2eVdCQ1hkTm5JTXJTUktrSkE1NEZLSnFXeHJaTkpNaWpYTDNKMzlzZUx1UUZKVGt2NERVbmZUamdRWmFlRXlkWDM0dmtUaVlxUkNLNk9ubkx4QmxmQnVQVUJNUk1rcVJnVlNvTlFyRGNLWWVIREFieTB3S1B3WVFmckxpYk14MDdDMHlEd2U1RlQyblFMVlEyVzFKR28?oc=5\" target=\"_blank\">Gradient Investments LLC Purchases 1,850 Shares of Taiwan Semiconductor Manufacturing Company Ltd. $TSM</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">MarketBeat</font>",
+    "companies_mentioned": [
+      "AMD",
+      "Taiwan Semiconductor"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "7f9af3ab-4798-4e94-872f-da8d67f11d2e",
+    "title": "Generative AI Digest: New Models And Copyright Disputes",
+    "url": "https://finnhub.io/api/news?id=6f59e0472dc2d81b1375a3a66566ee6d5cb49dce5b4c3ff9d99bacc99ccf9fc2",
+    "source": "SeekingAlpha",
+    "published_at": "2025-12-18T05:35:00+00:00",
+    "content": "This report covers key regulatory updates, new model launches, and funding and M&A activity shaping the market.",
+    "companies_mentioned": [
+      "NVIDIA"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "dba58343-8bd6-4da4-844c-61ee5d692839",
+    "title": "Fiduciary Alliance LLC Raises Position in Taiwan Semiconductor Manufacturing Company Ltd. $TSM - MarketBeat",
+    "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxPRjNIXzZnQnM2M1NEckZFZmNwdllmTHpNVGplM3lKeUtuYVFFaTBENjdiRGpiNEdGY2N6M1VOWVlMeFY0TlY5cTdQdi11ZFRIRWZMV1A1NnN5ekxDekpPX0tldDhIWG5xaGlJekg2bjhJS2k5R2V4MHRJaUl5ZHlaQk92Slc5Y19JYkZCN0ZsZTV5NG1Ra2ZmU3lMamJSWWZSdjFfdDh2UVhQNGM3S0dyeTlDb1NGdUtuZU8yYXNneDlySEZaVUFvTlFJUUk4dXF3M0F3bFNGZWtsd25oekR0UzJBSHgtZGtZ?oc=5",
+    "source": "Google News",
+    "published_at": "2025-12-18T10:41:14+00:00",
+    "content": "<a href=\"https://news.google.com/rss/articles/CBMi6AFBVV95cUxPRjNIXzZnQnM2M1NEckZFZmNwdllmTHpNVGplM3lKeUtuYVFFaTBENjdiRGpiNEdGY2N6M1VOWVlMeFY0TlY5cTdQdi11ZFRIRWZMV1A1NnN5ekxDekpPX0tldDhIWG5xaGlJekg2bjhJS2k5R2V4MHRJaUl5ZHlaQk92Slc5Y19JYkZCN0ZsZTV5NG1Ra2ZmU3lMamJSWWZSdjFfdDh2UVhQNGM3S0dyeTlDb1NGdUtuZU8yYXNneDlySEZaVUFvTlFJUUk4dXF3M0F3bFNGZWtsd25oekR0UzJBSHgtZGtZ?oc=5\" target=\"_blank\">Fiduciary Alliance LLC Raises Position in Taiwan Semiconductor Manufacturing Company Ltd. $TSM</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">MarketBeat</font>",
+    "companies_mentioned": [
+      "Taiwan Semiconductor"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "88460875-d842-4b77-92c9-0429052880a4",
+    "title": "From NVIDIA To Qualcomm: Top 5 US Semiconductor Stocks By Market Cap - Stocktwits",
+    "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOTzEwazZJYnozczdobjgwdTk0cXNvWmdaTzBmT2Z6OF9UZE1LNmt3MTJNNkpNMHlNYjltN2lDVFVtOWs1RmRNYUFqTXV0VjVzQUdXT1BMakRXY0hUenI0S3dCUURRYlRnbVQtZ2NpSUNWdHJKYnhtNmxGS3dEOG1PN2ZubHd3OGkwRGNUX3FnRGo2azgtalAxOTd3M2JQUTBLa1hLQkVlLXlmcUFSRjBRWFcxOG50dmxoWHRV?oc=5",
+    "source": "Google News",
+    "published_at": "2025-12-18T11:33:00+00:00",
+    "content": "<a href=\"https://news.google.com/rss/articles/CBMiuwFBVV95cUxOTzEwazZJYnozczdobjgwdTk0cXNvWmdaTzBmT2Z6OF9UZE1LNmt3MTJNNkpNMHlNYjltN2lDVFVtOWs1RmRNYUFqTXV0VjVzQUdXT1BMakRXY0hUenI0S3dCUURRYlRnbVQtZ2NpSUNWdHJKYnhtNmxGS3dEOG1PN2ZubHd3OGkwRGNUX3FnRGo2azgtalAxOTd3M2JQUTBLa1hLQkVlLXlmcUFSRjBRWFcxOG50dmxoWHRV?oc=5\" target=\"_blank\">From NVIDIA To Qualcomm: Top 5 US Semiconductor Stocks By Market Cap</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Stocktwits</font>",
+    "companies_mentioned": [
+      "NVIDIA"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "e46b8c96-4d07-4304-970c-f6b3ada7af13",
+    "title": "Biopharmaceutical Process Analytical Technology Market to Surge: $3.49 Billion by 2030 Predicts Report - Yahoo Finance",
+    "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQVlJJUHRjWlVkb3V0SHBqTl9QY0RndE55RWhhV2R1WEkyeDB2aFpMYnc2dlhiRnNPaUlMOW1XM25HQ1YwQUpzOE9Ia3hhRS1SajFuSWtHa19TcWc1c1ZHRWRMbVNJYm1NZlBvUW93YURTcm1aTVdDTlgyM2RlWldybXcxQXJ2QlJjbUdqYTNhMHEtZHp2WUdPNTQzTk1TTEhIMUE?oc=5",
+    "source": "Google News",
+    "published_at": "2025-12-18T12:26:00+00:00",
+    "content": "<a href=\"https://news.google.com/rss/articles/CBMiogFBVV95cUxQVlJJUHRjWlVkb3V0SHBqTl9QY0RndE55RWhhV2R1WEkyeDB2aFpMYnc2dlhiRnNPaUlMOW1XM25HQ1YwQUpzOE9Ia3hhRS1SajFuSWtHa19TcWc1c1ZHRWRMbVNJYm1NZlBvUW93YURTcm1aTVdDTlgyM2RlWldybXcxQXJ2QlJjbUdqYTNhMHEtZHp2WUdPNTQzTk1TTEhIMUE?oc=5\" target=\"_blank\">Biopharmaceutical Process Analytical Technology Market to Surge: $3.49 Billion by 2030 Predicts Report</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Yahoo Finance</font>",
+    "companies_mentioned": [
+      "ARM"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "94a3f9c9-0c0a-4679-a4c5-87048384835e",
+    "title": "Montecito Bank & Trust Makes New $2.86 Million Investment in Taiwan Semiconductor Manufacturing Company Ltd. $TSM - MarketBeat",
+    "url": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxOSGFYbHhObXdra1EtYjlxTTV0a2UxLWxUcXh4Y3JETnhrOGFxZXFRZWVqQlJzcGJPOENPYWZwaDQ1akxsWnA1S01KYXhNS1h6R1VKTVJYbXdfVzdEanVqVmJkVHloSHIzZklkaVI2bGZWdmVLVkNTdmZMZTVGakY5dXFsRlhRQUhRR1NGWjNQbFZxTVZUcVBheWdyQXRtNFpzeHVwQV9uRmxhREJ6M2ZZWWpoakEwTWVkTlZwSlVQQUFBUFhXdHplS1NDT1pHUDZSNFd6VmY3MDFOQUVpUHUxdzZCajV0YUhaRUZ6N2YyajZjMDI4ZDRfVU1ENXU?oc=5",
+    "source": "Google News",
+    "published_at": "2025-12-18T12:05:50+00:00",
+    "content": "<a href=\"https://news.google.com/rss/articles/CBMi_AFBVV95cUxOSGFYbHhObXdra1EtYjlxTTV0a2UxLWxUcXh4Y3JETnhrOGFxZXFRZWVqQlJzcGJPOENPYWZwaDQ1akxsWnA1S01KYXhNS1h6R1VKTVJYbXdfVzdEanVqVmJkVHloSHIzZklkaVI2bGZWdmVLVkNTdmZMZTVGakY5dXFsRlhRQUhRR1NGWjNQbFZxTVZUcVBheWdyQXRtNFpzeHVwQV9uRmxhREJ6M2ZZWWpoakEwTWVkTlZwSlVQQUFBUFhXdHplS1NDT1pHUDZSNFd6VmY3MDFOQUVpUHUxdzZCajV0YUhaRUZ6N2YyajZjMDI4ZDRfVU1ENXU?oc=5\" target=\"_blank\">Montecito Bank & Trust Makes New $2.86 Million Investment in Taiwan Semiconductor Manufacturing Company Ltd. $TSM</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">MarketBeat</font>",
+    "companies_mentioned": [
+      "Taiwan Semiconductor"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "04164087-3162-4fd2-90e4-e6078c21656d",
+    "title": "Micron Reports Earnings Today. What Wall Street Wants From the Chip Maker. - Barron's",
+    "url": "https://news.google.com/rss/articles/CBMijANBVV95cUxQZFpadkVpLW53bUZNQUFvbEZoWndpWnEzNWVNcXVidlJOcERmTkJDY0UtNTBlakplUUxRbm5JRFZTYmNXNHUya2JiV295VXBjVzJ1RlVrUlVJdktfclduYnFpQS01cHFDQlU5TDFETWtWRmxtamdWQ3NTRGQySnNxV1BWUURxdDJneTdsNkgzclg1alpEbnZ4ZWg5ZFVqNUYwblN3bGI1aFZ1dlFiMVd2OVhTcl9UdVlxdVg4TjgxbHRHUHc3aGlOUzYtcFJXMEhUdE4zdlR6N1czWWVKNVFOcXJFN1FVdUFLUHVHRXI1a29STXQtN21rTU0wU2tCbW9uVVBGQ3M2cFZLczZheld5YUlOVE8xMVNoUXRzMG83RUgta3FnUm0zZWRfa015a0xPSmp3YnlUZFpTcHF3ODRacnJtZl9HVXFCTzBkakZPWWJuRnFPS0hRVWM3czNwLVFRZ0JCdVhnR3lacjJYMWx0WHNoUTgwSHctakRKOGllX3dXSEgtSThOR2dQcnE?oc=5",
+    "source": "Google News",
+    "published_at": "2025-12-18T10:44:00+00:00",
+    "content": "<a href=\"https://news.google.com/rss/articles/CBMijANBVV95cUxQZFpadkVpLW53bUZNQUFvbEZoWndpWnEzNWVNcXVidlJOcERmTkJDY0UtNTBlakplUUxRbm5JRFZTYmNXNHUya2JiV295VXBjVzJ1RlVrUlVJdktfclduYnFpQS01cHFDQlU5TDFETWtWRmxtamdWQ3NTRGQySnNxV1BWUURxdDJneTdsNkgzclg1alpEbnZ4ZWg5ZFVqNUYwblN3bGI1aFZ1dlFiMVd2OVhTcl9UdVlxdVg4TjgxbHRHUHc3aGlOUzYtcFJXMEhUdE4zdlR6N1czWWVKNVFOcXJFN1FVdUFLUHVHRXI1a29STXQtN21rTU0wU2tCbW9uVVBGQ3M2cFZLczZheld5YUlOVE8xMVNoUXRzMG83RUgta3FnUm0zZWRfa015a0xPSmp3YnlUZFpTcHF3ODRacnJtZl9HVXFCTzBkakZPWWJuRnFPS0hRVWM3czNwLVFRZ0JCdVhnR3lacjJYMWx0WHNoUTgwSHctakRKOGllX3dXSEgtSThOR2dQcnE?oc=5\" target=\"_blank\">Micron Reports Earnings Today. What Wall Street Wants From the Chip Maker.</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Barron's</font>",
+    "companies_mentioned": [
+      "AMD"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "55a5d293-2299-44a3-9d93-971ba5f00237",
+    "title": "The Biggest Market Risk Nobody Is Talking About Right Now",
+    "url": "https://finnhub.io/api/news?id=2a08c02bab6bf451d23d323f92a48e79b4e49d29087276d4b896332a66b19039",
+    "source": "SeekingAlpha",
+    "published_at": "2025-12-18T08:19:47+00:00",
+    "content": "Discover the hidden global risk threatening AI and tech dominance. Learn how to reposition your investments before market disruption hits.",
+    "companies_mentioned": [
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "699f9522-9a99-47e9-8739-4ccb4eae1e00",
+    "title": "Micron Reports Earnings Today. What Wall Street Wants From the Chip Maker. - Barron's",
+    "url": "https://news.google.com/rss/articles/CBMijANBVV95cUxQS1FZaWhMakVNUUNMMGJWaVA4dUdyZnR0YjNpdy1idzgwWWhMTm9VTC1aTmxTRHZkU1hYZTlFN0tNSXl4UEhCRGdTYmR4a0hvbVVoLVlabkxIVGNwZ0toU3NhUGJSYjJIYUpobzB0NjZwUV8wWjR6ZVF4eHpWR1FCMWw4ZFdaa3B2QTRYMUFzWkZLMTQ5dWdNSmwtLWcwdDRkazdUVjZZaVI4VGU4cUtSaXVHU2xQamdUZExHbGRpX19tMmx4Qm41aFpGNGxkNXZORFRLSkQzMHVwd2M4TXdtYThJTlJzcGlVVjJ5eGF1a2NLUnJnb2xCLWZnUmRyRG5OaDJCVTk0d3V2TVk0b1FpSGhMdlJlODYtLUVIWEhzelUzQ3A3WVlIa3FMNEZFa01yTVpFdTdlM19CVVZfQkdIeDZoOE91TWtlQkhTSmQzYzZaaTFhejlxODBXclVFblZyWTVieVVuVzhvSTRfT055STRZbE5kNlh1SnlzczhfUU95SHNjNEoydjJ3R0o?oc=5",
+    "source": "Google News",
+    "published_at": "2025-12-18T10:44:00+00:00",
+    "content": "<a href=\"https://news.google.com/rss/articles/CBMijANBVV95cUxQS1FZaWhMakVNUUNMMGJWaVA4dUdyZnR0YjNpdy1idzgwWWhMTm9VTC1aTmxTRHZkU1hYZTlFN0tNSXl4UEhCRGdTYmR4a0hvbVVoLVlabkxIVGNwZ0toU3NhUGJSYjJIYUpobzB0NjZwUV8wWjR6ZVF4eHpWR1FCMWw4ZFdaa3B2QTRYMUFzWkZLMTQ5dWdNSmwtLWcwdDRkazdUVjZZaVI4VGU4cUtSaXVHU2xQamdUZExHbGRpX19tMmx4Qm41aFpGNGxkNXZORFRLSkQzMHVwd2M4TXdtYThJTlJzcGlVVjJ5eGF1a2NLUnJnb2xCLWZnUmRyRG5OaDJCVTk0d3V2TVk0b1FpSGhMdlJlODYtLUVIWEhzelUzQ3A3WVlIa3FMNEZFa01yTVpFdTdlM19CVVZfQkdIeDZoOE91TWtlQkhTSmQzYzZaaTFhejlxODBXclVFblZyWTVieVVuVzhvSTRfT055STRZbE5kNlh1SnlzczhfUU95SHNjNEoydjJ3R0o?oc=5\" target=\"_blank\">Micron Reports Earnings Today. What Wall Street Wants From the Chip Maker.</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Barron's</font>",
+    "companies_mentioned": [
+      "AMD"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "408d6cbd-ae21-4aee-95f6-e09ec57daf4a",
+    "title": "S&P 500 2026 Outlook: To 8,500 - If These 3 Things Happen",
+    "url": "https://finnhub.io/api/news?id=a20202da6c60f7e83eccca66fb1245ccc58fa5169c8485e46f01151401b7636f",
+    "source": "SeekingAlpha",
+    "published_at": "2025-12-18T09:00:34+00:00",
+    "content": "Discover why the S&P 500 could surge 23% by 2026, driven by AI and Fed policy. Click for this full look ahead at where the markets could wind up in a year.",
+    "companies_mentioned": [
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "6bcbe267-dc0c-44cc-9154-904c9948e8ab",
+    "title": "ECB leaves key interest rate unchanged at 2.15%",
+    "url": "https://finnhub.io/api/news?id=760260f1b7db9a344de51d0b24286fc511018c8d3c0cceff83f9d2d7f7e1dfe4",
+    "source": "Yahoo",
+    "published_at": "2025-12-18T13:34:27+00:00",
+    "content": "The ECB is set to hold a press conference later on where it is expected to indicate little appetite for further cuts in the near-term.",
+    "companies_mentioned": [
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "667c27e1-ac8a-447d-a255-785c70046395",
+    "title": "2 Unstoppable Stocks to Buy No Matter What Happens in 2026",
+    "url": "https://finnhub.io/api/news?id=c04aba410960c5332fe6804c21809aa6628fb905f1be5350aa62dc9e14a42652",
+    "source": "Yahoo",
+    "published_at": "2025-12-18T12:35:00+00:00",
+    "content": "Many continue to doubt that these companies have any upside left, but there are good reasons to think they do.",
+    "companies_mentioned": [
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "a78e4998-61cf-4031-92c2-9ecf9591f759",
+    "title": "Apple Opens iPhones to Alternative App Stores in Japan",
+    "url": "https://finnhub.io/api/news?id=082aba57f3a8ca2a930d3420431105bc38880ace3ca2ca1051a7e6382990a77c",
+    "source": "Yahoo",
+    "published_at": "2025-12-18T12:08:37+00:00",
+    "content": "Move follows new competition laws reshaping mobile app markets globally.",
+    "companies_mentioned": [
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "3af95dc5-e581-458c-bc40-d665e20440f4",
+    "title": "The AI Boom: Bubble Risk Or Durable Cycle?",
+    "url": "https://finnhub.io/api/news?id=33370e3ed90b89304ccc8dc79e4ad301e645dacf8ca0abc872939b67081f271e",
+    "source": "SeekingAlpha",
+    "published_at": "2025-12-18T12:15:00+00:00",
+    "content": "By\u00c2\u00a0Magdalena Ocampo,\u00c2\u00a0Market StrategistFew technological revolutions have rivaled AI in scale and speed since the dot-com era of 1995-2000.",
+    "companies_mentioned": [
+      "Intel"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "528c7d75-087a-48fe-a91b-c51e42db37ae",
+    "title": "Better Semiconductor Stock for 2026: AMD vs. Intel - The Motley Fool",
+    "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNY0J2bGFPVlZFckFzQl80dFlCM3dIWTlJbEVOc2xmaWYxUms5Mm1ZeVo0a25xcTkta1czRXZrNGtSSEtuUTFJYk1GZy1uWHJ0SmN5RmNrX2xGN1cyd3VPbEFMYzlFTGh0WktHUHBpbEI1Q2tyVmRfWnFuQUJteGphY1lKd21wcTAtZ2FGT0ZjMndDSWhHbEE?oc=5",
+    "source": "Google News",
+    "published_at": "2025-12-18T15:30:00+00:00",
+    "content": "<a href=\"https://news.google.com/rss/articles/CBMilgFBVV95cUxNY0J2bGFPVlZFckFzQl80dFlCM3dIWTlJbEVOc2xmaWYxUms5Mm1ZeVo0a25xcTkta1czRXZrNGtSSEtuUTFJYk1GZy1uWHJ0SmN5RmNrX2xGN1cyd3VPbEFMYzlFTGh0WktHUHBpbEI1Q2tyVmRfWnFuQUJteGphY1lKd21wcTAtZ2FGT0ZjMndDSWhHbEE?oc=5\" target=\"_blank\">Better Semiconductor Stock for 2026: AMD vs. Intel</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">The Motley Fool</font>",
+    "companies_mentioned": [
+      "AMD",
+      "Intel"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "311da6b5-91d8-4c4c-827f-356bce9a5c11",
+    "title": "Top Semiconductor Stocks for 2026 -- Nvidia and Broadcom Lead Chip Picks - Yahoo Finance",
+    "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQVUdla3pIUW1PNWxjNzdkS1EzYmw5em9XZTZ3aTFzM3cwWEhGUldpaVVZd2FYSkp6bklQd2pWVlVsWGhBeG1VcWZuSmM5YmZrbzRlczl2TzR6WVBvN25NcHhkWGNoM2p3Tmc0QmpTUWgwNzBqX2lWMVoxN05FcGI4cnByR1Vtcms?oc=5",
+    "source": "Google News",
+    "published_at": "2025-12-18T15:08:25+00:00",
+    "content": "<a href=\"https://news.google.com/rss/articles/CBMihwFBVV95cUxQVUdla3pIUW1PNWxjNzdkS1EzYmw5em9XZTZ3aTFzM3cwWEhGUldpaVVZd2FYSkp6bklQd2pWVlVsWGhBeG1VcWZuSmM5YmZrbzRlczl2TzR6WVBvN25NcHhkWGNoM2p3Tmc0QmpTUWgwNzBqX2lWMVoxN05FcGI4cnByR1Vtcms?oc=5\" target=\"_blank\">Top Semiconductor Stocks for 2026 -- Nvidia and Broadcom Lead Chip Picks</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Yahoo Finance</font>",
+    "companies_mentioned": [
+      "NVIDIA",
+      "Broadcom"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "6868bef9-bfe3-4075-bfca-8ca21df1b99a",
+    "title": "Are Students Too Plugged In? What MA parents say about Artificial Intelligence (AI) + Technology - MassINC",
+    "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxORWRPQ2pjRHozcFlSX2FuY1lCdm5IMEZlX1dNZTVTNHJLY21PWEhjSFhQZHJFSThaV3d1S00xR01CZksyTVVPZ2JaaFd1M08yY3UyS2h4U3pINHFIc3dhYXltZFVLWHQ3Ql8zWVh5b1A0cnRvcExoVm5kbTdtUmhQMTA5Z1Q5WG5QejQ4VHFiYlpGUDZNdGk3eC1KT01qVVFISkgxSHNKaHZCdm42NWxSWEpFNXRxQjdQUmhN?oc=5",
+    "source": "Google News",
+    "published_at": "2025-12-18T18:58:19+00:00",
+    "content": "<a href=\"https://news.google.com/rss/articles/CBMiuwFBVV95cUxORWRPQ2pjRHozcFlSX2FuY1lCdm5IMEZlX1dNZTVTNHJLY21PWEhjSFhQZHJFSThaV3d1S00xR01CZksyTVVPZ2JaaFd1M08yY3UyS2h4U3pINHFIc3dhYXltZFVLWHQ3Ql8zWVh5b1A0cnRvcExoVm5kbTdtUmhQMTA5Z1Q5WG5QejQ4VHFiYlpGUDZNdGk3eC1KT01qVVFISkgxSHNKaHZCdm42NWxSWEpFNXRxQjdQUmhN?oc=5\" target=\"_blank\">Are Students Too Plugged In? What MA parents say about Artificial Intelligence (AI) + Technology</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">MassINC</font>",
+    "companies_mentioned": [
+      "Intel"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "23a52fbd-ff0b-438b-9fa3-6abd46056483",
+    "title": "Most Attractive AI Bet Today? For Me, It's AMD",
+    "url": "https://finnhub.io/api/news?id=054eaf19379f2961b248680808bcc8ac07dab969bcb6529296b1ecab920c82ce",
+    "source": "SeekingAlpha",
+    "published_at": "2025-12-18T14:31:09+00:00",
+    "content": "Learn why Advanced Micro Devices, Inc. stands out in the AI sector with solid financial backing and smart growth potential. Click for more on AMD stock prospects.",
+    "companies_mentioned": [
+      "AMD"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "160b1bde-36e7-4728-ae8c-51b8799199ac",
+    "title": "Recession Watch: Growth Losing Momentum",
+    "url": "https://finnhub.io/api/news?id=992bb8740934235e2305683666bac7da0646a543e624e40736e1d8c4611de396",
+    "source": "SeekingAlpha",
+    "published_at": "2025-12-18T16:01:26+00:00",
+    "content": "Get the latest on slowing economic growth, rising unemployment, and sector rotation risks.",
+    "companies_mentioned": [
+      "Broadcom"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "0e259f9a-514e-4649-8f3f-4c83c3653fd0",
+    "title": "LongPoint Announces No Year End ETF Distributions",
+    "url": "https://finnhub.io/api/news?id=b6eb27357fdb10675bcae93e27ca27f13f31a4d08df50b331bd0384ea5517795",
+    "source": "Yahoo",
+    "published_at": "2025-12-18T20:25:00+00:00",
+    "content": "Toronto, Ontario--(Newsfile Corp. - December 18, 2025) - LongPoint Asset Management Inc. (\"LongPoint\") today announced that there will be no cash or non-cash distributions for the 2025 tax year. All LongPoint ETFs (the \"ETFs\") are listed on the table below.NameTickerSavvyLong (2X) AAPL ETFAAPUSavvyLong (2X) Barrick ETFABXUSavvyLong (2X) GOOGL ETFALPUSavvyLong (2X) AMZN ETFAMZUMegaLong (3X) Canadian Banks Daily Leveraged Alternative ETFBNKUSavvyLong (2X) Cameco ETFCCOUMegaShort (-3X) Canadian...",
+    "companies_mentioned": [
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "4e271448-bd95-4f73-ba4a-2e8f89c51d74",
+    "title": "These Techs Had The Biggest Stock Buybacks In Q3. What To Expect In 2026.",
+    "url": "https://finnhub.io/api/news?id=1818960d2a63fceefbe17fed0c9a7660ce89d790adecb2d7f79c695d31edadde",
+    "source": "Yahoo",
+    "published_at": "2025-12-18T19:56:59+00:00",
+    "content": "Third-quarter buybacks rose 9.9% vs. a year earlier to $249 billion. Apple, Nvidia, Google and Meta Platforms led the way.",
+    "companies_mentioned": [
+      "Apple",
+      "NVIDIA"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "1b27131d-831e-4e11-aed4-1be30f90f44e",
+    "title": "America\u2019s 3 Most Important Companies Are About to Get New Leadership. Trust the Process.",
+    "url": "https://finnhub.io/api/news?id=bfbee30ed7434f2111e9223754dcedb47e54c9c37dbc6b0c92e9dfd6f0ce1dc2",
+    "source": "Yahoo",
+    "published_at": "2025-12-18T17:08:00+00:00",
+    "content": "Walmart, Berkshire Hathaway, and Apple\u2014arguably America\u2019s three most important companies\u2014will soon see a change of the guard.",
+    "companies_mentioned": [
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "3e012fc0-55f2-4b33-8cee-139a2ea18af2",
+    "title": "YMAX: Massive Distribution Paid Weekly, But Significant Erosion Likely To Continue Without Reinvestment",
+    "url": "https://finnhub.io/api/news?id=75ea48f522bad714f468ed6e583fbebd1c4746b548afa7dfbbea25a164f7d19d",
+    "source": "SeekingAlpha",
+    "published_at": "2025-12-18T17:49:35+00:00",
+    "content": "YMAX suits income-focused investors willing to accept principal decline and volatility, not those seeking capital preservation. Read the full analysis on the fund here.",
+    "companies_mentioned": [
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "b6d4f2ce-c47e-436d-9b58-fa839bfeac9e",
+    "title": "From Hype To Scrutiny: Markets Enter A More Discerning Phase",
+    "url": "https://finnhub.io/api/news?id=511cdc9ebba4a790545b3b5118107b200b8dc14c76c2dc03930dce0d1e8df4a8",
+    "source": "SeekingAlpha",
+    "published_at": "2025-12-19T23:15:00+00:00",
+    "content": "Residual angst from Oracle and Broadcom\u00e2\u0080\u0099s earnings underscored rising investor scrutiny within the AI complex, though sentiment improved late in the week following Micron\u00e2\u0080\u0099s strong earnings.",
+    "companies_mentioned": [
+      "Broadcom",
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "d83958b3-fc42-4344-a08a-1fc4726962e1",
+    "title": "Nvidia, Tesla dominate Dec. trading as 2025 options demand surges",
+    "url": "https://finnhub.io/api/news?id=450cac43b5ee261a0643e524b3e980856e3062a4f24328fae80066b53b26060d",
+    "source": "Yahoo",
+    "published_at": "2025-12-19T21:48:29+00:00",
+    "content": "Cboe vice president of market intelligence Henry Schwartz joins Market Domination with Yahoo Finance Data and Markets Editor Jared Blikre to discuss the state of the options landscape. Watch the video above to hear Schwartz's outlook for the options market in 2026. To watch more expert insights and analysis on the latest market action, check out more Market Domination.",
+    "companies_mentioned": [
+      "NVIDIA",
+      "Intel",
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "8805d5be-e569-47db-9a92-7daa62dadfe6",
+    "title": "Mag 7 Stocks Keep Bouncing Back",
+    "url": "https://finnhub.io/api/news?id=2f17ff9d22be3880cc8efd565111b8d07aefbfc138e49324fd7c757b98e5b473",
+    "source": "Yahoo",
+    "published_at": "2025-12-19T20:21:04+00:00",
+    "content": "Big Tech stocks rallied back again on Friday. The Roundhill Magnificent Seven ETF was up 0.7% after surging nearly 2% yesterday. The group of megacap tech stocks rebounded sharply from a 2.2% drop on Wednesday.",
+    "companies_mentioned": [
+      "Apple"
+    ],
+    "event_type": null,
+    "processed_at": null
+  },
+  {
+    "id": "957b6940-84ba-4aac-b796-7199d6cc115b",
+    "title": "Intel vs. Taiwan Semiconductor Manufacturing: Which Stock Will Outperform in 2026? - The Motley Fool",
+    "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPVGZ3N3VHVUo3MjNGU2YwNGNldjZtZlNPV3Uwa2RiQXhKUm5yLVdIVlN5djRYOGJnM2VDZU9NT0tRS0tMVlQ5LU5FRUpBWmZvVW9NdEZ2UUNxQ0ZCelNqeWlWN3VHR0FxN1R1cUFiQW1MYllObjNwYVphZjVlemFJVXl5bU0?oc=5",
+    "source": "Google News",
+    "published_at": "2025-12-19T16:45:00+00:00",
+    "content": "<a href=\"https://news.google.com/rss/articles/CBMihAFBVV95cUxPVGZ3N3VHVUo3MjNGU2YwNGNldjZtZlNPV3Uwa2RiQXhKUm5yLVdIVlN5djRYOGJnM2VDZU9NT0tRS0tMVlQ5LU5FRUpBWmZvVW9NdEZ2UUNxQ0ZCelNqeWlWN3VHR0FxN1R1cUFiQW1MYllObjNwYVphZjVlemFJVXl5bU0?oc=5\" target=\"_blank\">Intel vs. Taiwan Semiconductor Manufacturing: Which Stock Will Outperform in 2026?</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">The Motley Fool</font>",
+    "companies_mentioned": [
+      "Intel",
+      "Taiwan Semiconductor"
+    ],
+    "event_type": null,
+    "processed_at": null
   }
 ]

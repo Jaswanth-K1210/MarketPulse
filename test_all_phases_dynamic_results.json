@@ -1,0 +1,663 @@
+{
+  "test_timestamp": "2025-12-20T17:45:18.534388",
+  "validation_results": {
+    "validations": {
+      "phase1_orchestration": true,
+      "phase2_10_factor_classification": true,
+      "phase3_dynamic_discovery": false,
+      "real_news_data": true,
+      "real_classification": true,
+      "real_sec_data": false,
+      "autonomous_looping": false
+    },
+    "issues": [],
+    "all_dynamic": false
+  },
+  "final_state": {
+    "user_id": "integration_test_001",
+    "portfolio": [
+      "AAPL",
+      "NVDA",
+      "MSFT"
+    ],
+    "news_articles": [
+      {
+        "id": "https://www.bloomberg.com/news/videos/2025-12-20/cocoa-prices-are-falling-when-will-chocolate-get-cheaper",
+        "title": "Cocoa Prices are Falling. When Will Chocolate Get Cheaper?",
+        "content": "Cocoa prices have dropped from their 2024 peak &mdash; but don't expect chocolate bargains this holiday season. When will prices finally fall? Harry Black explains. (Source: Bloomberg)",
+        "source": "Bloomberg",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.bloomberg.com/news/articles/2025-12-20/cocoa-prices-are-plunging-why-is-chocolate-still-so-expensive",
+        "title": "Cocoa Prices Are Plunging. Why Is Chocolate Still So Expensive?",
+        "content": "After last year\u2019s historic rally, cocoa prices are heading for a record annual slump. But there\u2019s no sign the cost of your candies, bars or chocolate Santas will follow any time soon.",
+        "source": "Bloomberg",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.bloomberg.com/news/articles/2025-12-20/modi-fast-tracks-reforms-to-shield-economy-from-us-tariffs",
+        "title": "Modi Fast-Tracks Reforms to Shield Economy From US Tariffs",
+        "content": "Prime Minister Narendra Modi\u2019s government pushed through far-reaching policy reforms in the final parliamentary session of the year, seeking to bolster the economy in the face of trade headwinds.",
+        "source": "Bloomberg",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.bloomberg.com/news/articles/2025-12-20/china-s-rare-earth-magnet-exports-to-us-decline-in-november",
+        "title": "China\u2019s Rare-Earth\u00a0Magnet\u00a0Exports to US Decline in November",
+        "content": "China\u2019s exports of rare-earth magnets to the US fell 11% in November from a month earlier, with no immediate rebound seen after a trade truce between the world\u2019s two biggest economies.",
+        "source": "Bloomberg",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.bloomberg.com/news/articles/2025-12-20/colombia-readies-decree-to-force-pensions-to-invest-more-locally",
+        "title": "Colombia Readies Decree to Force Pensions to Invest More Locally",
+        "content": "Colombia plans to publish next year a decree that would force pension funds to invest more money in the local economy, according to a government website.",
+        "source": "Bloomberg",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.bloomberg.com/news/articles/2025-12-20/record-350-billion-deals-boom-fuels-upbeat-m-a-outlook-in-japan",
+        "title": "Record $350 Billion Deals Boom Fuels Upbeat M&amp;A Outlook in Japan",
+        "content": "It\u2019s been a record year for deals involving Japanese companies, with transaction volume approaching $350 billion as December draws to a close. And next year is poised to be even busier.",
+        "source": "Bloomberg",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.bloomberg.com/news/videos/2025-12-19/why-this-bull-market-isn-t-all-about-tech-video",
+        "title": "Why This Bull Market Isn't All About Tech",
+        "content": "Ryan Detrick, Chief Market Strategist at Carson Group, offers his analysis of the stock market's recent performance and explains why he disagrees with the notion that investors are overly focused on mega-cap tech stocks. Ryan joins Carol Massar, Tim Stenovec, and Bloomberg Chartered Market Technician Bill Maloney on Bloomberg Businessweek Daily. (Source: Bloomberg)",
+        "source": "Bloomberg",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.bloomberg.com/news/videos/2025-12-19/the-close-12-19-2025-video",
+        "title": "Stocks Climb as Options Expiry Approaches $7.1 Trillion | The Close 12/19/2025",
+        "content": "Bloomberg Television brings you the latest news and analysis leading up to the final minutes and seconds before and after the closing bell on Wall Street. Today's guests are Robinhood Markets\u2019 Stephanie Guild, CHANGE Global\u2019s Thea Jamison, D Cowen\u2019s Tom Fitzgerald, Navan\u2019s Amy Butte, DWS Group\u2019s David Bianco, Teneo\u2019s Paul Keary, Counter\u2019s Gregg Renfrew. (Source: Bloomberg)",
+        "source": "Bloomberg",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.bloomberg.com/news/articles/2025-12-19/new-fortress-energy-s-delinquent-payments-mount-amid-debt-talks",
+        "title": "New Fortress Energy\u2019s Delinquent Payments Mount Amid Debt Talks",
+        "content": "New Fortress Energy said Friday that it struck new forbearance agreements with holders of its term loans after failing to make interest payments and informing the lenders that it didn\u2019t plan to make principal payments due at year-end.",
+        "source": "Bloomberg",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.bloomberg.com/news/articles/2025-12-19/inside-disney-and-openai-s-billion-dollar-deal-big-take-podcast",
+        "title": "Inside Disney and OpenAI\u2019s Billion Dollar Deal",
+        "content": "<p>Today on the Big Take: Why Disney cut a deal with OpenAI after decades of safeguarding its intellectual property, what it stands to gain &mdash; and why now.</p>",
+        "source": "Bloomberg",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main",
+        "title": "Stocks Sink in Broad AI Rout Sparked by China's DeepSeek",
+        "content": "U.S. stocks were mostly lower, with the Nasdaq leading declines as makers of AI infrastructure suffered steep falls, many in the double digits. Nvidia was down 16%.",
+        "source": "WSJ",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main",
+        "title": "Comex Gold, Silver Settle Lower",
+        "content": "Gold settled 1.4% lower, down two of the past three sessions, and silver fell 2.5%, down three of the past four sessions.",
+        "source": "WSJ",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main",
+        "title": "DeepSeek Won't Sink U.S. AI Titans",
+        "content": "Panic fueling the selloff of Nvidia, Broadcom and other tech giants is overblown.",
+        "source": "WSJ",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main",
+        "title": "Financial Services Roundup: Market Talk",
+        "content": "Gain insight on Experian, SoFi Technologies and more in the latest Market Talks covering Financial Services.",
+        "source": "WSJ",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main",
+        "title": "Arabica Coffee Prices Hit Record on U.S., Colombia Tariff Spat",
+        "content": "Arabica coffee prices hit a record level, as traders digested the withdrawal of President Trump\u2019s threats to impose tariffs and economic sanctions on Colombia.",
+        "source": "WSJ",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.wsj.com/articles/safe-haven-currencies-strengthen-amid-fears-over-global-tariffs-9964e17a?mod=rss_markets_main",
+        "title": "Swiss franc, Japanese yen Rise as DeepSeek News Boosts Safe Havens",
+        "content": "The Yen and Swiss Franc were stronger against the dollar as investors sought safe havens after Chinese start-up DeepSeek\u2019s new AI model hit U.S. tech stocks.",
+        "source": "WSJ",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.wsj.com/articles/u-s-natural-gas-futures-fall-on-shifting-weather-forecasts-1ef3e457?mod=rss_markets_main",
+        "title": "Natural Gas Falls on Shifting Weather Forecasts",
+        "content": "U.S. natural gas futures fell after weekend updates took some of the chill out of early February weather forecasts.",
+        "source": "WSJ",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.wsj.com/articles/building-products-distributor-qxo-launching-hostile-bid-for-beacon-de024410?mod=rss_markets_main",
+        "title": "Building-Products Distributor QXO Launches Hostile Bid for Beacon",
+        "content": "QXO is taking its offer directly to shareholders after being rebuffed on several occasions.",
+        "source": "WSJ",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.wsj.com/articles/natural-gas-firm-diversified-energy-nears-deal-for-permian-basin-player-4c1c5ff5?mod=rss_markets_main",
+        "title": "Natural-Gas Firm Diversified Energy Strikes Deal for Permian Basin Player",
+        "content": "Maverick Natural Resources has operations in Texas and Oklahoma.",
+        "source": "WSJ",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      },
+      {
+        "id": "https://www.wsj.com/articles/tax-season-2024-irs-filing-dates-explained-628a8b37?mod=rss_markets_main",
+        "title": "What's New This Tax Season That Can Save You Money",
+        "content": "There are some new wrinkles, especially for those who sell things online or bought an EV.",
+        "source": "WSJ",
+        "companies": [
+          "AAPL",
+          "NVDA",
+          "MSFT"
+        ]
+      }
+    ],
+    "last_fetch_time": "2025-12-20T17:45:18.518968",
+    "classified_articles": [
+      {
+        "article_id": "https://www.bloomberg.com/news/videos/2025-12-20/cocoa-prices-are-falling-when-will-chocolate-get-cheaper",
+        "ticker": "AAPL",
+        "factor_type": 8,
+        "factor_name": "Market Sentiment & Psychology",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: MARKET_SENTIMENT",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.bloomberg.com/news/articles/2025-12-20/cocoa-prices-are-plunging-why-is-chocolate-still-so-expensive",
+        "ticker": "AAPL",
+        "factor_type": 8,
+        "factor_name": "Market Sentiment & Psychology",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: MARKET_SENTIMENT",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.bloomberg.com/news/articles/2025-12-20/modi-fast-tracks-reforms-to-shield-economy-from-us-tariffs",
+        "ticker": "AAPL",
+        "factor_type": 6,
+        "factor_name": "Geopolitical Events",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: GEOPOLITICAL",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.bloomberg.com/news/articles/2025-12-20/china-s-rare-earth-magnet-exports-to-us-decline-in-november",
+        "ticker": "AAPL",
+        "factor_type": 8,
+        "factor_name": "Market Sentiment & Psychology",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: MARKET_SENTIMENT",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.bloomberg.com/news/articles/2025-12-20/colombia-readies-decree-to-force-pensions-to-invest-more-locally",
+        "ticker": "AAPL",
+        "factor_type": 8,
+        "factor_name": "Market Sentiment & Psychology",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: MARKET_SENTIMENT",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.bloomberg.com/news/articles/2025-12-20/record-350-billion-deals-boom-fuels-upbeat-m-a-outlook-in-japan",
+        "ticker": "AAPL",
+        "factor_type": 4,
+        "factor_name": "Company Earnings & Performance",
+        "sentiment": "positive",
+        "sentiment_score": 0.6,
+        "reasoning": "Heuristic match based on keywords: COMPANY_EARNINGS",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.bloomberg.com/news/videos/2025-12-19/why-this-bull-market-isn-t-all-about-tech-video",
+        "ticker": "AAPL",
+        "factor_type": 8,
+        "factor_name": "Market Sentiment & Psychology",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: MARKET_SENTIMENT",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.bloomberg.com/news/videos/2025-12-19/the-close-12-19-2025-video",
+        "ticker": "AAPL",
+        "factor_type": 8,
+        "factor_name": "Market Sentiment & Psychology",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: MARKET_SENTIMENT",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.bloomberg.com/news/articles/2025-12-19/new-fortress-energy-s-delinquent-payments-mount-amid-debt-talks",
+        "ticker": "AAPL",
+        "factor_type": 8,
+        "factor_name": "Market Sentiment & Psychology",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: MARKET_SENTIMENT",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.bloomberg.com/news/articles/2025-12-19/inside-disney-and-openai-s-billion-dollar-deal-big-take-podcast",
+        "ticker": "AAPL",
+        "factor_type": 8,
+        "factor_name": "Market Sentiment & Psychology",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: MARKET_SENTIMENT",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main",
+        "ticker": "AAPL",
+        "factor_type": 4,
+        "factor_name": "Company Earnings & Performance",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: COMPANY_EARNINGS",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main",
+        "ticker": "AAPL",
+        "factor_type": 8,
+        "factor_name": "Market Sentiment & Psychology",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: MARKET_SENTIMENT",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main",
+        "ticker": "AAPL",
+        "factor_type": 4,
+        "factor_name": "Company Earnings & Performance",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: COMPANY_EARNINGS",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main",
+        "ticker": "AAPL",
+        "factor_type": 8,
+        "factor_name": "Market Sentiment & Psychology",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: MARKET_SENTIMENT",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main",
+        "ticker": "AAPL",
+        "factor_type": 6,
+        "factor_name": "Geopolitical Events",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: GEOPOLITICAL",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.wsj.com/articles/safe-haven-currencies-strengthen-amid-fears-over-global-tariffs-9964e17a?mod=rss_markets_main",
+        "ticker": "AAPL",
+        "factor_type": 4,
+        "factor_name": "Company Earnings & Performance",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: COMPANY_EARNINGS",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.wsj.com/articles/u-s-natural-gas-futures-fall-on-shifting-weather-forecasts-1ef3e457?mod=rss_markets_main",
+        "ticker": "AAPL",
+        "factor_type": 8,
+        "factor_name": "Market Sentiment & Psychology",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: MARKET_SENTIMENT",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.wsj.com/articles/building-products-distributor-qxo-launching-hostile-bid-for-beacon-de024410?mod=rss_markets_main",
+        "ticker": "AAPL",
+        "factor_type": 2,
+        "factor_name": "Interest Rates & Central Bank Policy",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: INTEREST_RATES",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.wsj.com/articles/natural-gas-firm-diversified-energy-nears-deal-for-permian-basin-player-4c1c5ff5?mod=rss_markets_main",
+        "ticker": "AAPL",
+        "factor_type": 8,
+        "factor_name": "Market Sentiment & Psychology",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: MARKET_SENTIMENT",
+        "affected_sectors": [
+          "finance"
+        ]
+      },
+      {
+        "article_id": "https://www.wsj.com/articles/tax-season-2024-irs-filing-dates-explained-628a8b37?mod=rss_markets_main",
+        "ticker": "AAPL",
+        "factor_type": 8,
+        "factor_name": "Market Sentiment & Psychology",
+        "sentiment": "neutral",
+        "sentiment_score": 0.0,
+        "reasoning": "Heuristic match based on keywords: MARKET_SENTIMENT",
+        "affected_sectors": [
+          "finance"
+        ]
+      }
+    ],
+    "high_priority_articles": [
+      "https://www.bloomberg.com/news/articles/2025-12-20/record-350-billion-deals-boom-fuels-upbeat-m-a-outlook-in-japan"
+    ],
+    "cache_hits": [
+      "AAPL",
+      "AAPL",
+      "AAPL",
+      "AAPL",
+      "AAPL",
+      "AAPL",
+      "AAPL",
+      "AAPL",
+      "AAPL",
+      "AAPL",
+      "AAPL",
+      "AAPL",
+      "AAPL",
+      "AAPL",
+      "AAPL",
+      "AAPL",
+      "AAPL",
+      "AAPL",
+      "AAPL",
+      "AAPL"
+    ],
+    "cache_misses": [],
+    "stock_impacts": [
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Market Sentiment & Psychology"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Market Sentiment & Psychology"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Geopolitical Events"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Market Sentiment & Psychology"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Market Sentiment & Psychology"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 6.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Company Earnings & Performance"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Market Sentiment & Psychology"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Market Sentiment & Psychology"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Market Sentiment & Psychology"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Market Sentiment & Psychology"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Company Earnings & Performance"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Market Sentiment & Psychology"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Company Earnings & Performance"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Market Sentiment & Psychology"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Geopolitical Events"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Company Earnings & Performance"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Market Sentiment & Psychology"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Interest Rates & Central Bank Policy"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Market Sentiment & Psychology"
+      },
+      {
+        "ticker": "AAPL",
+        "impact_pct": 0.0,
+        "confidence": 0.8,
+        "reason": "Direct impact from Market Sentiment & Psychology"
+      }
+    ],
+    "portfolio_total_impact": {
+      "impact_usd": 150.0,
+      "impact_pct": 0.3
+    },
+    "confidence_score": 0.8,
+    "validation_decision": "ACCEPT",
+    "gaps_identified": [],
+    "refined_search_queries": [],
+    "loop_count": 0,
+    "alert_created": true,
+    "alert_id": "ALERT-20251220-950",
+    "workflow_status": "Alert and Reasoning Trail persisted to SQLite",
+    "errors": [],
+    "started_at": "2025-12-20T17:44:53.036852",
+    "completed_at": "2025-12-20T17:45:18.533017"
+  },
+  "test_config": {
+    "user_id": "integration_test_001",
+    "portfolio": [
+      "AAPL",
+      "NVDA",
+      "MSFT"
+    ],
+    "loop_count": 0,
+    "started_at": "2025-12-20T17:44:53.036852",
+    "errors": []
+  }
+}

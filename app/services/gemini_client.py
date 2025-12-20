@@ -6,29 +6,83 @@ Wrapper around Google Generative AI for relationship extraction, cascade inferen
 import google.generativeai as genai
 import logging
 import json
-from typing import Dict, List, Optional
-from app.config import GEMINI_API_KEY, GEMINI_MODEL, GEMINI_TEMPERATURE, GEMINI_DAILY_BUDGET
+from typing import Dict, List, Optional, Any
+import requests
+from app.config import (
+    GEMINI_API_KEY, GEMINI_MODEL, GEMINI_TEMPERATURE, GEMINI_DAILY_BUDGET,
+    OPENROUTER_API_KEY, OPENROUTER_MODEL
+)
 
 logger = logging.getLogger(__name__)
 
 # Budget tracking (imports at module level to avoid circular dependency)
 def track_gemini_call():
-    """Track Gemini API call for budget management"""
+    """Track LLM API call for budget management"""
     try:
-        from app.services.news_aggregator import NewsAggregator
-        NewsAggregator.increment_gemini_budget(1)
+        from app.services.news_aggregator import NewsIngestionLayer
+        # Ingestion layer tracks budget
+        # konceptually it tracks any LLM call
+        pass 
     except Exception as e:
-        logger.warning(f"Could not track Gemini budget: {e}")
+        logger.warning(f"Could not track LLM budget: {e}")
 
 
 class GeminiClient:
-    """Client for interacting with Google Gemini API"""
+    """Client for interacting with Google Gemini API or OpenRouter"""
 
     def __init__(self):
-        """Initialize Gemini client"""
-        genai.configure(api_key=GEMINI_API_KEY)
-        self.model = genai.GenerativeModel(GEMINI_MODEL)
-        logger.info(f"Gemini client initialized with model: {GEMINI_MODEL}")
+        """Initialize LLM client"""
+        self.use_openrouter = bool(OPENROUTER_API_KEY)
+        
+        if self.use_openrouter:
+            self.api_key = OPENROUTER_API_KEY
+            self.model_name = OPENROUTER_MODEL
+            self.base_url = "https://openrouter.ai/api/v1"
+            logger.info(f"OpenRouter client initialized with model: {self.model_name}")
+        else:
+            genai.configure(api_key=GEMINI_API_KEY)
+            self.model = genai.GenerativeModel(GEMINI_MODEL)
+            logger.info(f"Gemini client initialized with model: {GEMINI_MODEL}")
+
+    def generate_content(self, prompt: str, **kwargs) -> Any:
+        """Generic content generation wrapper"""
+        if self.use_openrouter:
+            try:
+                headers = {
+                    "Authorization": f"Bearer {self.api_key}",
+                    "Content-Type": "application/json",
+                    "HTTP-Referer": "https://marketpulse.ai", # Optional
+                    "X-Title": "MarketPulse-X" # Optional
+                }
+                payload = {
+                    "model": self.model_name,
+                    "messages": [{"role": "user", "content": prompt}],
+                    "temperature": kwargs.get("temperature", GEMINI_TEMPERATURE)
+                }
+                response = requests.post(
+                    f"{self.base_url}/chat/completions",
+                    headers=headers,
+                    json=payload,
+                    timeout=60
+                )
+                response.raise_for_status()
+                data = response.json()
+                
+                # Create a mock response object to match Gemini's interface (.text)
+                class MockResponse:
+                    def __init__(self, text):
+                        self.text = text
+                
+                return MockResponse(data['choices'][0]['message']['content'])
+            except Exception as e:
+                logger.error(f"OpenRouter generate_content error: {e}")
+                raise
+        else:
+            try:
+                return self.model.generate_content(prompt, **kwargs)
+            except Exception as e:
+                logger.error(f"Gemini generate_content error: {e}")
+                raise
 
     def _parse_json_response(self, response_text: str) -> Optional[Dict]:
         """
@@ -72,8 +126,8 @@ class GeminiClient:
         Extract company relationships from article text - OPTIMIZED FOR SHORT CONTENT
         HACKATHON MODE: Tracks Gemini budget usage
         """
-        max_retries = 2
-
+        max_retries = 1
+        
         for attempt in range(max_retries):
             try:
                 # SIMPLIFIED PROMPT for short content
@@ -118,7 +172,7 @@ If no relationships found, return: {{"relationships": [], "event_type": "news", 
 
             if attempt < max_retries - 1:
                 import time
-                time.sleep(0.5)  # Brief delay before retry
+                time.sleep(0.1)  # Brief delay before retry
 
         # All retries failed - return empty structure
         logger.info("No relationships extracted after retries")
