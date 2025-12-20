@@ -1,0 +1,90 @@
+{
+  "test_timestamp": "2025-12-20T17:53:51.449192",
+  "portfolio": [
+    "TSLA",
+    "RIVN"
+  ],
+  "processing_time_seconds": 16.70092797279358,
+  "verification_checks": {
+    "real_news": true,
+    "real_classification": true,
+    "real_discovery": false,
+    "real_impact": true,
+    "processing_time_valid": true
+  },
+  "all_checks_passed": false,
+  "final_state": {
+    "news_count": 20,
+    "classified_count": 20,
+    "discovered_count": 0,
+    "impact_count": 20,
+    "confidence_score": 0.8,
+    "loop_count": 0,
+    "alert_created": true
+  },
+  "sample_news": [
+    {
+      "id": "https://www.bloomberg.com/news/videos/2025-12-20/cocoa-prices-are-falling-when-will-chocolate-get-cheaper",
+      "title": "Cocoa Prices are Falling. When Will Chocolate Get Cheaper?",
+      "content": "Cocoa prices have dropped from their 2024 peak &mdash; but don't expect chocolate bargains this holiday season. When will prices finally fall? Harry Black explains. (Source: Bloomberg)",
+      "source": "Bloomberg",
+      "companies": [
+        "TSLA",
+        "RIVN"
+      ]
+    },
+    {
+      "id": "https://www.bloomberg.com/news/articles/2025-12-20/cocoa-prices-are-plunging-why-is-chocolate-still-so-expensive",
+      "title": "Cocoa Prices Are Plunging. Why Is Chocolate Still So Expensive?",
+      "content": "After last year\u2019s historic rally, cocoa prices are heading for a record annual slump. But there\u2019s no sign the cost of your candies, bars or chocolate Santas will follow any time soon.",
+      "source": "Bloomberg",
+      "companies": [
+        "TSLA",
+        "RIVN"
+      ]
+    },
+    {
+      "id": "https://www.bloomberg.com/news/articles/2025-12-20/modi-fast-tracks-reforms-to-shield-economy-from-us-tariffs",
+      "title": "Modi Fast-Tracks Reforms to Shield Economy From US Tariffs",
+      "content": "Prime Minister Narendra Modi\u2019s government pushed through far-reaching policy reforms in the final parliamentary session of the year, seeking to bolster the economy in the face of trade headwinds.",
+      "source": "Bloomberg",
+      "companies": [
+        "TSLA",
+        "RIVN"
+      ]
+    }
+  ],
+  "sample_impacts": [
+    {
+      "ticker": "TSLA",
+      "impact_pct": 0.0,
+      "confidence": 0.8,
+      "reason": "Direct impact from Market Sentiment & Psychology"
+    },
+    {
+      "ticker": "TSLA",
+      "impact_pct": 0.0,
+      "confidence": 0.8,
+      "reason": "Direct impact from Market Sentiment & Psychology"
+    },
+    {
+      "ticker": "TSLA",
+      "impact_pct": 0.0,
+      "confidence": 0.8,
+      "reason": "Direct impact from Geopolitical Events"
+    },
+    {
+      "ticker": "TSLA",
+      "impact_pct": 0.0,
+      "confidence": 0.8,
+      "reason": "Direct impact from Market Sentiment & Psychology"
+    },
+    {
+      "ticker": "TSLA",
+      "impact_pct": 0.0,
+      "confidence": 0.8,
+      "reason": "Direct impact from Market Sentiment & Psychology"
+    }
+  ],
+  "discovered_relationships": []
+}

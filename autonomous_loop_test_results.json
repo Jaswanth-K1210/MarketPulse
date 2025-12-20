@@ -1,0 +1,38 @@
+{
+  "test_time": "2025-12-20T19:28:02.427700",
+  "loop_triggered": true,
+  "loop_count": 2,
+  "final_confidence": 0.5,
+  "decision": "ACCEPT",
+  "gaps": [],
+  "queries": [],
+  "initial_state": {
+    "user_id": "loop_test_001",
+    "portfolio": [
+      "RIVN",
+      "LCID",
+      "NIO"
+    ],
+    "loop_count": 0,
+    "news_articles": [
+      {
+        "id": "test_vague_article",
+        "title": "Automotive sector faces headwinds",
+        "content": "Some challenges ahead for car makers.",
+        "source": "Test Source",
+        "companies": [
+          "RIVN"
+        ]
+      }
+    ],
+    "errors": [],
+    "workflow_status": "Started",
+    "started_at": "2025-12-20T19:26:31.362595"
+  },
+  "final_state_summary": {
+    "workflow_status": "Alert and Reasoning Trail persisted to SQLite",
+    "num_articles": 20,
+    "num_classified": 20,
+    "num_impacts": 20
+  }
+}

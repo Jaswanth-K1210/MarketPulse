@@ -20,6 +20,8 @@ class Article(BaseModel):
     content: str
     companies_mentioned: List[str] = Field(default_factory=list)
     event_type: Optional[str] = None
+    priority: Optional[int] = None
+    relevance: Optional[str] = None
     processed_at: Optional[datetime] = None
 
     class Config:

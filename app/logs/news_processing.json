@@ -1,3388 +1,3688 @@
 {
   "fetch_sessions": [
     {
-      "timestamp": "2025-12-13T06:34:57.626319",
-      "duration_seconds": 4.541999,
+      "timestamp": "2025-12-18T23:23:51.538176",
+      "duration_seconds": 8.093143,
       "total_articles": 0,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:34:53.083496"
+          "timestamp": "2025-12-18T23:23:43.444259"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:34:53.083593"
+          "timestamp": "2025-12-18T23:23:43.444354"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:34:56.312277"
+          "timestamp": "2025-12-18T23:23:49.403547"
         },
         {
           "name": "Fetching from Google News...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:34:56.312476"
+          "timestamp": "2025-12-18T23:23:49.403707"
         },
         {
           "name": "Fetch Google News",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:34:56.401046"
+          "timestamp": "2025-12-18T23:23:50.281611"
         },
         {
           "name": "Fetching from NewsAPI...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:34:56.401180"
+          "timestamp": "2025-12-18T23:23:50.281753"
         },
         {
           "name": "Fetch NewsAPI",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:34:56.760095"
+          "timestamp": "2025-12-18T23:23:50.667418"
         },
         {
           "name": "Fetching from NewsData...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:34:56.760362"
+          "timestamp": "2025-12-18T23:23:50.667562"
         },
         {
           "name": "Fetch NewsData",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:34:57.624788"
+          "timestamp": "2025-12-18T23:23:51.536581"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:34:57.625069"
+          "timestamp": "2025-12-18T23:23:51.537105"
         },
         {
           "name": "Deduplicate",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:34:57.625097"
+          "timestamp": "2025-12-18T23:23:51.537118"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:34:57.625240"
+          "timestamp": "2025-12-18T23:23:51.537197"
         },
         {
           "name": "Process relationships",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:34:57.625247"
+          "timestamp": "2025-12-18T23:23:51.537207"
         }
       ]
     },
     {
-      "timestamp": "2025-12-13T06:39:58.630571",
-      "duration_seconds": 5.544359,
+      "timestamp": "2025-12-18T23:28:51.796253",
+      "duration_seconds": 8.349785,
       "total_articles": 0,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:39:53.085269"
+          "timestamp": "2025-12-18T23:28:43.444715"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:39:53.085332"
+          "timestamp": "2025-12-18T23:28:43.444853"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:39:57.358193"
+          "timestamp": "2025-12-18T23:28:49.444708"
         },
         {
           "name": "Fetching from Google News...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:39:57.358433"
+          "timestamp": "2025-12-18T23:28:49.444889"
         },
         {
           "name": "Fetch Google News",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:39:57.413408"
+          "timestamp": "2025-12-18T23:28:50.397309"
         },
         {
           "name": "Fetching from NewsAPI...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:39:57.413551"
+          "timestamp": "2025-12-18T23:28:50.397458"
         },
         {
           "name": "Fetch NewsAPI",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:39:57.741098"
+          "timestamp": "2025-12-18T23:28:50.813182"
         },
         {
           "name": "Fetching from NewsData...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:39:57.741346"
+          "timestamp": "2025-12-18T23:28:50.813325"
         },
         {
           "name": "Fetch NewsData",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:39:58.629081"
+          "timestamp": "2025-12-18T23:28:51.793042"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:39:58.629385"
+          "timestamp": "2025-12-18T23:28:51.793971"
         },
         {
           "name": "Deduplicate",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:39:58.629394"
+          "timestamp": "2025-12-18T23:28:51.793991"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:39:58.629454"
+          "timestamp": "2025-12-18T23:28:51.794107"
         },
         {
           "name": "Process relationships",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:39:58.629461"
+          "timestamp": "2025-12-18T23:28:51.794119"
         }
       ]
     },
     {
-      "timestamp": "2025-12-13T06:44:58.584213",
-      "duration_seconds": 5.476649,
+      "timestamp": "2025-12-18T23:33:52.394563",
+      "duration_seconds": 8.950962,
       "total_articles": 0,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:44:53.107374"
+          "timestamp": "2025-12-18T23:33:43.442641"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:44:53.107461"
+          "timestamp": "2025-12-18T23:33:43.442772"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:44:56.521476"
+          "timestamp": "2025-12-18T23:33:50.173711"
         },
         {
           "name": "Fetching from Google News...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:44:56.521915"
+          "timestamp": "2025-12-18T23:33:50.173952"
         },
         {
           "name": "Fetch Google News",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:44:56.609572"
+          "timestamp": "2025-12-18T23:33:51.124168"
         },
         {
           "name": "Fetching from NewsAPI...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:44:56.609761"
+          "timestamp": "2025-12-18T23:33:51.124306"
         },
         {
           "name": "Fetch NewsAPI",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:44:57.744389"
+          "timestamp": "2025-12-18T23:33:51.478304"
         },
         {
           "name": "Fetching from NewsData...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:44:57.744599"
+          "timestamp": "2025-12-18T23:33:51.478479"
         },
         {
           "name": "Fetch NewsData",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:44:58.583305"
+          "timestamp": "2025-12-18T23:33:52.392124"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:44:58.583657"
+          "timestamp": "2025-12-18T23:33:52.392894"
         },
         {
           "name": "Deduplicate",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:44:58.583674"
+          "timestamp": "2025-12-18T23:33:52.392904"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:44:58.583771"
+          "timestamp": "2025-12-18T23:33:52.392963"
         },
         {
           "name": "Process relationships",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:44:58.583781"
+          "timestamp": "2025-12-18T23:33:52.392970"
         }
       ]
     },
     {
-      "timestamp": "2025-12-13T06:46:42.741815",
-      "duration_seconds": 4.038319,
-      "total_articles": 10,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T06:46:38.702150"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T06:46:38.702254"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T06:46:42.739316"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T06:46:42.739879"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T06:46:42.739917"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 10,
-          "timestamp": "2025-12-13T06:46:42.740023"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 10,
-          "timestamp": "2025-12-13T06:46:42.740035"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T06:49:58.085798",
-      "duration_seconds": 5.00073,
+      "timestamp": "2025-12-18T23:38:52.070802",
+      "duration_seconds": 8.624817,
       "total_articles": 0,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:49:53.084519"
+          "timestamp": "2025-12-18T23:38:43.445167"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:49:53.084582"
+          "timestamp": "2025-12-18T23:38:43.445400"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:49:56.072967"
+          "timestamp": "2025-12-18T23:38:49.675635"
         },
         {
           "name": "Fetching from Google News...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:49:56.073142"
+          "timestamp": "2025-12-18T23:38:49.675898"
         },
         {
           "name": "Fetch Google News",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:49:56.122719"
+          "timestamp": "2025-12-18T23:38:50.557020"
         },
         {
           "name": "Fetching from NewsAPI...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:49:56.122849"
+          "timestamp": "2025-12-18T23:38:50.557271"
         },
         {
           "name": "Fetch NewsAPI",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:49:57.250272"
+          "timestamp": "2025-12-18T23:38:51.066727"
         },
         {
           "name": "Fetching from NewsData...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:49:57.250570"
+          "timestamp": "2025-12-18T23:38:51.066936"
         },
         {
           "name": "Fetch NewsData",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:49:58.084838"
+          "timestamp": "2025-12-18T23:38:52.069124"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:49:58.084995"
+          "timestamp": "2025-12-18T23:38:52.069528"
         },
         {
           "name": "Deduplicate",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:49:58.085004"
+          "timestamp": "2025-12-18T23:38:52.069538"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:49:58.085073"
+          "timestamp": "2025-12-18T23:38:52.069599"
         },
         {
           "name": "Process relationships",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:49:58.085080"
+          "timestamp": "2025-12-18T23:38:52.069607"
         }
       ]
     },
     {
-      "timestamp": "2025-12-13T06:54:57.795277",
-      "duration_seconds": 4.708836,
+      "timestamp": "2025-12-18T23:43:51.754237",
+      "duration_seconds": 8.308121,
       "total_articles": 0,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:54:53.084885"
+          "timestamp": "2025-12-18T23:43:43.444619"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:54:53.084948"
+          "timestamp": "2025-12-18T23:43:43.444676"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:54:56.297307"
+          "timestamp": "2025-12-18T23:43:49.587720"
         },
         {
           "name": "Fetching from Google News...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:54:56.297646"
+          "timestamp": "2025-12-18T23:43:49.587863"
         },
         {
           "name": "Fetch Google News",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:54:56.385714"
+          "timestamp": "2025-12-18T23:43:50.403286"
         },
         {
           "name": "Fetching from NewsAPI...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:54:56.385998"
+          "timestamp": "2025-12-18T23:43:50.403464"
         },
         {
           "name": "Fetch NewsAPI",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:54:56.943741"
+          "timestamp": "2025-12-18T23:43:50.790691"
         },
         {
           "name": "Fetching from NewsData...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:54:56.944071"
+          "timestamp": "2025-12-18T23:43:50.790834"
         },
         {
           "name": "Fetch NewsData",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:54:57.793074"
+          "timestamp": "2025-12-18T23:43:51.751689"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:54:57.793382"
+          "timestamp": "2025-12-18T23:43:51.752363"
         },
         {
           "name": "Deduplicate",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:54:57.793401"
+          "timestamp": "2025-12-18T23:43:51.752376"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:54:57.793532"
+          "timestamp": "2025-12-18T23:43:51.752512"
         },
         {
           "name": "Process relationships",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:54:57.793547"
+          "timestamp": "2025-12-18T23:43:51.752525"
         }
       ]
     },
     {
-      "timestamp": "2025-12-13T06:57:44.927055",
-      "duration_seconds": 3.642025,
-      "total_articles": 10,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T06:57:41.283526"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T06:57:41.283696"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T06:57:44.924405"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T06:57:44.924953"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T06:57:44.924994"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 10,
-          "timestamp": "2025-12-13T06:57:44.925104"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 10,
-          "timestamp": "2025-12-13T06:57:44.925118"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T06:59:57.476763",
-      "duration_seconds": 4.397266,
+      "timestamp": "2025-12-18T23:48:54.086096",
+      "duration_seconds": 10.641734,
       "total_articles": 0,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:59:53.078759"
+          "timestamp": "2025-12-18T23:48:43.442990"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:59:53.078825"
+          "timestamp": "2025-12-18T23:48:43.443051"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:59:56.188867"
+          "timestamp": "2025-12-18T23:48:51.629458"
         },
         {
           "name": "Fetching from Google News...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:59:56.189022"
+          "timestamp": "2025-12-18T23:48:51.629601"
         },
         {
           "name": "Fetch Google News",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:59:56.239284"
+          "timestamp": "2025-12-18T23:48:52.550006"
         },
         {
           "name": "Fetching from NewsAPI...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:59:56.239425"
+          "timestamp": "2025-12-18T23:48:52.550140"
         },
         {
           "name": "Fetch NewsAPI",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:59:56.595063"
+          "timestamp": "2025-12-18T23:48:53.058599"
         },
         {
           "name": "Fetching from NewsData...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:59:56.595225"
+          "timestamp": "2025-12-18T23:48:53.058746"
         },
         {
           "name": "Fetch NewsData",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T06:59:57.475552"
+          "timestamp": "2025-12-18T23:48:54.083648"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:59:57.475754"
+          "timestamp": "2025-12-18T23:48:54.084419"
         },
         {
           "name": "Deduplicate",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:59:57.475764"
+          "timestamp": "2025-12-18T23:48:54.084430"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:59:57.475834"
+          "timestamp": "2025-12-18T23:48:54.084522"
         },
         {
           "name": "Process relationships",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T06:59:57.475842"
+          "timestamp": "2025-12-18T23:48:54.084529"
         }
       ]
     },
     {
-      "timestamp": "2025-12-13T07:02:19.002137",
-      "duration_seconds": 3.182635,
+      "timestamp": "2025-12-19T00:38:52.699608",
+      "duration_seconds": 9.244374,
+      "total_articles": 1,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T00:38:43.452128"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T00:38:43.452559"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T00:38:49.596794"
+        },
+        {
+          "name": "Fetching from Google News...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T00:38:49.597577"
+        },
+        {
+          "name": "Fetch Google News",
+          "status": "processing",
+          "count": 1,
+          "timestamp": "2025-12-19T00:38:51.092951"
+        },
+        {
+          "name": "Fetching from NewsAPI...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T00:38:51.093609"
+        },
+        {
+          "name": "Fetch NewsAPI",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T00:38:51.582176"
+        },
+        {
+          "name": "Fetching from NewsData...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T00:38:51.582872"
+        },
+        {
+          "name": "Fetch NewsData",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T00:38:52.692971"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 1,
+          "timestamp": "2025-12-19T00:38:52.694886"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 1,
+          "timestamp": "2025-12-19T00:38:52.694938"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 1,
+          "timestamp": "2025-12-19T00:38:52.695233"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 1,
+          "timestamp": "2025-12-19T00:38:52.695272"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-19T01:03:52.432261",
+      "duration_seconds": 8.980747,
+      "total_articles": 0,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:03:43.448308"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:03:43.448579"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:03:49.515095"
+        },
+        {
+          "name": "Fetching from Google News...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:03:49.516129"
+        },
+        {
+          "name": "Fetch Google News",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:03:50.862436"
+        },
+        {
+          "name": "Fetching from NewsAPI...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:03:50.863087"
+        },
+        {
+          "name": "Fetch NewsAPI",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:03:51.406074"
+        },
+        {
+          "name": "Fetching from NewsData...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:03:51.406898"
+        },
+        {
+          "name": "Fetch NewsData",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:03:52.426080"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:03:52.427915"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:03:52.427963"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:03:52.428263"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:03:52.428301"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-19T01:08:52.381288",
+      "duration_seconds": 8.92836,
+      "total_articles": 0,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:08:43.449000"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:08:43.449299"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:08:49.535370"
+        },
+        {
+          "name": "Fetching from Google News...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:08:49.536102"
+        },
+        {
+          "name": "Fetch Google News",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:08:51.025032"
+        },
+        {
+          "name": "Fetching from NewsAPI...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:08:51.025688"
+        },
+        {
+          "name": "Fetch NewsAPI",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:08:51.392293"
+        },
+        {
+          "name": "Fetching from NewsData...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:08:51.392976"
+        },
+        {
+          "name": "Fetch NewsData",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:08:52.374323"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:08:52.376190"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:08:52.376238"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:08:52.376521"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:08:52.376559"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-19T01:13:53.015035",
+      "duration_seconds": 9.561852,
+      "total_articles": 1,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:13:43.450029"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:13:43.450380"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 1,
+          "timestamp": "2025-12-19T01:13:49.501183"
+        },
+        {
+          "name": "Fetching from Google News...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:13:49.502149"
+        },
+        {
+          "name": "Fetch Google News",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:13:50.851851"
+        },
+        {
+          "name": "Fetching from NewsAPI...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:13:50.852495"
+        },
+        {
+          "name": "Fetch NewsAPI",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:13:52.035365"
+        },
+        {
+          "name": "Fetching from NewsData...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:13:52.036048"
+        },
+        {
+          "name": "Fetch NewsData",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:13:53.008062"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 1,
+          "timestamp": "2025-12-19T01:13:53.010377"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 1,
+          "timestamp": "2025-12-19T01:13:53.010435"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 1,
+          "timestamp": "2025-12-19T01:13:53.010732"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 1,
+          "timestamp": "2025-12-19T01:13:53.010770"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-19T01:18:52.672127",
+      "duration_seconds": 9.220742,
+      "total_articles": 0,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:18:43.447764"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:18:43.448320"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:18:49.141264"
+        },
+        {
+          "name": "Fetching from Google News...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:18:49.141951"
+        },
+        {
+          "name": "Fetch Google News",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:18:50.375799"
+        },
+        {
+          "name": "Fetching from NewsAPI...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:18:50.376455"
+        },
+        {
+          "name": "Fetch NewsAPI",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:18:51.560226"
+        },
+        {
+          "name": "Fetching from NewsData...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:18:51.560925"
+        },
+        {
+          "name": "Fetch NewsData",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:18:52.665519"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:18:52.667363"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:18:52.667411"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:18:52.667681"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:18:52.667716"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-19T01:53:53.309122",
+      "duration_seconds": 9.859343,
+      "total_articles": 0,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:53:43.445393"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:53:43.445671"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:53:49.691807"
+        },
+        {
+          "name": "Fetching from Google News...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:53:49.692492"
+        },
+        {
+          "name": "Fetch Google News",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:53:50.900348"
+        },
+        {
+          "name": "Fetching from NewsAPI...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:53:50.900996"
+        },
+        {
+          "name": "Fetch NewsAPI",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:53:52.073978"
+        },
+        {
+          "name": "Fetching from NewsData...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:53:52.075406"
+        },
+        {
+          "name": "Fetch NewsData",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:53:53.301730"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:53:53.303595"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:53:53.303644"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:53:53.303939"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:53:53.303976"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-19T01:58:51.973981",
+      "duration_seconds": 8.50507,
+      "total_articles": 0,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:58:43.465043"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:58:43.465330"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:58:49.363659"
+        },
+        {
+          "name": "Fetching from Google News...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:58:49.364372"
+        },
+        {
+          "name": "Fetch Google News",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:58:50.603713"
+        },
+        {
+          "name": "Fetching from NewsAPI...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:58:50.604372"
+        },
+        {
+          "name": "Fetch NewsAPI",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:58:50.991116"
+        },
+        {
+          "name": "Fetching from NewsData...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:58:50.991815"
+        },
+        {
+          "name": "Fetch NewsData",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T01:58:51.966764"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:58:51.968969"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:58:51.969022"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:58:51.969303"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T01:58:51.969340"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-19T02:03:52.623381",
+      "duration_seconds": 9.171805,
+      "total_articles": 0,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:03:43.447848"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:03:43.448156"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:03:49.560366"
+        },
+        {
+          "name": "Fetching from Google News...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:03:49.561122"
+        },
+        {
+          "name": "Fetch Google News",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:03:50.958266"
+        },
+        {
+          "name": "Fetching from NewsAPI...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:03:50.958912"
+        },
+        {
+          "name": "Fetch NewsAPI",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:03:51.434553"
+        },
+        {
+          "name": "Fetching from NewsData...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:03:51.435246"
+        },
+        {
+          "name": "Fetch NewsData",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:03:52.616588"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:03:52.618537"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:03:52.618585"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:03:52.618863"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:03:52.618901"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-19T02:08:52.168715",
+      "duration_seconds": 8.714759,
+      "total_articles": 0,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:08:43.449985"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:08:43.450284"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:08:49.444993"
+        },
+        {
+          "name": "Fetching from Google News...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:08:49.445791"
+        },
+        {
+          "name": "Fetch Google News",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:08:50.803530"
+        },
+        {
+          "name": "Fetching from NewsAPI...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:08:50.804178"
+        },
+        {
+          "name": "Fetch NewsAPI",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:08:51.152008"
+        },
+        {
+          "name": "Fetching from NewsData...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:08:51.152695"
+        },
+        {
+          "name": "Fetch NewsData",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:08:52.161719"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:08:52.163611"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:08:52.163657"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:08:52.163938"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:08:52.163975"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-19T02:13:52.308458",
+      "duration_seconds": 8.854909,
+      "total_articles": 0,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:13:43.449679"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:13:43.449987"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:13:49.582374"
+        },
+        {
+          "name": "Fetching from Google News...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:13:49.583123"
+        },
+        {
+          "name": "Fetch Google News",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:13:50.876807"
+        },
+        {
+          "name": "Fetching from NewsAPI...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:13:50.877451"
+        },
+        {
+          "name": "Fetch NewsAPI",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:13:51.399140"
+        },
+        {
+          "name": "Fetching from NewsData...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:13:51.399984"
+        },
+        {
+          "name": "Fetch NewsData",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:13:52.301581"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:13:52.303442"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:13:52.303490"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:13:52.303763"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:13:52.303802"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-19T02:38:52.753375",
+      "duration_seconds": 9.302239,
+      "total_articles": 0,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:38:43.447930"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:38:43.448463"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:38:49.730623"
+        },
+        {
+          "name": "Fetching from Google News...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:38:49.731326"
+        },
+        {
+          "name": "Fetch Google News",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:38:51.103583"
+        },
+        {
+          "name": "Fetching from NewsAPI...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:38:51.104233"
+        },
+        {
+          "name": "Fetch NewsAPI",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:38:51.563084"
+        },
+        {
+          "name": "Fetching from NewsData...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:38:51.563830"
+        },
+        {
+          "name": "Fetch NewsData",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:38:52.747212"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:38:52.749042"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:38:52.749089"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:38:52.749359"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:38:52.749394"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-19T02:43:52.372530",
+      "duration_seconds": 8.919023,
+      "total_articles": 1,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:43:43.449724"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:43:43.450006"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 1,
+          "timestamp": "2025-12-19T02:43:49.406065"
+        },
+        {
+          "name": "Fetching from Google News...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:43:49.406735"
+        },
+        {
+          "name": "Fetch Google News",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:43:50.730591"
+        },
+        {
+          "name": "Fetching from NewsAPI...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:43:50.731321"
+        },
+        {
+          "name": "Fetch NewsAPI",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:43:51.186931"
+        },
+        {
+          "name": "Fetching from NewsData...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:43:51.187617"
+        },
+        {
+          "name": "Fetch NewsData",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:43:52.365688"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 1,
+          "timestamp": "2025-12-19T02:43:52.367604"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 1,
+          "timestamp": "2025-12-19T02:43:52.367655"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 1,
+          "timestamp": "2025-12-19T02:43:52.367931"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 1,
+          "timestamp": "2025-12-19T02:43:52.367967"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-19T02:48:52.967485",
+      "duration_seconds": 9.516381,
+      "total_articles": 0,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:48:43.448005"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:48:43.448300"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:48:49.525642"
+        },
+        {
+          "name": "Fetching from Google News...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:48:49.526341"
+        },
+        {
+          "name": "Fetch Google News",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:48:51.218519"
+        },
+        {
+          "name": "Fetching from NewsAPI...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:48:51.219203"
+        },
+        {
+          "name": "Fetch NewsAPI",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:48:51.732236"
+        },
+        {
+          "name": "Fetching from NewsData...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:48:51.732946"
+        },
+        {
+          "name": "Fetch NewsData",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:48:52.961046"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:48:52.962953"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:48:52.963001"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:48:52.963288"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:48:52.963327"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-19T02:53:52.104079",
+      "duration_seconds": 8.651535,
+      "total_articles": 0,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:53:43.449357"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:53:43.449643"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:53:49.346888"
+        },
+        {
+          "name": "Fetching from Google News...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:53:49.347619"
+        },
+        {
+          "name": "Fetch Google News",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:53:50.694161"
+        },
+        {
+          "name": "Fetching from NewsAPI...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:53:50.694818"
+        },
+        {
+          "name": "Fetch NewsAPI",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:53:51.152762"
+        },
+        {
+          "name": "Fetching from NewsData...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:53:51.153456"
+        },
+        {
+          "name": "Fetch NewsData",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T02:53:52.097959"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:53:52.099793"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:53:52.099841"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:53:52.100110"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T02:53:52.100147"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-19T03:28:50.082494",
+      "duration_seconds": 6.634278,
       "total_articles": 3,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:02:15.818541"
+          "timestamp": "2025-12-19T03:28:43.444742"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:02:15.818612"
+          "timestamp": "2025-12-19T03:28:43.445021"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
           "count": 17,
-          "timestamp": "2025-12-13T07:02:19.000738"
+          "timestamp": "2025-12-19T03:28:50.075976"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
           "count": 17,
-          "timestamp": "2025-12-13T07:02:19.000897"
+          "timestamp": "2025-12-19T03:28:50.077876"
         },
         {
           "name": "Deduplicate",
           "status": "done",
           "count": 17,
-          "timestamp": "2025-12-13T07:02:19.000913"
+          "timestamp": "2025-12-19T03:28:50.077937"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
           "count": 3,
-          "timestamp": "2025-12-13T07:02:19.000981"
+          "timestamp": "2025-12-19T03:28:50.078209"
         },
         {
           "name": "Process relationships",
           "status": "done",
           "count": 3,
-          "timestamp": "2025-12-13T07:02:19.000988"
+          "timestamp": "2025-12-19T03:28:50.078242"
         }
       ]
     },
     {
-      "timestamp": "2025-12-13T07:02:32.198360",
-      "duration_seconds": 3.129041,
-      "total_articles": 3,
+      "timestamp": "2025-12-19T05:18:53.195057",
+      "duration_seconds": 9.371069,
+      "total_articles": 1,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:02:29.069105"
+          "timestamp": "2025-12-19T05:18:43.819937"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:02:29.069175"
+          "timestamp": "2025-12-19T05:18:43.820211"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T07:02:32.197673"
+          "count": 1,
+          "timestamp": "2025-12-19T05:18:50.344168"
+        },
+        {
+          "name": "Fetching from Google News...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T05:18:50.344850"
+        },
+        {
+          "name": "Fetch Google News",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T05:18:51.498078"
+        },
+        {
+          "name": "Fetching from NewsAPI...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T05:18:51.498726"
+        },
+        {
+          "name": "Fetch NewsAPI",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T05:18:52.037541"
+        },
+        {
+          "name": "Fetching from NewsData...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T05:18:52.038268"
+        },
+        {
+          "name": "Fetch NewsData",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T05:18:53.188025"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:02:32.197876"
+          "count": 1,
+          "timestamp": "2025-12-19T05:18:53.189898"
         },
         {
           "name": "Deduplicate",
           "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:02:32.197892"
+          "count": 1,
+          "timestamp": "2025-12-19T05:18:53.189948"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:02:32.197961"
+          "count": 1,
+          "timestamp": "2025-12-19T05:18:53.190232"
         },
         {
           "name": "Process relationships",
           "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:02:32.197969"
+          "count": 1,
+          "timestamp": "2025-12-19T05:18:53.190270"
         }
       ]
     },
     {
-      "timestamp": "2025-12-13T07:03:18.325006",
-      "duration_seconds": 3.620543,
-      "total_articles": 3,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:03:14.704339"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:03:14.704480"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T07:03:18.324339"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:03:18.324538"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:03:18.324554"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:03:18.324619"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:03:18.324626"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T07:04:12.914847",
-      "duration_seconds": 3.87061,
-      "total_articles": 3,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:04:09.043204"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:04:09.043269"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T07:04:12.913383"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:04:12.913543"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:04:12.913559"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:04:12.913627"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:04:12.913634"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T07:07:54.140530",
-      "duration_seconds": 3.082305,
-      "total_articles": 3,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:07:51.057505"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:07:51.057604"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T07:07:54.138965"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:07:54.139366"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:07:54.139387"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:07:54.139476"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:07:54.139486"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T07:08:05.539234",
-      "duration_seconds": 3.079967,
-      "total_articles": 3,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:08:02.458870"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:08:02.458936"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T07:08:05.538189"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:08:05.538548"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:08:05.538569"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:08:05.538649"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:08:05.538657"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T07:08:17.644033",
-      "duration_seconds": 3.773295,
-      "total_articles": 3,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:08:13.869979"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:08:13.870062"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T07:08:17.642530"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:08:17.642925"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:08:17.642945"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:08:17.643044"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:08:17.643053"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T07:08:28.747164",
-      "duration_seconds": 2.987526,
-      "total_articles": 3,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:08:25.759252"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:08:25.759427"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T07:08:28.745956"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:08:28.746480"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:08:28.746502"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:08:28.746593"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:08:28.746603"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T07:08:40.707134",
-      "duration_seconds": 3.000176,
-      "total_articles": 3,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:08:37.706283"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:08:37.706477"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T07:08:40.705117"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:08:40.705940"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:08:40.705964"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:08:40.706064"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:08:40.706073"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T07:13:42.837090",
-      "duration_seconds": 5.122999,
+      "timestamp": "2025-12-19T07:18:53.521910",
+      "duration_seconds": 10.074452,
       "total_articles": 0,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:13:37.713040"
+          "timestamp": "2025-12-19T07:18:43.444144"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:13:37.713106"
+          "timestamp": "2025-12-19T07:18:43.444418"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:13:41.529760"
+          "timestamp": "2025-12-19T07:18:49.968808"
         },
         {
           "name": "Fetching from Google News...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:13:41.529965"
+          "timestamp": "2025-12-19T07:18:49.969877"
         },
         {
           "name": "Fetch Google News",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:13:41.623897"
+          "timestamp": "2025-12-19T07:18:51.331361"
         },
         {
           "name": "Fetching from NewsAPI...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:13:41.624041"
+          "timestamp": "2025-12-19T07:18:51.332208"
         },
         {
           "name": "Fetch NewsAPI",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:13:41.990539"
+          "timestamp": "2025-12-19T07:18:52.493349"
         },
         {
           "name": "Fetching from NewsData...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:13:41.990861"
+          "timestamp": "2025-12-19T07:18:52.494058"
         },
         {
           "name": "Fetch NewsData",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:13:42.835412"
+          "timestamp": "2025-12-19T07:18:53.514934"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:13:42.835777"
+          "timestamp": "2025-12-19T07:18:53.517261"
         },
         {
           "name": "Deduplicate",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:13:42.835787"
+          "timestamp": "2025-12-19T07:18:53.517337"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:13:42.835850"
+          "timestamp": "2025-12-19T07:18:53.517774"
         },
         {
           "name": "Process relationships",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:13:42.835857"
+          "timestamp": "2025-12-19T07:18:53.517813"
         }
       ]
     },
     {
-      "timestamp": "2025-12-13T07:14:04.021161",
-      "duration_seconds": 3.768722,
+      "timestamp": "2025-12-19T09:18:49.088212",
+      "duration_seconds": 5.643653,
+      "total_articles": 0,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T09:18:43.445805"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T09:18:43.446114"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T09:18:46.849792"
+        },
+        {
+          "name": "Fetching from Google News...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T09:18:46.850297"
+        },
+        {
+          "name": "Fetch Google News",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T09:18:47.879686"
+        },
+        {
+          "name": "Fetching from NewsAPI...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T09:18:47.880153"
+        },
+        {
+          "name": "Fetch NewsAPI",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T09:18:48.237365"
+        },
+        {
+          "name": "Fetching from NewsData...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T09:18:48.237799"
+        },
+        {
+          "name": "Fetch NewsData",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-19T09:18:49.085495"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T09:18:49.086435"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T09:18:49.086455"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T09:18:49.086553"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 0,
+          "timestamp": "2025-12-19T09:18:49.086565"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-20T11:48:02.970911",
+      "duration_seconds": 3.929369,
       "total_articles": 3,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:14:00.251631"
+          "timestamp": "2025-12-20T11:47:59.039987"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:14:00.251729"
+          "timestamp": "2025-12-20T11:47:59.040047"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T07:14:04.018730"
+          "count": 18,
+          "timestamp": "2025-12-20T11:48:02.968433"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:14:04.019966"
+          "count": 18,
+          "timestamp": "2025-12-20T11:48:02.969107"
         },
         {
           "name": "Deduplicate",
           "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:14:04.019993"
+          "count": 18,
+          "timestamp": "2025-12-20T11:48:02.969127"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
           "count": 3,
-          "timestamp": "2025-12-13T07:14:04.020089"
+          "timestamp": "2025-12-20T11:48:02.969192"
         },
         {
           "name": "Process relationships",
           "status": "done",
           "count": 3,
-          "timestamp": "2025-12-13T07:14:04.020099"
+          "timestamp": "2025-12-20T11:48:02.969200"
         }
       ]
     },
     {
-      "timestamp": "2025-12-13T07:23:29.612345",
-      "duration_seconds": 3.5075,
-      "total_articles": 3,
+      "timestamp": "2025-12-20T11:53:10.103498",
+      "duration_seconds": 11.061176,
+      "total_articles": 1,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:23:26.103447"
+          "timestamp": "2025-12-20T11:52:59.041321"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:23:26.103514"
+          "timestamp": "2025-12-20T11:52:59.041424"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T07:23:29.609870"
+          "count": 0,
+          "timestamp": "2025-12-20T11:53:07.150037"
+        },
+        {
+          "name": "Fetching from Google News...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T11:53:07.150342"
+        },
+        {
+          "name": "Fetch Google News",
+          "status": "processing",
+          "count": 1,
+          "timestamp": "2025-12-20T11:53:08.268889"
+        },
+        {
+          "name": "Fetching from NewsAPI...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T11:53:08.269026"
+        },
+        {
+          "name": "Fetch NewsAPI",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T11:53:09.258191"
+        },
+        {
+          "name": "Fetching from NewsData...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T11:53:09.258511"
+        },
+        {
+          "name": "Fetch NewsData",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T11:53:10.101644"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:23:29.610645"
+          "count": 1,
+          "timestamp": "2025-12-20T11:53:10.102213"
         },
         {
           "name": "Deduplicate",
           "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:23:29.610670"
+          "count": 1,
+          "timestamp": "2025-12-20T11:53:10.102238"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:23:29.610769"
+          "count": 1,
+          "timestamp": "2025-12-20T11:53:10.102296"
         },
         {
           "name": "Process relationships",
           "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:23:29.610781"
+          "count": 1,
+          "timestamp": "2025-12-20T11:53:10.102303"
         }
       ]
     },
     {
-      "timestamp": "2025-12-13T07:24:14.216026",
-      "duration_seconds": 3.456288,
-      "total_articles": 3,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:24:10.758602"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:24:10.758689"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T07:24:14.213713"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:24:14.214515"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:24:14.214550"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:24:14.214661"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:24:14.214668"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T07:27:06.236807",
-      "duration_seconds": 3.354262,
-      "total_articles": 3,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:27:02.880878"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:27:02.880949"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T07:27:06.233302"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:27:06.234495"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:27:06.234525"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:27:06.234825"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:27:06.234841"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T07:30:36.945078",
-      "duration_seconds": 3.210271,
-      "total_articles": 3,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:30:33.734249"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:30:33.734312"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T07:30:36.943646"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:30:36.944224"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:30:36.944254"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:30:36.944335"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:30:36.944342"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T07:31:29.472552",
-      "duration_seconds": 3.81667,
-      "total_articles": 3,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:31:25.655235"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:31:25.655320"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T07:31:29.470860"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:31:29.471555"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:31:29.471577"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:31:29.471663"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:31:29.471673"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T07:32:57.439462",
-      "duration_seconds": 3.673299,
-      "total_articles": 10,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:32:53.764478"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:32:53.764582"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T07:32:57.436388"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:32:57.437257"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:32:57.437283"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 10,
-          "timestamp": "2025-12-13T07:32:57.437409"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 10,
-          "timestamp": "2025-12-13T07:32:57.437424"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T07:34:49.891270",
-      "duration_seconds": 3.405438,
-      "total_articles": 3,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:34:46.484621"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:34:46.484684"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T07:34:49.888959"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:34:49.889729"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:34:49.889761"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:34:49.889882"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:34:49.889889"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T07:36:00.642386",
-      "duration_seconds": 4.364192,
-      "total_articles": 3,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:35:56.277053"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:35:56.277140"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T07:36:00.640060"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:36:00.640866"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:36:00.640897"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:36:00.640992"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:36:00.641020"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T07:38:00.726089",
-      "duration_seconds": 3.440503,
-      "total_articles": 3,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:37:57.284601"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T07:37:57.284779"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T07:38:00.724187"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:38:00.724676"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T07:38:00.724691"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:38:00.724754"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T07:38:00.724762"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T07:43:02.063579",
-      "duration_seconds": 4.770623,
+      "timestamp": "2025-12-20T11:58:10.040695",
+      "duration_seconds": 10.999002,
       "total_articles": 0,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:42:57.292023"
+          "timestamp": "2025-12-20T11:57:59.040647"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:42:57.292132"
+          "timestamp": "2025-12-20T11:57:59.040749"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:43:00.600458"
+          "timestamp": "2025-12-20T11:58:02.391643"
         },
         {
           "name": "Fetching from Google News...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:43:00.600704"
+          "timestamp": "2025-12-20T11:58:02.391813"
         },
         {
           "name": "Fetch Google News",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:43:00.695540"
+          "timestamp": "2025-12-20T11:58:06.699883"
         },
         {
           "name": "Fetching from NewsAPI...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:43:00.695729"
+          "timestamp": "2025-12-20T11:58:06.700045"
         },
         {
           "name": "Fetch NewsAPI",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:43:01.113621"
+          "timestamp": "2025-12-20T11:58:07.669358"
         },
         {
           "name": "Fetching from NewsData...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:43:01.113913"
+          "timestamp": "2025-12-20T11:58:07.669710"
         },
         {
           "name": "Fetch NewsData",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:43:02.061342"
+          "timestamp": "2025-12-20T11:58:10.038275"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:43:02.062234"
+          "timestamp": "2025-12-20T11:58:10.039265"
         },
         {
           "name": "Deduplicate",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:43:02.062251"
+          "timestamp": "2025-12-20T11:58:10.039277"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:43:02.062329"
+          "timestamp": "2025-12-20T11:58:10.039388"
         },
         {
           "name": "Process relationships",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:43:02.062339"
+          "timestamp": "2025-12-20T11:58:10.039415"
         }
       ]
     },
     {
-      "timestamp": "2025-12-13T07:48:03.071999",
-      "duration_seconds": 5.786289,
+      "timestamp": "2025-12-20T14:44:31.164932",
+      "duration_seconds": 3.824752,
+      "total_articles": 5,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:44:27.338550"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:44:27.338637"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 18,
+          "timestamp": "2025-12-20T14:44:31.162093"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 18,
+          "timestamp": "2025-12-20T14:44:31.162870"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 18,
+          "timestamp": "2025-12-20T14:44:31.162893"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:44:31.162982"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:44:31.162992"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-20T14:44:53.899954",
+      "duration_seconds": 2.549963,
+      "total_articles": 5,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:44:51.348523"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:44:51.348612"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 18,
+          "timestamp": "2025-12-20T14:44:53.897493"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 18,
+          "timestamp": "2025-12-20T14:44:53.898067"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 18,
+          "timestamp": "2025-12-20T14:44:53.898085"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:44:53.898161"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:44:53.898170"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-20T14:45:15.028609",
+      "duration_seconds": 2.375357,
+      "total_articles": 5,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:45:12.651311"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:45:12.651415"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 18,
+          "timestamp": "2025-12-20T14:45:15.025179"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 18,
+          "timestamp": "2025-12-20T14:45:15.025931"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 18,
+          "timestamp": "2025-12-20T14:45:15.025957"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:45:15.026070"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:45:15.026083"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-20T14:45:21.220324",
+      "duration_seconds": 6.171723,
+      "total_articles": 5,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:45:15.038944"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:45:15.039030"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:45:17.379227"
+        },
+        {
+          "name": "Fetching from RSS Feeds...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:45:17.379437"
+        },
+        {
+          "name": "Fetch RSS",
+          "status": "processing",
+          "count": 45,
+          "timestamp": "2025-12-20T14:45:21.208827"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 30,
+          "timestamp": "2025-12-20T14:45:21.210231"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 30,
+          "timestamp": "2025-12-20T14:45:21.210258"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:45:21.210355"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:45:21.210366"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-20T14:45:27.363600",
+      "duration_seconds": 6.133167,
       "total_articles": 0,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:47:57.284110"
+          "timestamp": "2025-12-20T14:45:21.229766"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:47:57.284234"
+          "timestamp": "2025-12-20T14:45:21.229845"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:48:00.996245"
+          "timestamp": "2025-12-20T14:45:23.562835"
         },
         {
-          "name": "Fetching from Google News...",
+          "name": "Fetching from RSS Feeds...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:48:00.996470"
+          "timestamp": "2025-12-20T14:45:23.563041"
         },
         {
-          "name": "Fetch Google News",
+          "name": "Fetch RSS",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:48:01.049448"
+          "timestamp": "2025-12-20T14:45:25.633051"
         },
         {
           "name": "Fetching from NewsAPI...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:48:01.049631"
+          "timestamp": "2025-12-20T14:45:25.633313"
         },
         {
           "name": "Fetch NewsAPI",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:48:02.163315"
+          "timestamp": "2025-12-20T14:45:26.576335"
         },
         {
           "name": "Fetching from NewsData...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:48:02.163549"
+          "timestamp": "2025-12-20T14:45:26.576532"
         },
         {
           "name": "Fetch NewsData",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:48:03.069216"
+          "timestamp": "2025-12-20T14:45:27.361886"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:48:03.069936"
+          "timestamp": "2025-12-20T14:45:27.362565"
         },
         {
           "name": "Deduplicate",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:48:03.069953"
+          "timestamp": "2025-12-20T14:45:27.362577"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:48:03.070050"
+          "timestamp": "2025-12-20T14:45:27.362646"
         },
         {
           "name": "Process relationships",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:48:03.070062"
+          "timestamp": "2025-12-20T14:45:27.362654"
         }
       ]
     },
     {
-      "timestamp": "2025-12-13T07:53:02.325969",
-      "duration_seconds": 5.032587,
+      "timestamp": "2025-12-20T14:49:47.223233",
+      "duration_seconds": 3.770623,
+      "total_articles": 5,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:49:43.451049"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:49:43.451136"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 18,
+          "timestamp": "2025-12-20T14:49:47.220379"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 18,
+          "timestamp": "2025-12-20T14:49:47.221235"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 18,
+          "timestamp": "2025-12-20T14:49:47.221258"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:49:47.221358"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:49:47.221369"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-20T14:49:53.399464",
+      "duration_seconds": 6.156265,
+      "total_articles": 5,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:49:47.233802"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:49:47.233886"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:49:49.551433"
+        },
+        {
+          "name": "Fetching from RSS Feeds...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:49:49.551795"
+        },
+        {
+          "name": "Fetch RSS",
+          "status": "processing",
+          "count": 45,
+          "timestamp": "2025-12-20T14:49:53.388284"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 30,
+          "timestamp": "2025-12-20T14:49:53.389643"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 30,
+          "timestamp": "2025-12-20T14:49:53.389666"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:49:53.389749"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:49:53.389759"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-20T14:49:59.786398",
+      "duration_seconds": 6.376001,
       "total_articles": 0,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:52:57.291726"
+          "timestamp": "2025-12-20T14:49:53.409545"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:52:57.291829"
+          "timestamp": "2025-12-20T14:49:53.409629"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:53:00.905815"
+          "timestamp": "2025-12-20T14:49:55.786764"
         },
         {
-          "name": "Fetching from Google News...",
+          "name": "Fetching from RSS Feeds...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:53:00.906088"
+          "timestamp": "2025-12-20T14:49:55.787238"
         },
         {
-          "name": "Fetch Google News",
+          "name": "Fetch RSS",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:53:01.009243"
+          "timestamp": "2025-12-20T14:49:58.030342"
         },
         {
           "name": "Fetching from NewsAPI...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:53:01.009460"
+          "timestamp": "2025-12-20T14:49:58.030644"
         },
         {
           "name": "Fetch NewsAPI",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:53:01.428927"
+          "timestamp": "2025-12-20T14:49:59.005227"
         },
         {
           "name": "Fetching from NewsData...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:53:01.429279"
+          "timestamp": "2025-12-20T14:49:59.005408"
         },
         {
           "name": "Fetch NewsData",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:53:02.322943"
+          "timestamp": "2025-12-20T14:49:59.784504"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:53:02.323699"
+          "timestamp": "2025-12-20T14:49:59.785130"
         },
         {
           "name": "Deduplicate",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:53:02.323720"
+          "timestamp": "2025-12-20T14:49:59.785146"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:53:02.323911"
+          "timestamp": "2025-12-20T14:49:59.785240"
         },
         {
           "name": "Process relationships",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:53:02.323926"
+          "timestamp": "2025-12-20T14:49:59.785252"
         }
       ]
     },
     {
-      "timestamp": "2025-12-13T07:58:02.488013",
-      "duration_seconds": 5.195352,
+      "timestamp": "2025-12-20T14:50:34.191129",
+      "duration_seconds": 2.285398,
+      "total_articles": 5,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:50:31.904766"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:50:31.904846"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 18,
+          "timestamp": "2025-12-20T14:50:34.188971"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 18,
+          "timestamp": "2025-12-20T14:50:34.189728"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 18,
+          "timestamp": "2025-12-20T14:50:34.189752"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:50:34.189849"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:50:34.189861"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-20T14:50:39.310570",
+      "duration_seconds": 5.107761,
+      "total_articles": 5,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:50:34.202147"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:50:34.202255"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:50:36.484237"
+        },
+        {
+          "name": "Fetching from RSS Feeds...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:50:36.484542"
+        },
+        {
+          "name": "Fetch RSS",
+          "status": "processing",
+          "count": 45,
+          "timestamp": "2025-12-20T14:50:39.307608"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 30,
+          "timestamp": "2025-12-20T14:50:39.309267"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 30,
+          "timestamp": "2025-12-20T14:50:39.309297"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:50:39.309392"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:50:39.309405"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-20T14:50:44.973588",
+      "duration_seconds": 5.6437,
       "total_articles": 0,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:57:57.291336"
+          "timestamp": "2025-12-20T14:50:39.329119"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:57:57.291462"
+          "timestamp": "2025-12-20T14:50:39.329205"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:58:01.083379"
+          "timestamp": "2025-12-20T14:50:41.735521"
         },
         {
-          "name": "Fetching from Google News...",
+          "name": "Fetching from RSS Feeds...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:58:01.083731"
+          "timestamp": "2025-12-20T14:50:41.735858"
         },
         {
-          "name": "Fetch Google News",
+          "name": "Fetch RSS",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:58:01.172778"
+          "timestamp": "2025-12-20T14:50:43.939233"
         },
         {
           "name": "Fetching from NewsAPI...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:58:01.173043"
+          "timestamp": "2025-12-20T14:50:43.939505"
         },
         {
           "name": "Fetch NewsAPI",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:58:01.567688"
+          "timestamp": "2025-12-20T14:50:44.198659"
         },
         {
           "name": "Fetching from NewsData...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:58:01.567931"
+          "timestamp": "2025-12-20T14:50:44.199131"
         },
         {
           "name": "Fetch NewsData",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T07:58:02.485680"
+          "timestamp": "2025-12-20T14:50:44.971856"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:58:02.486254"
+          "timestamp": "2025-12-20T14:50:44.972426"
         },
         {
           "name": "Deduplicate",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:58:02.486269"
+          "timestamp": "2025-12-20T14:50:44.972440"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:58:02.486347"
+          "timestamp": "2025-12-20T14:50:44.972526"
         },
         {
           "name": "Process relationships",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T07:58:02.486358"
+          "timestamp": "2025-12-20T14:50:44.972535"
         }
       ]
     },
     {
-      "timestamp": "2025-12-13T08:03:02.922752",
-      "duration_seconds": 5.626799,
+      "timestamp": "2025-12-20T14:52:21.611487",
+      "duration_seconds": 2.722656,
+      "total_articles": 5,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:52:18.887042"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:52:18.887116"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 18,
+          "timestamp": "2025-12-20T14:52:21.608266"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 18,
+          "timestamp": "2025-12-20T14:52:21.609170"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 18,
+          "timestamp": "2025-12-20T14:52:21.609201"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:52:21.609412"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:52:21.609431"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-20T14:52:26.459206",
+      "duration_seconds": 4.836833,
+      "total_articles": 5,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:52:21.621569"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:52:21.621781"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:52:24.031963"
+        },
+        {
+          "name": "Fetching from RSS Feeds...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T14:52:24.032209"
+        },
+        {
+          "name": "Fetch RSS",
+          "status": "processing",
+          "count": 45,
+          "timestamp": "2025-12-20T14:52:26.456569"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 30,
+          "timestamp": "2025-12-20T14:52:26.457940"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 30,
+          "timestamp": "2025-12-20T14:52:26.457967"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:52:26.458057"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T14:52:26.458069"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-20T14:52:33.325672",
+      "duration_seconds": 6.847034,
       "total_articles": 0,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:02:57.294569"
+          "timestamp": "2025-12-20T14:52:26.477674"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:02:57.294694"
+          "timestamp": "2025-12-20T14:52:26.477752"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:03:00.678061"
+          "timestamp": "2025-12-20T14:52:28.914764"
         },
         {
-          "name": "Fetching from Google News...",
+          "name": "Fetching from RSS Feeds...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:03:00.678327"
+          "timestamp": "2025-12-20T14:52:28.915118"
         },
         {
-          "name": "Fetch Google News",
+          "name": "Fetch RSS",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:03:00.737799"
+          "timestamp": "2025-12-20T14:52:32.108907"
         },
         {
           "name": "Fetching from NewsAPI...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:03:00.737976"
+          "timestamp": "2025-12-20T14:52:32.109246"
         },
         {
           "name": "Fetch NewsAPI",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:03:01.944009"
+          "timestamp": "2025-12-20T14:52:32.370118"
         },
         {
           "name": "Fetching from NewsData...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:03:01.944165"
+          "timestamp": "2025-12-20T14:52:32.370380"
         },
         {
           "name": "Fetch NewsData",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:03:02.919730"
+          "timestamp": "2025-12-20T14:52:33.323696"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T08:03:02.920873"
+          "timestamp": "2025-12-20T14:52:33.324329"
         },
         {
           "name": "Deduplicate",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T08:03:02.920928"
+          "timestamp": "2025-12-20T14:52:33.324345"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T08:03:02.921048"
+          "timestamp": "2025-12-20T14:52:33.324439"
         },
         {
           "name": "Process relationships",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T08:03:02.921078"
+          "timestamp": "2025-12-20T14:52:33.324452"
         }
       ]
     },
     {
-      "timestamp": "2025-12-13T08:08:01.926553",
-      "duration_seconds": 4.633065,
+      "timestamp": "2025-12-20T15:46:46.966666",
+      "duration_seconds": 3.375916,
+      "total_articles": 5,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T15:46:43.589156"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T15:46:43.589331"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 18,
+          "timestamp": "2025-12-20T15:46:46.963643"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 18,
+          "timestamp": "2025-12-20T15:46:46.964619"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 18,
+          "timestamp": "2025-12-20T15:46:46.964642"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T15:46:46.964730"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T15:46:46.964740"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-20T15:46:54.549596",
+      "duration_seconds": 7.569915,
+      "total_articles": 5,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T15:46:46.978989"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T15:46:46.979073"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T15:46:49.246784"
+        },
+        {
+          "name": "Fetching from RSS Feeds...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T15:46:49.247034"
+        },
+        {
+          "name": "Fetch RSS",
+          "status": "processing",
+          "count": 45,
+          "timestamp": "2025-12-20T15:46:54.547134"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 30,
+          "timestamp": "2025-12-20T15:46:54.548516"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 30,
+          "timestamp": "2025-12-20T15:46:54.548540"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T15:46:54.548618"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T15:46:54.548629"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-20T15:47:00.759037",
+      "duration_seconds": 6.197961,
       "total_articles": 0,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:07:57.292010"
+          "timestamp": "2025-12-20T15:46:54.560274"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:07:57.292143"
+          "timestamp": "2025-12-20T15:46:54.560352"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:08:00.596456"
+          "timestamp": "2025-12-20T15:46:56.918072"
         },
         {
-          "name": "Fetching from Google News...",
+          "name": "Fetching from RSS Feeds...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:08:00.596753"
+          "timestamp": "2025-12-20T15:46:56.918359"
         },
         {
-          "name": "Fetch Google News",
+          "name": "Fetch RSS",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:08:00.691105"
+          "timestamp": "2025-12-20T15:46:58.929034"
         },
         {
           "name": "Fetching from NewsAPI...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:08:00.691311"
+          "timestamp": "2025-12-20T15:46:58.929887"
         },
         {
           "name": "Fetch NewsAPI",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:08:01.061353"
+          "timestamp": "2025-12-20T15:46:59.909720"
         },
         {
           "name": "Fetching from NewsData...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:08:01.061495"
+          "timestamp": "2025-12-20T15:46:59.910027"
         },
         {
           "name": "Fetch NewsData",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:08:01.923976"
+          "timestamp": "2025-12-20T15:47:00.757145"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T08:08:01.924595"
+          "timestamp": "2025-12-20T15:47:00.757799"
         },
         {
           "name": "Deduplicate",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T08:08:01.924611"
+          "timestamp": "2025-12-20T15:47:00.757816"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T08:08:01.924702"
+          "timestamp": "2025-12-20T15:47:00.757910"
         },
         {
           "name": "Process relationships",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T08:08:01.924714"
+          "timestamp": "2025-12-20T15:47:00.757923"
         }
       ]
     },
     {
-      "timestamp": "2025-12-13T08:13:01.944775",
-      "duration_seconds": 4.651107,
+      "timestamp": "2025-12-20T15:48:33.873691",
+      "duration_seconds": 2.32837,
+      "total_articles": 5,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T15:48:31.543467"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T15:48:31.543554"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 18,
+          "timestamp": "2025-12-20T15:48:33.870567"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 18,
+          "timestamp": "2025-12-20T15:48:33.871399"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 18,
+          "timestamp": "2025-12-20T15:48:33.871424"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T15:48:33.871521"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T15:48:33.871534"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-20T15:48:48.920196",
+      "duration_seconds": 14.765782,
+      "total_articles": 5,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T15:48:34.153784"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T15:48:34.153881"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T15:48:36.569068"
+        },
+        {
+          "name": "Fetching from RSS Feeds...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T15:48:36.569443"
+        },
+        {
+          "name": "Fetch RSS",
+          "status": "processing",
+          "count": 45,
+          "timestamp": "2025-12-20T15:48:48.917974"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 30,
+          "timestamp": "2025-12-20T15:48:48.919149"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 30,
+          "timestamp": "2025-12-20T15:48:48.919171"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T15:48:48.919250"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T15:48:48.919260"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-20T15:48:55.023056",
+      "duration_seconds": 6.09126,
       "total_articles": 0,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:12:57.292097"
+          "timestamp": "2025-12-20T15:48:48.931169"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:12:57.292225"
+          "timestamp": "2025-12-20T15:48:48.931251"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:13:00.620624"
+          "timestamp": "2025-12-20T15:48:51.483100"
         },
         {
-          "name": "Fetching from Google News...",
+          "name": "Fetching from RSS Feeds...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:13:00.620893"
+          "timestamp": "2025-12-20T15:48:51.483706"
         },
         {
-          "name": "Fetch Google News",
+          "name": "Fetch RSS",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:13:00.672708"
+          "timestamp": "2025-12-20T15:48:54.051166"
         },
         {
           "name": "Fetching from NewsAPI...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:13:00.672882"
+          "timestamp": "2025-12-20T15:48:54.051411"
         },
         {
           "name": "Fetch NewsAPI",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:13:01.070389"
+          "timestamp": "2025-12-20T15:48:54.321601"
         },
         {
           "name": "Fetching from NewsData...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:13:01.070536"
+          "timestamp": "2025-12-20T15:48:54.321799"
         },
         {
           "name": "Fetch NewsData",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:13:01.942056"
+          "timestamp": "2025-12-20T15:48:55.021292"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T08:13:01.942804"
+          "timestamp": "2025-12-20T15:48:55.021957"
         },
         {
           "name": "Deduplicate",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T08:13:01.942821"
+          "timestamp": "2025-12-20T15:48:55.021971"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T08:13:01.942915"
+          "timestamp": "2025-12-20T15:48:55.022111"
         },
         {
           "name": "Process relationships",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T08:13:01.942928"
+          "timestamp": "2025-12-20T15:48:55.022124"
         }
       ]
     },
     {
-      "timestamp": "2025-12-13T08:18:01.964816",
-      "duration_seconds": 4.680598,
+      "timestamp": "2025-12-20T15:55:40.552621",
+      "duration_seconds": 2.425776,
+      "total_articles": 5,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T15:55:38.126254"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T15:55:38.126381"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 18,
+          "timestamp": "2025-12-20T15:55:40.550643"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 18,
+          "timestamp": "2025-12-20T15:55:40.551474"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 18,
+          "timestamp": "2025-12-20T15:55:40.551500"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T15:55:40.551609"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T15:55:40.551621"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-20T15:55:48.171317",
+      "duration_seconds": 7.199482,
+      "total_articles": 5,
+      "steps": [
+        {
+          "name": "Starting news aggregation...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T15:55:40.971086"
+        },
+        {
+          "name": "Fetching from Finnhub...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T15:55:40.971170"
+        },
+        {
+          "name": "Fetch Finnhub",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T15:55:44.192733"
+        },
+        {
+          "name": "Fetching from RSS Feeds...",
+          "status": "processing",
+          "count": 0,
+          "timestamp": "2025-12-20T15:55:44.193048"
+        },
+        {
+          "name": "Fetch RSS",
+          "status": "processing",
+          "count": 45,
+          "timestamp": "2025-12-20T15:55:48.168800"
+        },
+        {
+          "name": "Deduplicating articles...",
+          "status": "done",
+          "count": 30,
+          "timestamp": "2025-12-20T15:55:48.170180"
+        },
+        {
+          "name": "Deduplicate",
+          "status": "done",
+          "count": 30,
+          "timestamp": "2025-12-20T15:55:48.170207"
+        },
+        {
+          "name": "Processing relationships...",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T15:55:48.170300"
+        },
+        {
+          "name": "Process relationships",
+          "status": "done",
+          "count": 5,
+          "timestamp": "2025-12-20T15:55:48.170312"
+        }
+      ]
+    },
+    {
+      "timestamp": "2025-12-20T15:55:54.346287",
+      "duration_seconds": 6.164602,
       "total_articles": 0,
       "steps": [
         {
           "name": "Starting news aggregation...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:17:57.283590"
+          "timestamp": "2025-12-20T15:55:48.180943"
         },
         {
           "name": "Fetching from Finnhub...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:17:57.283702"
+          "timestamp": "2025-12-20T15:55:48.181023"
         },
         {
           "name": "Fetch Finnhub",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:18:00.639987"
+          "timestamp": "2025-12-20T15:55:50.604555"
         },
         {
-          "name": "Fetching from Google News...",
+          "name": "Fetching from RSS Feeds...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:18:00.640194"
+          "timestamp": "2025-12-20T15:55:50.604961"
         },
         {
-          "name": "Fetch Google News",
+          "name": "Fetch RSS",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:18:00.720989"
+          "timestamp": "2025-12-20T15:55:52.564470"
         },
         {
           "name": "Fetching from NewsAPI...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:18:00.721161"
+          "timestamp": "2025-12-20T15:55:52.564825"
         },
         {
           "name": "Fetch NewsAPI",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:18:01.079111"
+          "timestamp": "2025-12-20T15:55:53.532550"
         },
         {
           "name": "Fetching from NewsData...",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:18:01.079319"
+          "timestamp": "2025-12-20T15:55:53.532811"
         },
         {
           "name": "Fetch NewsData",
           "status": "processing",
           "count": 0,
-          "timestamp": "2025-12-13T08:18:01.963050"
+          "timestamp": "2025-12-20T15:55:54.344306"
         },
         {
           "name": "Deduplicating articles...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T08:18:01.963684"
+          "timestamp": "2025-12-20T15:55:54.345105"
         },
         {
           "name": "Deduplicate",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T08:18:01.963701"
+          "timestamp": "2025-12-20T15:55:54.345125"
         },
         {
           "name": "Processing relationships...",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T08:18:01.963800"
+          "timestamp": "2025-12-20T15:55:54.345222"
         },
         {
           "name": "Process relationships",
           "status": "done",
           "count": 0,
-          "timestamp": "2025-12-13T08:18:01.963813"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T08:23:02.942289",
-      "duration_seconds": 5.650517,
-      "total_articles": 0,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:22:57.291548"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:22:57.291690"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:23:01.577744"
-        },
-        {
-          "name": "Fetching from Google News...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:23:01.577969"
-        },
-        {
-          "name": "Fetch Google News",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:23:01.662032"
-        },
-        {
-          "name": "Fetching from NewsAPI...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:23:01.662206"
-        },
-        {
-          "name": "Fetch NewsAPI",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:23:02.067975"
-        },
-        {
-          "name": "Fetching from NewsData...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:23:02.068201"
-        },
-        {
-          "name": "Fetch NewsData",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:23:02.940896"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:23:02.941546"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:23:02.941556"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:23:02.941659"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:23:02.941680"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T08:28:01.972397",
-      "duration_seconds": 4.680828,
-      "total_articles": 0,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:27:57.290315"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:27:57.290441"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:28:00.564382"
-        },
-        {
-          "name": "Fetching from Google News...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:28:00.564711"
-        },
-        {
-          "name": "Fetch Google News",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:28:00.651854"
-        },
-        {
-          "name": "Fetching from NewsAPI...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:28:00.652030"
-        },
-        {
-          "name": "Fetch NewsAPI",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:28:01.029644"
-        },
-        {
-          "name": "Fetching from NewsData...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:28:01.029857"
-        },
-        {
-          "name": "Fetch NewsData",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:28:01.970029"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:28:01.970676"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:28:01.970692"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:28:01.970789"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:28:01.970801"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T08:33:03.108371",
-      "duration_seconds": 5.824284,
-      "total_articles": 0,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:32:57.283341"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:32:57.283512"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:33:01.755700"
-        },
-        {
-          "name": "Fetching from Google News...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:33:01.755877"
-        },
-        {
-          "name": "Fetch Google News",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:33:01.808863"
-        },
-        {
-          "name": "Fetching from NewsAPI...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:33:01.809066"
-        },
-        {
-          "name": "Fetch NewsAPI",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:33:02.230317"
-        },
-        {
-          "name": "Fetching from NewsData...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:33:02.230561"
-        },
-        {
-          "name": "Fetch NewsData",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:33:03.106492"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:33:03.107151"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:33:03.107160"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:33:03.107268"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:33:03.107276"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T08:38:04.303949",
-      "duration_seconds": 7.004865,
-      "total_articles": 0,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:37:57.298781"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:37:57.298945"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:38:01.135119"
-        },
-        {
-          "name": "Fetching from Google News...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:38:01.135296"
-        },
-        {
-          "name": "Fetch Google News",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:38:01.220506"
-        },
-        {
-          "name": "Fetching from NewsAPI...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:38:01.220694"
-        },
-        {
-          "name": "Fetch NewsAPI",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:38:03.340266"
-        },
-        {
-          "name": "Fetching from NewsData...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:38:03.340472"
-        },
-        {
-          "name": "Fetch NewsData",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:38:04.302397"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:38:04.303143"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:38:04.303153"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:38:04.303274"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:38:04.303282"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T08:43:05.159978",
-      "duration_seconds": 7.86818,
-      "total_articles": 0,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:42:57.290735"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:42:57.290855"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:43:02.604558"
-        },
-        {
-          "name": "Fetching from Google News...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:43:02.604772"
-        },
-        {
-          "name": "Fetch Google News",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:43:02.657914"
-        },
-        {
-          "name": "Fetching from NewsAPI...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:43:02.658247"
-        },
-        {
-          "name": "Fetch NewsAPI",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:43:04.277839"
-        },
-        {
-          "name": "Fetching from NewsData...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:43:04.278081"
-        },
-        {
-          "name": "Fetch NewsData",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:43:05.157499"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:43:05.158384"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:43:05.158395"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:43:05.158566"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:43:05.158574"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T08:48:02.810015",
-      "duration_seconds": 5.517954,
-      "total_articles": 0,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:47:57.291655"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:47:57.291802"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:48:01.385912"
-        },
-        {
-          "name": "Fetching from Google News...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:48:01.386142"
-        },
-        {
-          "name": "Fetch Google News",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:48:01.477599"
-        },
-        {
-          "name": "Fetching from NewsAPI...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:48:01.477723"
-        },
-        {
-          "name": "Fetch NewsAPI",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:48:01.940217"
-        },
-        {
-          "name": "Fetching from NewsData...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:48:01.940463"
-        },
-        {
-          "name": "Fetch NewsData",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:48:02.808628"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:48:02.809182"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:48:02.809207"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:48:02.809302"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:48:02.809309"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T08:53:02.299588",
-      "duration_seconds": 5.014092,
-      "total_articles": 0,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:52:57.284036"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:52:57.284119"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:53:00.665772"
-        },
-        {
-          "name": "Fetching from Google News...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:53:00.666085"
-        },
-        {
-          "name": "Fetch Google News",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:53:00.720322"
-        },
-        {
-          "name": "Fetching from NewsAPI...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:53:00.720667"
-        },
-        {
-          "name": "Fetch NewsAPI",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:53:01.405378"
-        },
-        {
-          "name": "Fetching from NewsData...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:53:01.405645"
-        },
-        {
-          "name": "Fetch NewsData",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:53:02.297309"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:53:02.297801"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:53:02.297812"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:53:02.297878"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:53:02.297887"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T08:58:02.107595",
-      "duration_seconds": 4.816855,
-      "total_articles": 0,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:57:57.289520"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:57:57.289691"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:58:00.721207"
-        },
-        {
-          "name": "Fetching from Google News...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:58:00.721358"
-        },
-        {
-          "name": "Fetch Google News",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:58:00.812626"
-        },
-        {
-          "name": "Fetching from NewsAPI...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:58:00.812755"
-        },
-        {
-          "name": "Fetch NewsAPI",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:58:01.222475"
-        },
-        {
-          "name": "Fetching from NewsData...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:58:01.222834"
-        },
-        {
-          "name": "Fetch NewsData",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:58:02.105107"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:58:02.105879"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:58:02.105904"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:58:02.106010"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T08:58:02.106018"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T08:59:52.647382",
-      "duration_seconds": 3.35666,
-      "total_articles": 3,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:59:49.289109"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T08:59:49.289232"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T08:59:52.644719"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T08:59:52.645310"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T08:59:52.645330"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T08:59:52.645410"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T08:59:52.645419"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T09:00:05.332663",
-      "duration_seconds": 3.486601,
-      "total_articles": 3,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:00:01.845031"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:00:01.845109"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T09:00:05.330890"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T09:00:05.331347"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T09:00:05.331363"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T09:00:05.331425"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T09:00:05.331432"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T09:04:13.346266",
-      "duration_seconds": 3.375213,
-      "total_articles": 3,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:04:09.969763"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:04:09.969839"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 17,
-          "timestamp": "2025-12-13T09:04:13.344250"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T09:04:13.344701"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 17,
-          "timestamp": "2025-12-13T09:04:13.344716"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T09:04:13.344774"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 3,
-          "timestamp": "2025-12-13T09:04:13.344781"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T09:09:14.466475",
-      "duration_seconds": 4.496046,
-      "total_articles": 0,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:09:09.970101"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:09:09.970332"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:09:13.070798"
-        },
-        {
-          "name": "Fetching from Google News...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:09:13.071127"
-        },
-        {
-          "name": "Fetch Google News",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:09:13.158850"
-        },
-        {
-          "name": "Fetching from NewsAPI...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:09:13.159000"
-        },
-        {
-          "name": "Fetch NewsAPI",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:09:13.576587"
-        },
-        {
-          "name": "Fetching from NewsData...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:09:13.576873"
-        },
-        {
-          "name": "Fetch NewsData",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:09:14.465118"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T09:09:14.465632"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T09:09:14.465642"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T09:09:14.465737"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T09:09:14.465744"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T09:14:14.769865",
-      "duration_seconds": 4.792399,
-      "total_articles": 0,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:14:09.975464"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:14:09.975561"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:14:13.330047"
-        },
-        {
-          "name": "Fetching from Google News...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:14:13.330532"
-        },
-        {
-          "name": "Fetch Google News",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:14:13.385308"
-        },
-        {
-          "name": "Fetching from NewsAPI...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:14:13.385808"
-        },
-        {
-          "name": "Fetch NewsAPI",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:14:13.891432"
-        },
-        {
-          "name": "Fetching from NewsData...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:14:13.891638"
-        },
-        {
-          "name": "Fetch NewsData",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:14:14.766080"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T09:14:14.767291"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T09:14:14.767312"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T09:14:14.767464"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T09:14:14.767476"
-        }
-      ]
-    },
-    {
-      "timestamp": "2025-12-13T09:19:15.005803",
-      "duration_seconds": 5.02265,
-      "total_articles": 0,
-      "steps": [
-        {
-          "name": "Starting news aggregation...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:19:09.974167"
-        },
-        {
-          "name": "Fetching from Finnhub...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:19:09.974365"
-        },
-        {
-          "name": "Fetch Finnhub",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:19:13.494325"
-        },
-        {
-          "name": "Fetching from Google News...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:19:13.521445"
-        },
-        {
-          "name": "Fetch Google News",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:19:13.608917"
-        },
-        {
-          "name": "Fetching from NewsAPI...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:19:13.609149"
-        },
-        {
-          "name": "Fetch NewsAPI",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:19:14.027760"
-        },
-        {
-          "name": "Fetching from NewsData...",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:19:14.028572"
-        },
-        {
-          "name": "Fetch NewsData",
-          "status": "processing",
-          "count": 0,
-          "timestamp": "2025-12-13T09:19:14.995691"
-        },
-        {
-          "name": "Deduplicating articles...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T09:19:14.996239"
-        },
-        {
-          "name": "Deduplicate",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T09:19:14.996254"
-        },
-        {
-          "name": "Processing relationships...",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T09:19:14.996334"
-        },
-        {
-          "name": "Process relationships",
-          "status": "done",
-          "count": 0,
-          "timestamp": "2025-12-13T09:19:14.996345"
+          "timestamp": "2025-12-20T15:55:54.345235"
         }
       ]
     }

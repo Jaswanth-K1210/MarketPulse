@@ -1,0 +1,74 @@
+{
+  "user_id": "test_user_001",
+  "portfolio": [
+    "AAPL",
+    "NVDA",
+    "MSFT"
+  ],
+  "news_articles": [
+    {
+      "id": "news_1",
+      "headline": "TSMC Production Issues",
+      "summary": "Detailed summary..."
+    },
+    {
+      "id": "news_refined_1",
+      "headline": "Follow-up on TSMC",
+      "summary": "More data discovered."
+    }
+  ],
+  "last_fetch_time": "2025-12-20T14:39:51.730229",
+  "classified_articles": [
+    {
+      "article_id": "news_1",
+      "factor_type": 3,
+      "factor_name": "Supply Chain Events",
+      "sentiment": "negative",
+      "confidence": 0.9
+    },
+    {
+      "article_id": "news_refined_1",
+      "factor_type": 3,
+      "factor_name": "Supply Chain Events",
+      "sentiment": "negative",
+      "confidence": 0.9
+    }
+  ],
+  "cache_hits": [],
+  "cache_misses": [
+    "TSMC"
+  ],
+  "discovered_relationships": [
+    {
+      "ticker": "TSMC",
+      "relationships": [
+        {
+          "related_company": "AAPL",
+          "type": "supplier",
+          "criticality": "CRITICAL"
+        }
+      ]
+    }
+  ],
+  "stock_impacts": [
+    {
+      "ticker": "AAPL",
+      "impact_pct": -5.0
+    }
+  ],
+  "portfolio_total_impact": {
+    "impact_usd": -1000,
+    "impact_pct": -2.0
+  },
+  "confidence_score": 0.85,
+  "validation_decision": "ACCEPT",
+  "gaps_identified": [],
+  "refined_search_queries": [],
+  "loop_count": 1,
+  "alert_created": true,
+  "alert_id": "alert_12345",
+  "workflow_status": "Alert generated",
+  "errors": [],
+  "started_at": "2025-12-20T14:39:51.725459",
+  "completed_at": "2025-12-20T14:39:51.732968"
+}

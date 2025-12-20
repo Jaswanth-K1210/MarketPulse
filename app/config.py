@@ -12,17 +12,18 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # ═══════════════════════════════════════════════════════════════════════════
-# API KEYS & CREDENTIALS
-# ═══════════════════════════════════════════════════════════════════════════
-
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 NEWSAPI_KEY = os.getenv("NEWSAPI_KEY")
 NEWSDATA_IO_KEY = os.getenv("NEWSDATA_IO_KEY")
 FINNHUB_API_KEY = os.getenv("FINNHUB_API_KEY")
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+
+# Default model for OpenRouter
+OPENROUTER_MODEL = os.getenv("OPENROUTER_MODEL", "google/gemini-2.0-flash-exp:free")
 
 # Validate required API keys
-if not GEMINI_API_KEY:
-    raise ValueError("GEMINI_API_KEY is required in .env file")
+if not GEMINI_API_KEY and not OPENROUTER_API_KEY:
+    raise ValueError("Either GEMINI_API_KEY or OPENROUTER_API_KEY is required in .env file")
 
 # News API keys are optional - at least one should be configured
 if not any([NEWSAPI_KEY, NEWSDATA_IO_KEY, FINNHUB_API_KEY]):
@@ -152,7 +153,7 @@ GEMINI_MAX_RETRIES = 2  # Reduced from 3 to conserve budget
 # DATABASE CONFIGURATION
 # ═══════════════════════════════════════════════════════════════════════════
 
-DATABASE_TYPE = "json"  # json or postgres
+DATABASE_TYPE = "sqlite"  # sqlite, json or postgres
 DATABASE_URL = os.getenv("DATABASE_URL", "")
 
 # JSON file storage paths
