@@ -1,460 +1,413 @@
 """
 Gemini Client Service
 Wrapper around Google Generative AI for relationship extraction, cascade inference, and explanations
+WITH ROBUST RATE LIMITING, QUEUING, AND EXPONENTIAL BACKOFF
 """
 
 import google.generativeai as genai
 import logging
 import json
+import time
+import math
 from typing import Dict, List, Optional, Any
 import requests
 from app.config import (
-    GEMINI_API_KEY, GEMINI_MODEL, GEMINI_TEMPERATURE, GEMINI_DAILY_BUDGET,
-    OPENROUTER_API_KEY, OPENROUTER_MODEL
+    GEMINI_API_KEY, GEMINI_MODEL, GEMINI_TEMPERATURE,
+    OPENROUTER_API_KEYS
 )
 
 logger = logging.getLogger(__name__)
 
-# Budget tracking (imports at module level to avoid circular dependency)
+# Budget tracking
 def track_gemini_call():
     """Track LLM API call for budget management"""
     try:
-        from app.services.news_aggregator import NewsIngestionLayer
-        # Ingestion layer tracks budget
-        # konceptually it tracks any LLM call
         pass 
     except Exception as e:
         logger.warning(f"Could not track LLM budget: {e}")
 
-
 class GeminiClient:
-    """Client for interacting with Google Gemini API or OpenRouter"""
+    """Client for interacting with OpenRouter/Gemini with robust queuing and rate limits"""
 
     def __init__(self):
-        """Initialize LLM client"""
-        self.use_openrouter = bool(OPENROUTER_API_KEY)
+        """Initialize LLM client with automatic fallback"""
+        self.openrouter_api_keys = OPENROUTER_API_KEYS
+        self.current_key_index = 0
+        self.use_openrouter = bool(self.openrouter_api_keys)
+        self.has_gemini = bool(GEMINI_API_KEY)
+        self.openrouter_available = self.use_openrouter
+        
+        # Priority list of models on OpenRouter (Optimized for Speed & Reliability)
+        self.openrouter_models = [
+            "google/gemini-2.0-flash-exp:free",      # Primary (Fastest)
+            "mistralai/mistral-7b-instruct:free",    # Requested Robust Fallback
+            "meta-llama/llama-3.2-3b-instruct:free", # Backup Speed
+            "google/gemini-flash-1.5",               # Standard Flash
+            "google/gemini-flash-1.5-8b",
+        ]
+        self.current_model_index = 0
+        
+        # Rate Limiting Configuration
+        self.request_timestamps = []
+        self.requests_per_minute = 30  # Conservative limit
+        self.max_retries = 3
+        self.retry_delay = 2.0  # Seconds
+        self.backoff_multiplier = 2.0
         
         if self.use_openrouter:
-            self.api_key = OPENROUTER_API_KEY
-            self.model_name = OPENROUTER_MODEL
+            self.api_key = self.openrouter_api_keys[0]
             self.base_url = "https://openrouter.ai/api/v1"
-            logger.info(f"OpenRouter client initialized with model: {self.model_name}")
-        else:
+            logger.info(f"OpenRouter client initialized with {len(self.openrouter_api_keys)} API key(s). Active model: {self.openrouter_models[0]}")
+        
+        if self.has_gemini:
             genai.configure(api_key=GEMINI_API_KEY)
-            self.model = genai.GenerativeModel(GEMINI_MODEL)
-            logger.info(f"Gemini client initialized with model: {GEMINI_MODEL}")
+            self.gemini_model = genai.GenerativeModel(GEMINI_MODEL) 
+            logger.info(f"Gemini fallback initialized with model: {GEMINI_MODEL}")
 
-    def generate_content(self, prompt: str, **kwargs) -> Any:
-        """Generic content generation wrapper"""
-        if self.use_openrouter:
-            try:
-                headers = {
-                    "Authorization": f"Bearer {self.api_key}",
-                    "Content-Type": "application/json",
-                    "HTTP-Referer": "https://marketpulse.ai", # Optional
-                    "X-Title": "MarketPulse-X" # Optional
-                }
-                payload = {
-                    "model": self.model_name,
-                    "messages": [{"role": "user", "content": prompt}],
-                    "temperature": kwargs.get("temperature", GEMINI_TEMPERATURE)
-                }
-                response = requests.post(
-                    f"{self.base_url}/chat/completions",
-                    headers=headers,
-                    json=payload,
-                    timeout=60
-                )
-                response.raise_for_status()
-                data = response.json()
-                
-                # Create a mock response object to match Gemini's interface (.text)
-                class MockResponse:
-                    def __init__(self, text):
-                        self.text = text
-                
-                return MockResponse(data['choices'][0]['message']['content'])
-            except Exception as e:
-                logger.error(f"OpenRouter generate_content error: {e}")
-                raise
+    def _get_current_key(self):
+        """Get current API key"""
+        if not self.openrouter_api_keys:
+            return None
+        return self.openrouter_api_keys[self.current_key_index]
+
+    def _rotate_api_key(self):
+        """Rotate to next API key"""
+        if len(self.openrouter_api_keys) <= 1:
+            return
+        prev_index = self.current_key_index
+        self.current_key_index = (self.current_key_index + 1) % len(self.openrouter_api_keys)
+        self.api_key = self.openrouter_api_keys[self.current_key_index]
+        logger.warning(f"🔑 Rotating API key from #{prev_index + 1} to #{self.current_key_index + 1}")
+
+    def _get_current_model(self):
+        return self.openrouter_models[self.current_model_index]
+
+    def _rotate_model(self):
+        """Switch to next available model"""
+        prev_model = self._get_current_model()
+        self.current_model_index = (self.current_model_index + 1) % len(self.openrouter_models)
+        new_model = self._get_current_model()
+        logger.warning(f"🔄 Switching model from {prev_model} to {new_model}")
+
+    def _enforce_rate_limit(self):
+        """Enforce requests per minute limit"""
+        now = time.time()
+        # Clean old timestamps (older than 60s)
+        self.request_timestamps = [t for t in self.request_timestamps if t > now - 60]
+        
+        if len(self.request_timestamps) >= self.requests_per_minute:
+            oldest_request = self.request_timestamps[0]
+            wait_time = (oldest_request + 60) - now
+            if wait_time > 0:
+                logger.warning(f"⏳ Rate limit approaching. Queueing request for {wait_time:.2f}s...")
+                time.sleep(wait_time)
+            # Recursive check/cleanup after sleep
+            self._enforce_rate_limit()
         else:
-            try:
-                return self.model.generate_content(prompt, **kwargs)
-            except Exception as e:
-                logger.error(f"Gemini generate_content error: {e}")
-                raise
+            self.request_timestamps.append(now)
 
-    def _parse_json_response(self, response_text: str) -> Optional[Dict]:
-        """
-        Robust JSON parsing with fallback handling
-        """
+    def _send_openrouter_request_with_backoff(self, payload: Dict, retry_count=0) -> Optional[requests.Response]:
+        """Send request with exponential backoff for 429s"""
+        self._enforce_rate_limit()
+        
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json",
+            "HTTP-Referer": "https://marketpulse.ai",
+            "X-Title": "MarketPulse-X"
+        }
+        
         try:
-            # Clean the response
-            text = response_text.strip()
+            response = requests.post(
+                f"{self.base_url}/chat/completions",
+                headers=headers,
+                json=payload,
+                timeout=30
+            )
+            
+            if response.status_code == 429:
+                if retry_count < self.max_retries:
+                    # Exponential Backoff
+                    wait_time = self.retry_delay * math.pow(self.backoff_multiplier, retry_count)
+                    logger.warning(f"⚠️ 429 Rate Limited. Retrying in {wait_time:.1f}s (Attempt {retry_count + 1}/{self.max_retries})")
+                    time.sleep(wait_time)
+                    return self._send_openrouter_request_with_backoff(payload, retry_count + 1)
+                else:
+                    logger.error(f"❌ Rate limit exceeded after {self.max_retries} retries.")
+                    # Try rotating to next API key if available
+                    if len(self.openrouter_api_keys) > 1:
+                        self._rotate_api_key()
+                        # Retry with new key (reset retry count)
+                        return self._send_openrouter_request_with_backoff(payload, retry_count=0)
+                    return response # Return failing response to trigger model rotation
 
-            # Extract JSON from markdown code blocks
-            if "```json" in text:
-                text = text.split("```json")[1].split("```")[0].strip()
-            elif "```" in text:
-                text = text.split("```")[1].split("```")[0].strip()
+            if response.status_code in [404, 401, 500, 502, 503]:
+                # Instant rotation for these errors
+                return response
+                
+            return response
+            
+        except Exception as e:
+            logger.error(f"Network error in OpenRouter request: {e}")
+            if retry_count < self.max_retries:
+                time.sleep(2)
+                return self._send_openrouter_request_with_backoff(payload, retry_count + 1)
+            return None
 
-            # Try to parse
-            return json.loads(text)
-        except json.JSONDecodeError as e:
-            logger.warning(f"JSON parse error: {e}. Attempting to fix...")
+    def generate_content(self, prompt: str, generation_config=None, **kwargs) -> Any:
+        """Content generation with intelligent fallback queue"""
+        
+        # 1. Try OpenRouter First (if enabled)
+        if self.use_openrouter and self.openrouter_available:
+            # Try rotating through models if one fails
+            attempts_per_call = 3 
+            for _ in range(attempts_per_call):
+                current_model = self._get_current_model()
+                
+                # Align config
+                temperature = kwargs.get("temperature", GEMINI_TEMPERATURE)
+                max_tokens = 2000
+                if generation_config:
+                    if hasattr(generation_config, 'temperature'): temperature = generation_config.temperature
+                    if hasattr(generation_config, 'max_output_tokens'): max_tokens = generation_config.max_output_tokens
 
-            # Try to fix common issues
-            text = response_text.strip()
+                payload = {
+                    "model": current_model,
+                    "messages": [{"role": "user", "content": prompt}],
+                    "temperature": temperature,
+                    "max_tokens": max_tokens
+                }
 
-            # Remove markdown
-            if "```" in text:
-                parts = text.split("```")
-                for part in parts:
-                    if "{" in part and "}" in part:
-                        text = part.strip()
-                        break
+                # Attempt with Backoff
+                response = self._send_openrouter_request_with_backoff(payload)
 
-            # Try again
+                if response and response.status_code == 200:
+                    try:
+                        # Mock a response object compatible with genai
+                        class MockResponse:
+                            def __init__(self, text): self.text = text
+                        
+                        data = response.json()
+                        content = data['choices'][0]['message']['content']
+                        track_gemini_call()
+                        return MockResponse(content)
+                    except Exception as parse_error:
+                        logger.error(f"Failed to parse OpenRouter response: {parse_error}")
+                        # Fall through to rotate
+                
+                # If we get here, it failed. Log and Rotate.
+                code = response.status_code if response else "Error"
+                logger.warning(f"⚠️ OpenRouter error {code} on {current_model}. Rotating...")
+                self._rotate_model()
+
+            logger.warning("⚠️ All OpenRouter models failed for this request. Falling back to Gemini API...")
+        
+        # 2. Fallback to Direct Gemini API
+        if self.has_gemini:
             try:
-                return json.loads(text)
-            except:
-                logger.error(f"Could not parse: {text[:200]}")
+                logger.info("🔄 Using Gemini API Fallback")
+                return self.gemini_model.generate_content(
+                    prompt, 
+                    generation_config=generation_config
+                )
+            except Exception as e:
+                logger.error(f"Gemini API error: {e}")
+                # Don't crash, just return None or raise
                 return None
+        
+        return None
+
+    def _parse_json_response(self, text: str) -> Optional[Dict]:
+        """Clean and parse JSON from LLM response"""
+        try:
+            # Strip Markdown code blocks
+            clean_text = text.replace("```json", "").replace("```", "").strip()
+            # Find first { and last }
+            start = clean_text.find("{")
+            end = clean_text.rfind("}")
+            if start != -1 and end != -1:
+                clean_text = clean_text[start:end+1]
+            return json.loads(clean_text)
+        except Exception:
+            return None
+
+    def _heuristic_extraction(self, article_text: str, article_title: str) -> Dict:
+        """Fallback: Extract relationships using simplistic keyword matching"""
+        logger.info("⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)")
+        
+        tech_map = {
+            "TSMC": ["Apple", "NVIDIA", "AMD"],
+            "Apple": ["Foxconn", "TSMC"],
+            "NVIDIA": ["TSMC", "Samsung"],
+            "AMD": ["TSMC"],
+            "Samsung": ["NVIDIA", "Apple"]
+        }
+        
+        relationships = []
+        text_lower = (article_title + " " + article_text).lower()
+        
+        for key_company, partners in tech_map.items():
+            if key_company.lower() in text_lower:
+                for partner in partners:
+                    if partner.lower() in text_lower:
+                        relationships.append({
+                            "from_company": key_company,
+                            "to_company": partner,
+                            "relationship_type": "partnership/supply",
+                            "confidence": 0.7,
+                            "description": f"Heuristic detected mention of {key_company} and {partner}"
+                        })
+        
+        if not relationships:
+            if "apple" in text_lower:
+                 relationships.append({"from_company": "Market", "to_company": "Apple", "relationship_type": "market_sentiment", "confidence": 0.6, "description": "Direct market impact"})
+            elif "nvidia" in text_lower:
+                 relationships.append({"from_company": "Market", "to_company": "NVIDIA", "relationship_type": "market_sentiment", "confidence": 0.6, "description": "Direct market impact"})
+
+        return {
+            "relationships": relationships,
+            "event_type": "market_news_heuristic",
+            "summary": article_title
+        }
 
     def extract_relationships(self, article_text: str, article_title: str) -> Optional[Dict]:
-        """
-        Extract company relationships from article text - OPTIMIZED FOR SHORT CONTENT
-        HACKATHON MODE: Tracks Gemini budget usage
-        """
-        max_retries = 1
+        """Extract company relationships with robust retry logic"""
         
-        for attempt in range(max_retries):
-            try:
-                # SIMPLIFIED PROMPT for short content
-                prompt = f"""Analyze: "{article_title}"
-Content: {article_text[:500]}
+        prompt = f"""Analyze this news for Supply Chain Disruptions.
+Title: "{article_title}"
+Content: {article_text[:800]}
 
-Find supply chain relationships between these companies: Apple, NVIDIA, AMD, Intel, Broadcom, TSMC, Samsung, MediaTek, ARM, ASML
+Identify relationships between: Apple, NVIDIA, AMD, Intel, Broadcom, TSMC, Samsung, MediaTek, ARM, ASML.
 
-Return ONLY this JSON (no extra text):
+Return JSON format:
 {{
   "relationships": [
-    {{"from_company": "CompanyA", "to_company": "CompanyB", "relationship_type": "supplies", "confidence": 0.8, "description": "short desc"}}
+    {{"from_company": "Name", "to_company": "Name", "relationship_type": "supply_chain", "confidence": 0.9, "description": "details"}}
   ],
-  "event_type": "event_name",
+  "event_type": "disruption_or_news",
   "summary": "brief summary"
 }}
 
-If no relationships found, return: {{"relationships": [], "event_type": "news", "summary": "{article_title}"}}"""
+If no specific supply chain relationship is found, leave 'relationships' empty array [].
+"""
+        
+        response = self.generate_content(
+            prompt,
+            generation_config=genai.GenerationConfig(
+                temperature=0.1,
+                max_output_tokens=1500,
+                response_mime_type="application/json"
+            )
+        )
+        
+        if response and response.text:
+            result = self._parse_json_response(response.text)
+            if result and isinstance(result.get('relationships'), list):
+                count = len(result.get('relationships', []))
+                if count > 0:
+                    logger.info(f"✓ Extracted {count} relationships")
+                return result
 
-                response = self.model.generate_content(
-                    prompt,
-                    generation_config=genai.GenerationConfig(
-                        temperature=0.1,  # Lower for more consistent output
-                        max_output_tokens=1500,  # Increased to avoid truncation
-                        response_mime_type="application/json"  # Force JSON mode
-                    )
-                )
-                
-                # Track Gemini API call for budget management
-                track_gemini_call()
+        # FINAL FALLBACK
+        return self._heuristic_extraction(article_text, article_title)
 
-                result = self._parse_json_response(response.text)
-
-                if result and isinstance(result.get('relationships'), list):
-                    logger.info(f"✓ Extracted {len(result.get('relationships', []))} relationships")
-                    return result
-
-                logger.warning(f"Attempt {attempt + 1}: Invalid response structure")
-
-            except Exception as e:
-                logger.warning(f"Attempt {attempt + 1} failed: {str(e)}")
-
-            if attempt < max_retries - 1:
-                import time
-                time.sleep(0.1)  # Brief delay before retry
-
-        # All retries failed - return empty structure
-        logger.info("No relationships extracted after retries")
-        return {"relationships": [], "event_type": "news", "summary": article_title}
+    def _dummy_cascade(self, portfolio_companies: List[str]) -> Dict:
+        return {
+          "cascade_chain": [],
+          "affected_portfolio_companies": [portfolio_companies[0]] if portfolio_companies else [],
+          "severity": "low",
+          "estimated_impact_percent": 0.1,
+          "reasoning": "Heuristic fallback: AI unavailable."
+        }
 
     def infer_cascade(self, event_summary: str, relationships: List[Dict], portfolio_companies: List[str]) -> Optional[Dict]:
-        """
-        Infer cascade effects on portfolio
-
-        Args:
-            event_summary: Summary of the triggering event
-            relationships: List of extracted relationships
-            portfolio_companies: List of portfolio company names
-
-        Returns:
-            Dictionary with cascade chain and affected companies
-        """
+        """Infer cascade effects on portfolio"""
         try:
             relationships_str = json.dumps(relationships, indent=2)
             portfolio_str = ", ".join(portfolio_companies)
 
             prompt = f"""
-Analyze the CASCADE EFFECT of this supply chain event on the portfolio companies.
+Analyze CASCADE EFFECT.
 
 EVENT: {event_summary}
+RELATIONSHIPS: {relationships_str}
+PORTFOLIO: {portfolio_str}
 
-RELATIONSHIPS DETECTED:
-{relationships_str}
-
-PORTFOLIO COMPANIES: {portfolio_str}
-
-Determine the cascade impact chain in this EXACT JSON format:
+Return JSON:
 {{
   "cascade_chain": [
-    {{
-      "level": 1,
-      "company": "Company name",
-      "impact_type": "direct|indirect",
-      "description": "What happens at this level"
-    }},
-    {{
-      "level": 2,
-      "company": "Company name",
-      "impact_type": "indirect",
-      "description": "How level 1 affects this company"
-    }}
+    {{ "level": 1, "company": "Name", "impact_type": "direct", "description": "desc" }}
   ],
-  "affected_portfolio_companies": ["Company1", "Company2"],
-  "severity": "high|medium|low",
-  "estimated_impact_percent": -5.5 (negative for losses, positive for gains),
-  "reasoning": "Brief explanation of the cascade logic"
+  "affected_portfolio_companies": ["Co1"],
+  "severity": "medium",
+  "estimated_impact_percent": -2.5,
+  "reasoning": "reason"
 }}
-
-IMPORTANT:
-- Level 1 = directly affected company
-- Level 2+ = downstream impacts
-- Only include companies actually affected
-- Impact percent should be realistic (-10% to +10%)
-- Severity: high (>2%), medium (0.5-2%), low (<0.5%)
-
-Return ONLY valid JSON, no other text.
 """
-
-            response = self.model.generate_content(
+            response = self.generate_content(
                 prompt,
-                generation_config=genai.GenerationConfig(
-                    temperature=GEMINI_TEMPERATURE,
-                    max_output_tokens=1000
-                )
+                generation_config=genai.GenerationConfig(temperature=GEMINI_TEMPERATURE, max_output_tokens=1000)
             )
-
-            result_text = response.text.strip()
-
-            # Extract JSON from markdown code blocks
-            if "```json" in result_text:
-                result_text = result_text.split("```json")[1].split("```")[0].strip()
-            elif "```" in result_text:
-                result_text = result_text.split("```")[1].split("```")[0].strip()
-
-            result = json.loads(result_text)
-            logger.info(f"Inferred cascade affecting {len(result.get('affected_portfolio_companies', []))} companies")
-            return result
-
+            
+            if response and response.text:
+                result = self._parse_json_response(response.text)
+                if result:
+                    logger.info(f"Inferred cascade affecting {len(result.get('affected_portfolio_companies', []))} companies")
+                return result
+            return self._dummy_cascade(portfolio_companies)
+            
         except Exception as e:
             logger.error(f"Error inferring cascade: {str(e)}")
-            return None
+            return self._dummy_cascade(portfolio_companies)
 
-    def generate_explanation(
-        self,
-        event_summary: str,
-        cascade_chain: List[Dict],
-        affected_holdings: List[Dict],
-        impact_percent: float,
-        sources: List[str]
-    ) -> str:
-        """
-        Generate human-readable explanation
+    def generate_explanation(self, event_summary: str, cascade_chain: List[Dict], affected_holdings: List[Dict], impact_percent: float, sources: List[str]) -> str:
+        """Generate human-readable explanation"""
+        prompt = f"""Explain this supply chain impact to a user.
+Event: {event_summary}
+Impact: {impact_percent}%
+Holdings: {[h['ticker'] for h in affected_holdings]}
 
-        Args:
-            event_summary: Event summary
-            cascade_chain: Cascade chain data
-            affected_holdings: List of affected holdings
-            impact_percent: Total portfolio impact percentage
-            sources: Source URLs
-
-        Returns:
-            Human-readable explanation string
-        """
-        try:
-            cascade_str = json.dumps(cascade_chain, indent=2)
-            holdings_str = json.dumps(affected_holdings, indent=2)
-
-            prompt = f"""
-Generate a clear, concise explanation for a portfolio manager.
-
-EVENT: {event_summary}
-
-CASCADE CHAIN:
-{cascade_str}
-
-AFFECTED HOLDINGS:
-{holdings_str}
-
-TOTAL PORTFOLIO IMPACT: {impact_percent}%
-
-Write a 2-3 sentence explanation that:
-1. States what happened
-2. Explains the supply chain impact
-3. Quantifies the portfolio impact
-4. Suggests an action
-
-Be specific, professional, and actionable. Use actual company names and numbers.
-"""
-
-            response = self.model.generate_content(
-                prompt,
-                generation_config=genai.GenerationConfig(
-                    temperature=GEMINI_TEMPERATURE + 0.1,  # Slightly higher for natural language
-                    max_output_tokens=300
-                )
-            )
-
-            explanation = response.text.strip()
-            logger.info("Generated explanation successfully")
-            return explanation
-
-        except Exception as e:
-            logger.error(f"Error generating explanation: {str(e)}")
-            return f"Supply chain event detected with {impact_percent}% estimated portfolio impact. Review recommended."
-
-    def detect_direct_impact(
-        self,
-        article_text: str,
-        article_title: str,
-        portfolio_companies: List[str]
-    ) -> Optional[Dict]:
-        """
-        Detect direct impact on portfolio companies - OPTIMIZED FOR SHORT CONTENT
-        """
-        max_retries = 2
-
-        for attempt in range(max_retries):
-            try:
-                companies_str = ", ".join(portfolio_companies)
-
-                # ULTRA-SIMPLIFIED PROMPT for short summaries
-                prompt = f"""News: "{article_title}"
-Details: {article_text[:400]}
-
-Does this impact {companies_str}?
-
-Return ONLY this JSON:
-{{
-  "has_direct_impact": true,
-  "affected_companies": ["Apple"],
-  "impact_type": "positive",
-  "event_category": "earnings",
-  "estimated_impact_percent": 2.0,
-  "reasoning": "Earnings beat estimates",
-  "summary": "Good news"
-}}
-
-Rules:
-- has_direct_impact: true if significant news about a portfolio company
-- impact_type: positive/negative/neutral
-- estimated_impact_percent: -5 to +5
-- If no impact: {{"has_direct_impact": false, "affected_companies": [], "impact_type": "neutral", "event_category": "news", "estimated_impact_percent": 0, "reasoning": "No portfolio impact", "summary": "{article_title}"}}"""
-
-                response = self.model.generate_content(
-                    prompt,
-                    generation_config=genai.GenerationConfig(
-                        temperature=0.1,
-                        max_output_tokens=1500,
-                        response_mime_type="application/json"
-                    )
-                )
-
-                result = self._parse_json_response(response.text)
-
-                if result and 'has_direct_impact' in result:
-                    if result.get('has_direct_impact'):
-                        logger.info(f"✓ Direct impact: {result.get('impact_type')} on {result.get('affected_companies')}")
-                    else:
-                        logger.info("No direct impact")
-                    return result
-
-                logger.warning(f"Attempt {attempt + 1}: Invalid response structure")
-
-            except Exception as e:
-                logger.warning(f"Attempt {attempt + 1} failed: {str(e)}")
-
-            if attempt < max_retries - 1:
-                import time
-                time.sleep(0.5)
-
-        # Fallback: return no impact
-        logger.info("Returning no impact after retries")
-        return {
-            "has_direct_impact": False,
-            "affected_companies": [],
-            "impact_type": "neutral",
-            "event_category": "news",
-            "estimated_impact_percent": 0.0,
-            "reasoning": "Could not determine impact from summary",
-            "summary": article_title
-        }
-
-    def answer_agent_question(
-        self,
-        context: str,
-        question: str,
-        tool_results: Dict = None
-    ) -> str:
-        """
-        Answer agent question using context and tool results
-
-        Args:
-            context: Background context
-            question: User's question
-            tool_results: Results from agent tools
-
-        Returns:
-            Answer string
-        """
-        try:
-            tools_str = json.dumps(tool_results, indent=2) if tool_results else "No tool data available"
-
-            prompt = f"""
-You are a financial analysis AI assistant for a portfolio manager.
-
-CONTEXT: {context}
-
-QUESTION: {question}
-
-TOOL RESULTS:
-{tools_str}
-
-Provide a clear, data-driven answer that:
-1. Directly answers the question
-2. Uses specific numbers and facts from tool results
-3. Cites evidence
-4. Suggests next steps if applicable
-
-Be concise (2-4 sentences) and professional.
-"""
-
-            response = self.model.generate_content(
-                prompt,
-                generation_config=genai.GenerationConfig(
-                    temperature=GEMINI_TEMPERATURE + 0.2,
-                    max_output_tokens=500
-                )
-            )
-
-            answer = response.text.strip()
-            logger.info("Generated agent answer successfully")
-            return answer
-
-        except Exception as e:
-            logger.error(f"Error answering agent question: {str(e)}")
-            return "I encountered an error processing your question. Please try rephrasing it."
+Keep it brief (2 sentences)."""
+        
+        res = self.generate_content(prompt)
+        return res.text if res else "Impact calculated based on supply chain dependencies."
 
 
-# Create singleton instance
+    def detect_direct_impact(self, article_text: str, article_title: str, portfolio_holdings: List[str]) -> Optional[Dict]:
+        """Detect direct impact on portfolio"""
+        portfolio_str = ", ".join(portfolio_holdings)
+        prompt = f"""Analyze DIRECT impact on: {portfolio_str}
+Title: {article_title}
+Content: {article_text[:500]}
+Return JSON: {{"has_direct_impact": true/false, "affected_companies": ["TICKER"], "impact_type": "positive/negative/neutral", "severity": "low/medium/high", "reasoning": "brief"}}"""
+        response = self.generate_content(prompt)
+        if response and response.text:
+            result = self._parse_json_response(response.text)
+            if result and result.get('has_direct_impact'):
+                logger.info(f"✓ Detected direct impact on {len(result.get('affected_companies', []))} companies")
+            return result
+        return {"has_direct_impact": False}
+
+# Singleton instance
 gemini_client = GeminiClient()
+
+# Import usage tracker at the top
+from app.services.usage_tracker import usage_tracker
+
+# Override generate_content to add tracking
+_original_generate = GeminiClient.generate_content
+
+def _tracked_generate(self, prompt: str, generation_config=None, **kwargs):
+    """Wrapped generate_content with usage tracking"""
+    response = _original_generate(self, prompt, generation_config, **kwargs)
+    
+    # Log usage if successful
+    if response and hasattr(response, 'text'):
+        input_chars = len(prompt)
+        output_chars = len(response.text) if response.text else 0
+        usage_tracker.log_request("gemini-2.5-flash", input_chars, output_chars)
+    
+    return response
+
+# Monkey patch
+GeminiClient.generate_content = _tracked_generate

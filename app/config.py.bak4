@@ -18,22 +18,13 @@ NEWSDATA_IO_KEY = os.getenv("NEWSDATA_IO_KEY")
 FINNHUB_API_KEY = os.getenv("FINNHUB_API_KEY")
 GNEWS_API_KEY = os.getenv("GNEWS_API_KEY")
 MEDIASTACK_API_KEY = os.getenv("MEDIASTACK_API_KEY")
-
-# OpenRouter: Support multiple keys for rotation (comma-separated)
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")  # Backward compatibility
-OPENROUTER_API_KEYS_STR = os.getenv("OPENROUTER_API_KEYS", "")
-if OPENROUTER_API_KEYS_STR:
-    OPENROUTER_API_KEYS = [k.strip() for k in OPENROUTER_API_KEYS_STR.split(",") if k.strip()]
-elif OPENROUTER_API_KEY:
-    OPENROUTER_API_KEYS = [OPENROUTER_API_KEY]
-else:
-    OPENROUTER_API_KEYS = []
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
 # Default model for OpenRouter
 OPENROUTER_MODEL = os.getenv("OPENROUTER_MODEL", "google/gemini-2.0-flash-exp:free")
 
 # Validate required API keys
-if not GEMINI_API_KEY and not OPENROUTER_API_KEYS:
+if not GEMINI_API_KEY and not OPENROUTER_API_KEY:
     raise ValueError("Either GEMINI_API_KEY or OPENROUTER_API_KEY is required in .env file")
 
 # News API keys are optional - at least one should be configured
@@ -138,7 +129,7 @@ FINNHUB_RATE_LIMIT = 60  # requests per minute (free tier) - SAFE for 5-min inte
 # - Fallback to keyword matching without Gemini
 # - Skip Gemini on low-priority sources
 
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash-exp")  # Free tier optimized model
+GEMINI_MODEL = "gemini-2.0-flash-exp"  # Free tier optimized model
 GEMINI_RATE_LIMIT = 20  # ACTUAL free tier limit: 20 RPM (updated from 60)
 GEMINI_TEMPERATURE = 0.2  # Lower temperature for more deterministic outputs
 GEMINI_TIMEOUT = 30  # Timeout for API calls
@@ -229,4 +220,5 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 logger.info(f"MarketPulse-X Configuration Loaded - Environment: {ENVIRONMENT}")
 logger.info(f"Tracking {len(TRACKED_COMPANIES)} companies (Default Config)")
+logger.info(f"Default Portfolio: {list(PORTFOLIO_COMPANIES.keys())} (Will be overridden by dynamic user input)")
 logger.info(f"Default Supply Chain: {list(SUPPLY_CHAIN_COMPANIES.keys())} (Extensible via Agent 3B)")

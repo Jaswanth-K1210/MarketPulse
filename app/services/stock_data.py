@@ -159,18 +159,22 @@ class StockDataService:
                 'timestamp': datetime.now().isoformat()
             }
         else:
-            # Generic fallback for unknown tickers
+            # Generic fallback for unknown/invalid tickers
+            # Do NOT return fake $100. Return explicit error state.
             return {
                 'ticker': ticker,
-                'current_price': 100.00,
-                'previous_close': 99.50,
-                'change': 0.50,
-                'change_percent': 0.50,
+                'current_price': 0,
+                'previous_close': 0,
+                'change': 0,
+                'change_percent': 0,
                 'market_cap': 'N/A',
                 'currency': 'USD',
-                'company_name': ticker,
+                'company_name': f"{ticker} (Invalid)",
+                'error': 'Ticker not found',
+                'is_valid': False,
                 'timestamp': datetime.now().isoformat()
             }
+
 
 
 # Global instance

@@ -9,7 +9,7 @@ from typing import List, Dict, Optional, Set
 from datetime import datetime, timedelta, timezone
 from bs4 import BeautifulSoup
 from app.config import (
-    NEWSAPI_KEY, TRACKED_COMPANIES,
+    NEWSAPI_KEY, TRACKED_COMPANIES, PORTFOLIO_COMPANIES,
     NEWSDATA_IO_KEY, FINNHUB_API_KEY, GNEWS_API_KEY, MEDIASTACK_API_KEY
 )
 from app.models.article import Article
