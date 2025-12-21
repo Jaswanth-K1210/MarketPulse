@@ -1,46 +1,46 @@
 # Core Framework
-fastapi==0.109.2
-uvicorn==0.27.1
-python-dotenv==1.0.1
-pydantic==2.6.1
+fastapi>=0.109.0
+uvicorn>=0.27.0
+python-dotenv>=1.0.0
+# Relaxed pydantic to allow pre-built wheels
+pydantic>=2.5.0
 
 # News Aggregation
-feedparser==6.0.11
-requests==2.31.0
-beautifulsoup4==4.12.3
-newspaper3k==0.2.8
+feedparser>=6.0.10
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+newspaper3k>=0.2.8
 
 # AI/LLM APIs
-# Updated to recent versions to prevent conflict loops
 google-generativeai>=0.4.0
 anthropic>=0.18.0
 
 # Stock Market Data
-yfinance==0.2.36
+yfinance>=0.2.30
 
 # Background Jobs
-APScheduler==3.10.4
+APScheduler>=3.10.4
 
 # Database
-sqlalchemy==2.0.27
+sqlalchemy>=2.0.25
 
 # Utilities
-PyYAML==6.0.1
-redis==5.0.1
-python-multipart==0.0.9
-aiofiles==23.2.1
+PyYAML>=6.0.1
+redis>=5.0.1
+python-multipart>=0.0.9
+aiofiles>=23.2.1
 
 # Testing
-pytest==8.0.0
-pytest-asyncio==0.23.5
+pytest>=7.4.0
+pytest-asyncio>=0.23.0
 
 # WebSocket support
-websockets==12.0
-python-socketio==5.11.1
-python-engineio==4.9.0
+websockets>=12.0
+python-socketio>=5.11.0
+python-engineio>=4.9.0
 
-# Agent Framework (Pinned to fix build time issues)
-langchain==0.1.9
-langchain-core==0.1.26
-langchain-google-genai==0.0.9
-langgraph==0.0.24
+# Agent Framework (Relaxed to avoid build conflicts)
+langchain>=0.1.0
+langchain-core>=0.1.20
+langchain-google-genai>=0.0.9
+langgraph>=0.0.20
