@@ -173646,3 +173646,675 @@ Processing article: How AI Will Be Different at CES 2026: On‑Device Processing
 2025-12-21 11:23:36,445 - app.services.pipeline - INFO - No relationships found
 2025-12-21 11:23:36,445 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
 2025-12-21 11:23:36,446 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:23:40,883 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:23:49,218 - app.services.gemini_client - INFO - ✓ Detected direct impact on 5 companies
+2025-12-21 11:23:49,219 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:23:49,219 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:23:49,221 - app.services.market_data - INFO - Returning cached data for AAOI
+2025-12-21 11:23:49,627 - app.services.market_data - INFO - Successfully fetched data for AAL: $15.78
+2025-12-21 11:23:49,867 - app.services.market_data - INFO - Successfully fetched data for AAPL: $273.67
+2025-12-21 11:23:50,184 - app.services.market_data - INFO - Successfully fetched data for NVDA: $180.99
+2025-12-21 11:23:50,184 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:23:50,686 - app.services.market_data - INFO - Successfully fetched data for TSLA: $481.2
+2025-12-21 11:23:50,881 - app.services.market_data - INFO - Successfully fetched data for MSFT: $485.92
+2025-12-21 11:23:51,063 - app.services.market_data - INFO - Successfully fetched data for AMD: $213.43
+2025-12-21 11:23:51,064 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:23:51,070 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:23:51,072 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Samsung 34" Odyssey G55T WQHD 165Hz - $229 Online Price
+======================================================================
+2025-12-21 11:23:51,072 - app.services.pipeline - INFO - ✓ Article validated: Samsung 34" Odyssey G55T WQHD 165Hz - $229 Online Price
+2025-12-21 11:23:51,072 - app.services.pipeline - INFO - Extracting relationships from: Samsung 34" Odyssey G55T WQHD 165Hz - $229 Online Price
+2025-12-21 11:23:51,073 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:23:58,796 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:23:58,796 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:23:58,797 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:23:58,798 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:24:03,391 - app.services.gemini_client - INFO - ✓ Detected direct impact on 1 companies
+2025-12-21 11:24:03,392 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:24:03,392 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:24:03,393 - app.services.market_data - INFO - Returning cached data for AAOI
+2025-12-21 11:24:03,393 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:24:03,393 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:24:03,393 - app.services.market_data - INFO - Returning cached data for NVDA
+2025-12-21 11:24:03,393 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:24:03,394 - app.services.market_data - INFO - Returning cached data for TSLA
+2025-12-21 11:24:03,394 - app.services.market_data - INFO - Returning cached data for MSFT
+2025-12-21 11:24:03,394 - app.services.market_data - INFO - Returning cached data for AMD
+2025-12-21 11:24:03,394 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:24:03,399 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:24:03,401 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: SoftBank races to fulfill $22.5 billion funding commitment to OpenAI by year-end
+======================================================================
+2025-12-21 11:24:03,402 - app.services.pipeline - INFO - ✓ Article validated: SoftBank races to fulfill $22.5 billion funding commitment to OpenAI by year-end
+2025-12-21 11:24:03,402 - app.services.pipeline - INFO - Extracting relationships from: SoftBank races to fulfill $22.5 billion funding commitment to OpenAI by year-end
+2025-12-21 11:24:03,402 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:24:05,470 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:24:05,471 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:24:05,474 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:24:10,043 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:24:13,198 - app.services.gemini_client - INFO - ✓ Detected direct impact on 2 companies
+2025-12-21 11:24:13,198 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:24:13,198 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:24:13,199 - app.services.market_data - INFO - Returning cached data for AAOI
+2025-12-21 11:24:13,200 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:24:13,200 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:24:13,200 - app.services.market_data - INFO - Returning cached data for NVDA
+2025-12-21 11:24:13,200 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:24:13,200 - app.services.market_data - INFO - Returning cached data for TSLA
+2025-12-21 11:24:13,201 - app.services.market_data - INFO - Returning cached data for MSFT
+2025-12-21 11:24:13,201 - app.services.market_data - INFO - Returning cached data for AMD
+2025-12-21 11:24:13,201 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:24:13,204 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:24:13,205 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: The Samsung Odyssey Ark is the most impressive monitor, and it’s over half off!
+======================================================================
+2025-12-21 11:24:13,205 - app.services.pipeline - INFO - ✓ Article validated: The Samsung Odyssey Ark is the most impressive monitor, and it’s over half off!
+2025-12-21 11:24:13,206 - app.services.pipeline - INFO - Extracting relationships from: The Samsung Odyssey Ark is the most impressive monitor, and it’s over half off!
+2025-12-21 11:24:13,206 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:24:21,029 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:24:21,030 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:24:21,031 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:24:21,032 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:24:28,924 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:24:28,925 - app.services.alert_generator - INFO - ✅ Alert Generation Complete. Total New Alerts: 0
+2025-12-21 11:24:28,926 - app.services.background_scheduler - INFO - ✅ Generated 0 alerts
+2025-12-21 11:24:35,668 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:24:41,074 - app.services.stock_data - INFO - Fetching live prices for 9 tickers
+2025-12-21 11:24:42,649 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:24:43,111 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:24:43,714 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:24:44,814 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:24:45,087 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:24:45,577 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:24:45,952 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:24:46,397 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:24:46,767 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:25:10,949 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:25:35,036 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:25:40,109 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:25:57,502 - app.api.websocket - INFO - WebSocket disconnected. Total: 5
+2025-12-21 11:25:57,503 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:25:57,504 - app.api.websocket - INFO - WebSocket disconnected. Total: 4
+2025-12-21 11:25:57,504 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:25:57,506 - app.api.websocket - INFO - WebSocket disconnected. Total: 3
+2025-12-21 11:25:57,507 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:26:34,986 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:26:45,229 - app.services.persistence - ERROR - Error ensuring company existence: table companies has no column named market_cap
+2025-12-21 11:26:45,231 - app.services.persistence - ERROR - Error ensuring company existence: table companies has no column named market_cap
+2025-12-21 11:26:45,232 - app.services.persistence - ERROR - Error ensuring company existence: table companies has no column named market_cap
+2025-12-21 11:26:45,232 - app.services.persistence - ERROR - Error ensuring company existence: table companies has no column named market_cap
+2025-12-21 11:26:45,233 - app.services.persistence - ERROR - Error ensuring company existence: table companies has no column named market_cap
+2025-12-21 11:26:45,304 - app.api.routes - INFO - 🔍 Starting relationship discovery for user preethi: 5 companies...
+2025-12-21 11:26:45,307 - app.api.routes - INFO - ✅ Discovered relationships for AAPL
+2025-12-21 11:26:45,308 - app.api.routes - INFO - ✅ Discovered relationships for A
+2025-12-21 11:26:45,308 - app.api.routes - INFO - ✅ Discovered relationships for AAOI
+2025-12-21 11:26:45,308 - app.api.routes - INFO - ✅ Discovered relationships for MSFT
+2025-12-21 11:26:45,310 - app.api.routes - INFO - ✅ Discovered relationships for NVDA
+2025-12-21 11:26:45,311 - app.api.routes - INFO - 🎉 Relationship discovery complete!
+2025-12-21 11:26:45,394 - app.api.websocket - INFO - New WebSocket connection. Total: 4
+2025-12-21 11:26:45,401 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:26:45,406 - app.main - ERROR - WebSocket error: 
+2025-12-21 11:26:45,408 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:26:45,415 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:26:45,429 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:26:45,438 - app.api.websocket - INFO - New WebSocket connection. Total: 5
+2025-12-21 11:26:45,459 - app.api.routes - INFO - 📰 Fetching LIVE news from MULTIPLE sources for: ['AAPL', 'A', 'AAOI', 'MSFT', 'NVDA'] (NO DATABASE STORAGE)
+2025-12-21 11:26:49,017 - app.services.background_scheduler - INFO - ⏰ Running task: News-to-Alerts
+2025-12-21 11:26:51,276 - app.services.background_scheduler - INFO - 📰 Fetched 10 news articles
+2025-12-21 11:26:51,277 - app.services.alert_generator - INFO - ⚡ AlertGenerator: Processing 10 articles via Pipeline...
+2025-12-21 11:26:51,277 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: frago-cli 0.15.2
+======================================================================
+2025-12-21 11:26:51,277 - app.services.pipeline - INFO - ✓ Article validated: frago-cli 0.15.2
+2025-12-21 11:26:51,278 - app.services.pipeline - INFO - Extracting relationships from: frago-cli 0.15.2
+2025-12-21 11:26:51,278 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:26:58,875 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:26:58,876 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:26:58,876 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:26:58,878 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:27:06,340 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:27:06,340 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Albert Brooks Remembers ‘Genuine’ Rob and Michele Reiner After Their Deaths: ‘Makes My Heart Break’ | Video
+======================================================================
+2025-12-21 11:27:06,341 - app.services.pipeline - INFO - ✓ Article validated: Albert Brooks Remembers ‘Genuine’ Rob and Michele Reiner After Their Deaths: ‘Makes My Heart Break’ | Video
+2025-12-21 11:27:06,341 - app.services.pipeline - INFO - Extracting relationships from: Albert Brooks Remembers ‘Genuine’ Rob and Michele Reiner After Their Deaths: ‘Makes My Heart Break’ | Video
+2025-12-21 11:27:06,341 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:27:09,501 - app.api.routes - INFO - ✅ Got 105 LIVE articles from all sources
+2025-12-21 11:27:09,502 - app.api.routes - INFO - 📅 Filtered to 105 articles from last 7 days
+2025-12-21 11:27:09,503 - app.api.routes - INFO - 📊 Returning 15 LIVE articles (not stored in database)
+2025-12-21 11:27:09,584 - app.api.routes - INFO - 📰 Fetching LIVE news from MULTIPLE sources for: ['AAPL', 'A', 'AAOI', 'MSFT', 'NVDA'] (NO DATABASE STORAGE)
+2025-12-21 11:27:10,939 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:27:10,939 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:27:10,940 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:27:14,692 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:27:14,692 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: 2026 PDC World Darts Championship predictions: Picking the winner in all 32 second round matches
+======================================================================
+2025-12-21 11:27:14,693 - app.services.pipeline - INFO - ✓ Article validated: 2026 PDC World Darts Championship predictions: Picking the winner in all 32 second round matches
+2025-12-21 11:27:14,693 - app.services.pipeline - INFO - Extracting relationships from: 2026 PDC World Darts Championship predictions: Picking the winner in all 32 second round matches
+2025-12-21 11:27:14,693 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:27:21,843 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:27:21,844 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:27:21,844 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:27:21,846 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:27:27,956 - app.api.routes - INFO - ✅ Got 105 LIVE articles from all sources
+2025-12-21 11:27:27,957 - app.api.routes - INFO - 📅 Filtered to 105 articles from last 7 days
+2025-12-21 11:27:27,959 - app.api.routes - INFO - 📊 Returning 15 LIVE articles (not stored in database)
+2025-12-21 11:27:27,988 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:27:27,991 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Hodge hundred helps West Indies avoid follow-on against NZ
+======================================================================
+2025-12-21 11:27:27,993 - app.services.pipeline - INFO - ✓ Article validated: Hodge hundred helps West Indies avoid follow-on against NZ
+2025-12-21 11:27:27,993 - app.services.pipeline - INFO - Extracting relationships from: Hodge hundred helps West Indies avoid follow-on against NZ
+2025-12-21 11:27:27,994 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:27:27,996 - app.api.websocket - INFO - New WebSocket connection. Total: 6
+2025-12-21 11:27:28,004 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:27:34,988 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:27:39,722 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:27:39,722 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:27:39,723 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:27:39,724 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:27:42,683 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:27:42,687 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: invarianthub 1.9.4
+======================================================================
+2025-12-21 11:27:42,688 - app.services.pipeline - INFO - ✓ Article validated: invarianthub 1.9.4
+2025-12-21 11:27:42,689 - app.services.pipeline - INFO - Extracting relationships from: invarianthub 1.9.4
+2025-12-21 11:27:42,689 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:27:45,418 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:27:45,659 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:27:45,660 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:27:45,662 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:27:59,165 - app.services.gemini_client - INFO - ✓ Detected direct impact on 1 companies
+2025-12-21 11:27:59,166 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:27:59,166 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:27:59,544 - app.services.market_data - INFO - Successfully fetched data for AAOI: $31.32
+2025-12-21 11:27:59,766 - app.services.market_data - INFO - Successfully fetched data for AAL: $15.78
+2025-12-21 11:27:59,988 - app.services.market_data - INFO - Successfully fetched data for AAPL: $273.67
+2025-12-21 11:28:00,207 - app.services.market_data - INFO - Successfully fetched data for NVDA: $180.99
+2025-12-21 11:28:00,208 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:28:00,424 - app.services.market_data - INFO - Successfully fetched data for TSLA: $481.2
+2025-12-21 11:28:00,761 - app.services.market_data - INFO - Successfully fetched data for MSFT: $485.92
+2025-12-21 11:28:00,979 - app.services.market_data - INFO - Successfully fetched data for AMD: $213.43
+2025-12-21 11:28:00,980 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:28:00,981 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:28:01,546 - app.services.market_data - INFO - Successfully fetched data for A: $137.24
+2025-12-21 11:28:01,547 - app.services.market_data - INFO - Returning cached data for AAOI
+2025-12-21 11:28:01,548 - app.services.market_data - INFO - Returning cached data for MSFT
+2025-12-21 11:28:01,548 - app.services.market_data - INFO - Returning cached data for NVDA
+2025-12-21 11:28:01,555 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:28:01,558 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: What is this hard lump coming out of my bum?
+======================================================================
+2025-12-21 11:28:01,558 - app.services.pipeline - INFO - ✓ Article validated: What is this hard lump coming out of my bum?
+2025-12-21 11:28:01,558 - app.services.pipeline - INFO - Extracting relationships from: What is this hard lump coming out of my bum?
+2025-12-21 11:28:01,559 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:28:03,771 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:28:03,771 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:28:03,775 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:28:08,686 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:28:08,688 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Utah, Get Me Two
+======================================================================
+2025-12-21 11:28:08,689 - app.services.pipeline - INFO - ✓ Article validated: Utah, Get Me Two
+2025-12-21 11:28:08,689 - app.services.pipeline - INFO - Extracting relationships from: Utah, Get Me Two
+2025-12-21 11:28:08,689 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:28:15,394 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:28:16,413 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:28:16,414 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:28:16,414 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:28:16,416 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:28:20,262 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:28:20,263 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Kotak Equities sees Indian stocks faring better in 2026 on 3 factors; adds Dixon, raises IndiGo weight
+======================================================================
+2025-12-21 11:28:20,264 - app.services.pipeline - INFO - ✓ Article validated: Kotak Equities sees Indian stocks faring better in 2026 on 3 factors; adds Dixon, raises IndiGo weight
+2025-12-21 11:28:20,264 - app.services.pipeline - INFO - Extracting relationships from: Kotak Equities sees Indian stocks faring better in 2026 on 3 factors; adds Dixon, raises IndiGo weight
+2025-12-21 11:28:20,265 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:28:28,140 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:28:28,140 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:28:28,140 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:28:28,142 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:28:35,146 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:28:36,246 - app.services.gemini_client - INFO - ✓ Detected direct impact on 1 companies
+2025-12-21 11:28:36,246 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:28:36,246 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:28:36,247 - app.services.market_data - INFO - Returning cached data for AAOI
+2025-12-21 11:28:36,247 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:28:36,248 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:28:36,248 - app.services.market_data - INFO - Returning cached data for NVDA
+2025-12-21 11:28:36,248 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:28:36,248 - app.services.market_data - INFO - Returning cached data for TSLA
+2025-12-21 11:28:36,248 - app.services.market_data - INFO - Returning cached data for MSFT
+2025-12-21 11:28:36,248 - app.services.market_data - INFO - Returning cached data for AMD
+2025-12-21 11:28:36,248 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:28:36,249 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:28:36,249 - app.services.market_data - INFO - Returning cached data for A
+2025-12-21 11:28:36,249 - app.services.market_data - INFO - Returning cached data for AAOI
+2025-12-21 11:28:36,249 - app.services.market_data - INFO - Returning cached data for MSFT
+2025-12-21 11:28:36,249 - app.services.market_data - INFO - Returning cached data for NVDA
+2025-12-21 11:28:36,256 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:28:36,258 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Hell's Paradise: Jigokuraku Season 2 Anime Reveals Opening Theme Artists in New Trailer
+======================================================================
+2025-12-21 11:28:36,259 - app.services.pipeline - INFO - ✓ Article validated: Hell's Paradise: Jigokuraku Season 2 Anime Reveals Opening Theme Artists in New Trailer
+2025-12-21 11:28:36,259 - app.services.pipeline - INFO - Extracting relationships from: Hell's Paradise: Jigokuraku Season 2 Anime Reveals Opening Theme Artists in New Trailer
+2025-12-21 11:28:36,260 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:28:43,600 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:28:43,601 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:28:43,601 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:28:43,604 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:28:46,007 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:28:49,152 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:28:49,153 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: usgs-quakemon 1.0.2
+======================================================================
+2025-12-21 11:28:49,153 - app.services.pipeline - INFO - ✓ Article validated: usgs-quakemon 1.0.2
+2025-12-21 11:28:49,153 - app.services.pipeline - INFO - Extracting relationships from: usgs-quakemon 1.0.2
+2025-12-21 11:28:49,153 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:28:59,069 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:28:59,069 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:28:59,070 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:28:59,071 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:29:04,260 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:29:04,260 - app.services.alert_generator - INFO - ✅ Alert Generation Complete. Total New Alerts: 0
+2025-12-21 11:29:04,261 - app.services.background_scheduler - INFO - ✅ Generated 0 alerts
+2025-12-21 11:29:07,340 - app.api.websocket - INFO - WebSocket disconnected. Total: 5
+2025-12-21 11:29:07,341 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:29:08,382 - app.api.websocket - INFO - New WebSocket connection. Total: 6
+2025-12-21 11:29:15,168 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:29:33,236 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:29:33,241 - app.api.websocket - INFO - New WebSocket connection. Total: 7
+2025-12-21 11:29:33,248 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:29:33,251 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:29:33,277 - app.api.websocket - INFO - WebSocket disconnected. Total: 6
+2025-12-21 11:29:33,278 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:29:33,278 - app.api.routes - INFO - 📰 Fetching LIVE news from MULTIPLE sources for: ['AAPL', 'A', 'AAOI', 'MSFT', 'NVDA'] (NO DATABASE STORAGE)
+2025-12-21 11:29:53,984 - app.api.routes - INFO - ✅ Got 105 LIVE articles from all sources
+2025-12-21 11:29:53,986 - app.api.routes - INFO - 📅 Filtered to 105 articles from last 7 days
+2025-12-21 11:29:53,986 - app.api.routes - INFO - 📊 Returning 15 LIVE articles (not stored in database)
+2025-12-21 11:29:53,990 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:29:54,531 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:29:54,840 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:29:55,170 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:29:55,733 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:29:55,829 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:29:56,122 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:29:56,582 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:29:56,940 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:29:57,225 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:29:57,436 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:29:57,971 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:29:58,226 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:29:58,532 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:29:58,745 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:29:58,754 - app.api.websocket - INFO - New WebSocket connection. Total: 7
+2025-12-21 11:29:58,767 - app.api.routes - INFO - 📰 Fetching LIVE news from MULTIPLE sources for: ['AAPL', 'A', 'AAOI', 'MSFT', 'NVDA'] (NO DATABASE STORAGE)
+2025-12-21 11:30:21,228 - app.api.routes - INFO - ✅ Got 105 LIVE articles from all sources
+2025-12-21 11:30:21,230 - app.api.routes - INFO - 📅 Filtered to 105 articles from last 7 days
+2025-12-21 11:30:21,231 - app.api.routes - INFO - 📊 Returning 15 LIVE articles (not stored in database)
+2025-12-21 11:30:21,276 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:30:21,283 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:30:21,298 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:30:21,303 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:30:21,305 - app.api.routes - INFO - 📰 Fetching LIVE news from MULTIPLE sources for: ['AAPL', 'A', 'AAOI', 'MSFT', 'NVDA'] (NO DATABASE STORAGE)
+2025-12-21 11:30:40,993 - app.api.routes - INFO - ✅ Got 105 LIVE articles from all sources
+2025-12-21 11:30:40,995 - app.api.routes - INFO - 📅 Filtered to 105 articles from last 7 days
+2025-12-21 11:30:40,998 - app.api.routes - INFO - 📊 Returning 15 LIVE articles (not stored in database)
+2025-12-21 11:30:41,005 - app.api.websocket - INFO - New WebSocket connection. Total: 8
+2025-12-21 11:30:41,206 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:30:41,218 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:30:41,222 - app.api.routes - INFO - 📰 Fetching LIVE news from MULTIPLE sources for: ['AAPL', 'A', 'AAOI', 'MSFT', 'NVDA'] (NO DATABASE STORAGE)
+2025-12-21 11:31:09,186 - app.api.routes - INFO - ✅ Got 105 LIVE articles from all sources
+2025-12-21 11:31:09,207 - app.api.routes - INFO - 📅 Filtered to 105 articles from last 7 days
+2025-12-21 11:31:09,208 - app.api.routes - INFO - 📊 Returning 15 LIVE articles (not stored in database)
+2025-12-21 11:31:09,232 - app.main - ERROR - WebSocket error: 
+2025-12-21 11:31:09,235 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:31:09,249 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:31:09,255 - app.api.websocket - INFO - New WebSocket connection. Total: 9
+2025-12-21 11:31:09,274 - app.api.websocket - INFO - New WebSocket connection. Total: 10
+2025-12-21 11:31:10,937 - app.api.websocket - INFO - New WebSocket connection. Total: 11
+2025-12-21 11:31:34,991 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:31:35,048 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:31:54,301 - app.services.background_scheduler - INFO - ⏰ Running task: News-to-Alerts
+2025-12-21 11:31:56,768 - app.services.background_scheduler - INFO - 📰 Fetched 10 news articles
+2025-12-21 11:31:56,768 - app.services.alert_generator - INFO - ⚡ AlertGenerator: Processing 10 articles via Pipeline...
+2025-12-21 11:31:56,768 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: SoftBank races to fulfil $22.5 billion funding commitment to OpenAI by year-end, sources say
+======================================================================
+2025-12-21 11:31:56,769 - app.services.pipeline - INFO - ✓ Article validated: SoftBank races to fulfil $22.5 billion funding commitment to OpenAI by year-end, sources say
+2025-12-21 11:31:56,769 - app.services.pipeline - INFO - Extracting relationships from: SoftBank races to fulfil $22.5 billion funding commitment to OpenAI by year-end, sources say
+2025-12-21 11:31:56,769 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:32:04,615 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:32:04,616 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:32:04,616 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:32:04,618 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:32:04,938 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:32:13,547 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:32:13,548 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: No vertigo or vision issues. Man complains of swaying left-right while walking. Apollo neurologist warns about unexpected culprit
+======================================================================
+2025-12-21 11:32:13,548 - app.services.pipeline - INFO - ✓ Article validated: No vertigo or vision issues. Man complains of swaying left-right while walking. Apollo neurologist warns about unexpected culprit
+2025-12-21 11:32:13,548 - app.services.pipeline - INFO - Extracting relationships from: No vertigo or vision issues. Man complains of swaying left-right while walking. Apollo neurologist warns about unexpected culprit
+2025-12-21 11:32:13,548 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:32:21,200 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:32:21,201 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:32:21,201 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:32:21,202 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:32:27,241 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:32:27,242 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: World’s cartoonists on this week’s events
+======================================================================
+2025-12-21 11:32:27,242 - app.services.pipeline - INFO - ✓ Article validated: World’s cartoonists on this week’s events
+2025-12-21 11:32:27,242 - app.services.pipeline - INFO - Extracting relationships from: World’s cartoonists on this week’s events
+2025-12-21 11:32:27,243 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:32:30,532 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:32:30,533 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:32:30,534 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:32:33,364 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:32:33,364 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Parable of the Pearl of Great Value - Evangelical Caucus/Devotional
+======================================================================
+2025-12-21 11:32:33,364 - app.services.pipeline - INFO - ✓ Article validated: Parable of the Pearl of Great Value - Evangelical Caucus/Devotional
+2025-12-21 11:32:33,364 - app.services.pipeline - INFO - Extracting relationships from: Parable of the Pearl of Great Value - Evangelical Caucus/Devotional
+2025-12-21 11:32:33,364 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:32:34,944 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:32:34,989 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:32:41,088 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:32:41,097 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:32:41,099 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:32:41,106 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:32:45,262 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:32:45,262 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Cincinnati doughnut shop's emoji triggers a backlash and apology
+======================================================================
+2025-12-21 11:32:45,263 - app.services.pipeline - INFO - ✓ Article validated: Cincinnati doughnut shop's emoji triggers a backlash and apology
+2025-12-21 11:32:45,263 - app.services.pipeline - INFO - Extracting relationships from: Cincinnati doughnut shop's emoji triggers a backlash and apology
+2025-12-21 11:32:45,263 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:32:53,266 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:32:53,267 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:32:53,267 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:32:53,269 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:32:57,324 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:32:57,326 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Valve is scrapping the Steam Deck LCD, so now's your last chance to buy one
+======================================================================
+2025-12-21 11:32:57,329 - app.services.pipeline - INFO - ✓ Article validated: Valve is scrapping the Steam Deck LCD, so now's your last chance to buy one
+2025-12-21 11:32:57,330 - app.services.pipeline - INFO - Extracting relationships from: Valve is scrapping the Steam Deck LCD, so now's your last chance to buy one
+2025-12-21 11:32:57,330 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:32:59,366 - app.api.websocket - INFO - WebSocket disconnected. Total: 10
+2025-12-21 11:32:59,366 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:32:59,370 - app.api.websocket - INFO - WebSocket disconnected. Total: 9
+2025-12-21 11:32:59,370 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:32:59,372 - app.api.websocket - INFO - WebSocket disconnected. Total: 8
+2025-12-21 11:32:59,372 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:32:59,374 - app.api.websocket - INFO - WebSocket disconnected. Total: 7
+2025-12-21 11:32:59,375 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:32:59,375 - app.api.websocket - INFO - WebSocket disconnected. Total: 6
+2025-12-21 11:32:59,376 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:32:59,376 - app.api.websocket - INFO - WebSocket disconnected. Total: 5
+2025-12-21 11:32:59,376 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:32:59,379 - app.api.websocket - INFO - WebSocket disconnected. Total: 4
+2025-12-21 11:32:59,379 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:32:59,380 - app.api.websocket - INFO - WebSocket disconnected. Total: 3
+2025-12-21 11:32:59,380 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:32:59,468 - app.main - INFO - ======================================================================
+2025-12-21 11:32:59,469 - app.main - INFO - 🛑 MARKETPULSE-X SHUTTING DOWN
+2025-12-21 11:32:59,469 - app.main - INFO - ======================================================================
+2025-12-21 11:32:59,469 - app.main - INFO - ✅ MarketPulse-X shut down successfully
+2025-12-21 11:32:59,469 - app.main - INFO - ======================================================================
+
+2025-12-21 11:33:00,504 - app.config - INFO - MarketPulse-X Configuration Loaded - Environment: development
+2025-12-21 11:33:00,504 - app.config - INFO - Tracking 9 companies (Default Config)
+2025-12-21 11:33:00,505 - app.config - INFO - Default Supply Chain: ['TSMC', 'Taiwan Semiconductor', 'Samsung', 'Samsung Electronics', 'MediaTek', 'ARM', 'ARM Holdings', 'ASML', 'ASML Holding'] (Extensible via Agent 3B)
+2025-12-21 11:33:08,687 - app.services.gemini_client - INFO - Gemini fallback initialized with model: gemini-2.5-flash
+2025-12-21 11:33:08,689 - app.services.gemini_client - INFO - Gemini fallback initialized with model: gemini-2.5-flash
+2025-12-21 11:33:08,695 - app.services.gemini_client - INFO - Gemini fallback initialized with model: gemini-2.5-flash
+2025-12-21 11:33:09,215 - app.services.sec_parser - INFO - Loaded 10505 ticker-to-CIK mappings.
+2025-12-21 11:33:09,342 - app.api.websocket - INFO - WebSocket Connection Manager initialized
+2025-12-21 11:33:09,369 - app.main - INFO - ======================================================================
+2025-12-21 11:33:09,370 - app.main - INFO - 🚀 MARKETPULSE-X STARTING UP
+2025-12-21 11:33:09,370 - app.main - INFO - ======================================================================
+2025-12-21 11:33:09,373 - app.services.database - INFO - SQLite Database initialized at /Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/data/marketpulse.db
+2025-12-21 11:33:09,373 - app.main - INFO - ✓ Database initialized
+2025-12-21 11:33:09,401 - app.services.pipeline - INFO - Processing Pipeline initialized
+2025-12-21 11:33:09,401 - app.services.pipeline - INFO - Processing Pipeline initialized
+2025-12-21 11:33:09,402 - app.services.background_scheduler - INFO - 📅 Scheduled task 'News-to-Alerts' to run every 300s
+2025-12-21 11:33:09,402 - app.services.background_scheduler - INFO - 📅 Scheduled task 'Relationship-Updates' to run every 3600s
+2025-12-21 11:33:09,402 - app.services.background_scheduler - INFO - ⏰ Running task: News-to-Alerts
+2025-12-21 11:33:09,402 - app.services.background_scheduler - INFO - 🚀 Background scheduler started
+2025-12-21 11:33:09,403 - app.main - INFO - ✓ Background tasks started
+2025-12-21 11:33:09,403 - app.main - INFO - ======================================================================
+2025-12-21 11:33:09,403 - app.main - INFO - ✅ MarketPulse-X is running at http://0.0.0.0:8000
+2025-12-21 11:33:09,403 - app.main - INFO - ✅ API Documentation: http://0.0.0.0:8000/docs
+2025-12-21 11:33:09,404 - app.main - INFO - ✅ Demo Frontend: Open frontend/demo.html
+2025-12-21 11:33:09,404 - app.main - INFO - ======================================================================
+
+2025-12-21 11:33:09,419 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:33:10,672 - app.services.background_scheduler - INFO - 📰 Fetched 10 news articles
+2025-12-21 11:33:10,673 - app.services.alert_generator - INFO - ⚡ AlertGenerator: Processing 10 articles via Pipeline...
+2025-12-21 11:33:10,673 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: SoftBank races to fulfil $22.5 billion funding commitment to OpenAI by year-end, sources say
+======================================================================
+2025-12-21 11:33:10,674 - app.services.pipeline - INFO - ✓ Article validated: SoftBank races to fulfil $22.5 billion funding commitment to OpenAI by year-end, sources say
+2025-12-21 11:33:10,674 - app.services.pipeline - INFO - Extracting relationships from: SoftBank races to fulfil $22.5 billion funding commitment to OpenAI by year-end, sources say
+2025-12-21 11:33:10,675 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:33:11,471 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:33:12,039 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:33:12,422 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:33:12,983 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:33:13,187 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:33:13,689 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:33:14,357 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:33:14,815 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:33:15,083 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:33:15,465 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:33:15,918 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:33:16,207 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:33:16,450 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:33:16,669 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:33:16,678 - app.api.websocket - INFO - New WebSocket connection. Total: 1
+2025-12-21 11:33:16,680 - app.api.websocket - INFO - New WebSocket connection. Total: 2
+2025-12-21 11:33:16,708 - app.api.websocket - INFO - New WebSocket connection. Total: 3
+2025-12-21 11:33:16,714 - app.api.websocket - INFO - New WebSocket connection. Total: 4
+2025-12-21 11:33:16,774 - app.api.websocket - INFO - New WebSocket connection. Total: 5
+2025-12-21 11:33:16,800 - app.api.websocket - INFO - New WebSocket connection. Total: 6
+2025-12-21 11:33:16,820 - app.api.websocket - INFO - New WebSocket connection. Total: 7
+2025-12-21 11:33:16,841 - app.api.websocket - INFO - New WebSocket connection. Total: 8
+2025-12-21 11:33:19,640 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:33:19,641 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:33:19,641 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:33:19,643 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:33:24,212 - app.api.websocket - INFO - WebSocket disconnected. Total: 7
+2025-12-21 11:33:24,213 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:33:24,237 - app.api.websocket - INFO - New WebSocket connection. Total: 8
+2025-12-21 11:33:24,339 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:33:24,370 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:33:24,442 - app.api.routes - INFO - 📰 Fetching LIVE news from MULTIPLE sources for: ['AAPL', 'A', 'AAOI', 'MSFT', 'NVDA'] (NO DATABASE STORAGE)
+2025-12-21 11:33:25,714 - app.services.gemini_client - INFO - ✓ Detected direct impact on 1 companies
+2025-12-21 11:33:25,716 - app.services.pipeline - INFO - ✓ Direct impact detected: negative
+2025-12-21 11:33:25,719 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:33:26,341 - app.services.market_data - INFO - Successfully fetched data for AAOI: $31.32
+2025-12-21 11:33:26,772 - app.services.market_data - INFO - Successfully fetched data for AAL: $15.78
+2025-12-21 11:33:27,000 - app.services.market_data - INFO - Successfully fetched data for AAPL: $273.67
+2025-12-21 11:33:27,264 - app.services.market_data - INFO - Successfully fetched data for NVDA: $180.99
+2025-12-21 11:33:27,271 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:33:27,496 - app.services.market_data - INFO - Successfully fetched data for TSLA: $481.2
+2025-12-21 11:33:27,691 - app.services.market_data - INFO - Successfully fetched data for MSFT: $485.92
+2025-12-21 11:33:27,890 - app.services.market_data - INFO - Successfully fetched data for AMD: $213.43
+2025-12-21 11:33:27,890 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:33:27,891 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:33:28,095 - app.services.market_data - INFO - Successfully fetched data for A: $137.24
+2025-12-21 11:33:28,096 - app.services.market_data - INFO - Returning cached data for AAOI
+2025-12-21 11:33:28,096 - app.services.market_data - INFO - Returning cached data for MSFT
+2025-12-21 11:33:28,096 - app.services.market_data - INFO - Returning cached data for NVDA
+2025-12-21 11:33:28,097 - app.services.pipeline - INFO - No affected holdings found
+2025-12-21 11:33:28,098 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: No vertigo or vision issues. Man complains of swaying left-right while walking. Apollo neurologist warns about unexpected culprit
+======================================================================
+2025-12-21 11:33:28,098 - app.services.pipeline - INFO - ✓ Article validated: No vertigo or vision issues. Man complains of swaying left-right while walking. Apollo neurologist warns about unexpected culprit
+2025-12-21 11:33:28,099 - app.services.pipeline - INFO - Extracting relationships from: No vertigo or vision issues. Man complains of swaying left-right while walking. Apollo neurologist warns about unexpected culprit
+2025-12-21 11:33:28,099 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:33:37,233 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:33:37,234 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:33:37,235 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:33:37,237 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:33:43,488 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:33:43,489 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: World’s cartoonists on this week’s events
+======================================================================
+2025-12-21 11:33:43,490 - app.services.pipeline - INFO - ✓ Article validated: World’s cartoonists on this week’s events
+2025-12-21 11:33:43,490 - app.services.pipeline - INFO - Extracting relationships from: World’s cartoonists on this week’s events
+2025-12-21 11:33:43,490 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:33:47,677 - app.api.routes - INFO - ✅ Got 105 LIVE articles from all sources
+2025-12-21 11:33:47,679 - app.api.routes - INFO - 📅 Filtered to 105 articles from last 7 days
+2025-12-21 11:33:47,682 - app.api.routes - INFO - 📊 Returning 15 LIVE articles (not stored in database)
+2025-12-21 11:33:47,703 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:33:48,507 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:33:48,900 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:33:49,248 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:33:49,627 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:33:49,836 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:33:50,088 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:33:50,531 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:33:51,355 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:33:51,542 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:33:51,542 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:33:51,544 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:33:51,965 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:33:52,158 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:33:52,680 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:33:52,909 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:33:53,091 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:33:53,282 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:33:53,292 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:33:53,302 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:33:53,307 - app.api.websocket - INFO - New WebSocket connection. Total: 9
+2025-12-21 11:33:54,939 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:33:56,963 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:33:56,963 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Parable of the Pearl of Great Value - Evangelical Caucus/Devotional
+======================================================================
+2025-12-21 11:33:56,964 - app.services.pipeline - INFO - ✓ Article validated: Parable of the Pearl of Great Value - Evangelical Caucus/Devotional
+2025-12-21 11:33:56,965 - app.services.pipeline - INFO - Extracting relationships from: Parable of the Pearl of Great Value - Evangelical Caucus/Devotional
+2025-12-21 11:33:56,965 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:34:04,392 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:34:04,393 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:34:04,394 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:34:04,398 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:34:04,940 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:34:08,453 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:34:08,454 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Cincinnati doughnut shop's emoji triggers a backlash and apology
+======================================================================
+2025-12-21 11:34:08,454 - app.services.pipeline - INFO - ✓ Article validated: Cincinnati doughnut shop's emoji triggers a backlash and apology
+2025-12-21 11:34:08,454 - app.services.pipeline - INFO - Extracting relationships from: Cincinnati doughnut shop's emoji triggers a backlash and apology
+2025-12-21 11:34:08,454 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:34:13,005 - app.api.websocket - INFO - WebSocket disconnected. Total: 8
+2025-12-21 11:34:13,006 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:34:13,016 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:34:13,023 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:34:13,027 - app.api.websocket - INFO - New WebSocket connection. Total: 9
+2025-12-21 11:34:13,054 - app.api.routes - INFO - 📰 Fetching LIVE news from MULTIPLE sources for: ['AAPL', 'A', 'AAOI', 'MSFT', 'NVDA'] (NO DATABASE STORAGE)
+2025-12-21 11:34:16,700 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:34:16,700 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:34:16,700 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:34:16,701 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:34:19,867 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:34:19,868 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Valve is scrapping the Steam Deck LCD, so now's your last chance to buy one
+======================================================================
+2025-12-21 11:34:19,869 - app.services.pipeline - INFO - ✓ Article validated: Valve is scrapping the Steam Deck LCD, so now's your last chance to buy one
+2025-12-21 11:34:19,869 - app.services.pipeline - INFO - Extracting relationships from: Valve is scrapping the Steam Deck LCD, so now's your last chance to buy one
+2025-12-21 11:34:19,869 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:34:27,761 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:34:27,763 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:34:27,763 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:34:27,765 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:34:34,008 - app.api.routes - INFO - ✅ Got 105 LIVE articles from all sources
+2025-12-21 11:34:34,009 - app.api.routes - INFO - 📅 Filtered to 105 articles from last 7 days
+2025-12-21 11:34:34,010 - app.api.routes - INFO - 📊 Returning 15 LIVE articles (not stored in database)
+2025-12-21 11:34:34,022 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:34:34,257 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:34:34,491 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:34:34,859 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:34:35,172 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:34:35,260 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:34:35,584 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:34:35,885 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:34:36,146 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:34:36,368 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:34:36,634 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:34:36,992 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:34:37,191 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:34:37,377 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:34:37,569 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:34:37,581 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:34:37,586 - app.api.websocket - INFO - New WebSocket connection. Total: 10
+2025-12-21 11:34:37,595 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:34:38,734 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:34:38,735 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: 80un 0.2.3
+======================================================================
+2025-12-21 11:34:38,735 - app.services.pipeline - INFO - ✓ Article validated: 80un 0.2.3
+2025-12-21 11:34:38,735 - app.services.pipeline - INFO - Extracting relationships from: 80un 0.2.3
+2025-12-21 11:34:38,735 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:34:43,938 - app.services.stock_data - INFO - Returning cached stock prices
