@@ -174318,3 +174318,556 @@ Processing article: 80un 0.2.3
 2025-12-21 11:34:38,735 - app.services.pipeline - INFO - Extracting relationships from: 80un 0.2.3
 2025-12-21 11:34:38,735 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
 2025-12-21 11:34:43,938 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:34:46,765 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:34:46,766 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:34:46,766 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:34:46,767 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:34:52,570 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:34:52,570 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Reverse-Engineering the Intel 8087 Stack Circuitry
+======================================================================
+2025-12-21 11:34:52,571 - app.services.pipeline - INFO - ✓ Article validated: Reverse-Engineering the Intel 8087 Stack Circuitry
+2025-12-21 11:34:52,571 - app.services.pipeline - INFO - Extracting relationships from: Reverse-Engineering the Intel 8087 Stack Circuitry
+2025-12-21 11:34:52,571 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:34:53,953 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:34:57,716 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:34:57,716 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:34:57,718 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:35:03,938 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:35:05,110 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:35:05,111 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Understanding Bitcoin Cash’s 10% jump amid BCH’s spot–derivatives divide
+======================================================================
+2025-12-21 11:35:05,111 - app.services.pipeline - INFO - ✓ Article validated: Understanding Bitcoin Cash’s 10% jump amid BCH’s spot–derivatives divide
+2025-12-21 11:35:05,111 - app.services.pipeline - INFO - Extracting relationships from: Understanding Bitcoin Cash’s 10% jump amid BCH’s spot–derivatives divide
+2025-12-21 11:35:05,111 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:35:12,482 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:35:12,482 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:35:12,482 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:35:12,483 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:35:18,957 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:35:18,958 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: HP OmniBook X Flip: 14" FHD+ IPS Touch, Ryzen AI 5 340, 16GB LPDDR5, 512GB SSDâ $449.99 (0 replies)
+======================================================================
+2025-12-21 11:35:18,978 - app.services.pipeline - INFO - ✓ Article validated: HP OmniBook X Flip: 14" FHD+ IPS Touch, Ryzen AI 5 340, 16GB LPDDR5, 512GB SSDâ $449.99 (0 replies)
+2025-12-21 11:35:18,979 - app.services.pipeline - INFO - Extracting relationships from: HP OmniBook X Flip: 14" FHD+ IPS Touch, Ryzen AI 5 340, 16GB LPDDR5, 512GB SSDâ $449.99 (0 replies)
+2025-12-21 11:35:18,979 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:35:21,680 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:35:22,077 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:35:22,353 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:35:22,665 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:35:22,989 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:35:23,114 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:35:23,629 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:35:23,954 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:35:24,597 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:35:24,917 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:35:25,358 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:35:25,809 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:35:26,070 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:35:26,340 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:35:26,676 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:35:26,690 - app.api.websocket - INFO - WebSocket disconnected. Total: 9
+2025-12-21 11:35:26,690 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:35:26,691 - app.api.websocket - INFO - WebSocket disconnected. Total: 8
+2025-12-21 11:35:26,691 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:35:26,692 - app.api.websocket - INFO - WebSocket disconnected. Total: 7
+2025-12-21 11:35:26,692 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:35:26,692 - app.api.websocket - INFO - WebSocket disconnected. Total: 6
+2025-12-21 11:35:26,692 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:35:26,692 - app.api.websocket - INFO - WebSocket disconnected. Total: 5
+2025-12-21 11:35:26,693 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:35:26,693 - app.api.websocket - INFO - WebSocket disconnected. Total: 4
+2025-12-21 11:35:26,693 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:35:26,694 - app.api.websocket - INFO - WebSocket disconnected. Total: 3
+2025-12-21 11:35:26,694 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:35:26,695 - app.api.websocket - INFO - WebSocket disconnected. Total: 2
+2025-12-21 11:35:26,695 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:35:26,720 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:35:26,733 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:35:26,740 - app.api.websocket - INFO - New WebSocket connection. Total: 3
+2025-12-21 11:35:26,742 - app.api.websocket - INFO - New WebSocket connection. Total: 4
+2025-12-21 11:35:26,751 - app.main - ERROR - WebSocket error: 
+2025-12-21 11:35:26,758 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:35:26,771 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:35:26,780 - app.api.websocket - INFO - New WebSocket connection. Total: 5
+2025-12-21 11:35:26,923 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:35:26,924 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:35:26,924 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:35:26,929 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:35:26,978 - app.api.routes - INFO - 📰 Fetching LIVE news from MULTIPLE sources for: ['AAPL', 'A', 'AAOI', 'MSFT', 'NVDA'] (NO DATABASE STORAGE)
+2025-12-21 11:35:32,211 - app.services.gemini_client - INFO - ✓ Detected direct impact on 2 companies
+2025-12-21 11:35:32,212 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:35:32,212 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:35:33,635 - app.services.market_data - INFO - Successfully fetched data for AAOI: $31.32
+2025-12-21 11:35:33,798 - app.services.market_data - INFO - Successfully fetched data for AAL: $15.78
+2025-12-21 11:35:33,984 - app.services.market_data - INFO - Successfully fetched data for AAPL: $273.67
+2025-12-21 11:35:34,241 - app.services.market_data - INFO - Successfully fetched data for NVDA: $180.99
+2025-12-21 11:35:34,242 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:35:34,483 - app.services.market_data - INFO - Successfully fetched data for TSLA: $481.2
+2025-12-21 11:35:34,655 - app.services.market_data - INFO - Successfully fetched data for MSFT: $485.92
+2025-12-21 11:35:34,936 - app.services.market_data - INFO - Successfully fetched data for AMD: $213.43
+2025-12-21 11:35:34,936 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:35:34,937 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:35:35,193 - app.services.market_data - INFO - Successfully fetched data for A: $137.24
+2025-12-21 11:35:35,193 - app.services.market_data - INFO - Returning cached data for AAOI
+2025-12-21 11:35:35,194 - app.services.market_data - INFO - Returning cached data for MSFT
+2025-12-21 11:35:35,194 - app.services.market_data - INFO - Returning cached data for NVDA
+2025-12-21 11:35:35,200 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:35:35,219 - app.services.alert_generator - INFO - ✅ Alert Generation Complete. Total New Alerts: 0
+2025-12-21 11:35:35,219 - app.services.background_scheduler - INFO - ✅ Generated 0 alerts
+2025-12-21 11:35:35,219 - app.services.background_scheduler - INFO - ⏰ Running task: Relationship-Updates
+2025-12-21 11:35:35,221 - app.services.background_scheduler - INFO - 🔄 Updating relationships for 14 companies...
+2025-12-21 11:35:35,225 - app.services.background_scheduler - INFO - ✅ Relationship updates complete
+2025-12-21 11:35:50,607 - app.api.routes - INFO - ✅ Got 105 LIVE articles from all sources
+2025-12-21 11:35:50,609 - app.api.routes - INFO - 📅 Filtered to 105 articles from last 7 days
+2025-12-21 11:35:50,609 - app.api.routes - INFO - 📊 Returning 15 LIVE articles (not stored in database)
+2025-12-21 11:35:50,643 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:35:50,646 - app.api.routes - INFO - 📰 Fetching LIVE news from MULTIPLE sources for: ['AAPL', 'A', 'AAOI', 'MSFT', 'NVDA'] (NO DATABASE STORAGE)
+2025-12-21 11:36:10,793 - app.api.routes - INFO - ✅ Got 105 LIVE articles from all sources
+2025-12-21 11:36:10,795 - app.api.routes - INFO - 📅 Filtered to 105 articles from last 7 days
+2025-12-21 11:36:10,795 - app.api.routes - INFO - 📊 Returning 15 LIVE articles (not stored in database)
+2025-12-21 11:36:10,861 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:36:11,142 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:36:11,372 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:36:11,699 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:36:11,948 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:36:12,048 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:36:12,349 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:36:12,615 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:36:12,955 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:36:13,134 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:36:13,389 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:36:13,662 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:36:13,993 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:36:14,227 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:36:14,412 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:36:14,420 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:36:14,426 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:36:14,430 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:36:14,437 - app.api.websocket - INFO - New WebSocket connection. Total: 6
+2025-12-21 11:36:14,438 - app.api.websocket - INFO - WebSocket disconnected. Total: 5
+2025-12-21 11:36:14,438 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:36:15,940 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:36:25,940 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:36:34,945 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:36:35,938 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:36:45,942 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:36:46,172 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:36:46,687 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:36:47,008 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:36:47,272 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:36:47,388 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:36:47,631 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:36:47,942 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:36:48,181 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:36:48,376 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:36:48,508 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:36:48,741 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:36:48,919 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:36:49,118 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:36:49,351 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:36:55,938 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:37:34,946 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:37:35,243 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:37:35,537 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:37:35,880 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:37:36,201 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:37:36,340 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:37:36,594 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:37:36,880 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:37:37,214 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:37:37,417 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:37:37,588 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:37:37,864 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:37:38,077 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:37:38,298 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:37:38,523 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:37:38,535 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:38:15,273 - app.services.background_scheduler - INFO - ⏰ Running task: News-to-Alerts
+2025-12-21 11:38:17,493 - app.services.background_scheduler - INFO - 📰 Fetched 0 news articles
+2025-12-21 11:38:17,494 - app.services.alert_generator - INFO - ⚡ AlertGenerator: Processing 0 articles via Pipeline...
+2025-12-21 11:38:17,494 - app.services.alert_generator - INFO - ✅ Alert Generation Complete. Total New Alerts: 0
+2025-12-21 11:38:17,494 - app.services.background_scheduler - INFO - ✅ Generated 0 alerts
+2025-12-21 11:38:34,964 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:38:35,625 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:38:36,010 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:38:36,597 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:38:37,113 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:38:37,231 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:38:37,600 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:38:38,177 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:38:38,424 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:38:38,764 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:38:39,036 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:38:39,314 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:38:39,495 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:38:39,626 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:38:39,815 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:38:39,823 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:39:35,001 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:39:35,343 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:39:35,578 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:39:35,876 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:39:36,229 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:39:36,406 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:39:36,652 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:39:37,027 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:39:37,951 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:39:38,337 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:39:38,570 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:39:39,186 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:39:39,599 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:39:40,039 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:39:40,347 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:39:40,383 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:39:50,995 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:39:55,941 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:40:05,942 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:40:15,945 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:40:16,632 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:40:16,889 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:40:17,181 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:40:17,468 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:40:17,563 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:40:17,828 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:40:18,101 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:40:18,350 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:40:18,562 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:40:18,730 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:40:19,055 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:40:19,474 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:40:19,694 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:40:19,930 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:40:25,635 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:40:30,079 - app.api.websocket - INFO - WebSocket disconnected. Total: 4
+2025-12-21 11:40:30,079 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:40:30,082 - app.api.websocket - INFO - WebSocket disconnected. Total: 3
+2025-12-21 11:40:30,082 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:40:35,657 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:41:34,984 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:41:35,345 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:41:36,043 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:41:36,513 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:41:36,921 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:41:37,037 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:41:37,288 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:41:37,725 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:41:38,026 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:41:38,507 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:41:38,777 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:41:39,055 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:41:39,246 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:41:39,830 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:41:40,101 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:42:02,651 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:42:17,259 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:42:17,521 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:42:17,774 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:42:18,058 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:42:18,355 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:42:18,450 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:42:18,683 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:42:18,949 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:42:19,205 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:42:19,390 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:42:19,556 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:42:19,817 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:42:20,020 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:42:20,216 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:42:20,420 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:42:34,994 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:43:17,640 - app.services.background_scheduler - INFO - ⏰ Running task: News-to-Alerts
+2025-12-21 11:43:20,187 - app.services.background_scheduler - INFO - 📰 Fetched 0 news articles
+2025-12-21 11:43:20,188 - app.services.alert_generator - INFO - ⚡ AlertGenerator: Processing 0 articles via Pipeline...
+2025-12-21 11:43:20,188 - app.services.alert_generator - INFO - ✅ Alert Generation Complete. Total New Alerts: 0
+2025-12-21 11:43:20,188 - app.services.background_scheduler - INFO - ✅ Generated 0 alerts
+2025-12-21 11:43:23,935 - app.api.websocket - INFO - New WebSocket connection. Total: 4
+2025-12-21 11:43:23,949 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:43:24,274 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:43:24,574 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:43:24,906 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:43:25,213 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:43:25,474 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:43:26,159 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:43:26,496 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:43:27,256 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:43:27,504 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:43:27,768 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:43:28,529 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:43:28,811 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:43:29,134 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:43:29,543 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:43:29,551 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:43:29,556 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:43:29,560 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:43:29,566 - app.api.websocket - INFO - WebSocket disconnected. Total: 3
+2025-12-21 11:43:29,567 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:43:29,569 - app.api.websocket - INFO - New WebSocket connection. Total: 4
+2025-12-21 11:43:29,581 - app.api.routes - INFO - 📰 Fetching LIVE news from MULTIPLE sources for: ['AAOI', 'AAL', 'AAPL'] (NO DATABASE STORAGE)
+2025-12-21 11:43:50,701 - app.api.routes - INFO - ✅ Got 85 LIVE articles from all sources
+2025-12-21 11:43:50,704 - app.api.routes - INFO - 📅 Filtered to 85 articles from last 7 days
+2025-12-21 11:43:50,706 - app.api.routes - INFO - 📊 Returning 15 LIVE articles (not stored in database)
+2025-12-21 11:43:50,721 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:43:50,732 - app.api.routes - INFO - 📰 Fetching LIVE news from MULTIPLE sources for: ['AAOI', 'AAL', 'AAPL'] (NO DATABASE STORAGE)
+2025-12-21 11:44:10,193 - app.api.routes - INFO - ✅ Got 85 LIVE articles from all sources
+2025-12-21 11:44:10,195 - app.api.routes - INFO - 📅 Filtered to 85 articles from last 7 days
+2025-12-21 11:44:10,197 - app.api.routes - INFO - 📊 Returning 15 LIVE articles (not stored in database)
+2025-12-21 11:44:10,211 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:44:10,543 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:44:10,856 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:44:11,287 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:44:11,711 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:44:11,805 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:44:12,074 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:44:12,383 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:44:12,795 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:44:13,031 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:44:13,312 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:44:14,008 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:44:14,236 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:44:14,422 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:44:14,617 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:44:14,641 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:44:14,646 - app.api.websocket - INFO - New WebSocket connection. Total: 5
+2025-12-21 11:44:14,658 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:44:14,664 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:44:14,674 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:44:14,684 - app.api.websocket - INFO - WebSocket disconnected. Total: 4
+2025-12-21 11:44:14,685 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:44:14,687 - app.api.websocket - INFO - WebSocket disconnected. Total: 3
+2025-12-21 11:44:14,687 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:44:15,947 - app.api.websocket - INFO - New WebSocket connection. Total: 4
+2025-12-21 11:44:15,963 - app.api.websocket - INFO - New WebSocket connection. Total: 5
+2025-12-21 11:44:23,905 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:44:27,312 - app.api.websocket - INFO - WebSocket disconnected. Total: 4
+2025-12-21 11:44:27,313 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:44:27,315 - app.api.websocket - INFO - WebSocket disconnected. Total: 3
+2025-12-21 11:44:27,315 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:44:27,630 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:44:27,643 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:44:27,652 - app.api.websocket - INFO - New WebSocket connection. Total: 4
+2025-12-21 11:44:27,658 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:44:27,663 - app.main - ERROR - WebSocket error: 
+2025-12-21 11:44:27,668 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:44:27,694 - app.api.routes - INFO - 📰 Fetching LIVE news from MULTIPLE sources for: ['AAOI', 'AAL', 'AAPL'] (NO DATABASE STORAGE)
+2025-12-21 11:44:49,537 - app.api.routes - INFO - ✅ Got 85 LIVE articles from all sources
+2025-12-21 11:44:49,539 - app.api.routes - INFO - 📅 Filtered to 85 articles from last 7 days
+2025-12-21 11:44:49,540 - app.api.routes - INFO - 📊 Returning 15 LIVE articles (not stored in database)
+2025-12-21 11:44:49,548 - app.api.websocket - INFO - New WebSocket connection. Total: 5
+2025-12-21 11:44:49,569 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:44:49,939 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:44:50,249 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:44:50,525 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:44:50,892 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:44:51,004 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:44:51,266 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:44:51,632 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:44:51,955 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:44:52,246 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:44:52,477 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:44:52,781 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:44:52,989 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:44:53,400 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:44:53,646 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:44:53,650 - app.api.routes - INFO - 📰 Fetching LIVE news from MULTIPLE sources for: ['AAOI', 'AAL', 'AAPL'] (NO DATABASE STORAGE)
+2025-12-21 11:45:20,727 - app.api.routes - INFO - ✅ Got 85 LIVE articles from all sources
+2025-12-21 11:45:20,729 - app.api.routes - INFO - 📅 Filtered to 85 articles from last 7 days
+2025-12-21 11:45:20,730 - app.api.routes - INFO - 📊 Returning 15 LIVE articles (not stored in database)
+2025-12-21 11:45:20,741 - app.main - ERROR - WebSocket error: 
+2025-12-21 11:45:20,745 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:45:20,749 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:45:20,767 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:45:20,865 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:45:20,872 - app.api.websocket - INFO - New WebSocket connection. Total: 6
+2025-12-21 11:45:20,875 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:45:22,945 - app.api.websocket - INFO - New WebSocket connection. Total: 7
+2025-12-21 11:45:27,947 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:45:28,233 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:45:28,473 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:45:28,805 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:45:29,145 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:45:29,318 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:45:29,602 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:45:29,924 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:45:30,213 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:45:30,444 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:45:30,710 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:45:31,068 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:45:31,312 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:45:31,530 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:45:31,748 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:45:34,997 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:45:35,267 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:45:37,945 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:45:47,946 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:45:57,948 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:46:17,940 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:46:18,318 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:46:18,570 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:46:18,857 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:46:19,174 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:46:19,277 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:46:19,515 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:46:20,382 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:46:20,605 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:46:20,823 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:46:21,074 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:46:21,330 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:46:21,994 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:46:22,197 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:46:22,365 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:46:34,962 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:46:34,992 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:46:37,605 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:46:47,948 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:46:57,948 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:46:58,268 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:46:58,567 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:46:58,859 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:46:59,534 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:46:59,655 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:47:00,056 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:47:00,356 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:47:00,662 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:47:00,863 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:47:01,226 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:47:01,520 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:47:01,730 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:47:01,824 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:47:02,046 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:47:07,947 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:47:12,333 - app.api.websocket - INFO - WebSocket disconnected. Total: 6
+2025-12-21 11:47:12,334 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:47:12,334 - app.api.websocket - INFO - WebSocket disconnected. Total: 5
+2025-12-21 11:47:12,334 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:47:12,335 - app.api.websocket - INFO - WebSocket disconnected. Total: 4
+2025-12-21 11:47:12,335 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:47:12,335 - app.api.websocket - INFO - WebSocket disconnected. Total: 3
+2025-12-21 11:47:12,336 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:47:12,440 - app.main - INFO - ======================================================================
+2025-12-21 11:47:12,440 - app.main - INFO - 🛑 MARKETPULSE-X SHUTTING DOWN
+2025-12-21 11:47:12,441 - app.main - INFO - ======================================================================
+2025-12-21 11:47:12,441 - app.main - INFO - ✅ MarketPulse-X shut down successfully
+2025-12-21 11:47:12,441 - app.main - INFO - ======================================================================
+
+2025-12-21 11:47:12,925 - app.config - INFO - MarketPulse-X Configuration Loaded - Environment: development
+2025-12-21 11:47:12,925 - app.config - INFO - Tracking 9 companies (Default Config)
+2025-12-21 11:47:12,925 - app.config - INFO - Default Supply Chain: ['TSMC', 'Taiwan Semiconductor', 'Samsung', 'Samsung Electronics', 'MediaTek', 'ARM', 'ARM Holdings', 'ASML', 'ASML Holding'] (Extensible via Agent 3B)
+2025-12-21 11:47:19,459 - app.services.gemini_client - INFO - Gemini fallback initialized with model: gemini-2.5-flash
+2025-12-21 11:47:19,462 - app.services.gemini_client - INFO - Gemini fallback initialized with model: gemini-2.5-flash
+2025-12-21 11:47:19,466 - app.services.gemini_client - INFO - Gemini fallback initialized with model: gemini-2.5-flash
+2025-12-21 11:47:19,994 - app.services.sec_parser - INFO - Loaded 10505 ticker-to-CIK mappings.
+2025-12-21 11:47:20,122 - app.api.websocket - INFO - WebSocket Connection Manager initialized
+2025-12-21 11:47:20,159 - app.main - INFO - ======================================================================
+2025-12-21 11:47:20,160 - app.main - INFO - 🚀 MARKETPULSE-X STARTING UP
+2025-12-21 11:47:20,160 - app.main - INFO - ======================================================================
+2025-12-21 11:47:20,162 - app.services.database - INFO - SQLite Database initialized at /Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/data/marketpulse.db
+2025-12-21 11:47:20,163 - app.main - INFO - ✓ Database initialized
+2025-12-21 11:47:20,205 - app.services.pipeline - INFO - Processing Pipeline initialized
+2025-12-21 11:47:20,206 - app.services.pipeline - INFO - Processing Pipeline initialized
+2025-12-21 11:47:20,206 - app.services.background_scheduler - INFO - 📅 Scheduled task 'News-to-Alerts' to run every 300s
+2025-12-21 11:47:20,206 - app.services.background_scheduler - INFO - 📅 Scheduled task 'Relationship-Updates' to run every 3600s
+2025-12-21 11:47:20,206 - app.services.background_scheduler - INFO - ⏰ Running task: News-to-Alerts
+2025-12-21 11:47:20,207 - app.services.background_scheduler - INFO - 🚀 Background scheduler started
+2025-12-21 11:47:20,207 - app.main - INFO - ✓ Background tasks started
+2025-12-21 11:47:20,207 - app.main - INFO - ======================================================================
+2025-12-21 11:47:20,207 - app.main - INFO - ✅ MarketPulse-X is running at http://0.0.0.0:8000
+2025-12-21 11:47:20,208 - app.main - INFO - ✅ API Documentation: http://0.0.0.0:8000/docs
+2025-12-21 11:47:20,208 - app.main - INFO - ✅ Demo Frontend: Open frontend/demo.html
+2025-12-21 11:47:20,209 - app.main - INFO - ======================================================================
+
+2025-12-21 11:47:20,229 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:47:21,513 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:47:22,282 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:47:22,324 - app.services.background_scheduler - INFO - 📰 Fetched 0 news articles
+2025-12-21 11:47:22,325 - app.services.alert_generator - INFO - ⚡ AlertGenerator: Processing 0 articles via Pipeline...
+2025-12-21 11:47:22,325 - app.services.alert_generator - INFO - ✅ Alert Generation Complete. Total New Alerts: 0
+2025-12-21 11:47:22,325 - app.services.background_scheduler - INFO - ✅ Generated 0 alerts
+2025-12-21 11:47:22,325 - app.services.background_scheduler - INFO - ⏰ Running task: Relationship-Updates
+2025-12-21 11:47:22,327 - app.services.background_scheduler - INFO - 🔄 Updating relationships for 14 companies...
+2025-12-21 11:47:22,327 - app.services.background_scheduler - INFO - ✅ Relationship updates complete
+2025-12-21 11:47:22,955 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:47:23,401 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:47:23,513 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:47:23,927 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:47:24,370 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:47:25,131 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:47:25,456 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:47:25,758 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:47:26,221 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:47:26,497 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:47:26,784 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:47:27,075 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:47:27,078 - app.api.websocket - INFO - New WebSocket connection. Total: 1
+2025-12-21 11:47:27,095 - app.api.websocket - INFO - New WebSocket connection. Total: 2
+2025-12-21 11:47:27,110 - app.api.websocket - INFO - New WebSocket connection. Total: 3
+2025-12-21 11:47:27,124 - app.api.websocket - INFO - New WebSocket connection. Total: 4
+2025-12-21 11:47:27,948 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:47:34,948 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:47:37,947 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:47:47,947 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:48:05,368 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:48:05,713 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:48:06,042 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:48:06,771 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:48:07,202 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:48:07,298 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:48:07,841 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:48:08,197 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:48:08,511 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:48:08,757 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:48:09,155 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:48:09,596 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:48:09,831 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:48:10,156 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:48:10,386 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:48:10,392 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:48:11,362 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:48:17,736 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:48:27,604 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:48:34,949 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:48:37,947 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:48:47,946 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:48:48,393 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:48:48,700 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:48:49,043 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:48:49,398 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:48:49,489 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:48:49,791 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:48:50,121 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:48:50,435 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:48:50,704 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:48:50,866 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:48:51,188 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:48:51,432 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:48:51,674 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:48:51,907 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:48:58,092 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:49:07,949 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:49:17,946 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:49:27,948 - app.services.stock_data - INFO - Fetching live prices for 14 tickers
+2025-12-21 11:49:28,262 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:49:28,833 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:49:29,491 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:49:29,926 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:49:30,023 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:49:30,444 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:49:30,891 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:49:31,199 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:49:31,430 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:49:31,698 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:49:32,064 - app.services.stock_data - INFO - A: $137.24 (+0.25%)
+2025-12-21 11:49:32,433 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:49:32,673 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:49:32,932 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:49:34,991 - app.services.stock_data - INFO - Returning cached stock prices
