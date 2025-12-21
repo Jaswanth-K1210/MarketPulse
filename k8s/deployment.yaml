@@ -20,7 +20,7 @@ metadata:
   namespace: marketpulse
 type: Opaque
 stringData:
-  GEMINI_API_KEY: "YOUR_GEMINI_API_KEY_HERE"
+  GEMINI_API_KEY: AIzaSyAgw2TiDUmRdYaGeWM39rIXhBGrlf7xkPI
   GEMINI_API_KEYS: "YOUR_GEMINI_API_KEYS_COMMA_SEPARATED"
   NEWSAPI_KEY: "YOUR_NEWSAPI_KEY_HERE"
   NEWSDATA_IO_KEY: "YOUR_NEWSDATA_KEY_HERE"
@@ -51,7 +51,8 @@ spec:
     spec:
       containers:
       - name: backend
-        image: gcr.io/YOUR_PROJECT_ID/marketpulse-backend:latest
+        image: us-central1-docker.pkg.dev/gen-lang-client-0448429144/marketpulse-repo/marketpulse-backend:latest
+
         ports:
         - containerPort: 8000
           name: http
@@ -90,7 +91,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend-service
+  name: backend
   namespace: marketpulse
 spec:
   type: ClusterIP
@@ -125,13 +126,11 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: gcr.io/YOUR_PROJECT_ID/marketpulse-frontend:latest
+        image: us-central1-docker.pkg.dev/gen-lang-client-0448429144/marketpulse-repo/marketpulse-frontend:latest
+
         ports:
         - containerPort: 80
           name: http
-        env:
-        - name: VITE_API_URL
-          value: "http://backend-service:8000"
         resources:
           requests:
             memory: "128Mi"
