@@ -62,10 +62,27 @@ def init_db():
             severity TEXT,
             impact_pct REAL,
             trigger_article_id TEXT,
+            source_urls TEXT,
+            ai_analysis TEXT,
+            full_reasoning TEXT,
             created_at DATETIME,
             status TEXT DEFAULT 'active'
         )
     ''')
+
+    # Add new columns if they don't exist (for existing databases)
+    try:
+        cursor.execute("ALTER TABLE alerts ADD COLUMN source_urls TEXT")
+    except:
+        pass
+    try:
+        cursor.execute("ALTER TABLE alerts ADD COLUMN ai_analysis TEXT")
+    except:
+        pass
+    try:
+        cursor.execute("ALTER TABLE alerts ADD COLUMN full_reasoning TEXT")
+    except:
+        pass
 
     # 5. Impact Analysis Table (The Reasoning Trail)
     cursor.execute('''
@@ -83,13 +100,17 @@ def init_db():
     # 6. Portfolio Holdings Table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS holdings (
-            ticker TEXT PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id TEXT,
+            ticker TEXT,
+            company_name TEXT,
             quantity REAL,
             avg_price REAL,
             current_price REAL,
             FOREIGN KEY(ticker) REFERENCES companies(ticker)
         )
     ''')
+
 
     # 7. Agent Discovery Logs
     cursor.execute('''

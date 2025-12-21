@@ -9,14 +9,12 @@ from typing import List, Dict, Optional, Set
 from datetime import datetime, timedelta, timezone
 from bs4 import BeautifulSoup
 from app.config import (
-    NEWSAPI_KEY, TRACKED_COMPANIES, PORTFOLIO_COMPANIES,
-    # New keys we'll add to config in next step
+    NEWSAPI_KEY, TRACKED_COMPANIES,
+    NEWSDATA_IO_KEY, FINNHUB_API_KEY, GNEWS_API_KEY, MEDIASTACK_API_KEY
 )
 from app.models.article import Article
 
-# Mocking new keys for the implementation if not in config yet
-GNEWS_API_KEY = os.getenv("GNEWS_API_KEY")
-MEDIASTACK_API_KEY = os.getenv("MEDIASTACK_API_KEY")
+# Fallback for any missing keys
 RAPID_API_KEY = os.getenv("RAPID_API_KEY")
 
 logger = logging.getLogger(__name__)
@@ -37,6 +35,18 @@ class NewsIngestionLayer:
             "Reuters": 1, "Bloomberg": 2, "Financial Times": 3, 
             "WSJ": 4, "CNBC": 5, "The Guardian": 6, "BBC News": 7
         }
+    
+    def strip_html(self, text: str) -> str:
+        """Remove HTML tags and clean up text for display"""
+        if not text:
+            return ""
+        # Remove HTML tags
+        clean = re.sub(r'<[^>]+>', '', text)
+        # Decode HTML entities
+        clean = clean.replace('&nbsp;', ' ').replace('&amp;', '&').replace('&lt;', '<').replace('&gt;', '>')
+        # Remove extra whitespace
+        clean = ' '.join(clean.split())
+        return clean[:500]  # Limit to 500 chars
 
     # ==========================================================================
     # 1. OFFICIAL FREE APIs
@@ -50,7 +60,51 @@ class NewsIngestionLayer:
             params = {"q": query, "language": "en", "sortBy": "publishedAt", "apiKey": NEWSAPI_KEY, "pageSize": 10}
             resp = requests.get(url, params=params, timeout=10)
             data = resp.json()
-            return [{"title": a["title"], "url": a["url"], "content": a["description"], "source": a["source"]["name"], "published_at": a["publishedAt"], "type": "api", "credibility": "high"} for a in data.get("articles", [])]
+            return [{
+                "title": a["title"], 
+                "url": a["url"], 
+                "content": self.strip_html(a.get("description", "")),  # Strip HTML
+                "source": a["source"]["name"], 
+                "published_at": a["publishedAt"], 
+                "type": "api", 
+                "credibility": "high"
+            } for a in data.get("articles", [])]
+        except: return []
+
+    def fetch_newsdata(self, query: str) -> List[Dict]:
+        """NewsData.io (200 req/day)"""
+        if not NEWSDATA_IO_KEY: return []
+        try:
+            url = "https://newsdata.io/api/1/news"
+            params = {"apikey": NEWSDATA_IO_KEY, "q": query, "language": "en"}
+            resp = requests.get(url, params=params, timeout=10)
+            data = resp.json()
+            return [{"title": a["title"],"url": a["link"], "content": a.get("description", ""), "source": a["source_id"], "published_at": a["pubDate"], "type": "api", "credibility": "medium"} for a in data.get("results", [])]
+        except: return []
+
+    def fetch_finnhub(self, query: str) -> List[Dict]:
+        """Finnhub.io (60 req/min) - Excellent for stock specific news"""
+        if not FINNHUB_API_KEY: return []
+        try:
+            today = datetime.now().strftime('%Y-%m-%d')
+            start = (datetime.now() - timedelta(days=2)).strftime('%Y-%m-%d')
+            articles = []
+            symbol = query.split(" OR ")[0] if " OR " in query else "AAPL" 
+            url = "https://finnhub.io/api/v1/company-news"
+            params = {"symbol": symbol, "from": start, "to": today, "token": FINNHUB_API_KEY}
+            resp = requests.get(url, params=params, timeout=10)
+            data = resp.json()
+            for a in data[:10]:
+                 articles.append({
+                     "title": a["headline"],
+                     "url": a["url"],
+                     "content": a["summary"],
+                     "source": a["source"],
+                     "published_at": datetime.fromtimestamp(a["datetime"]).isoformat(),
+                     "type": "api",
+                     "credibility": "high"
+                 })
+            return articles
         except: return []
 
     def fetch_gnews(self, query: str) -> List[Dict]:
@@ -213,6 +267,8 @@ class NewsIngestionLayer:
         # 2. APIs
         logger.info("Ingesting Official APIs...")
         all_raw.extend(self.fetch_news_api(q))
+        all_raw.extend(self.fetch_newsdata(q))
+        all_raw.extend(self.fetch_finnhub(q))
         all_raw.extend(self.fetch_gnews(q))
         all_raw.extend(self.fetch_hacker_news())
 

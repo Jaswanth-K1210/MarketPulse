@@ -89,25 +89,62 @@ class PersistenceService:
         rows = cursor.fetchall()
         conn.close()
         return [dict(row) for row in rows]
-
-    # --- ALERT & REASONING TRAIL ---
-    def save_alert(self, alert_id: str, headline: str, severity: str, impact_pct: float, article_id: str, reasoning_trail: List[Dict]):
+    
+    def get_articles_for_portfolio(self, tickers: List[str], limit: int = 10) -> List[Dict]:
+        """Get articles that mention any of the portfolio companies."""
         conn = get_db_connection()
         cursor = conn.cursor()
         
-        # Save Alert
-        cursor.execute("""
-            INSERT OR REPLACE INTO alerts (id, headline, severity, impact_pct, trigger_article_id, created_at)
-            VALUES (?, ?, ?, ?, ?, ?)
-        """, (alert_id, headline, severity, impact_pct, article_id, datetime.now()))
+        # Build query to find articles mentioning any ticker
+        placeholders = ' OR '.join([f"(title LIKE ? OR content LIKE ? OR reasoning LIKE ?)" for _ in tickers])
+        query = f"SELECT * FROM articles WHERE {placeholders} ORDER BY published_at DESC LIMIT ?"
         
+        # Create parameters: for each ticker, we need 3 wildcards
+        params = []
+        for ticker in tickers:
+            search_term = f"%{ticker}%"
+            params.extend([search_term, search_term, search_term])
+        params.append(limit)
+        
+        cursor.execute(query, params)
+        rows = cursor.fetchall()
+        conn.close()
+        
+        # Add affected_companies field
+        articles = []
+        for row in rows:
+            article = dict(row)
+            affected = []
+            text = f"{article.get('title', '')} {article.get('content', '')} {article.get('reasoning', '')}".upper()
+            for ticker in tickers:
+                if ticker.upper() in text:
+                    affected.append(ticker.upper())
+            article['affected_companies'] = affected
+            articles.append(article)
+        
+        return articles
+
+    # --- ALERT & REASONING TRAIL ---
+    def save_alert(self, alert_id: str, headline: str, severity: str, impact_pct: float, article_id: str,
+                   reasoning_trail: List[Dict], source_urls: List[str] = None, ai_analysis: str = None, full_reasoning: str = None):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Save Alert with new fields
+        cursor.execute("""
+            INSERT OR REPLACE INTO alerts
+            (id, headline, severity, impact_pct, trigger_article_id, source_urls, ai_analysis, full_reasoning, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (alert_id, headline, severity, impact_pct, article_id,
+              json.dumps(source_urls or []), ai_analysis or "", full_reasoning or "", datetime.now()))
+
         # Save Reasoning Trail (Impact Analysis)
         for step in reasoning_trail:
             cursor.execute("""
                 INSERT INTO impact_analysis (alert_id, ticker, impact_level, reasoning, confidence)
                 VALUES (?, ?, ?, ?, ?)
             """, (alert_id, step['ticker'], step['level'], step['reasoning'], step.get('confidence', 0.9)))
-            
+
         conn.commit()
         conn.close()
 
@@ -117,7 +154,22 @@ class PersistenceService:
         cursor.execute("SELECT * FROM alerts ORDER BY created_at DESC LIMIT ?", (limit,))
         rows = cursor.fetchall()
         conn.close()
-        return [dict(row) for row in rows]
+
+        # Parse JSON fields
+        alerts = []
+        for row in rows:
+            alert = dict(row)
+            # Parse source_urls from JSON
+            if 'source_urls' in alert and alert['source_urls']:
+                try:
+                    alert['source_urls'] = json.loads(alert['source_urls'])
+                except:
+                    alert['source_urls'] = []
+            else:
+                alert['source_urls'] = []
+            alerts.append(alert)
+
+        return alerts
 
     def get_alert_details(self, alert_id: str) -> Dict:
         conn = get_db_connection()
@@ -136,5 +188,57 @@ class PersistenceService:
         res = dict(alert)
         res['reasoning_trail'] = [dict(t) for t in trail]
         return res
+
+    def ensure_company_exists(self, ticker: str, sector: str = "Technology", market_cap: str = "Unknown"):
+        """Ensures a company record exists, creating it if necessary."""
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute("SELECT ticker FROM companies WHERE ticker = ?", (ticker,))
+            if not cursor.fetchone():
+                cursor.execute("""
+                    INSERT INTO companies (ticker, name, sector, market_cap, is_portfolio)
+                    VALUES (?, ?, ?, ?, ?)
+                """, (ticker, ticker, sector, market_cap, 0)) # Default is_portfolio to 0, updated separately if needed
+                conn.commit()
+                logger.info(f"Created new company record for {ticker}")
+        except Exception as e:
+            logger.error(f"Error ensuring company existence: {e}")
+        finally:
+            conn.close()
+
+    def get_all_relationships(self, limit: int = 100) -> List[Dict]:
+        """Get all relationships for graph visualization."""
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT source_ticker, target_ticker, relationship_type, criticality 
+            FROM relationships 
+            LIMIT ?
+        """, (limit,))
+        rows = cursor.fetchall()
+        conn.close()
+        return [dict(row) for row in rows]
+
+    def get_stats(self) -> Dict:
+        """Get system statistics."""
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        stats = {}
+        cursor.execute("SELECT COUNT(*) as count FROM alerts")
+        stats['active_alerts'] = cursor.fetchone()['count']
+        
+        cursor.execute("SELECT COUNT(*) as count FROM companies WHERE is_portfolio = 1")
+        stats['watched_companies'] = cursor.fetchone()['count']
+        
+        cursor.execute("SELECT COUNT(*) as count FROM articles")
+        stats['articles_processed'] = cursor.fetchone()['count']
+        
+        cursor.execute("SELECT COUNT(*) as count FROM relationships")
+        stats['relationships_mapped'] = cursor.fetchone()['count']
+        
+        conn.close()
+        return stats
 
 persistence_service = PersistenceService()

@@ -16,13 +16,24 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 NEWSAPI_KEY = os.getenv("NEWSAPI_KEY")
 NEWSDATA_IO_KEY = os.getenv("NEWSDATA_IO_KEY")
 FINNHUB_API_KEY = os.getenv("FINNHUB_API_KEY")
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+GNEWS_API_KEY = os.getenv("GNEWS_API_KEY")
+MEDIASTACK_API_KEY = os.getenv("MEDIASTACK_API_KEY")
+
+# OpenRouter: Support multiple keys for rotation (comma-separated)
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")  # Backward compatibility
+OPENROUTER_API_KEYS_STR = os.getenv("OPENROUTER_API_KEYS", "")
+if OPENROUTER_API_KEYS_STR:
+    OPENROUTER_API_KEYS = [k.strip() for k in OPENROUTER_API_KEYS_STR.split(",") if k.strip()]
+elif OPENROUTER_API_KEY:
+    OPENROUTER_API_KEYS = [OPENROUTER_API_KEY]
+else:
+    OPENROUTER_API_KEYS = []
 
 # Default model for OpenRouter
 OPENROUTER_MODEL = os.getenv("OPENROUTER_MODEL", "google/gemini-2.0-flash-exp:free")
 
 # Validate required API keys
-if not GEMINI_API_KEY and not OPENROUTER_API_KEY:
+if not GEMINI_API_KEY and not OPENROUTER_API_KEYS:
     raise ValueError("Either GEMINI_API_KEY or OPENROUTER_API_KEY is required in .env file")
 
 # News API keys are optional - at least one should be configured
@@ -44,22 +55,6 @@ LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 # PORTFOLIO CONFIGURATION - JASWANTH'S HOLDINGS
 # ═══════════════════════════════════════════════════════════════════════════
 
-PORTFOLIO_COMPANIES: Dict[str, str] = {
-    "Apple": "AAPL",
-    "NVIDIA": "NVDA",
-    "AMD": "AMD",
-    "Intel": "INTC",
-    "Broadcom": "AVGO"
-}
-
-# Default portfolio for Jaswanth
-DEFAULT_PORTFOLIO = [
-    {"company": "Apple Inc.", "ticker": "AAPL", "quantity": 150, "purchase_price": 145.50},
-    {"company": "NVIDIA Corporation", "ticker": "NVDA", "quantity": 80, "purchase_price": 420.00},
-    {"company": "Advanced Micro Devices", "ticker": "AMD", "quantity": 120, "purchase_price": 95.00},
-    {"company": "Intel Corporation", "ticker": "INTC", "quantity": 200, "purchase_price": 42.50},
-    {"company": "Broadcom Inc.", "ticker": "AVGO", "quantity": 60, "purchase_price": 540.00}
-]
 
 # ═══════════════════════════════════════════════════════════════════════════
 # SUPPLY CHAIN COMPANIES TO MONITOR
@@ -79,14 +74,14 @@ SUPPLY_CHAIN_COMPANIES: Dict[str, str] = {
 
 # All tracked companies (portfolio + supply chain)
 TRACKED_COMPANIES: List[str] = [
-    "Apple", "NVIDIA", "AMD", "Intel", "Broadcom",  # Portfolio
+
     "TSMC", "Taiwan Semiconductor", "Samsung", "Samsung Electronics",  # Supply chain
     "MediaTek", "ARM", "ARM Holdings", "ASML", "ASML Holding"
 ]
 
 # Ticker mapping for all companies
 COMPANY_TICKERS: Dict[str, str] = {
-    **PORTFOLIO_COMPANIES,
+    
     **SUPPLY_CHAIN_COMPANIES
 }
 
@@ -143,7 +138,7 @@ FINNHUB_RATE_LIMIT = 60  # requests per minute (free tier) - SAFE for 5-min inte
 # - Fallback to keyword matching without Gemini
 # - Skip Gemini on low-priority sources
 
-GEMINI_MODEL = "gemini-2.0-flash-exp"  # Free tier optimized model
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash-exp")  # Free tier optimized model
 GEMINI_RATE_LIMIT = 20  # ACTUAL free tier limit: 20 RPM (updated from 60)
 GEMINI_TEMPERATURE = 0.2  # Lower temperature for more deterministic outputs
 GEMINI_TIMEOUT = 30  # Timeout for API calls
@@ -233,6 +228,5 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 logger.info(f"MarketPulse-X Configuration Loaded - Environment: {ENVIRONMENT}")
-logger.info(f"Tracking {len(TRACKED_COMPANIES)} companies")
-logger.info(f"Portfolio companies: {list(PORTFOLIO_COMPANIES.keys())}")
-logger.info(f"Supply chain companies: {list(SUPPLY_CHAIN_COMPANIES.keys())}")
+logger.info(f"Tracking {len(TRACKED_COMPANIES)} companies (Default Config)")
+logger.info(f"Default Supply Chain: {list(SUPPLY_CHAIN_COMPANIES.keys())} (Extensible via Agent 3B)")

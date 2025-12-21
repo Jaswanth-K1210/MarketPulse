@@ -10,10 +10,12 @@ from app.models.article import Article
 from app.models.alert import Alert, AffectedHolding
 from app.models.knowledge_graph import KnowledgeGraph
 from app.services.gemini_client import gemini_client
-from app.services.database import database
+from app.services.database import get_db_connection
+from app.services import persistence  # For database operations
+database = persistence.persistence_service  # Database service singleton
 from app.services.market_data import market_data_service
 from app.config import (
-    PORTFOLIO_COMPANIES, SUPPLY_CHAIN_COMPANIES,
+    SUPPLY_CHAIN_COMPANIES,
     SEVERITY_THRESHOLDS, MIN_CONFIDENCE, COMPANY_TICKERS
 )
 
@@ -26,6 +28,31 @@ class Pipeline:
     def __init__(self):
         """Initialize pipeline"""
         logger.info("Processing Pipeline initialized")
+
+    def _get_portfolio(self) -> Dict:
+        """Get portfolio data from database"""
+        try:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            cursor.execute("SELECT ticker, company_name, quantity, avg_price, current_price FROM holdings")
+            rows = cursor.fetchall()
+            conn.close()
+            
+            portfolio = []
+            for row in rows:
+                portfolio.append({
+                    "ticker": row[0],
+                    "company_name": row[1],
+                    "quantity": row[2],
+                    "avg_price": row[3],
+                    "current_price": row[4]
+                })
+            
+            return {"portfolio": portfolio}
+        except Exception as e:
+            logger.error(f"Error getting portfolio: {e}")
+            return {"portfolio": []}
+
 
     # ═══════════════════════════════════════════════════════════════════
     # STAGE 1: EVENT VALIDATOR
@@ -53,17 +80,16 @@ class Pipeline:
                 logger.info(f"Article too old ({age_days} days): {article.title}")
                 return None
 
-            # Check if mentions tracked companies
-            if not article.companies_mentioned:
-                logger.info(f"Article doesn't mention tracked companies: {article.title}")
-                return None
-
+            # Note: We don't check companies_mentioned here because 
+            # the relation_extractor will identify relevant companies
+            
             logger.info(f"✓ Article validated: {article.title}")
             return article
 
         except Exception as e:
             logger.error(f"Error in event_validator: {str(e)}")
             return None
+
 
     # ═══════════════════════════════════════════════════════════════════
     # STAGE 2: RELATION EXTRACTOR
@@ -160,7 +186,9 @@ class Pipeline:
         try:
             logger.info("Inferring cascade effects...")
 
-            portfolio_companies = list(PORTFOLIO_COMPANIES.keys())
+            # Get portfolio from database
+            portfolio_data = self._get_portfolio()
+            portfolio_companies = [h["ticker"] for h in portfolio_data.get("portfolio", [])]
 
             result = gemini_client.infer_cascade(
                 event_summary,
@@ -169,8 +197,15 @@ class Pipeline:
             )
 
             if not result:
-                logger.info("No cascade inference generated")
-                return None
+                logger.info("No cascade inference generated - creating informational alert")
+                # Create default informational cascade
+                result = {
+                    "cascade_chain": [],
+                    "affected_portfolio_companies": [],
+                    "severity": "info",
+                    "estimated_impact_percent": 0.0,
+                    "reasoning": "News detected but no direct portfolio impact at this time."
+                }
 
             affected = result.get('affected_portfolio_companies', [])
             logger.info(f"✓ Cascade affects {len(affected)} portfolio companies: {affected}")
@@ -233,7 +268,7 @@ class Pipeline:
                 for affected_company in affected_companies:
                     if (affected_company in company_name or
                         affected_company == ticker or
-                        PORTFOLIO_COMPANIES.get(affected_company) == ticker):
+                        affected_company == ticker):
                         is_affected = True
                         break
 
@@ -432,12 +467,11 @@ class Pipeline:
         try:
             logger.info("\n🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)")
 
-            # Get portfolio data
-            portfolio_data = database.get_portfolio()
+            # Get portfolio data from database (NO STATIC DATA)
+            portfolio_data = self._get_portfolio()
             if not portfolio_data:
-                logger.warning("No portfolio data found, using default")
-                from app.config import DEFAULT_PORTFOLIO
-                portfolio_data = {"user_name": "Jaswanth", "portfolio": DEFAULT_PORTFOLIO}
+                logger.warning("No portfolio data found in database")
+                return None  # Cannot proceed without portfolio
 
             # Get affected companies and impact
             affected_companies = direct_impact.get('affected_companies', [])
@@ -464,7 +498,7 @@ class Pipeline:
                 for affected_company in affected_companies:
                     if (affected_company in company_name or
                         affected_company == ticker or
-                        PORTFOLIO_COMPANIES.get(affected_company) == ticker):
+                        affected_company == ticker):
                         is_affected = True
                         break
 
@@ -532,9 +566,36 @@ class Pipeline:
                 explanation=explanation
             )
 
-            # Save to database
-            database.save_article(article)
-            database.save_alert(alert)
+            # Save to database using persistence service
+            #database.save_article(article)  # Skip for now - article saving not critical
+            
+            # Build reasoning trail for database
+            reasoning_trail = []
+            for company in direct_impact.get('affected_companies', []):
+                reasoning_trail.append({
+                    'ticker': company,
+                    'level': direct_impact.get('severity', 'low'),
+                    'reasoning': direct_impact.get('reasoning', 'Direct impact detected'),
+                    'confidence': 0.8
+                })
+            
+            
+            # Generate headline from article and impact
+            impact_direction = "positive" if alert.impact_percent > 0 else "negative" if alert.impact_percent < 0 else "neutral"
+            headline = f"{impact_direction.capitalize()} impact on portfolio: {article.title[:100]}"
+            
+            # Save alert with correct signature
+            database.save_alert(
+                alert_id=alert.id,
+                headline=headline,
+                severity=alert.severity,
+                impact_pct=alert.impact_percent,  # Use impact_percent not impact_pct
+                article_id=article.url,  # Using URL as article ID
+                reasoning_trail=reasoning_trail,
+                source_urls=[article.url],
+                ai_analysis=alert.recommendation,
+                full_reasoning=alert.explanation
+            )
 
             # Create simple knowledge graph
             graph = KnowledgeGraph(alert_id=alert.id)
@@ -583,7 +644,10 @@ class Pipeline:
                 logger.info("No relationships found, checking for direct impact...")
 
                 # Check for direct impact on portfolio companies
-                portfolio_companies = list(PORTFOLIO_COMPANIES.keys())
+                # Get portfolio from database
+                portfolio_data = self._get_portfolio()
+                portfolio_companies = [h["ticker"] for h in portfolio_data.get("portfolio", [])]
+
                 direct_impact = gemini_client.detect_direct_impact(
                     validated_article.content,
                     validated_article.title,
@@ -612,12 +676,11 @@ class Pipeline:
             if not cascade_result:
                 return None
 
-            # Get portfolio data
-            portfolio_data = database.get_portfolio()
+            # Get portfolio data from database (NO STATIC DATA)
+            portfolio_data = self._get_portfolio()
             if not portfolio_data:
-                logger.warning("No portfolio data found, using default")
-                from app.config import DEFAULT_PORTFOLIO
-                portfolio_data = {"user_name": "Jaswanth", "portfolio": DEFAULT_PORTFOLIO}
+                logger.warning("No portfolio data found in database")
+                return None  # Cannot proceed without portfolio
 
             # Stage 5: Score impact
             impact_result = self.impact_scorer(cascade_result, portfolio_data)
@@ -625,9 +688,9 @@ class Pipeline:
                 return None
 
             # Determine if impact is significant enough
-            if abs(impact_result['total_impact_percent']) < SEVERITY_THRESHOLDS['low']:
-                logger.info(f"Impact too small ({impact_result['total_impact_percent']}%), skipping alert")
-                return None
+            # if abs(impact_result['total_impact_percent']) < SEVERITY_THRESHOLDS['low']:
+            #     logger.info(f"Impact too small ({impact_result['total_impact_percent']}%), skipping alert")
+            #     return None
 
             # Stage 6: Generate explanation
             explanation = self.explanation_generator(
@@ -659,7 +722,7 @@ class Pipeline:
                 recommendation=recommendation,
                 confidence=cascade_result.get('severity') == 'high' and 0.9 or 0.75,
                 chain={
-                    "level_1": cascade_result.get('cascade_chain', [{}])[0].get('description', event_summary),
+                    "level_1": (cascade_result.get('cascade_chain', [{}]) or [{}])[0].get('description', event_summary),
                     "level_2": event_summary,
                     "level_3": f"Portfolio impact: {impact_result['total_impact_percent']}%"
                 },

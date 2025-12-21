@@ -65,11 +65,16 @@ async def startup_event():
     logger.info("="*70)
     logger.info("🚀 MARKETPULSE-X STARTING UP")
     logger.info("="*70)
-    
+
     # Initialize database
     from app.services.database import init_db
     init_db()
     logger.info("✓ Database initialized")
+
+    # Start background processing (news ingestion, alert generation)
+    from app.services.background_scheduler import start_background_tasks
+    start_background_tasks()
+    logger.info("✓ Background tasks started")
 
     logger.info("="*70)
     logger.info(f"✅ MarketPulse-X is running at http://{HOST}:{PORT}")

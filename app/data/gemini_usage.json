@@ -1,0 +1,11 @@
+{
+  "daily_requests": {
+    "2025-12-21": {
+      "count": 190,
+      "input_chars": 124595,
+      "output_chars": 70613,
+      "estimated_cost": 0.03052852499999999
+    }
+  },
+  "total_requests": 190
+}
