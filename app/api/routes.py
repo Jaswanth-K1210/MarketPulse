@@ -522,7 +522,8 @@ async def get_stock_prices(tickers: Optional[str] = None):
     else:
         symbol_list = tickers.split(",")
         
-    return stock_data_service.get_live_prices(symbol_list)
+    prices = stock_data_service.get_live_prices(symbol_list)
+    return {"data": prices}  # Wrap in data key for frontend
 @router.post("/analyze-news-for-alerts")
 async def analyze_news_for_alerts(background_tasks: BackgroundTasks):
     """Analyze current news articles and generate alerts for portfolio impacts."""
