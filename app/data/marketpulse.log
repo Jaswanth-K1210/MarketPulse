@@ -172657,3 +172657,612 @@ AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_gra
 2025-12-21 11:04:35,030 - app.services.stock_data - INFO - Returning cached stock prices
 2025-12-21 11:04:44,989 - app.services.stock_data - INFO - Returning cached stock prices
 2025-12-21 11:05:14,992 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:05:35,038 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:05:35,043 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:05:44,991 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:06:14,993 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:06:35,037 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:06:35,048 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:06:36,541 - app.services.background_scheduler - INFO - ⏰ Running task: News-to-Alerts
+2025-12-21 11:06:38,640 - app.services.background_scheduler - INFO - 📰 Fetched 10 news articles
+2025-12-21 11:06:38,640 - app.services.alert_generator - INFO - ⚡ AlertGenerator: Processing 10 articles via Pipeline...
+2025-12-21 11:06:38,640 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Modder Runs AMD FSR 4 Redstone Frame Generation on RDNA 3 but Only on Linux
+======================================================================
+2025-12-21 11:06:38,640 - app.services.pipeline - INFO - ✓ Article validated: Modder Runs AMD FSR 4 Redstone Frame Generation on RDNA 3 but Only on Linux
+2025-12-21 11:06:38,641 - app.services.pipeline - INFO - Extracting relationships from: Modder Runs AMD FSR 4 Redstone Frame Generation on RDNA 3 but Only on Linux
+2025-12-21 11:06:38,641 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:06:46,214 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:06:46,215 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:06:46,215 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:06:46,215 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:06:56,455 - app.services.gemini_client - INFO - ✓ Detected direct impact on 2 companies
+2025-12-21 11:06:56,455 - app.services.pipeline - INFO - ✓ Direct impact detected: neutral
+2025-12-21 11:06:56,455 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:06:56,783 - app.services.market_data - INFO - Successfully fetched data for AAOI: $31.32
+2025-12-21 11:06:56,935 - app.services.market_data - INFO - Successfully fetched data for AAL: $15.78
+2025-12-21 11:06:57,111 - app.services.market_data - INFO - Successfully fetched data for AAPL: $273.67
+2025-12-21 11:06:57,328 - app.services.market_data - INFO - Successfully fetched data for NVDA: $180.99
+2025-12-21 11:06:57,328 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:06:57,545 - app.services.market_data - INFO - Successfully fetched data for TSLA: $481.2
+2025-12-21 11:06:57,697 - app.services.market_data - INFO - Successfully fetched data for MSFT: $485.92
+2025-12-21 11:06:58,150 - app.services.market_data - INFO - Successfully fetched data for AMD: $213.43
+2025-12-21 11:06:58,151 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:06:58,154 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:06:58,155 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: AMD Ryzen 9 9950X3D OEM Tray 100-000000719 Without Cooler 16 Cores 32 Threads 4.3GHz Base 5.7GHz Max Turbo 170W TDP 3YR Warranty $619.99 (2 replies)
+======================================================================
+2025-12-21 11:06:58,155 - app.services.pipeline - INFO - ✓ Article validated: AMD Ryzen 9 9950X3D OEM Tray 100-000000719 Without Cooler 16 Cores 32 Threads 4.3GHz Base 5.7GHz Max Turbo 170W TDP 3YR Warranty $619.99 (2 replies)
+2025-12-21 11:06:58,155 - app.services.pipeline - INFO - Extracting relationships from: AMD Ryzen 9 9950X3D OEM Tray 100-000000719 Without Cooler 16 Cores 32 Threads 4.3GHz Base 5.7GHz Max Turbo 170W TDP 3YR Warranty $619.99 (2 replies)
+2025-12-21 11:06:58,155 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:07:06,695 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:07:06,695 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:07:06,695 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:07:06,696 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:07:13,193 - app.services.gemini_client - INFO - ✓ Detected direct impact on 1 companies
+2025-12-21 11:07:13,194 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:07:13,194 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:07:13,194 - app.services.market_data - INFO - Returning cached data for AAOI
+2025-12-21 11:07:13,194 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:07:13,194 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:07:13,195 - app.services.market_data - INFO - Returning cached data for NVDA
+2025-12-21 11:07:13,195 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:07:13,195 - app.services.market_data - INFO - Returning cached data for TSLA
+2025-12-21 11:07:13,195 - app.services.market_data - INFO - Returning cached data for MSFT
+2025-12-21 11:07:13,195 - app.services.market_data - INFO - Returning cached data for AMD
+2025-12-21 11:07:13,195 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:07:13,197 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:07:13,198 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: HP OMEN 35L Desktop PC: Ryzen 7 8700F + 32GB RAM + 2TB SSD + RTX 5080 = $2799.20 Delivered
+======================================================================
+2025-12-21 11:07:13,198 - app.services.pipeline - INFO - ✓ Article validated: HP OMEN 35L Desktop PC: Ryzen 7 8700F + 32GB RAM + 2TB SSD + RTX 5080 = $2799.20 Delivered
+2025-12-21 11:07:13,198 - app.services.pipeline - INFO - Extracting relationships from: HP OMEN 35L Desktop PC: Ryzen 7 8700F + 32GB RAM + 2TB SSD + RTX 5080 = $2799.20 Delivered
+2025-12-21 11:07:13,198 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:07:22,054 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:07:22,055 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:07:22,055 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:07:22,055 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:07:29,091 - app.services.gemini_client - INFO - ✓ Detected direct impact on 3 companies
+2025-12-21 11:07:29,091 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:07:29,091 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:07:29,092 - app.services.market_data - INFO - Returning cached data for AAOI
+2025-12-21 11:07:29,092 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:07:29,092 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:07:29,092 - app.services.market_data - INFO - Returning cached data for NVDA
+2025-12-21 11:07:29,092 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:07:29,092 - app.services.market_data - INFO - Returning cached data for TSLA
+2025-12-21 11:07:29,092 - app.services.market_data - INFO - Returning cached data for MSFT
+2025-12-21 11:07:29,092 - app.services.market_data - INFO - Returning cached data for AMD
+2025-12-21 11:07:29,093 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:07:29,095 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:07:29,095 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Prelude to World War – Part 2, by 3AD Scout
+======================================================================
+2025-12-21 11:07:29,095 - app.services.pipeline - INFO - ✓ Article validated: Prelude to World War – Part 2, by 3AD Scout
+2025-12-21 11:07:29,095 - app.services.pipeline - INFO - Extracting relationships from: Prelude to World War – Part 2, by 3AD Scout
+2025-12-21 11:07:29,096 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:07:32,705 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:07:32,705 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:07:32,706 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:07:35,081 - app.services.stock_data - INFO - Fetching live prices for 9 tickers
+2025-12-21 11:07:35,829 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:07:36,290 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:07:36,488 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:07:36,488 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Gaming PC (26L mATX) 9800X3D / RTX5070 Ti / 850W Platinum / 48GB 6000MHz / 1TB Gen4 NVMe + $3399 Del (or VIC C&C) @ Evatech
+======================================================================
+2025-12-21 11:07:36,489 - app.services.pipeline - INFO - ✓ Article validated: Gaming PC (26L mATX) 9800X3D / RTX5070 Ti / 850W Platinum / 48GB 6000MHz / 1TB Gen4 NVMe + $3399 Del (or VIC C&C) @ Evatech
+2025-12-21 11:07:36,489 - app.services.pipeline - INFO - Extracting relationships from: Gaming PC (26L mATX) 9800X3D / RTX5070 Ti / 850W Platinum / 48GB 6000MHz / 1TB Gen4 NVMe + $3399 Del (or VIC C&C) @ Evatech
+2025-12-21 11:07:36,489 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:07:36,902 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:07:37,237 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:07:37,330 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:07:37,832 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:07:38,294 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:07:38,732 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:07:39,257 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:07:39,263 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:07:39,266 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:07:44,071 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:07:44,072 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:07:44,072 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:07:44,072 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:07:53,589 - app.services.gemini_client - INFO - ✓ Detected direct impact on 3 companies
+2025-12-21 11:07:53,589 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:07:53,589 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:07:53,590 - app.services.market_data - INFO - Returning cached data for AAOI
+2025-12-21 11:07:53,590 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:07:53,590 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:07:53,590 - app.services.market_data - INFO - Returning cached data for NVDA
+2025-12-21 11:07:53,590 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:07:53,591 - app.services.market_data - INFO - Returning cached data for TSLA
+2025-12-21 11:07:53,591 - app.services.market_data - INFO - Returning cached data for MSFT
+2025-12-21 11:07:53,591 - app.services.market_data - INFO - Returning cached data for AMD
+2025-12-21 11:07:53,591 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:07:53,593 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:07:53,594 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: How AI Will Be Different at CES 2026: On‑Device Processing and Actual Agentic Productivity
+======================================================================
+2025-12-21 11:07:53,594 - app.services.pipeline - INFO - ✓ Article validated: How AI Will Be Different at CES 2026: On‑Device Processing and Actual Agentic Productivity
+2025-12-21 11:07:53,594 - app.services.pipeline - INFO - Extracting relationships from: How AI Will Be Different at CES 2026: On‑Device Processing and Actual Agentic Productivity
+2025-12-21 11:07:53,594 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:08:01,479 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:08:01,479 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:08:01,479 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:08:01,480 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:08:11,721 - app.services.gemini_client - INFO - ✓ Detected direct impact on 5 companies
+2025-12-21 11:08:11,722 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:08:11,722 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:08:11,951 - app.services.market_data - INFO - Successfully fetched data for AAOI: $31.32
+2025-12-21 11:08:12,167 - app.services.market_data - INFO - Successfully fetched data for AAL: $15.78
+2025-12-21 11:08:12,307 - app.services.market_data - INFO - Successfully fetched data for AAPL: $273.67
+2025-12-21 11:08:12,533 - app.services.market_data - INFO - Successfully fetched data for NVDA: $180.99
+2025-12-21 11:08:12,534 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:08:12,695 - app.services.market_data - INFO - Successfully fetched data for TSLA: $481.2
+2025-12-21 11:08:12,879 - app.services.market_data - INFO - Successfully fetched data for MSFT: $485.92
+2025-12-21 11:08:13,049 - app.services.market_data - INFO - Successfully fetched data for AMD: $213.43
+2025-12-21 11:08:13,049 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:08:13,052 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:08:13,053 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Samsung 34" Odyssey G55T WQHD 165Hz - $229 Online Price
+======================================================================
+2025-12-21 11:08:13,053 - app.services.pipeline - INFO - ✓ Article validated: Samsung 34" Odyssey G55T WQHD 165Hz - $229 Online Price
+2025-12-21 11:08:13,053 - app.services.pipeline - INFO - Extracting relationships from: Samsung 34" Odyssey G55T WQHD 165Hz - $229 Online Price
+2025-12-21 11:08:13,053 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:08:20,773 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:08:20,774 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:08:20,774 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:08:20,774 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:08:26,158 - app.services.gemini_client - INFO - ✓ Detected direct impact on 1 companies
+2025-12-21 11:08:26,158 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:08:26,158 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:08:26,159 - app.services.market_data - INFO - Returning cached data for AAOI
+2025-12-21 11:08:26,159 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:08:26,159 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:08:26,159 - app.services.market_data - INFO - Returning cached data for NVDA
+2025-12-21 11:08:26,159 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:08:26,159 - app.services.market_data - INFO - Returning cached data for TSLA
+2025-12-21 11:08:26,159 - app.services.market_data - INFO - Returning cached data for MSFT
+2025-12-21 11:08:26,159 - app.services.market_data - INFO - Returning cached data for AMD
+2025-12-21 11:08:26,159 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:08:26,161 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:08:26,162 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: SoftBank races to fulfill $22.5 billion funding commitment to OpenAI by year-end
+======================================================================
+2025-12-21 11:08:26,162 - app.services.pipeline - INFO - ✓ Article validated: SoftBank races to fulfill $22.5 billion funding commitment to OpenAI by year-end
+2025-12-21 11:08:26,162 - app.services.pipeline - INFO - Extracting relationships from: SoftBank races to fulfill $22.5 billion funding commitment to OpenAI by year-end
+2025-12-21 11:08:26,162 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:08:28,923 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:08:28,923 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:08:28,923 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:08:33,257 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:08:33,257 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: The Samsung Odyssey Ark is the most impressive monitor, and it’s over half off!
+======================================================================
+2025-12-21 11:08:33,257 - app.services.pipeline - INFO - ✓ Article validated: The Samsung Odyssey Ark is the most impressive monitor, and it’s over half off!
+2025-12-21 11:08:33,258 - app.services.pipeline - INFO - Extracting relationships from: The Samsung Odyssey Ark is the most impressive monitor, and it’s over half off!
+2025-12-21 11:08:33,258 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:08:34,997 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:08:35,043 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:08:35,053 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:08:41,007 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:08:41,008 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:08:41,008 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:08:41,008 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:08:47,280 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:08:47,280 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Valve put up a release candidate for Proton 10.0-4 with lots more Linux / SteamOS gaming fixes
+======================================================================
+2025-12-21 11:08:47,280 - app.services.pipeline - INFO - ✓ Article validated: Valve put up a release candidate for Proton 10.0-4 with lots more Linux / SteamOS gaming fixes
+2025-12-21 11:08:47,280 - app.services.pipeline - INFO - Extracting relationships from: Valve put up a release candidate for Proton 10.0-4 with lots more Linux / SteamOS gaming fixes
+2025-12-21 11:08:47,281 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:08:50,888 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:08:50,889 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:08:50,890 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:08:58,210 - app.services.gemini_client - INFO - ✓ Detected direct impact on 2 companies
+2025-12-21 11:08:58,210 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:08:58,210 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:08:58,211 - app.services.market_data - INFO - Returning cached data for AAOI
+2025-12-21 11:08:58,211 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:08:58,211 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:08:58,211 - app.services.market_data - INFO - Returning cached data for NVDA
+2025-12-21 11:08:58,211 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:08:58,211 - app.services.market_data - INFO - Returning cached data for TSLA
+2025-12-21 11:08:58,211 - app.services.market_data - INFO - Returning cached data for MSFT
+2025-12-21 11:08:58,211 - app.services.market_data - INFO - Returning cached data for AMD
+2025-12-21 11:08:58,212 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:08:58,213 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:08:58,214 - app.services.alert_generator - INFO - ✅ Alert Generation Complete. Total New Alerts: 0
+2025-12-21 11:08:58,214 - app.services.background_scheduler - INFO - ✅ Generated 0 alerts
+2025-12-21 11:09:35,002 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:09:35,034 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:09:35,048 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:10:34,927 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:10:34,932 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:11:34,926 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:11:34,968 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:11:38,184 - app.services.background_scheduler - INFO - ⏰ Running task: News-to-Alerts
+2025-12-21 11:11:44,519 - app.services.background_scheduler - INFO - 📰 Fetched 10 news articles
+2025-12-21 11:11:44,520 - app.services.alert_generator - INFO - ⚡ AlertGenerator: Processing 10 articles via Pipeline...
+2025-12-21 11:11:44,520 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Modder Runs AMD FSR 4 Redstone Frame Generation on RDNA 3 but Only on Linux
+======================================================================
+2025-12-21 11:11:44,520 - app.services.pipeline - INFO - ✓ Article validated: Modder Runs AMD FSR 4 Redstone Frame Generation on RDNA 3 but Only on Linux
+2025-12-21 11:11:44,520 - app.services.pipeline - INFO - Extracting relationships from: Modder Runs AMD FSR 4 Redstone Frame Generation on RDNA 3 but Only on Linux
+2025-12-21 11:11:44,520 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:11:52,835 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:11:52,835 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:11:52,835 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:11:52,836 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:11:59,101 - app.services.gemini_client - INFO - ✓ Detected direct impact on 1 companies
+2025-12-21 11:11:59,101 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:11:59,101 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:12:01,538 - app.services.market_data - INFO - Successfully fetched data for AAOI: $31.32
+2025-12-21 11:12:01,822 - app.services.market_data - INFO - Successfully fetched data for AAL: $15.78
+2025-12-21 11:12:02,355 - app.services.market_data - INFO - Successfully fetched data for AAPL: $273.67
+2025-12-21 11:12:02,506 - app.services.market_data - INFO - Successfully fetched data for NVDA: $180.99
+2025-12-21 11:12:02,506 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:12:02,663 - app.services.market_data - INFO - Successfully fetched data for TSLA: $481.2
+2025-12-21 11:12:02,857 - app.services.market_data - INFO - Successfully fetched data for MSFT: $485.92
+2025-12-21 11:12:03,142 - app.services.market_data - INFO - Successfully fetched data for AMD: $213.43
+2025-12-21 11:12:03,143 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:12:03,147 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:12:03,148 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: AMD Ryzen 9 9950X3D OEM Tray 100-000000719 Without Cooler 16 Cores 32 Threads 4.3GHz Base 5.7GHz Max Turbo 170W TDP 3YR Warranty $619.99 (2 replies)
+======================================================================
+2025-12-21 11:12:03,148 - app.services.pipeline - INFO - ✓ Article validated: AMD Ryzen 9 9950X3D OEM Tray 100-000000719 Without Cooler 16 Cores 32 Threads 4.3GHz Base 5.7GHz Max Turbo 170W TDP 3YR Warranty $619.99 (2 replies)
+2025-12-21 11:12:03,149 - app.services.pipeline - INFO - Extracting relationships from: AMD Ryzen 9 9950X3D OEM Tray 100-000000719 Without Cooler 16 Cores 32 Threads 4.3GHz Base 5.7GHz Max Turbo 170W TDP 3YR Warranty $619.99 (2 replies)
+2025-12-21 11:12:03,149 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:12:11,263 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:12:11,263 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:12:11,263 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:12:11,264 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:12:20,866 - app.services.gemini_client - INFO - ✓ Detected direct impact on 1 companies
+2025-12-21 11:12:20,866 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:12:20,866 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:12:20,867 - app.services.market_data - INFO - Returning cached data for AAOI
+2025-12-21 11:12:20,868 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:12:20,868 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:12:20,868 - app.services.market_data - INFO - Returning cached data for NVDA
+2025-12-21 11:12:20,868 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:12:20,868 - app.services.market_data - INFO - Returning cached data for TSLA
+2025-12-21 11:12:20,868 - app.services.market_data - INFO - Returning cached data for MSFT
+2025-12-21 11:12:20,868 - app.services.market_data - INFO - Returning cached data for AMD
+2025-12-21 11:12:20,868 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:12:20,870 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:12:20,871 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: HP OMEN 35L Desktop PC: Ryzen 7 8700F + 32GB RAM + 2TB SSD + RTX 5080 = $2799.20 Delivered
+======================================================================
+2025-12-21 11:12:20,871 - app.services.pipeline - INFO - ✓ Article validated: HP OMEN 35L Desktop PC: Ryzen 7 8700F + 32GB RAM + 2TB SSD + RTX 5080 = $2799.20 Delivered
+2025-12-21 11:12:20,871 - app.services.pipeline - INFO - Extracting relationships from: HP OMEN 35L Desktop PC: Ryzen 7 8700F + 32GB RAM + 2TB SSD + RTX 5080 = $2799.20 Delivered
+2025-12-21 11:12:20,871 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:12:28,473 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:12:28,473 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:12:28,473 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:12:28,474 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:12:34,630 - app.services.gemini_client - INFO - ✓ Detected direct impact on 3 companies
+2025-12-21 11:12:34,630 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:12:34,630 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:12:34,630 - app.services.market_data - INFO - Returning cached data for AAOI
+2025-12-21 11:12:34,631 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:12:34,631 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:12:34,631 - app.services.market_data - INFO - Returning cached data for NVDA
+2025-12-21 11:12:34,631 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:12:34,631 - app.services.market_data - INFO - Returning cached data for TSLA
+2025-12-21 11:12:34,631 - app.services.market_data - INFO - Returning cached data for MSFT
+2025-12-21 11:12:34,631 - app.services.market_data - INFO - Returning cached data for AMD
+2025-12-21 11:12:34,631 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:12:34,633 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:12:34,634 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Prelude to World War – Part 2, by 3AD Scout
+======================================================================
+2025-12-21 11:12:34,634 - app.services.pipeline - INFO - ✓ Article validated: Prelude to World War – Part 2, by 3AD Scout
+2025-12-21 11:12:34,634 - app.services.pipeline - INFO - Extracting relationships from: Prelude to World War – Part 2, by 3AD Scout
+2025-12-21 11:12:34,634 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:12:34,924 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:12:34,970 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:12:41,063 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:12:41,063 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:12:41,064 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:12:45,261 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:12:45,261 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Gaming PC (26L mATX) 9800X3D / RTX5070 Ti / 850W Platinum / 48GB 6000MHz / 1TB Gen4 NVMe + $3399 Del (or VIC C&C) @ Evatech
+======================================================================
+2025-12-21 11:12:45,261 - app.services.pipeline - INFO - ✓ Article validated: Gaming PC (26L mATX) 9800X3D / RTX5070 Ti / 850W Platinum / 48GB 6000MHz / 1TB Gen4 NVMe + $3399 Del (or VIC C&C) @ Evatech
+2025-12-21 11:12:45,261 - app.services.pipeline - INFO - Extracting relationships from: Gaming PC (26L mATX) 9800X3D / RTX5070 Ti / 850W Platinum / 48GB 6000MHz / 1TB Gen4 NVMe + $3399 Del (or VIC C&C) @ Evatech
+2025-12-21 11:12:45,262 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:12:52,648 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:12:52,648 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:12:52,649 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:12:52,649 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:13:00,181 - app.services.gemini_client - INFO - ✓ Detected direct impact on 2 companies
+2025-12-21 11:13:00,181 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:13:00,181 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:13:00,182 - app.services.market_data - INFO - Returning cached data for AAOI
+2025-12-21 11:13:00,182 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:13:00,182 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:13:00,182 - app.services.market_data - INFO - Returning cached data for NVDA
+2025-12-21 11:13:00,182 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:13:00,182 - app.services.market_data - INFO - Returning cached data for TSLA
+2025-12-21 11:13:00,182 - app.services.market_data - INFO - Returning cached data for MSFT
+2025-12-21 11:13:00,182 - app.services.market_data - INFO - Returning cached data for AMD
+2025-12-21 11:13:00,182 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:13:00,185 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:13:00,185 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: How AI Will Be Different at CES 2026: On‑Device Processing and Actual Agentic Productivity
+======================================================================
+2025-12-21 11:13:00,185 - app.services.pipeline - INFO - ✓ Article validated: How AI Will Be Different at CES 2026: On‑Device Processing and Actual Agentic Productivity
+2025-12-21 11:13:00,185 - app.services.pipeline - INFO - Extracting relationships from: How AI Will Be Different at CES 2026: On‑Device Processing and Actual Agentic Productivity
+2025-12-21 11:13:00,186 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:13:08,607 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:13:08,607 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:13:08,607 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:13:08,608 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:13:22,874 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:13:22,877 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Samsung 34" Odyssey G55T WQHD 165Hz - $229 Online Price
+======================================================================
+2025-12-21 11:13:22,878 - app.services.pipeline - INFO - ✓ Article validated: Samsung 34" Odyssey G55T WQHD 165Hz - $229 Online Price
+2025-12-21 11:13:22,878 - app.services.pipeline - INFO - Extracting relationships from: Samsung 34" Odyssey G55T WQHD 165Hz - $229 Online Price
+2025-12-21 11:13:22,878 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:13:30,776 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:13:30,776 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:13:30,777 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:13:30,779 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:13:34,947 - app.services.stock_data - INFO - Fetching live prices for 9 tickers
+2025-12-21 11:13:35,481 - app.services.gemini_client - INFO - ✓ Detected direct impact on 1 companies
+2025-12-21 11:13:35,482 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:13:35,482 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:13:35,567 - app.services.stock_data - INFO - AAOI: $31.32 (+7.08%)
+2025-12-21 11:13:35,620 - app.services.market_data - INFO - Successfully fetched data for AAOI: $31.32
+2025-12-21 11:13:35,765 - app.services.market_data - INFO - Successfully fetched data for AAL: $15.78
+2025-12-21 11:13:35,986 - app.services.market_data - INFO - Successfully fetched data for AAPL: $273.67
+2025-12-21 11:13:36,032 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:13:36,127 - app.services.market_data - INFO - Successfully fetched data for NVDA: $180.99
+2025-12-21 11:13:36,128 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:13:36,311 - app.services.market_data - INFO - Successfully fetched data for TSLA: $481.2
+2025-12-21 11:13:36,506 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:13:36,596 - app.services.market_data - INFO - Successfully fetched data for MSFT: $485.92
+2025-12-21 11:13:36,749 - app.services.market_data - INFO - Successfully fetched data for AMD: $213.43
+2025-12-21 11:13:36,749 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:13:36,761 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:13:36,766 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: SoftBank races to fulfill $22.5 billion funding commitment to OpenAI by year-end
+======================================================================
+2025-12-21 11:13:36,768 - app.services.pipeline - INFO - ✓ Article validated: SoftBank races to fulfill $22.5 billion funding commitment to OpenAI by year-end
+2025-12-21 11:13:36,768 - app.services.pipeline - INFO - Extracting relationships from: SoftBank races to fulfill $22.5 billion funding commitment to OpenAI by year-end
+2025-12-21 11:13:36,769 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:13:36,857 - app.services.stock_data - INFO - NVDA: $180.99 (+3.93%)
+2025-12-21 11:13:37,185 - app.services.stock_data - INFO - AAPL: $273.67 (+0.54%)
+2025-12-21 11:13:37,848 - app.services.stock_data - INFO - TSLA: $481.20 (-0.45%)
+2025-12-21 11:13:38,566 - app.services.stock_data - INFO - MSFT: $485.92 (+0.40%)
+2025-12-21 11:13:39,123 - app.services.stock_data - INFO - AMD: $213.43 (+6.15%)
+2025-12-21 11:13:39,623 - app.services.stock_data - INFO - AAL: $15.78 (+1.09%)
+2025-12-21 11:13:39,633 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:13:44,358 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:13:44,359 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:13:44,359 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:13:44,361 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:13:56,174 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:13:56,176 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: The Samsung Odyssey Ark is the most impressive monitor, and it’s over half off!
+======================================================================
+2025-12-21 11:13:56,176 - app.services.pipeline - INFO - ✓ Article validated: The Samsung Odyssey Ark is the most impressive monitor, and it’s over half off!
+2025-12-21 11:13:56,176 - app.services.pipeline - INFO - Extracting relationships from: The Samsung Odyssey Ark is the most impressive monitor, and it’s over half off!
+2025-12-21 11:13:56,176 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:14:03,463 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:14:03,463 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:14:03,463 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:14:03,464 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:14:07,184 - app.services.pipeline - INFO - No direct impact detected either
+2025-12-21 11:14:07,185 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Valve put up a release candidate for Proton 10.0-4 with lots more Linux / SteamOS gaming fixes
+======================================================================
+2025-12-21 11:14:07,185 - app.services.pipeline - INFO - ✓ Article validated: Valve put up a release candidate for Proton 10.0-4 with lots more Linux / SteamOS gaming fixes
+2025-12-21 11:14:07,185 - app.services.pipeline - INFO - Extracting relationships from: Valve put up a release candidate for Proton 10.0-4 with lots more Linux / SteamOS gaming fixes
+2025-12-21 11:14:07,185 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:14:10,033 - app.api.websocket - INFO - WebSocket disconnected. Total: 4
+2025-12-21 11:14:10,034 - app.api.websocket - INFO - Client disconnected normally
+2025-12-21 11:14:10,038 - app.api.websocket - INFO - New WebSocket connection. Total: 5
+2025-12-21 11:14:10,050 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:14:10,060 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:14:10,105 - app.api.routes - INFO - 📰 Fetching LIVE news from MULTIPLE sources for: ['NVDA', 'AAPL', 'TSLA', 'MSFT', 'AMD', 'AAL'] (NO DATABASE STORAGE)
+2025-12-21 11:14:15,005 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:14:15,005 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:14:15,005 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:14:15,006 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:14:21,637 - app.services.gemini_client - INFO - ✓ Detected direct impact on 2 companies
+2025-12-21 11:14:21,637 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:14:21,638 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:14:21,638 - app.services.market_data - INFO - Returning cached data for AAOI
+2025-12-21 11:14:21,638 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:14:21,638 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:14:21,639 - app.services.market_data - INFO - Returning cached data for NVDA
+2025-12-21 11:14:21,639 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:14:21,639 - app.services.market_data - INFO - Returning cached data for TSLA
+2025-12-21 11:14:21,639 - app.services.market_data - INFO - Returning cached data for MSFT
+2025-12-21 11:14:21,639 - app.services.market_data - INFO - Returning cached data for AMD
+2025-12-21 11:14:21,639 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:14:21,641 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:14:21,642 - app.services.alert_generator - INFO - ✅ Alert Generation Complete. Total New Alerts: 0
+2025-12-21 11:14:21,643 - app.services.background_scheduler - INFO - ✅ Generated 0 alerts
+2025-12-21 11:14:30,623 - app.api.routes - INFO - ✅ Got 105 LIVE articles from all sources
+2025-12-21 11:14:30,623 - app.api.routes - INFO - 📅 Filtered to 105 articles from last 7 days
+2025-12-21 11:14:30,623 - app.api.routes - INFO - 📊 Returning 15 LIVE articles (not stored in database)
+2025-12-21 11:14:30,629 - app.api.websocket - INFO - New WebSocket connection. Total: 6
+2025-12-21 11:14:34,979 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:14:40,923 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:15:10,924 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:15:34,970 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:15:40,923 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:16:10,924 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:16:34,930 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:16:40,925 - app.services.stock_data - INFO - Returning cached stock prices
+2025-12-21 11:16:41,691 - app.services.background_scheduler - INFO - ⏰ Running task: News-to-Alerts
+2025-12-21 11:16:44,862 - app.services.background_scheduler - INFO - 📰 Fetched 10 news articles
+2025-12-21 11:16:44,862 - app.services.alert_generator - INFO - ⚡ AlertGenerator: Processing 10 articles via Pipeline...
+2025-12-21 11:16:44,862 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: Modder Runs AMD FSR 4 Redstone Frame Generation on RDNA 3 but Only on Linux
+======================================================================
+2025-12-21 11:16:44,863 - app.services.pipeline - INFO - ✓ Article validated: Modder Runs AMD FSR 4 Redstone Frame Generation on RDNA 3 but Only on Linux
+2025-12-21 11:16:44,863 - app.services.pipeline - INFO - Extracting relationships from: Modder Runs AMD FSR 4 Redstone Frame Generation on RDNA 3 but Only on Linux
+2025-12-21 11:16:44,863 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:16:52,975 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:16:52,975 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:16:52,976 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:16:52,977 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:17:01,776 - app.services.gemini_client - INFO - ✓ Detected direct impact on 1 companies
+2025-12-21 11:17:01,776 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:17:01,776 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:17:02,317 - app.services.market_data - INFO - Successfully fetched data for AAOI: $31.32
+2025-12-21 11:17:02,480 - app.services.market_data - INFO - Successfully fetched data for AAL: $15.78
+2025-12-21 11:17:02,781 - app.services.market_data - INFO - Successfully fetched data for AAPL: $273.67
+2025-12-21 11:17:02,946 - app.services.market_data - INFO - Successfully fetched data for NVDA: $180.99
+2025-12-21 11:17:02,946 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:17:03,185 - app.services.market_data - INFO - Successfully fetched data for TSLA: $481.2
+2025-12-21 11:17:03,349 - app.services.market_data - INFO - Successfully fetched data for MSFT: $485.92
+2025-12-21 11:17:03,635 - app.services.market_data - INFO - Successfully fetched data for AMD: $213.43
+2025-12-21 11:17:03,635 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:17:03,639 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:17:03,640 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: AMD Ryzen 9 9950X3D OEM Tray 100-000000719 Without Cooler 16 Cores 32 Threads 4.3GHz Base 5.7GHz Max Turbo 170W TDP 3YR Warranty $619.99 (2 replies)
+======================================================================
+2025-12-21 11:17:03,640 - app.services.pipeline - INFO - ✓ Article validated: AMD Ryzen 9 9950X3D OEM Tray 100-000000719 Without Cooler 16 Cores 32 Threads 4.3GHz Base 5.7GHz Max Turbo 170W TDP 3YR Warranty $619.99 (2 replies)
+2025-12-21 11:17:03,640 - app.services.pipeline - INFO - Extracting relationships from: AMD Ryzen 9 9950X3D OEM Tray 100-000000719 Without Cooler 16 Cores 32 Threads 4.3GHz Base 5.7GHz Max Turbo 170W TDP 3YR Warranty $619.99 (2 replies)
+2025-12-21 11:17:03,640 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:17:11,607 - app.services.gemini_client - INFO - ⚠️ Using Heuristic Fallback for Extraction (AI Limit Reached)
+2025-12-21 11:17:11,607 - app.services.pipeline - INFO - No relationships found
+2025-12-21 11:17:11,607 - app.services.pipeline - INFO - No relationships found, checking for direct impact...
+2025-12-21 11:17:11,608 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
+2025-12-21 11:17:17,037 - app.services.gemini_client - INFO - ✓ Detected direct impact on 1 companies
+2025-12-21 11:17:17,037 - app.services.pipeline - INFO - ✓ Direct impact detected: positive
+2025-12-21 11:17:17,037 - app.services.pipeline - INFO - 
+🎯 PROCESSING DIRECT IMPACT (No supply chain cascade)
+2025-12-21 11:17:17,037 - app.services.market_data - INFO - Returning cached data for AAOI
+2025-12-21 11:17:17,038 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:17:17,038 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:17:17,038 - app.services.market_data - INFO - Returning cached data for NVDA
+2025-12-21 11:17:17,038 - app.services.market_data - INFO - Returning cached data for AAPL
+2025-12-21 11:17:17,038 - app.services.market_data - INFO - Returning cached data for TSLA
+2025-12-21 11:17:17,038 - app.services.market_data - INFO - Returning cached data for MSFT
+2025-12-21 11:17:17,038 - app.services.market_data - INFO - Returning cached data for AMD
+2025-12-21 11:17:17,038 - app.services.market_data - INFO - Returning cached data for AAL
+2025-12-21 11:17:17,040 - app.services.pipeline - ERROR - Error processing direct impact: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+Traceback (most recent call last):
+  File "/Users/apple/Documents/Projects/Marketpulse/MarketPulse/app/services/pipeline.py", line 607, in _process_direct_impact
+    database.save_knowledge_graph(graph)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PersistenceService' object has no attribute 'save_knowledge_graph'
+2025-12-21 11:17:17,041 - app.services.pipeline - INFO - 
+======================================================================
+Processing article: HP OMEN 35L Desktop PC: Ryzen 7 8700F + 32GB RAM + 2TB SSD + RTX 5080 = $2799.20 Delivered
+======================================================================
+2025-12-21 11:17:17,041 - app.services.pipeline - INFO - ✓ Article validated: HP OMEN 35L Desktop PC: Ryzen 7 8700F + 32GB RAM + 2TB SSD + RTX 5080 = $2799.20 Delivered
+2025-12-21 11:17:17,041 - app.services.pipeline - INFO - Extracting relationships from: HP OMEN 35L Desktop PC: Ryzen 7 8700F + 32GB RAM + 2TB SSD + RTX 5080 = $2799.20 Delivered
+2025-12-21 11:17:17,041 - app.services.gemini_client - INFO - 🔄 Using Gemini API Fallback
