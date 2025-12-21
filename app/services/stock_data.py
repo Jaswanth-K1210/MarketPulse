@@ -17,7 +17,7 @@ class StockDataService:
     def __init__(self):
         self.cache = {}
         self.cache_time = None
-        self.cache_duration = 5  # 5 minutes cache
+        self.cache_duration = 0.5  # 30 seconds cache for near real-time updates
         
     def get_live_prices(self, tickers: List[str]) -> Dict:
         """
