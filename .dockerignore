@@ -1,0 +1,22 @@
+# Ignore frontend directory (built separately or not needed for backend)
+frontend/
+frontend_old/
+frontend_backup_v2/
+
+# Ignore git
+.git/
+.gitignore
+
+# Ignore VSCode/IDE
+.vscode/
+.idea/
+
+# Ignore Python specific
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.env
+.venv
+venv/
+env/
