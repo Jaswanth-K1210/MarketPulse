@@ -1,0 +1,69 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MarketPulse.Desktop.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MarketPulse.Desktop.Views.MaintenanceView"
+             x:DataType="vm:MaintenanceViewModel">
+
+  <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="24">
+
+    <!-- Header -->
+    <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0,0,0,16">
+      <StackPanel>
+        <TextBlock Text="MRO Schedule" FontSize="22" FontWeight="Bold" Foreground="White"/>
+        <TextBlock Text="{Binding StatusMessage}" FontSize="11" Foreground="#9ca3af" Margin="0,4,0,0"/>
+      </StackPanel>
+      <Button Grid.Column="1" Content="↻  Refresh" Command="{Binding RefreshCommand}"
+              IsEnabled="{Binding !IsLoading}" Padding="14,8"
+              Background="#6366f1" Foreground="White"/>
+    </Grid>
+
+    <ProgressBar Grid.Row="1" IsIndeterminate="True" IsVisible="{Binding IsLoading}" Height="3" Margin="0,0,0,8"/>
+
+    <!-- Maintenance DataGrid -->
+    <DataGrid Grid.Row="2"
+              ItemsSource="{Binding Schedules}"
+              SelectedItem="{Binding SelectedSchedule}"
+              IsReadOnly="True"
+              GridLinesVisibility="Horizontal"
+              Background="#1a1a2e"
+              RowBackground="#1a1a2e"
+              Foreground="White"
+              BorderThickness="0"
+              CanUserSortColumns="True"
+              CanUserResizeColumns="True">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Engine ID"     Binding="{Binding EngineId}"              Width="160"/>
+        <DataGridTextColumn Header="Model"         Binding="{Binding Model}"                 Width="160"/>
+        <DataGridTextColumn Header="Sector"        Binding="{Binding Sector}"                Width="90"/>
+        <DataGridTextColumn Header="Interval (h)"  Binding="{Binding IntervalHours}"         Width="100"/>
+        <DataGridTextColumn Header="Remaining"     Binding="{Binding HoursDisplay}"          Width="110"/>
+        <DataGridTextColumn Header="Status"        Binding="{Binding Status}"                Width="90"/>
+        <DataGridTextColumn Header="Next Service"  Binding="{Binding NextServiceFormatted}"  Width="120"/>
+        <DataGridTextColumn Header="Location"      Binding="{Binding Location}"              Width="160"/>
+        <DataGridTextColumn Header="Technician"    Binding="{Binding Technician}"            Width="*"/>
+      </DataGrid.Columns>
+    </DataGrid>
+
+    <!-- Trigger maintenance panel -->
+    <Border Grid.Row="3" Background="#1e1e3f" CornerRadius="8" Margin="0,12,0,0" Padding="16,12">
+      <Grid ColumnDefinitions="*,Auto,Auto">
+        <StackPanel VerticalAlignment="Center">
+          <TextBlock Text="Selected engine:" FontSize="10" Foreground="#9ca3af"/>
+          <TextBlock Text="{Binding SelectedSchedule.EngineId, FallbackValue='(select a row)'}"
+                     FontWeight="SemiBold" Foreground="White"/>
+        </StackPanel>
+        <TextBlock Grid.Column="1" Text="{Binding TriggerResult}"
+                   Foreground="#34d399" VerticalAlignment="Center" Margin="0,0,16,0"/>
+        <Button Grid.Column="2"
+                Content="🛠  Trigger Maintenance"
+                Command="{Binding TriggerMaintenanceCommand}"
+                IsEnabled="{Binding SelectedSchedule, Converter={x:Static ObjectConverters.IsNotNull}}"
+                Padding="14,8" Background="#7c3aed" Foreground="White"/>
+      </Grid>
+    </Border>
+
+  </Grid>
+</UserControl>
