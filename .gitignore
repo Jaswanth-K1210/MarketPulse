@@ -1,17 +1,89 @@
+
+
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
-venv/
-.env
-
-# Javascript/Node
-node_modules/
+*.egg-info/
+.eggs/
 dist/
 build/
-.npm
-.DS_Store
+*.pyo
+*.pyd
 
-# Replit/Editor
-.replit
-.local/
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+api-secrets.md
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# ML model artifacts (large binary files — store on HuggingFace Hub instead)
+app/ml/models/*.pkl
+app/ml/models/*.pt
+app/ml/models/*.bin
+app/ml/models/finbert_finetuned/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+app/data/*.log
+app/logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node / Frontend
+node_modules/
+frontend/dist/
+frontend/build/
+.npm
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Docker
+*.override.yml
+
+# Backup files
+*.bak
+*.bak[0-9]
+*.orig
+*.old
+
+# DuckDB
+*.duckdb
+*.duckdb.wal
+
+# MLflow
+mlruns/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# .NET build artifacts
+dotnet-gateway/bin/
+dotnet-gateway/obj/
+desktop/bin/
+desktop/obj/
+
+# Runtime data files (regenerated on startup)
+app/data/*.json
+
