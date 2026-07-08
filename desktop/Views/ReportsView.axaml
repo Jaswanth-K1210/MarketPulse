@@ -1,0 +1,64 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MarketPulse.Desktop.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MarketPulse.Desktop.Views.ReportsView"
+             x:DataType="vm:ReportsViewModel">
+
+  <StackPanel Margin="24" Spacing="16" MaxWidth="500" HorizontalAlignment="Left">
+
+    <TextBlock Text="Report Generation" FontSize="22" FontWeight="Bold" Foreground="White"/>
+    <TextBlock Text="Generate Excel or PDF intelligence reports from live gateway data."
+               FontSize="12" Foreground="#9ca3af" TextWrapping="Wrap"/>
+
+    <Border Background="#1e1e3f" CornerRadius="10" Padding="24">
+      <StackPanel Spacing="16">
+
+        <StackPanel Spacing="6">
+          <TextBlock Text="REPORT TYPE" FontSize="10" FontWeight="SemiBold" Foreground="#9ca3af"/>
+          <ComboBox ItemsSource="{Binding ReportTypes}" SelectedItem="{Binding SelectedType}"
+                    HorizontalAlignment="Stretch"/>
+        </StackPanel>
+
+        <Border Background="#2d2d4e" CornerRadius="6" Padding="12">
+          <StackPanel Spacing="4">
+            <TextBlock Text="This report will include:" FontSize="11" Foreground="#9ca3af"/>
+            <TextBlock Text="✓  Supply chain alerts (live from Python backend)" FontSize="11" Foreground="#d1d5db"/>
+            <TextBlock Text="✓  MTU fleet equipment health summary"              FontSize="11" Foreground="#d1d5db"/>
+            <TextBlock Text="✓  Full MRO maintenance schedule"                   FontSize="11" Foreground="#d1d5db"/>
+          </StackPanel>
+        </Border>
+
+        <Button Content="⚡  Generate Report"
+                Command="{Binding GenerateCommand}"
+                IsEnabled="{Binding !IsGenerating}"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                Padding="0,12"
+                Background="#6366f1" Foreground="White"
+                FontSize="14"/>
+
+        <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsGenerating}" Height="3"/>
+
+        <!-- Result area -->
+        <Border IsVisible="{Binding ResultMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                Background="#0f2d1f" CornerRadius="6" Padding="12">
+          <StackPanel Spacing="8">
+            <TextBlock Text="{Binding ResultMessage}" Foreground="#34d399" FontSize="12" TextWrapping="Wrap"/>
+            <TextBlock Text="{Binding DownloadUrl}" Foreground="#6b7280" FontSize="10"
+                       TextWrapping="Wrap"
+                       IsVisible="{Binding DownloadUrl, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+            <Button Content="📂  Open Report"
+                    Command="{Binding OpenReportCommand}"
+                    IsVisible="{Binding DownloadUrl, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                    Padding="10,6" Background="#059669" Foreground="White"/>
+          </StackPanel>
+        </Border>
+
+      </StackPanel>
+    </Border>
+
+  </StackPanel>
+</UserControl>
