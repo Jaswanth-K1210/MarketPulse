@@ -73,16 +73,16 @@ def init_db():
     # Add new columns if they don't exist (for existing databases)
     try:
         cursor.execute("ALTER TABLE alerts ADD COLUMN source_urls TEXT")
-    except:
-        pass
+    except sqlite3.OperationalError:
+        pass  # Column already exists
     try:
         cursor.execute("ALTER TABLE alerts ADD COLUMN ai_analysis TEXT")
-    except:
-        pass
+    except sqlite3.OperationalError:
+        pass  # Column already exists
     try:
         cursor.execute("ALTER TABLE alerts ADD COLUMN full_reasoning TEXT")
-    except:
-        pass
+    except sqlite3.OperationalError:
+        pass  # Column already exists
 
     # 5. Impact Analysis Table (The Reasoning Trail)
     cursor.execute('''

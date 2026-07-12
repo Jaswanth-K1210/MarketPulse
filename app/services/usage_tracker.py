@@ -3,9 +3,12 @@ Gemini API Usage Tracker
 Monitors and logs API calls to ensure efficient credit usage
 """
 import json
+import logging
 import os
 from datetime import datetime
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
 
 USAGE_LOG_PATH = Path(__file__).parent.parent / "data" / "gemini_usage.json"
 
@@ -19,8 +22,8 @@ class UsageTracker:
             try:
                 with open(USAGE_LOG_PATH, 'r') as f:
                     return json.load(f)
-            except:
-                pass
+            except (json.JSONDecodeError, OSError) as e:
+                logger.warning("Could not load usage log, starting fresh: %s", e)
         return {"daily_requests": {}, "total_requests": 0}
     
     def _save_usage(self):

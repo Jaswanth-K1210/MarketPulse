@@ -1,6 +1,7 @@
 from datetime import datetime
 import re
 import json
+import asyncio
 from typing import Dict, Any, List
 from app.agents.state import SupplyChainState
 from app.services.news_aggregator import news_aggregator_layer
@@ -10,10 +11,54 @@ from app.services.sec_parser import sec_parser
 from app.services.relationship_fusion import relationship_fusion
 from app.services.persistence import persistence_service
 
+
+def _user_ctx(state: SupplyChainState) -> str:
+    """Return user context string from state (empty string if not set)."""
+    return state.get("user_context", "") or ""
+
+
+def _run_async(coro):
+    """Run an async coroutine from synchronous agent nodes."""
+    try:
+        loop = asyncio.get_event_loop()
+        if loop.is_running():
+            import concurrent.futures
+            with concurrent.futures.ThreadPoolExecutor(1) as pool:
+                fut = pool.submit(asyncio.run, coro)
+                return fut.result(timeout=10)
+        return loop.run_until_complete(coro)
+    except Exception:
+        return None
+
+
+def llm_discovery(ticker: str) -> List[Dict]:
+    """Discover supply-chain relationships for a ticker using the LLM router."""
+    try:
+        from app.ml.llm_router import llm_router
+        prompt = (
+            f"List the top 5 supply chain relationships for {ticker}. "
+            "For each, return JSON: [{\"related_company\": str, \"type\": \"supplier|customer|competitor\", "
+            "\"criticality\": \"high|medium|low\", \"source\": \"llm\", \"confidence\": 0.65}]"
+        )
+        raw = llm_router.call("fast", prompt, retries=1)
+        if not raw or not isinstance(raw, str):
+            return []
+        clean = re.sub(r'^```(?:json)?\s*|\s*```$', '', raw.strip(), flags=re.MULTILINE)
+        parsed = json.loads(clean)
+        return parsed if isinstance(parsed, list) else []
+    except Exception as e:
+        print(f"LLM discovery error for {ticker}: {e}")
+        return []
+
 def agent_1_news_monitor(state: SupplyChainState) -> Dict[str, Any]:
     """Agent 1: Continuous news surveillance across all sources."""
     print("---EXECUTING AGENT 1: NEWS MONITOR (SPEC 3.0 INGESTION)---")
-    
+
+    # Log personalised context so downstream prompts are aware
+    ctx = _user_ctx(state)
+    if ctx:
+        print(f"[Agent 1] User context loaded ({len(ctx)} chars) — personalising fetch.")
+
     # Use the new high-intelligence ingestion layer
     portfolio_tickers = state.get("portfolio", [])
     articles = news_aggregator_layer.ingest_all(portfolio_tickers)[:5] # Limit to 5 for demo speed/rate-limits
@@ -49,31 +94,63 @@ def agent_1_news_monitor(state: SupplyChainState) -> Dict[str, Any]:
             "companies": art.companies_mentioned
         })
 
+    # Inject live market regime into state for downstream agents
+    regime_str = ""
+    try:
+        from app.ml.regime_detector import regime_detector
+        regime_detector.detect()
+        regime_str = regime_detector.regime_context_prompt()
+    except Exception:
+        pass
+
     return {
         "news_articles": news_list,
+        "market_regime": regime_str,
         "last_fetch_time": datetime.now().isoformat(),
-        "workflow_status": f"Fetched {len(news_list)} prioritized articles"
+        "workflow_status": f"Fetched {len(news_list)} prioritized articles | {regime_str}",
     }
 
 def agent_2_classifier(state: SupplyChainState) -> Dict[str, Any]:
-    """Agent 2: Categorize news into 10 market factors + sentiment."""
-    print("---EXECUTING AGENT 2: CLASSIFIER---")
+    """Agent 2: Classify news into 10 market factors + FinBERT sentiment scoring."""
+    print("---EXECUTING AGENT 2: CLASSIFIER (FinBERT)---")
+
+    from app.services.finbert_service import finbert
+
+    articles = state["news_articles"]
     classified = []
-    for article in state["news_articles"]:
+
+    # ── FinBERT batch sentiment ────────────────────────────────────────────
+    texts = [f"{a.get('title','')} {a.get('content','')[:300]}" for a in articles]
+    if texts:
+        fb_scores = finbert.score_batch(texts)
+        print(f"  [FinBERT] scored {len(fb_scores)} articles "
+              f"({'ready' if finbert.ready else 'keyword-fallback'})")
+    else:
+        fb_scores = []
+
+    for i, article in enumerate(articles):
         res = classification_service.classify_article(article["title"], article["content"])
+
+        # Override sentiment with FinBERT when available
+        if i < len(fb_scores):
+            fb = fb_scores[i]
+            res["sentiment_score"] = fb["score"]
+            res["sentiment_label"] = fb["label"]
+            res["sentiment_confidence"] = fb["confidence"]
+            res["sentiment_source"] = fb["source"]
+
         classified.append({
             "article_id": article["id"],
-            "ticker": article["companies"][0] if article["companies"] else "UNKNOWN",
-            **res
+            "ticker": article["companies"][0] if article.get("companies") else "UNKNOWN",
+            **res,
         })
-    
-    # Filter for high priority (Sentiment score < -0.5 or > 0.5)
-    high_priority = [c["article_id"] for c in classified if abs(c["sentiment_score"]) > 0.5]
-    
+
+    high_priority = [c["article_id"] for c in classified if abs(c.get("sentiment_score", 0)) > 0.45]
+
     return {
         "classified_articles": classified,
         "high_priority_articles": high_priority,
-        "workflow_status": f"Classified {len(classified)} articles"
+        "workflow_status": f"Classified {len(classified)} articles (FinBERT: {'✓' if finbert.ready else '⚠ fallback'})",
     }
 
 def agent_3a_matcher_fast(state: SupplyChainState) -> Dict[str, Any]:
@@ -208,24 +285,7 @@ def agent_3b_discovery(state: SupplyChainState) -> Dict[str, Any]:
             if c_type == "public":
                 sec_future = executor.submit(sec_parser.extract_relationships, ticker)
             
-            # SOURCE 2: LLM Discovery
-            def llm_discovery(t):
-                from app.services.gemini_client import GeminiClient
-                prompt = f"""Identify the top 5 strategic suppliers and customers for {t}.
-                Return ONLY valid JSON array:
-                [{{"related_company": "Company Name", "type": "supplier|customer", "criticality": "high|medium|low"}}]
-                """
-                try:
-                    resp = GeminiClient().generate_content(prompt).text
-                    clean_json = re.sub(r'^```json\s*|\s*```$', '', resp.strip(), flags=re.MULTILINE)
-                    rels = json.loads(clean_json)
-                    for r in rels:
-                        r["source"] = "llm_intelligence"
-                        r["confidence"] = 0.45
-                    return rels
-                except Exception as e:
-                    print(f"      LLM error: {str(e)[:50]}")
-                    return []
+
 
             llm_future = executor.submit(llm_discovery, ticker)
 
@@ -249,10 +309,8 @@ def agent_3b_discovery(state: SupplyChainState) -> Dict[str, Any]:
             news_future = executor.submit(news_discovery, ticker)
 
             # SOURCE 4: Web scraping (simplified for demo - can be enhanced)
-            def web_discovery(t):
-                # Placeholder for web scraping
-                # In production, this would scrape company investor relations pages
-                # For now, return empty to focus on other sources
+            def web_discovery(_ticker):
+                # Placeholder for web scraping (company investor relations pages)
                 return []
 
             web_future = executor.submit(web_discovery, ticker)
@@ -288,7 +346,7 @@ def agent_3b_discovery(state: SupplyChainState) -> Dict[str, Any]:
             if web_future:
                  try:
                     results['web'] = web_future.result(timeout=5) or []
-                 except:
+                 except Exception:
                     pass
 
         # FUSION: Merge all sources with confidence boosting
@@ -337,61 +395,83 @@ def agent_3b_discovery(state: SupplyChainState) -> Dict[str, Any]:
     }
 
 def agent_4_impact_calculator(state: SupplyChainState) -> Dict[str, Any]:
-    """Agent 4: Calculate financial impact and record Reasoning Trail."""
-    print("---EXECUTING AGENT 4: IMPACT CALCULATOR---")
-    
-    stock_impacts = []
-    reasoning_trail = []
-    
-    # Match classified info with discovered relationships
+    """Agent 4: GNN supply-chain shock propagation + legacy impact calculator."""
+    print("---EXECUTING AGENT 4: IMPACT CALCULATOR (GNN)---")
+
+    from app.services.gnn_service import get_portfolio_impact as gnn_impact
+
+    entity_memory: Dict[str, Any] = state.get("agent_memory", {}) or {}
+    portfolio = state.get("portfolio", [])
+    stock_impacts: List[Dict] = []
+    reasoning_trail: List[Dict] = []
+    gnn_results: List[Dict] = []
+
     for article in state["classified_articles"]:
-        ticker = article.get("ticker")
-        score = article.get("sentiment_score", 0.0)
+        ticker      = article.get("ticker", "")
+        score       = article.get("sentiment_score", 0.0)
         factor_name = article.get("factor_name", "")
-        
-        # Check Direct Impacts (TIER 1)
-        if ticker in state.get("portfolio", []):
-            impact_val = impact_calculator_service.calculate_propagation_impact(score, {"type": "direct", "criticality": "high"}, factor_name)
+        if not ticker or ticker == "UNKNOWN":
+            continue
+
+        # ── GNN: propagate sentiment shock through supply-chain graph ──────
+        gnn = gnn_impact(portfolio, ticker, score)
+        gnn_results.append(gnn)
+
+        # Convert GNN portfolio impacts into stock_impacts entries
+        for port_ticker, pct in gnn["portfolio_impacts"].items():
+            mem          = entity_memory.get(port_ticker, {})
+            prev_impact  = mem.get("impact_pct", 0)
+            trend_note   = ""
+            if mem and abs(pct) > abs(prev_impact) * 1.2:
+                trend_note = f" [⚠ ESCALATING vs prev {prev_impact:+.1f}%]"
+            elif mem and abs(pct) < abs(prev_impact) * 0.8:
+                trend_note = f" [✓ IMPROVING vs prev {prev_impact:+.1f}%]"
+
+            hop = "direct" if port_ticker == ticker else "GNN-chain"
             stock_impacts.append({
-                "ticker": ticker,
-                "impact_pct": impact_val * 10, # Conversion to percentage
-                "confidence": article.get("confidence", 0.8),
-                "reason": f"Direct impact from {article['factor_name']}"
+                "ticker":         port_ticker,
+                "impact_pct":     pct,
+                "impact_percent": pct,
+                "confidence":     article.get("confidence", 0.8),
+                "reason":         f"{hop} via {ticker} ({factor_name}){trend_note}",
+                "gnn_shock":      gnn["shock_score"],
             })
             reasoning_trail.append({
-                "ticker": ticker,
-                "level": 1,
-                "reasoning": f"Direct {article['factor_name']} impact detected. {article['reasoning']}",
-                "confidence": article.get("confidence", 0.95)
+                "ticker":     port_ticker,
+                "level":      1 if hop == "direct" else 2,
+                "reasoning":  f"{hop} propagation from {ticker} (FinBERT score {score:+.3f}). {factor_name}.",
+                "confidence": article.get("confidence", 0.85),
             })
-            
-        # Check Indirect Impacts (TIER 2/3)
-        # Combine relationships from discovery AND existing cache
-        all_rels = persistence_service.get_cached_relationships(ticker)
-        
-        for rel in all_rels:
-            if rel['related_company'] in state.get("portfolio", []):
+
+        # ── Legacy path: DB-cached relationships (Tier 2/3 supplement) ────
+        for rel in persistence_service.get_cached_relationships(ticker):
+            if rel["related_company"] in portfolio:
                 impact_val = impact_calculator_service.calculate_propagation_impact(score, rel, factor_name)
                 stock_impacts.append({
-                    "ticker": rel['related_company'],
-                    "impact_pct": impact_val * 10,
-                    "confidence": rel.get('confidence', 0.7),
-                    "reason": f"Indirect {rel['type']} impact via {ticker}"
+                    "ticker":         rel["related_company"],
+                    "impact_pct":     impact_val * 10,
+                    "impact_percent": impact_val * 10,
+                    "confidence":     rel.get("confidence", 0.7),
+                    "reason":         f"DB-cached {rel['type']} via {ticker}",
                 })
-                reasoning_trail.append({
-                    "ticker": rel['related_company'],
-                    "level": 2,
-                    "reasoning": f"Tier 2 {rel['type']} propagation via {ticker}. Adjusted by historical precedent.",
-                    "confidence": rel.get('confidence', 0.85)
-                })
-    
+
     total_impact = impact_calculator_service.aggregate_portfolio_impact(stock_impacts)
-    
+
+    # Summarise GNN chain coverage
+    all_chain_tickers = set()
+    for g in gnn_results:
+        all_chain_tickers.update(g.get("all_chain_impacts", {}).keys())
+
+    print(f"  [GNN] {len(gnn_results)} shocks propagated | "
+          f"{len(all_chain_tickers)} total affected nodes | "
+          f"portfolio impact {total_impact.get('impact_pct', 0):+.2f}%")
+
     return {
-        "stock_impacts": stock_impacts,
-        "portfolio_total_impact": total_impact,
-        "reasoning_trail": reasoning_trail,
-        "workflow_status": "Impact calculation complete"
+        "stock_impacts":         stock_impacts,
+        "portfolio_total_impact":total_impact,
+        "reasoning_trail":       reasoning_trail,
+        "gnn_results":           gnn_results,
+        "workflow_status":       f"GNN impact calculation complete ({len(gnn_results)} shocks)",
     }
 
 def agent_5_validator(state: SupplyChainState) -> Dict[str, Any]:
@@ -464,8 +544,42 @@ def agent_5_validator(state: SupplyChainState) -> Dict[str, Any]:
     }
 
 def agent_6_alerts(state: SupplyChainState) -> Dict[str, Any]:
-    """Agent 6: Persist Alert and Reasoning Trail to SQLite with full provenance."""
-    print("---EXECUTING AGENT 6: ALERT GENERATOR---")
+    """Agent 6: Monte Carlo risk simulation → persist alert + reasoning trail."""
+    print("---EXECUTING AGENT 6: ALERT GENERATOR (Monte Carlo)---")
+
+    from app.services.monte_carlo_service import monte_carlo
+    from app.services.alpaca_service import alpaca_service
+
+    portfolio = state.get("portfolio", [])
+
+    # ── Build GNN impact map from Agent 4 results ──────────────────────────
+    gnn_impacts: Dict[str, float] = {}
+    for g in state.get("gnn_results", []):
+        for t, pct in g.get("portfolio_impacts", {}).items():
+            gnn_impacts[t] = gnn_impacts.get(t, 0) + pct
+
+    # ── Fetch current prices (Alpaca if available, else state cache) ───────
+    current_prices: Dict[str, float] = {}
+    if portfolio:
+        snaps = alpaca_service.get_snapshots(portfolio) if alpaca_service.available else {}
+        current_prices = {t: v["current_price"] for t, v in snaps.items() if v.get("is_valid")}
+
+    # ── Monte Carlo simulation ─────────────────────────────────────────────
+    mc_result: Dict = {}
+    if portfolio:
+        try:
+            mc_result = monte_carlo.simulate(
+                portfolio=portfolio,
+                gnn_impacts=gnn_impacts,
+                current_prices=current_prices,
+            )
+            sev   = mc_result["portfolio"]["severity"]
+            var95 = mc_result["portfolio"]["var_95_pct"]
+            prob  = mc_result["portfolio"]["prob_below_threshold"]
+            print(f"  [Monte Carlo] VaR-95: {var95:.2f}% | "
+                  f"P(loss > 2%): {prob:.1f}% | severity: {sev}")
+        except Exception as exc:
+            print(f"  [Monte Carlo] skipped: {exc}")
 
     # Calculate a unique enough alert ID
     alert_id = f"ALERT-{datetime.now().strftime('%Y%m%d')}-{abs(hash(str(state['portfolio_total_impact']))) % 1000:03}"
@@ -483,18 +597,28 @@ def agent_6_alerts(state: SupplyChainState) -> Dict[str, Any]:
         factors = [c.get('factor_name', 'Unknown') for c in classified]
         ai_analysis += f"Key factors: {', '.join(set(factors))}. "
 
-    # Build full reasoning
-    full_reasoning = f"**Portfolio Impact Analysis**\n\n"
+    # Build full reasoning (includes Monte Carlo stats)
+    full_reasoning  = "**Portfolio Impact Analysis**\n\n"
     full_reasoning += f"Total Impact: {state['portfolio_total_impact']['impact_pct']:.2f}%\n\n"
 
-    for impact in state.get('stock_impacts', []):
-        ticker = impact.get('ticker', 'Unknown')
-        pct = impact.get('impact_pct', 0)
-        reason = impact.get('reasoning', 'No reasoning provided')
-        full_reasoning += f"**{ticker}**: {pct:+.2f}%\n{reason}\n\n"
+    for impact in state.get("stock_impacts", []):
+        pct    = impact.get("impact_pct", 0)
+        reason = impact.get("reason", impact.get("reasoning", "No reasoning provided"))
+        full_reasoning += f"**{impact.get('ticker','?')}**: {pct:+.2f}%\n{reason}\n\n"
+
+    if mc_result:
+        port = mc_result["portfolio"]
+        full_reasoning += (
+            f"\n**Monte Carlo ({mc_result['n_simulations']} sims, {mc_result['horizon_hours']}h)**\n"
+            f"Expected: {port['expected_return_pct']:+.2f}% | "
+            f"VaR-95: {port['var_95_pct']:.2f}% | "
+            f"CVaR-95: {port['cvar_95_pct']:.2f}%\n"
+            f"P(loss > 2%): {port['prob_below_threshold']:.1f}% | "
+            f"Severity: {port['severity'].upper()}\n"
+        )
 
     full_reasoning += f"\n**Confidence**: {state.get('confidence_score', 0):.1%}\n"
-    full_reasoning += f"**Discovery Sources**: {len(state.get('discovered_relationships', []))} relationships found\n"
+    full_reasoning += f"**GNN nodes affected**: {sum(len(g.get('all_chain_impacts',{})) for g in state.get('gnn_results',[]))}\n"
 
     # Save to SQLite
     persistence_service.save_alert(
@@ -509,9 +633,19 @@ def agent_6_alerts(state: SupplyChainState) -> Dict[str, Any]:
         full_reasoning=full_reasoning
     )
 
+    # Persist agent memory to MongoDB (non-blocking — fire and forget)
+    user_id = state.get("user_id", "")
+    if user_id:
+        try:
+            from app.db.agent_memory import extract_and_save_session_memory
+            _run_async(extract_and_save_session_memory(user_id, dict(state)))
+        except Exception as e:
+            print(f"[Agent 6] Memory save skipped: {e}")
+
     return {
-        "alert_created": True,
-        "alert_id": alert_id,
-        "workflow_status": "Alert and Reasoning Trail persisted to SQLite",
-        "completed_at": datetime.now().isoformat()
+        "alert_created":    True,
+        "alert_id":         alert_id,
+        "monte_carlo":      mc_result,
+        "workflow_status":  "Alert + Monte Carlo risk report persisted",
+        "completed_at":     datetime.now().isoformat(),
     }
