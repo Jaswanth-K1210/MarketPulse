@@ -145,6 +145,31 @@ GEMINI_TIMEOUT = 30  # Timeout for API calls
 GEMINI_MAX_RETRIES = 2  # Reduced from 3 to conserve budget
 
 # ═══════════════════════════════════════════════════════════════════════════
+# v2: PER-TASK LLM CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════
+LLM_TASK_CONFIG = {
+    "classify": {"temperature": 0, "max_output_tokens": 100},
+    "extract_relationships": {"temperature": 0.1, "max_output_tokens": 500},
+    "summarize": {"temperature": 0.3, "max_output_tokens": 200},
+    "cascade_inference": {"temperature": 0.1, "max_output_tokens": 400},
+    "explain": {"temperature": 0.3, "max_output_tokens": 200},
+    "risk_analysis": {"temperature": 0.1, "max_output_tokens": 300},
+}
+
+# ═══════════════════════════════════════════════════════════════════════════
+# v2: REDIS / CACHE CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════
+REDIS_URL = os.getenv("REDIS_URL", "")  # redis://localhost:6379 or Upstash URL
+
+# ═══════════════════════════════════════════════════════════════════════════
+# v2: NEW DATA SOURCE API KEYS
+# ═══════════════════════════════════════════════════════════════════════════
+FRED_API_KEY = os.getenv("FRED_API_KEY", "")
+ACLED_API_KEY = os.getenv("ACLED_API_KEY", "")
+ACLED_EMAIL = os.getenv("ACLED_EMAIL", "")
+COINGECKO_API_KEY = os.getenv("COINGECKO_API_KEY", "")
+
+# ═══════════════════════════════════════════════════════════════════════════
 # DATABASE CONFIGURATION
 # ═══════════════════════════════════════════════════════════════════════════
 

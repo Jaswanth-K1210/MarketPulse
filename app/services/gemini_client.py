@@ -2,6 +2,7 @@
 Gemini Client Service
 Wrapper around Google Generative AI for relationship extraction, cascade inference, and explanations
 WITH ROBUST RATE LIMITING, QUEUING, AND EXPONENTIAL BACKOFF
++ v2: Output sanitization, JSON recovery, input sanitization, per-task LLM config
 """
 
 import google.generativeai as genai
@@ -15,6 +16,9 @@ from app.config import (
     GEMINI_API_KEY, GEMINI_MODEL, GEMINI_TEMPERATURE,
     OPENROUTER_API_KEYS
 )
+from app.services.llm.output_sanitizer import sanitize_llm_output
+from app.services.llm.json_recovery import recover_json
+from app.services.llm.input_sanitizer import sanitize_content, sanitize_title
 
 logger = logging.getLogger(__name__)
 
@@ -217,19 +221,22 @@ class GeminiClient:
         
         return None
 
-    def _parse_json_response(self, text: str) -> Optional[Dict]:
-        """Clean and parse JSON from LLM response"""
-        try:
-            # Strip Markdown code blocks
-            clean_text = text.replace("```json", "").replace("```", "").strip()
-            # Find first { and last }
-            start = clean_text.find("{")
-            end = clean_text.rfind("}")
-            if start != -1 and end != -1:
-                clean_text = clean_text[start:end+1]
-            return json.loads(clean_text)
-        except Exception:
+    def _parse_json_response(self, text: str, task_type: str = "default", valid_enums: Optional[Dict] = None) -> Optional[Dict]:
+        """Clean, sanitize, and parse JSON from LLM response using multi-strategy recovery."""
+        if not text:
             return None
+
+        # Step 1: Sanitize LLM output (strip thinking tags, detect preambles)
+        sanitized = sanitize_llm_output(text, task_type=task_type, reject_on_preamble=False)
+        if sanitized is None:
+            logger.warning(f"LLM output rejected by sanitizer (task={task_type})")
+            return None
+
+        # Step 2: Multi-strategy JSON recovery with enum validation
+        result = recover_json(sanitized, valid_enums=valid_enums)
+        if result is None:
+            logger.warning(f"All JSON recovery strategies failed (task={task_type})")
+        return result
 
     def _heuristic_extraction(self, article_text: str, article_title: str) -> Dict:
         """Fallback: Extract relationships using simplistic keyword matching"""
@@ -272,10 +279,14 @@ class GeminiClient:
 
     def extract_relationships(self, article_text: str, article_title: str) -> Optional[Dict]:
         """Extract company relationships with robust retry logic"""
-        
+
+        # v2: Sanitize inputs before LLM call
+        clean_title = sanitize_title(article_title)
+        clean_content = sanitize_content(article_text)
+
         prompt = f"""Analyze this news for Supply Chain Disruptions.
-Title: "{article_title}"
-Content: {article_text[:800]}
+Title: "{clean_title}"
+Content: {clean_content[:800]}
 
 Identify relationships between: Apple, NVIDIA, AMD, Intel, Broadcom, TSMC, Samsung, MediaTek, ARM, ASML.
 
@@ -301,11 +312,11 @@ If no specific supply chain relationship is found, leave 'relationships' empty a
         )
         
         if response and response.text:
-            result = self._parse_json_response(response.text)
+            result = self._parse_json_response(response.text, task_type="extract_relationships")
             if result and isinstance(result.get('relationships'), list):
                 count = len(result.get('relationships', []))
                 if count > 0:
-                    logger.info(f"✓ Extracted {count} relationships")
+                    logger.info(f"Extracted {count} relationships")
                 return result
 
         # FINAL FALLBACK
@@ -350,7 +361,7 @@ Return JSON:
             )
             
             if response and response.text:
-                result = self._parse_json_response(response.text)
+                result = self._parse_json_response(response.text, task_type="cascade_inference")
                 if result:
                     logger.info(f"Inferred cascade affecting {len(result.get('affected_portfolio_companies', []))} companies")
                 return result
@@ -375,16 +386,19 @@ Keep it brief (2 sentences)."""
 
     def detect_direct_impact(self, article_text: str, article_title: str, portfolio_holdings: List[str]) -> Optional[Dict]:
         """Detect direct impact on portfolio"""
+        # v2: Sanitize inputs
+        clean_title = sanitize_title(article_title)
+        clean_content = sanitize_content(article_text)
         portfolio_str = ", ".join(portfolio_holdings)
         prompt = f"""Analyze DIRECT impact on: {portfolio_str}
-Title: {article_title}
-Content: {article_text[:500]}
+Title: {clean_title}
+Content: {clean_content[:500]}
 Return JSON: {{"has_direct_impact": true/false, "affected_companies": ["TICKER"], "impact_type": "positive/negative/neutral", "severity": "low/medium/high", "reasoning": "brief"}}"""
         response = self.generate_content(prompt)
         if response and response.text:
-            result = self._parse_json_response(response.text)
+            result = self._parse_json_response(response.text, task_type="classify")
             if result and result.get('has_direct_impact'):
-                logger.info(f"✓ Detected direct impact on {len(result.get('affected_companies', []))} companies")
+                logger.info(f"Detected direct impact on {len(result.get('affected_companies', []))} companies")
             return result
         return {"has_direct_impact": False}
 

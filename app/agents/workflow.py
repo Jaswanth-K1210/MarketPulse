@@ -9,6 +9,8 @@ from app.agents.nodes import (
     agent_5_validator,
     agent_6_alerts
 )
+from app.agents.alpha_scorer import agent_alpha_scorer
+from app.agents.convergence_detector import agent_convergence_detector
 
 def route_to_discovery_if_needed(state: SupplyChainState) -> str:
     """Routes to discovery if there are cache misses."""
@@ -20,8 +22,6 @@ def check_confidence_threshold(state: SupplyChainState) -> str:
     """Decides whether to loop back or move to alerts based on validator decision."""
     decision = state.get("validation_decision")
     if decision == "REQUEST_MORE_DATA":
-        # Increment loop count before returning
-        # Actually, in LangGraph, we can just return a string for the edge
         return "loop"
     return "accept"
 
@@ -31,6 +31,8 @@ workflow = StateGraph(SupplyChainState)
 # Add nodes
 workflow.add_node("news_monitor", agent_1_news_monitor)
 workflow.add_node("classifier", agent_2_classifier)
+workflow.add_node("alpha_scorer", agent_alpha_scorer)
+workflow.add_node("convergence_detector", agent_convergence_detector)
 workflow.add_node("matcher_fast", agent_3a_matcher_fast)
 workflow.add_node("matcher_discovery", agent_3b_discovery)
 workflow.add_node("impact_calculator", agent_4_impact_calculator)
@@ -39,7 +41,9 @@ workflow.add_node("alert_generator", agent_6_alerts)
 
 # Set up edges
 workflow.add_edge("news_monitor", "classifier")
-workflow.add_edge("classifier", "matcher_fast")
+workflow.add_edge("classifier", "alpha_scorer")
+workflow.add_edge("alpha_scorer", "convergence_detector")
+workflow.add_edge("convergence_detector", "matcher_fast")
 
 # Conditional edges from matcher_fast
 workflow.add_conditional_edges(

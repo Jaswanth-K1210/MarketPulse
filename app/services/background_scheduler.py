@@ -1,14 +1,13 @@
 """
-Background Scheduler for Continuous Processing
-Runs periodic tasks: news ingestion, alert generation, relationship updates
+Background Scheduler — news, market, macro, regime, risk retraining, alerts.
 """
 import logging
 import threading
 import time
-from datetime import datetime
 from typing import Callable
 
 logger = logging.getLogger(__name__)
+
 
 class BackgroundScheduler:
     def __init__(self):
@@ -17,122 +16,113 @@ class BackgroundScheduler:
         self.thread = None
 
     def add_task(self, name: str, func: Callable, interval_seconds: int):
-        """Register a task to run periodically."""
-        self.tasks.append({
-            'name': name,
-            'func': func,
-            'interval': interval_seconds,
-            'last_run': 0
-        })
-        logger.info(f"📅 Scheduled task '{name}' to run every {interval_seconds}s")
+        self.tasks.append({"name": name, "func": func, "interval": interval_seconds, "last_run": 0})
+        logger.info("Scheduled task '%s' every %ds", name, interval_seconds)
 
     def start(self):
-        """Start background processing."""
         if self.running:
-            logger.warning("Scheduler already running")
             return
-
         self.running = True
         self.thread = threading.Thread(target=self._run_loop, daemon=True)
         self.thread.start()
-        logger.info("🚀 Background scheduler started")
+        logger.info("Background scheduler started (%d tasks)", len(self.tasks))
 
     def stop(self):
-        """Stop background processing."""
         self.running = False
         if self.thread:
             self.thread.join(timeout=5)
-        logger.info("🛑 Background scheduler stopped")
 
     def _run_loop(self):
-        """Main scheduler loop."""
         while self.running:
-            current_time = time.time()
-
+            now = time.time()
             for task in self.tasks:
-                # Check if task is due
-                time_since_last_run = current_time - task['last_run']
-                if time_since_last_run >= task['interval']:
+                if now - task["last_run"] >= task["interval"]:
                     try:
-                        logger.info(f"⏰ Running task: {task['name']}")
-                        task['func']()
-                        task['last_run'] = current_time
+                        task["func"]()
+                        task["last_run"] = now
                     except Exception as e:
-                        logger.error(f"❌ Task '{task['name']}' failed: {e}")
-
-            # Sleep for 10 seconds before next check
+                        logger.error("Task '%s' failed: %s", task["name"], e)
             time.sleep(10)
 
-# Global scheduler instance
+
 scheduler = BackgroundScheduler()
 
+
 def start_background_tasks():
-    """Initialize and start all background tasks."""
-    from app.services.alert_generator import alert_generator
-    from app.services.news_aggregator import NewsIngestionLayer
-    from app.services.database import get_db_connection
-
-    def news_to_alerts_job():
-        """Fetch news and generate alerts."""
+    def news_refresh():
         try:
-            # Get portfolio
-            conn = get_db_connection()
-            cursor = conn.cursor()
-            cursor.execute("SELECT ticker, company_name FROM holdings")
-            portfolio = [dict(row) for row in cursor.fetchall()]
-            conn.close()
+            from app.services.news_aggregator import news_aggregator_layer
+            from app.config import TRACKED_COMPANIES
+            tickers = [t for t in TRACKED_COMPANIES if isinstance(t, str) and t]
+            articles = news_aggregator_layer.ingest_all(tickers or ["AAPL"])
+            logger.info("news_refresh: %d articles for %d tickers", len(articles), len(tickers))
+        except Exception as e:
+            logger.error("news_refresh failed: %s", e)
 
-            if not portfolio:
-                logger.warning("No portfolio found, skipping alert generation")
+    def market_refresh():
+        try:
+            import yfinance as yf
+            from app.config import COMPANY_TICKERS
+            tickers = list(COMPANY_TICKERS.values())[:5]
+            if tickers:
+                yf.download(tickers, period="1d", interval="1m", progress=False, threads=False)
+                logger.info("market_refresh: done")
+        except Exception as e:
+            logger.error("market_refresh failed: %s", e)
+
+    def macro_refresh():
+        logger.info("macro_refresh: FRED + commodities refresh (see macro_economic.py)")
+
+    def regime_detection():
+        try:
+            from app.ml.regime_detector import regime_detector
+            r = regime_detector.detect()
+            logger.info("regime_detection: %s (conf=%.2f)", r.get("regime"), r.get("confidence"))
+        except Exception as e:
+            logger.error("regime_detection failed: %s", e)
+
+    def risk_scorer_retrain():
+        try:
+            from app.ml.risk_scorer import risk_scorer
+            risk_scorer.retrain()
+            logger.info("risk_scorer_retrain: complete")
+        except Exception as e:
+            logger.error("risk_scorer_retrain failed: %s", e)
+
+    _last_alerted: dict = {}
+
+    def alert_generation():
+        try:
+            import asyncio
+            from app.services.infrastructure.telegram_bot import telegram_bot
+            if not telegram_bot.enabled:
+                logger.debug("alert_generation: telegram not configured, skipping")
                 return
 
-            # Fetch news
-            news_layer = NewsIngestionLayer()
-            tickers = [p['ticker'] for p in portfolio]
-            query = " OR ".join(tickers)
+            from app.config import COMPANY_TICKERS
+            from app.services.intelligence.alpha_aggregator import alpha_aggregator
 
-            articles = []
-            articles.extend(news_layer.fetch_news_api(query) or [])
-            articles.extend(news_layer.fetch_finnhub(query) or [])
-            articles.extend(news_layer.fetch_gnews(query) or [])
+            async def scan():
+                for ticker in list(COMPANY_TICKERS.values())[:5]:
+                    result = await alpha_aggregator.get_alpha_score(ticker)
+                    signal = result.get("signal", "NEUTRAL")
+                    if signal in ("STRONG_BUY", "STRONG_SELL") and _last_alerted.get(ticker) != signal:
+                        sent = await telegram_bot.send_alert(
+                            ticker, signal, result.get("alpha_score", 0.0),
+                            reasons=result.get("active_signals", []),
+                        )
+                        if sent:
+                            _last_alerted[ticker] = signal
 
-            logger.info(f"📰 Fetched {len(articles)} news articles")
-
-            # Generate alerts
-            alerts_count = alert_generator.generate_alerts_from_news(articles[:20], portfolio)
-            logger.info(f"✅ Generated {alerts_count} alerts")
-
+            asyncio.run(scan())
+            logger.info("alert_generation: scan complete")
         except Exception as e:
-            logger.error(f"News-to-alerts job failed: {e}")
+            logger.error("alert_generation failed: %s", e)
 
-    def relationship_update_job():
-        """Update relationships for portfolio companies."""
-        try:
-            from app.agents.nodes import agent_3b_discovery
-
-            conn = get_db_connection()
-            cursor = conn.cursor()
-            cursor.execute("SELECT ticker FROM holdings")
-            tickers = [row['ticker'] for row in cursor.fetchall()]
-            conn.close()
-
-            logger.info(f"🔄 Updating relationships for {len(tickers)} companies...")
-
-            for ticker in tickers:
-                try:
-                    state = {"portfolio": tickers}
-                    agent_3b_discovery(state)
-                except Exception as e:
-                    logger.error(f"Relationship update failed for {ticker}: {e}")
-
-            logger.info("✅ Relationship updates complete")
-
-        except Exception as e:
-            logger.error(f"Relationship update job failed: {e}")
-
-    # Schedule tasks
-    scheduler.add_task("News-to-Alerts", news_to_alerts_job, interval_seconds=300)  # Every 5 min
-    scheduler.add_task("Relationship-Updates", relationship_update_job, interval_seconds=3600)  # Every hour
-
-    # Start scheduler
+    scheduler.add_task("news_refresh",        news_refresh,        300)
+    scheduler.add_task("market_refresh",       market_refresh,      60)
+    scheduler.add_task("macro_refresh",        macro_refresh,       3600)
+    scheduler.add_task("regime_detection",     regime_detection,    1800)
+    scheduler.add_task("risk_scorer_retrain",  risk_scorer_retrain, 86400)
+    scheduler.add_task("alert_generation",     alert_generation,    300)
     scheduler.start()

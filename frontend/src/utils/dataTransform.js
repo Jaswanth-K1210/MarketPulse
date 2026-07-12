@@ -114,16 +114,17 @@ export function transformPortfolio(backendPortfolio) {
  * Transform backend stats to frontend format
  */
 export function transformStats(backendStats) {
+  // API returns: active_alerts, watched_companies, articles_processed, relationships_mapped
   return {
-    activeAlerts: backendStats.total_alerts || 0,
-    alertsToday: backendStats.alerts_today || 0,
-    watchedCompanies: backendStats.companies_tracked || 0,
-    companiesThisWeek: backendStats.new_companies_this_week || 0,
+    activeAlerts:      backendStats.active_alerts      ?? backendStats.total_alerts      ?? 0,
+    alertsToday:       backendStats.alerts_today       ?? 0,
+    watchedCompanies:  backendStats.watched_companies  ?? backendStats.companies_tracked ?? 0,
+    companiesThisWeek: backendStats.new_companies_this_week ?? 0,
     marketImpactScore: calculateMarketImpactScore(backendStats),
-    scoreChange: 0.5, // Can be calculated from historical data
-    eventsDetected: backendStats.total_events || 0,
-    eventsThisWeek: backendStats.events_this_week || 0,
-    alertTrendData: generateTrendData(backendStats.recent_alerts || [])
+    scoreChange:       0.5,
+    eventsDetected:    backendStats.articles_processed ?? backendStats.total_events      ?? 0,
+    eventsThisWeek:    backendStats.events_this_week   ?? 0,
+    alertTrendData:    generateTrendData(backendStats.recent_alerts || [])
   };
 }
 

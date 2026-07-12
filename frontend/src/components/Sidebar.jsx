@@ -1,72 +1,90 @@
-
 import React from 'react'
-import { LayoutDashboard, Search, Bell, Star, TrendingUp, Settings } from 'lucide-react'
+import { LayoutDashboard, Search, Bell, Star, TrendingUp, Settings, Globe, BarChart2, PieChart } from 'lucide-react'
+
+const C = {
+  bg:     '#090e1b',
+  active: 'rgba(59,130,246,0.14)',
+  border: '#141f33',
+  text:   '#c8d6ee',
+  muted:  '#4a6080',
+  blue:   '#4f91f6',
+}
+
+const nav = [
+  { id: 'dashboard', label: 'Dashboard',        icon: LayoutDashboard },
+  { id: 'search',    label: 'Company Search',    icon: Search },
+  { id: 'company',   label: 'Company Deep Dive', icon: BarChart2 },
+  { id: 'alerts',    label: 'Alerts',            icon: Bell },
+  { id: 'watchlist', label: 'Watchlist',         icon: Star },
+  { id: 'trends',    label: 'Market Trends',     icon: TrendingUp },
+  { id: 'settings',  label: 'Settings',          icon: Settings },
+]
 
 export default function Sidebar({ activeTab, setActiveTab }) {
-  const menuItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'search', label: 'Company Search', icon: Search },
-    { id: 'alerts', label: 'Alerts', icon: Bell },
-    { id: 'watchlist', label: 'Watchlist', icon: Star },
-    { id: 'trends', label: 'Market Trends', icon: TrendingUp },
-    { id: 'settings', label: 'Settings', icon: Settings },
-  ]
-
-  const userName = localStorage.getItem('marketpulse_user') || 'Protocol User';
+  const user = localStorage.getItem('marketpulse_user') || 'User'
 
   return (
-    <div className="w-72 bg-darkBg border-r border-darkBorder flex flex-col relative z-50 transition-colors">
-      {/* Header */}
-      <div className="p-8">
-        <div className="flex items-center gap-3 mb-1 group cursor-default">
-          <div className="w-10 h-10 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-xl flex items-center justify-center text-white font-black shadow-lg shadow-blue-500/20 group-hover:rotate-12 transition-transform duration-300">⚡</div>
+    <div className="flex flex-col shrink-0 border-r" style={{ width: 200, background: C.bg, borderColor: C.border }}>
+
+      {/* Brand */}
+      <div className="px-4 py-5 border-b" style={{ borderColor: C.border }}>
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-black shrink-0"
+            style={{ background: 'linear-gradient(135deg,#2563eb,#7c3aed)', color: '#fff' }}>
+            ⚡
+          </div>
           <div>
-            <h1 className="font-black text-xl tracking-tighter uppercase italic text-primary">MarketPulse</h1>
-            <div className="flex items-center gap-1.5">
-              <span className="w-1 h-1 bg-blue-500 rounded-full animate-pulse"></span>
-              <p className="text-[10px] text-secondary font-bold uppercase tracking-widest leading-none">Intelligence Hub</p>
+            <div className="text-[13px] font-black tracking-wide leading-none" style={{ color: C.text }}>
+              MarketPulse
+            </div>
+            <div className="text-[9px] uppercase tracking-widest mt-0.5" style={{ color: C.muted }}>
+              AI Intelligence
             </div>
           </div>
         </div>
       </div>
 
-      {/* Menu */}
-      <nav className="flex-1 px-4 space-y-1">
-        {menuItems.map(item => {
-          const Icon = item.icon
-          const isActive = activeTab === item.id
+      {/* Nav */}
+      <nav className="flex-1 px-2 py-3 space-y-0.5">
+        {nav.map(({ id, label, icon: Icon }) => {
+          const active = activeTab === id
           return (
-            <button
-              key={item.id}
-              onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-300 group ${isActive
-                ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-600/20'
-                : 'text-secondary hover:text-primary hover:bg-white/5'
-                }`}
-            >
-              <div className={`transition-transform duration-300 ${isActive ? 'scale-110' : 'group-hover:scale-110'}`}>
-                <Icon size={22} strokeWidth={isActive ? 2.5 : 2} />
-              </div>
-              <span className={`text-sm font-bold tracking-tight ${isActive ? 'text-white' : 'text-secondary group-hover:text-primary'}`}>
-                {item.label}
+            <button key={id} onClick={() => setActiveTab(id)}
+              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all group"
+              style={{
+                background: active ? C.active : 'transparent',
+                border: `1px solid ${active ? 'rgba(59,130,246,0.22)' : 'transparent'}`,
+              }}>
+              <Icon size={15}
+                style={{ color: active ? C.blue : C.muted, strokeWidth: active ? 2.2 : 1.8 }}
+                className="shrink-0 transition-colors group-hover:text-slate-300" />
+              <span className="text-[12px] font-semibold transition-colors"
+                style={{ color: active ? C.text : C.muted }}
+                onMouseEnter={e => { if (!active) e.target.style.color = '#94a3b8' }}
+                onMouseLeave={e => { if (!active) e.target.style.color = C.muted }}>
+                {label}
               </span>
-              {isActive && (
-                <div className="ml-auto w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_8px_white]"></div>
+              {id === 'alerts' && (
+                <span className="ml-auto text-[9px] font-black px-1.5 py-0.5 rounded-full"
+                  style={{ background: 'rgba(239,68,68,0.15)', color: '#f87171' }}>
+                  •
+                </span>
               )}
             </button>
           )
         })}
       </nav>
 
-      {/* Footer - User Info */}
-      <div className="p-6">
-        <div className="p-4 rounded-2xl bg-white/5 border border-white/5 flex items-center gap-4 group hover:bg-white/10 transition-colors cursor-pointer">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center text-gray-300 font-black text-lg border border-white/10 shadow-inner">
-            {userName.charAt(0).toUpperCase()}
+      {/* User */}
+      <div className="px-3 py-3 border-t" style={{ borderColor: C.border }}>
+        <div className="flex items-center gap-2.5 px-1">
+          <div className="w-7 h-7 rounded-lg flex items-center justify-center text-[11px] font-black shrink-0"
+            style={{ background: 'linear-gradient(135deg,#1e40af,#4c1d95)', color: '#93c5fd' }}>
+            {user.charAt(0).toUpperCase()}
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-black text-primary truncate tracking-tight">{userName}</p>
-            <p className="text-[10px] text-secondary font-bold uppercase tracking-tighter">Verified Agent</p>
+          <div className="min-w-0">
+            <div className="text-[11px] font-semibold truncate" style={{ color: C.text }}>{user}</div>
+            <div className="text-[9px] truncate" style={{ color: C.muted }}>Portfolio Manager</div>
           </div>
         </div>
       </div>
