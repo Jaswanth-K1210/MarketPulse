@@ -148,6 +148,67 @@ def init_db():
     conn.close()
     logger.info(f"SQLite Database initialized at {DATABASE_PATH}")
 
+
+def init_feedback_table():
+    """Create the feedback table for risk scorer retraining."""
+    conn = sqlite3.connect(DATABASE_PATH)
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS risk_feedback (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            ticker TEXT NOT NULL,
+            predicted_risk REAL,
+            actual_outcome REAL,
+            feedback_type TEXT DEFAULT 'price_change',
+            features TEXT,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            incorporated INTEGER DEFAULT 0
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+
+def store_feedback(ticker: str, predicted_risk: float, actual_outcome: float,
+                   feedback_type: str = "price_change", features: str = ""):
+    """Store a feedback row for risk scorer retraining."""
+    conn = sqlite3.connect(DATABASE_PATH)
+    cursor = conn.cursor()
+    cursor.execute(
+        "INSERT INTO risk_feedback (ticker, predicted_risk, actual_outcome, feedback_type, features) VALUES (?, ?, ?, ?, ?)",
+        (ticker, predicted_risk, actual_outcome, feedback_type, features),
+    )
+    conn.commit()
+    conn.close()
+
+
+def get_unincorporated_feedback(min_rows: int = 50) -> list:
+    """Get feedback rows not yet used in retraining."""
+    conn = sqlite3.connect(DATABASE_PATH)
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT * FROM risk_feedback WHERE incorporated = 0 ORDER BY created_at ASC"
+    )
+    rows = [dict(r) for r in cursor.fetchall()]
+    conn.close()
+    return rows
+
+
+def mark_feedback_incorporated(row_ids: list):
+    """Mark feedback rows as incorporated into the model."""
+    if not row_ids:
+        return
+    conn = sqlite3.connect(DATABASE_PATH)
+    cursor = conn.cursor()
+    placeholders = ",".join("?" * len(row_ids))
+    cursor.execute(
+        f"UPDATE risk_feedback SET incorporated = 1 WHERE id IN ({placeholders})",
+        row_ids,
+    )
+    conn.commit()
+    conn.close()
+
 def get_db_connection():
     conn = sqlite3.connect(DATABASE_PATH)
     conn.row_factory = sqlite3.Row

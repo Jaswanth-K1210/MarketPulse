@@ -185,6 +185,43 @@ export async function addToWatchlist(tickers) {
   });
 }
 
+// ── Pipeline Intelligence (Phase 2-5) ───────────────────────────────────────
+
+/**
+ * Run the full 13-node LangGraph intelligence pipeline
+ * POST /api/run-intelligence
+ */
+export async function runIntelligencePipeline(portfolio, userId = 'frontend') {
+  return fetchAPI('/api/run-intelligence', {
+    method: 'POST',
+    body: JSON.stringify({ portfolio, user_id: userId }),
+  });
+}
+
+/**
+ * Get audit trail for a pipeline run
+ * GET /api/audit/:pipelineId
+ */
+export async function getAuditTrail(pipelineId) {
+  return fetchAPI(`/api/audit/${encodeURIComponent(pipelineId)}`).catch(() => ({ records: [] }));
+}
+
+/**
+ * Get temporal memory (streaks, trends) for a ticker
+ * GET /api/memory/:ticker
+ */
+export async function getTemporalMemory(ticker) {
+  return fetchAPI(`/api/memory/${encodeURIComponent(ticker)}`).catch(() => ({ streak: {}, trend: {} }));
+}
+
+/**
+ * Get knowledge graph context for a ticker
+ * GET /api/kg/:ticker
+ */
+export async function getKGContext(ticker) {
+  return fetchAPI(`/api/kg/${encodeURIComponent(ticker)}`).catch(() => ({ neighbors: [], found: false }));
+}
+
 // ── Intelligence Layer v2 ────────────────────────────────────────────────────
 export async function getRiskScores(countries = null) {
   const q = countries ? `?countries=${countries}` : '';
@@ -299,6 +336,25 @@ export async function runBacktest(ticker, strategy = 'alpha_momentum', start_dat
   if (start_date) params.append('start_date', start_date)
   if (end_date) params.append('end_date', end_date)
   return fetchAPI(`/api/intelligence/backtest/${ticker}?${params}`).catch(() => null);
+}
+
+// ── Walk-Forward Backtest ──────────────────────────────────────────────────────
+export async function runWalkForward(ticker, strategy = 'alpha_momentum', train_days = 252, test_days = 63) {
+  const params = new URLSearchParams({ strategy, train_days, test_days })
+  return fetchAPI(`/api/intelligence/walk-forward/${ticker}?${params}`).catch(() => null);
+}
+
+// ── Anomaly Detection ─────────────────────────────────────────────────────────
+export async function getAnomalyDetection(ticker) {
+  return fetchAPI(`/api/intelligence/anomaly/${ticker}`).catch(() => null);
+}
+
+// ── Risk Feedback ──────────────────────────────────────────────────────────────
+export async function submitRiskFeedback(ticker, predictedRisk, actualOutcome, features = {}) {
+  return fetchAPI('/api/intelligence/ml/feedback', {
+    method: 'POST',
+    body: JSON.stringify({ ticker, predicted_risk: predictedRisk, actual_outcome: actualOutcome, features }),
+  }).catch(() => null);
 }
 
 // ── Corporate Actions ─────────────────────────────────────────────────────────

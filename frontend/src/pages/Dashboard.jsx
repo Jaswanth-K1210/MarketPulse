@@ -2,39 +2,23 @@ import React, { useState, useEffect, useCallback } from 'react'
 import {
   RefreshCw, Search, Bell, TrendingUp, TrendingDown, Shield, Zap,
   Radio, BarChart2, ArrowUpRight, ArrowDownRight, ChevronUp, ChevronDown,
-  Activity, Cpu, Globe, BookOpen, ExternalLink, Star
+  Activity, Cpu, Globe, BookOpen, ExternalLink, Star, Brain
 } from 'lucide-react'
 import ExplanationModal from '../components/ExplanationModal'
+import QualityGrade from '../components/QualityGrade'
+import TemporalMemory from '../components/TemporalMemory'
+import AuditTrail from '../components/AuditTrail'
+import ConvergenceZones from '../components/ConvergenceZones'
+import KGContext from '../components/KGContext'
 import {
   getAlerts, getPortfolio, getStats, fetchAndAnalyzeNews,
-  getArticles, getStockPrices, getMarketOverview
+  getArticles, getStockPrices, getMarketOverview,
+  getTemporalMemory, getKGContext, runIntelligencePipeline
 } from '../services/api'
 import { transformAlert, transformPortfolio, transformStats } from '../utils/dataTransform'
 import { useWebSocket } from '../hooks/useWebSocket'
 
-// ── Design tokens ─────────────────────────────────────────────────────────────
-const C = {
-  bg:          '#0b1221',
-  panel:       '#0f1a2e',
-  card:        '#131f35',
-  cardHover:   '#182540',
-  border:      '#1c2f4a',
-  borderDim:   '#152340',
-  text:        '#dde8f5',
-  muted:       '#5d7a9a',
-  dim:         '#243650',
-  blue:        '#4f91f6',
-  blueSoft:    'rgba(79,145,246,0.1)',
-  green:       '#22d18b',
-  greenSoft:   'rgba(34,209,139,0.1)',
-  red:         '#f06565',
-  redSoft:     'rgba(240,101,101,0.1)',
-  orange:      '#f5a523',
-  orangeSoft:  'rgba(245,165,35,0.1)',
-  purple:      '#a07cf5',
-  purpleSoft:  'rgba(160,124,245,0.1)',
-  cyan:        '#22d3ee',
-}
+import { T as C } from '../theme'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 const fmt  = n => n == null ? '—' : typeof n === 'number' ? n.toFixed(2) : n
@@ -434,12 +418,16 @@ function RecentNewsPanel({ articles }) {
 // ── AI Analysis panel ─────────────────────────────────────────────────────────
 function AIAnalysisPanel({ analyzing, analysisResult, onAnalyze }) {
   const steps = [
-    { label: 'News Ingestion',    icon: Globe,    desc: 'Multi-source fetch'        },
-    { label: 'FinBERT Sentiment', icon: Cpu,      desc: 'Local NLP sentiment model' },
-    { label: 'GNN Supply-Chain',  icon: BarChart2, desc: 'Shock propagation graph'  },
-    { label: 'Monte Carlo 48h',   icon: Shield,   desc: 'Portfolio risk simulation' },
+    { label: 'News Monitor',      icon: Globe,     desc: 'Multi-source ingestion + SNR filter' },
+    { label: 'FinBERT Classifier', icon: Cpu,       desc: 'Local NLP sentiment model' },
+    { label: 'Quant Tools',        icon: BarChart2,  desc: '6 parallel quantitative tools' },
+    { label: 'Alpha Scorer',       icon: Zap,        desc: 'Tool-first alpha + optional LLM' },
+    { label: 'Convergence',        icon: Activity,   desc: 'Multi-source signal fusion' },
+    { label: 'GNN Supply-Chain',   icon: Shield,     desc: 'Shock propagation graph' },
+    { label: 'Monte Carlo 48h',    icon: Shield,     desc: 'Portfolio risk simulation' },
+    { label: 'Audit & Quality',    icon: Brain,      desc: '5-dimension quality grading' },
   ]
-  const doneCount = analyzing ? 1 : analysisResult ? 4 : 0
+  const doneCount = analyzing ? 4 : analysisResult ? 8 : 0
 
   return (
     <div className="flex flex-col rounded-xl border overflow-hidden"
@@ -447,47 +435,46 @@ function AIAnalysisPanel({ analyzing, analysisResult, onAnalyze }) {
 
       <div className="flex items-center gap-2 px-4 py-3 border-b" style={{ borderColor: C.border }}>
         <Cpu size={13} style={{ color: C.purple }} />
-        <span className="text-[12px] font-black" style={{ color: C.text }}>AI Analysis</span>
+        <span className="text-[12px] font-black" style={{ color: C.text }}>Pipeline Control</span>
         {analyzing && <span className="ml-auto text-[9px] font-mono animate-pulse" style={{ color: C.purple }}>RUNNING…</span>}
         {analysisResult && !analyzing && <span className="ml-auto text-[9px] font-mono" style={{ color: C.green }}>COMPLETE ✓</span>}
       </div>
 
       <div className="flex-1 px-4 py-3 flex flex-col gap-3">
         <p className="text-[11px] leading-relaxed" style={{ color: C.muted }}>
-          Fetch latest news and run the full multi-agent supply chain intelligence pipeline.
+          13-node LangGraph pipeline with tool-first architecture and fault-tolerant execution.
         </p>
 
         {/* Steps */}
-        <div className="space-y-1.5">
+        <div className="space-y-1">
           {steps.map((s, i) => {
             const done   = i < doneCount
-            const active = analyzing && i === 1
+            const active = analyzing && i === Math.floor(doneCount)
             const Icon   = s.icon
             return (
-              <div key={i} className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg transition-all"
+              <div key={i} className="flex items-center gap-2 px-2 py-1.5 rounded-md transition-all"
                 style={{
-                  background: done ? C.greenSoft : active ? C.purpleSoft : 'rgba(255,255,255,0.02)',
-                  border: `1px solid ${done ? 'rgba(34,209,139,0.2)' : active ? 'rgba(160,124,245,0.2)' : C.borderDim}`,
+                  background: done ? C.greenSoft : active ? C.purpleSoft : 'transparent',
+                  border: `1px solid ${done ? 'rgba(34,209,139,0.15)' : active ? 'rgba(160,124,245,0.15)' : 'transparent'}`,
                 }}>
-                <div className="w-5 h-5 rounded-md flex items-center justify-center shrink-0"
+                <div className="w-4 h-4 rounded flex items-center justify-center shrink-0"
                   style={{ background: done ? C.greenSoft : active ? C.purpleSoft : C.card }}>
                   {done
-                    ? <span className="text-[9px]" style={{ color: C.green }}>✓</span>
+                    ? <span className="text-[8px]" style={{ color: C.green }}>✓</span>
                     : active
-                      ? <Radio size={9} className="animate-pulse" style={{ color: C.purple }} />
-                      : <Icon size={9} style={{ color: C.dim }} />}
+                      ? <Radio size={8} className="animate-pulse" style={{ color: C.purple }} />
+                      : <Icon size={8} style={{ color: C.dim }} />}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-[10px] font-semibold"
+                  <div className="text-[9px] font-semibold truncate"
                     style={{ color: done ? C.green : active ? C.purple : C.muted }}>
                     {s.label}
                   </div>
-                  <div className="text-[9px]" style={{ color: C.dim }}>{s.desc}</div>
                 </div>
                 {active && (
                   <div className="flex gap-0.5">
                     {[0, 1, 2].map(j => (
-                      <div key={j} className="w-1 h-1 rounded-full animate-bounce"
+                      <div key={j} className="w-0.5 h-0.5 rounded-full animate-bounce"
                         style={{ background: C.purple, animationDelay: `${j * 0.12}s` }} />
                     ))}
                   </div>
@@ -500,20 +487,20 @@ function AIAnalysisPanel({ analyzing, analysisResult, onAnalyze }) {
         {/* Result summary */}
         {analysisResult && !analyzing && (() => {
           const sev     = (analysisResult.mc_severity || 'LOW').toUpperCase()
-          const sevClr  = sev === 'CRITICAL' ? C.red : sev === 'HIGH' ? C.orange : sev === 'MEDIUM' ? C.yellow || '#f5a523' : C.green
-          const sevBg   = sev === 'CRITICAL' ? 'rgba(240,101,101,0.08)' : sev === 'HIGH' ? 'rgba(245,165,35,0.08)' : sev === 'MEDIUM' ? 'rgba(245,165,35,0.06)' : C.greenSoft
+          const sevClr  = sev === 'CRITICAL' ? C.red : sev === 'HIGH' ? C.orange : sev === 'MEDIUM' ? C.orange : C.green
+          const sevBg   = sev === 'CRITICAL' ? C.redSoft : sev === 'HIGH' ? C.orangeSoft : sev === 'MEDIUM' ? 'rgba(245,165,35,0.06)' : C.greenSoft
           const hasGNN  = analysisResult.avg_gnn_impact != null
           const hasMC   = analysisResult.var_95 != null && analysisResult.var_95 !== 0
           return (
             <div className="space-y-1.5">
               {/* Articles + alerts row */}
-              <div className="rounded-lg px-2.5 py-2 border flex justify-between"
-                style={{ background: C.greenSoft, borderColor: 'rgba(34,209,139,0.2)' }}>
-                <div className="text-[10px]" style={{ color: C.muted }}>
-                  Articles <span style={{ color: C.text }}>{analysisResult.articles_fetched ?? '—'}</span>
+              <div className="rounded-md px-2 py-1.5 border flex justify-between"
+                style={{ background: C.greenSoft, borderColor: 'rgba(34,209,139,0.15)' }}>
+                <div className="text-[9px]" style={{ color: C.muted }}>
+                  Articles <span className="font-bold" style={{ color: C.text }}>{analysisResult.articles_fetched ?? '—'}</span>
                 </div>
-                <div className="text-[10px]" style={{ color: C.muted }}>
-                  Signals <span style={{ color: analysisResult.alerts_generated > 0 ? C.red : C.green }}>
+                <div className="text-[9px]" style={{ color: C.muted }}>
+                  Signals <span className="font-bold" style={{ color: analysisResult.alerts_generated > 0 ? C.red : C.green }}>
                     {analysisResult.alerts_generated ?? 0}
                   </span>
                 </div>
@@ -521,18 +508,18 @@ function AIAnalysisPanel({ analyzing, analysisResult, onAnalyze }) {
 
               {/* GNN supply-chain impact */}
               {hasGNN && (
-                <div className="rounded-lg px-2.5 py-2 border"
-                  style={{ background: 'rgba(79,145,246,0.06)', borderColor: 'rgba(79,145,246,0.2)' }}>
-                  <div className="text-[9px] font-black uppercase tracking-widest mb-1" style={{ color: C.blue }}>
+                <div className="rounded-md px-2 py-1.5 border"
+                  style={{ background: C.blueSoft, borderColor: 'rgba(79,145,246,0.15)' }}>
+                  <div className="text-[8px] font-black uppercase tracking-widest mb-1" style={{ color: C.blue }}>
                     GNN Supply-Chain
                   </div>
-                  <div className="flex justify-between text-[10px]">
+                  <div className="flex justify-between text-[9px]">
                     <span style={{ color: C.muted }}>Shock origin</span>
                     <span className="font-mono font-bold" style={{ color: C.text }}>
                       {analysisResult.shocked_ticker ?? '—'}
                     </span>
                   </div>
-                  <div className="flex justify-between text-[10px] mt-0.5">
+                  <div className="flex justify-between text-[9px] mt-0.5">
                     <span style={{ color: C.muted }}>Avg portfolio Δ</span>
                     <span className="font-bold" style={{ color: analysisResult.avg_gnn_impact < 0 ? C.red : C.green }}>
                       {analysisResult.avg_gnn_impact >= 0 ? '+' : ''}{fmt(analysisResult.avg_gnn_impact)}%
@@ -543,10 +530,10 @@ function AIAnalysisPanel({ analyzing, analysisResult, onAnalyze }) {
 
               {/* Monte Carlo 48h risk */}
               {hasMC && (
-                <div className="rounded-lg px-2.5 py-2 border"
-                  style={{ background: sevBg, borderColor: `${sevClr}33` }}>
+                <div className="rounded-md px-2 py-1.5 border"
+                  style={{ background: sevBg, borderColor: `${sevClr}25` }}>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-[9px] font-black uppercase tracking-widest" style={{ color: C.purple }}>
+                    <span className="text-[8px] font-black uppercase tracking-widest" style={{ color: C.purple }}>
                       48h Monte Carlo
                     </span>
                     <span className="text-[8px] font-black px-1.5 py-0.5 rounded-full"
@@ -554,24 +541,49 @@ function AIAnalysisPanel({ analyzing, analysisResult, onAnalyze }) {
                       {sev}
                     </span>
                   </div>
-                  <div className="flex justify-between text-[10px]">
+                  <div className="flex justify-between text-[9px]">
                     <span style={{ color: C.muted }}>VaR-95</span>
                     <span className="font-bold font-mono" style={{ color: C.red }}>
                       {analysisResult.var_95 >= 0 ? '+' : ''}{fmt(analysisResult.var_95)}%
                     </span>
                   </div>
-                  <div className="flex justify-between text-[10px] mt-0.5">
+                  <div className="flex justify-between text-[9px] mt-0.5">
                     <span style={{ color: C.muted }}>CVaR-95</span>
                     <span className="font-bold font-mono" style={{ color: C.red }}>
                       {analysisResult.cvar_95 >= 0 ? '+' : ''}{fmt(analysisResult.cvar_95)}%
                     </span>
                   </div>
-                  <div className="flex justify-between text-[10px] mt-0.5">
-                    <span style={{ color: C.muted }}>P(loss &gt; 2%)</span>
-                    <span className="font-bold" style={{ color: sevClr }}>
-                      {fmt(analysisResult.prob_loss)}%
+                </div>
+              )}
+
+              {/* Phase 2-5: Tool-First Intelligence Summary */}
+              {analysisResult.quality_grade && (
+                <div className="rounded-md px-2 py-1.5 border"
+                  style={{ background: C.purpleSoft, borderColor: 'rgba(160,124,245,0.15)' }}>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-[8px] font-black uppercase tracking-widest" style={{ color: C.purple }}>
+                      Tool-First Intel
+                    </span>
+                    <span className="text-[10px] font-black font-mono" style={{ color: C.purple }}>
+                      {analysisResult.quality_grade}
                     </span>
                   </div>
+                  {analysisResult.alpha_signal && analysisResult.alpha_signal !== 'NEUTRAL' && (
+                    <div className="flex justify-between text-[9px] mt-1">
+                      <span style={{ color: C.muted }}>Alpha Signal</span>
+                      <span className="font-bold" style={{ color: analysisResult.alpha_signal.includes('BEAR') ? C.red : C.green }}>
+                        {analysisResult.alpha_signal}
+                      </span>
+                    </div>
+                  )}
+                  {analysisResult.convergence_zones?.length > 0 && (
+                    <div className="flex justify-between text-[9px] mt-0.5">
+                      <span style={{ color: C.muted }}>Convergence</span>
+                      <span className="font-bold" style={{ color: C.orange }}>
+                        {analysisResult.convergence_zones.length} zone{analysisResult.convergence_zones.length > 1 ? 's' : ''}
+                      </span>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -579,11 +591,11 @@ function AIAnalysisPanel({ analyzing, analysisResult, onAnalyze }) {
         })()}
 
         <button onClick={onAnalyze} disabled={analyzing}
-          className="w-full py-2.5 rounded-lg text-[12px] font-black uppercase tracking-wide transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2 mt-auto"
-          style={{ background: analyzing ? C.greenSoft : 'linear-gradient(135deg,#15803d,#16a34a)', color: '#fff' }}>
+          className="w-full py-2.5 rounded-lg text-[11px] font-black uppercase tracking-wide transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2 mt-auto"
+          style={{ background: analyzing ? C.greenSoft : 'linear-gradient(135deg,#7c3aed,#6366f1)', color: '#fff' }}>
           {analyzing
-            ? <><Radio size={12} className="animate-pulse" />Scanning…</>
-            : <><Zap size={12} />Fetch &amp; Analyze News</>}
+            ? <><Radio size={11} className="animate-pulse" />Running 13-Node Pipeline…</>
+            : <><Zap size={11} />Run Full Intelligence Pipeline</>}
         </button>
       </div>
     </div>
@@ -637,6 +649,9 @@ export default function Dashboard({ onCompanyClick }) {
   const [priceUpdated,   setPriceUpdated]   = useState(Date.now())
   const [showModal,      setShowModal]      = useState(false)
   const [selectedAlert,  setSelectedAlert]  = useState(null)
+  const [pipelineResult, setPipelineResult] = useState(null)
+  const [temporalData,   setTemporalData]   = useState({})
+  const [kgData,         setKgData]         = useState({})
 
   const { isConnected, alerts: wsAlerts } = useWebSocket()
 
@@ -689,9 +704,31 @@ export default function Dashboard({ onCompanyClick }) {
   async function handleAnalyze() {
     setAnalyzing(true)
     setAnalysisResult(null)
+    setPipelineResult(null)
     try {
-      const r = await fetchAndAnalyzeNews(10)
-      setAnalysisResult(r)
+      // Run both the legacy pipeline AND the full LangGraph pipeline in parallel
+      const tickers = portfolio?.holdings?.map(h => h.ticker).filter(Boolean) || ['AAPL', 'MSFT', 'NVDA']
+      const [legacyResult, pipelineRes] = await Promise.all([
+        fetchAndAnalyzeNews(10).catch(() => null),
+        runIntelligencePipeline(tickers).catch(() => null),
+      ])
+      // Merge legacy results into pipeline result
+      const merged = { ...legacyResult, ...pipelineRes }
+      setAnalysisResult(legacyResult)
+      setPipelineResult(merged)
+      // Fetch per-ticker temporal memory and KG context for all portfolio tickers
+      const temporalResults = {}
+      const kgResults = {}
+      await Promise.all(tickers.slice(0, 6).map(async (t) => {
+        const [temp, kg] = await Promise.all([
+          getTemporalMemory(t).catch(() => null),
+          getKGContext(t).catch(() => null),
+        ])
+        if (temp) temporalResults[t] = temp
+        if (kg) kgResults[t] = kg
+      }))
+      setTemporalData(temporalResults)
+      setKgData(kgResults)
       await loadAll()
     } catch (e) { console.error(e) }
     finally { setAnalyzing(false) }
@@ -734,18 +771,107 @@ export default function Dashboard({ onCompanyClick }) {
 
         <StatsRow alerts={alerts} stats={stats} portfolio={portfolio} />
 
-        {/* Middle row: Recent Alerts + Alert Trend */}
-        <div className="flex gap-4 px-6 py-4 border-b" style={{ borderColor: C.border, minHeight: 280 }}>
-          <div className="flex-1 min-w-0">
-            <RecentAlertsPanel alerts={alerts} onExplain={handleExplain} />
+        {/* ═══ HERO: INTELLIGENCE LAYER ═══ */}
+        <div className="px-6 py-5 border-b" style={{ borderColor: C.border }}>
+          {/* Section header */}
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center"
+                style={{ background: C.purpleSoft, border: `1px solid rgba(160,124,245,0.25)` }}>
+                <Brain size={16} style={{ color: C.purple }} />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[13px] font-black tracking-wide" style={{ color: C.text }}>
+                    INTELLIGENCE LAYER
+                  </span>
+                  {pipelineResult?.quality_grade && (
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full"
+                      style={{ background: C.purpleSoft, color: C.purple }}>
+                      Grade: {pipelineResult.quality_grade}
+                    </span>
+                  )}
+                </div>
+                <p className="text-[10px] mt-0.5" style={{ color: C.muted }}>
+                  Tool-first multi-agent analysis — 13 pipeline nodes, 6 quantitative tools, knowledge graph
+                </p>
+              </div>
+            </div>
+
+            {/* Quick stats strip */}
+            {pipelineResult && (
+              <div className="flex items-center gap-4">
+                {pipelineResult.alpha_score != null && pipelineResult.alpha_score !== 0 && (
+                  <div className="text-right">
+                    <div className="text-[9px] uppercase tracking-widest" style={{ color: C.muted }}>Alpha</div>
+                    <div className="text-[13px] font-black font-mono" style={{ color: pipelineResult.alpha_score > 0 ? C.green : C.red }}>
+                      {pipelineResult.alpha_score > 0 ? '+' : ''}{typeof pipelineResult.alpha_score === 'number' ? pipelineResult.alpha_score.toFixed(1) : pipelineResult.alpha_score}
+                    </div>
+                  </div>
+                )}
+                {pipelineResult.convergence_zones?.length > 0 && (
+                  <div className="text-right">
+                    <div className="text-[9px] uppercase tracking-widest" style={{ color: C.muted }}>Convergence</div>
+                    <div className="text-[13px] font-black font-mono" style={{ color: C.orange }}>
+                      {pipelineResult.convergence_zones.length} zone{pipelineResult.convergence_zones.length > 1 ? 's' : ''}
+                    </div>
+                  </div>
+                )}
+                {pipelineResult.audit_summary?.total_duration_ms != null && (
+                  <div className="text-right">
+                    <div className="text-[9px] uppercase tracking-widest" style={{ color: C.muted }}>Pipeline</div>
+                    <div className="text-[13px] font-black font-mono" style={{ color: C.text }}>
+                      {pipelineResult.audit_summary.total_duration_ms < 1000
+                        ? `${Math.round(pipelineResult.audit_summary.total_duration_ms)}ms`
+                        : `${(pipelineResult.audit_summary.total_duration_ms / 1000).toFixed(1)}s`}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
-          <AlertTrendPanel alerts={alerts} />
+
+          {/* Summary row: Quality + Audit + Convergence */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+            <QualityGrade
+              qualityGrade={pipelineResult?.quality_grade}
+              qualityScores={pipelineResult?.quality_scores}
+            />
+            <AuditTrail auditSummary={pipelineResult?.audit_summary} />
+            <ConvergenceZones convergenceZones={pipelineResult?.convergence_zones} />
+          </div>
+
+          {/* Per-ticker row: Temporal Memory + KG */}
+          {portfolio?.holdings?.length > 0 && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+              {portfolio.holdings.slice(0, 6).map(h => {
+                const t = h.ticker
+                return (
+                  <React.Fragment key={t}>
+                    <TemporalMemory
+                      temporalContext={temporalData[t] || pipelineResult?.temporal_context?.[t] || {}}
+                      ticker={t}
+                    />
+                    <KGContext
+                      kgContext={kgData[t] || pipelineResult?.kg_context?.[t] || {}}
+                      ticker={t}
+                    />
+                  </React.Fragment>
+                )
+              })}
+            </div>
+          )}
         </div>
 
-        {/* Bottom row: Recent News + AI Analysis */}
-        <div className="flex gap-4 px-6 py-4" style={{ minHeight: 280 }}>
-          <div className="flex-1 min-w-0">
-            <RecentNewsPanel articles={articles} />
+        {/* Bottom row: Alerts + News + AI Analysis */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-4 px-6 py-4" style={{ minHeight: 280 }}>
+          <div className="flex gap-4">
+            <div className="flex-1 min-w-0">
+              <RecentAlertsPanel alerts={alerts} onExplain={handleExplain} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <RecentNewsPanel articles={articles} />
+            </div>
           </div>
           <AIAnalysisPanel analyzing={analyzing} analysisResult={analysisResult} onAnalyze={handleAnalyze} />
         </div>

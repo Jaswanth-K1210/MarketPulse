@@ -10,6 +10,7 @@ import Trends from './pages/Trends'
 import Settings from './pages/Settings'
 import CompanyDetail from './pages/CompanyDetail'
 import './App.css'
+import DisclaimerBanner from './components/DisclaimerBanner'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -44,6 +45,7 @@ function App() {
         {activeTab === 'alerts' && <div className="flex-1 overflow-auto"><Alerts /></div>}
         {activeTab === 'trends' && <div className="flex-1 overflow-auto"><Trends /></div>}
         {activeTab === 'settings' && <div className="flex-1 overflow-auto"><Settings onLogout={() => { localStorage.removeItem('marketpulse_user'); setUser(null); }} /></div>}
+        <DisclaimerBanner />
       </main>
     </div>
   )

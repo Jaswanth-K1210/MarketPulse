@@ -345,11 +345,105 @@ async def run_intelligence(request: WorkflowTriggerRequest):
             "confidence": final_state.get("confidence_score", 0.0),
             "loop_count": final_state.get("loop_count", 0),
             "validation_decision": final_state.get("validation_decision"),
+            # Phase 2: Tool-first intelligence
+            "alpha_score": final_state.get("alpha_score_total", 0),
+            "alpha_signal": final_state.get("alpha_signal", "NEUTRAL"),
+            "convergence_zones": final_state.get("convergence_zones", []),
+            # Phase 3: Memory (temporal context per ticker)
+            "temporal_context": final_state.get("temporal_context", {}),
+            # Phase 4: Knowledge graph context
+            "kg_context": final_state.get("kg_context", {}),
+            # Phase 5: Quality evaluation
+            "quality_grade": final_state.get("quality_grade", ""),
+            "quality_scores": final_state.get("quality_scores", {}),
+            # Phase 3b: Audit trail
+            "pipeline_id": final_state.get("pipeline_id", ""),
+            "audit_summary": final_state.get("audit_summary", {}),
             "processing_time_ms": int((datetime.now() - datetime.fromisoformat(initial_state["started_at"])).total_seconds() * 1000)
         }
     except Exception as e:
         logger.error(f"Workflow execution failed: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+# ── New Pipeline Intelligence Endpoints ──────────────────────────────────────
+
+@router.get("/audit/{pipeline_id}")
+async def get_audit_trail(pipeline_id: str):
+    """Get structured audit trail for a pipeline run."""
+    try:
+        from app.services.audit_agent import AuditAgent
+        from app.services.database import get_db_connection
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT agent_name, result_summary, timestamp FROM agent_logs WHERE task = ? ORDER BY timestamp",
+            (f"Pipeline {pipeline_id}",),
+        )
+        rows = cursor.fetchall()
+        conn.close()
+
+        records = []
+        for name, summary_json, ts in rows:
+            try:
+                import json
+                record = json.loads(summary_json)
+                record["timestamp"] = ts
+                records.append(record)
+            except Exception:
+                records.append({"node": name, "timestamp": ts})
+
+        return {
+            "pipeline_id": pipeline_id,
+            "records": records,
+            "total_nodes": len(records),
+        }
+    except Exception as e:
+        logger.warning(f"Audit trail query failed: {e}")
+        return {"pipeline_id": pipeline_id, "records": [], "total_nodes": 0}
+
+@router.get("/memory/{ticker}")
+async def get_temporal_memory(ticker: str):
+    """Get temporal memory (streaks, trends) for a ticker."""
+    try:
+        from app.services.memory_agent import memory_agent
+        streak = memory_agent.get_streak(ticker)
+        trend = memory_agent.get_trend(ticker)
+        bearish_count = memory_agent.count_signals(ticker, "bearish")
+        bullish_count = memory_agent.count_signals(ticker, "bullish")
+        total = memory_agent.count_signals(ticker, "all")
+        context = memory_agent.build_temporal_context(ticker)
+
+        return {
+            "ticker": ticker.upper(),
+            "streak": streak,
+            "trend": trend,
+            "bearish_count": bearish_count,
+            "bullish_count": bullish_count,
+            "total_signals": total,
+            "context_string": context,
+        }
+    except Exception as e:
+        logger.warning(f"Temporal memory query failed: {e}")
+        return {"ticker": ticker.upper(), "streak": {}, "trend": {}, "total_signals": 0}
+
+@router.get("/kg/{ticker}")
+async def get_kg_context(ticker: str):
+    """Get knowledge graph context for a ticker."""
+    try:
+        from app.services.kg_builder import kg_builder
+        if not kg_builder._loaded:
+            kg_builder.build()
+        ctx = kg_builder.get_entity_context(ticker)
+        return {
+            "ticker": ticker.upper(),
+            "neighbors": ctx.get("neighbors", []),
+            "attributes": ctx.get("attributes", {}),
+            "degree": ctx.get("degree", 0),
+            "found": ctx.get("found", False),
+        }
+    except Exception as e:
+        logger.warning(f"KG context query failed: {e}")
+        return {"ticker": ticker.upper(), "neighbors": [], "found": False}
 
 @router.get("/graph/build")
 async def get_supply_chain_graph(ticker: str):
@@ -602,6 +696,17 @@ async def get_stock_prices(tickers: Optional[str] = None):
 
     # ── yfinance fallback ──────────────────────────────────────────────────
     prices = stock_data_service.get_live_prices(symbol_list)
+
+    # Report the true provenance: if any ticker fell back to static data the
+    # response is not live, and callers must be able to tell the difference.
+    stale = [t for t, p in prices.items() if p.get("is_stale")]
+    if stale:
+        logger.warning("Serving stale fallback prices for: %s", ", ".join(stale))
+        return {
+            "data": prices,
+            "source": "static_fallback" if len(stale) == len(prices) else "yfinance_partial",
+            "stale_tickers": stale,
+        }
     return {"data": prices, "source": "yfinance"}
 @router.post("/analyze-news-for-alerts")
 async def analyze_news_for_alerts(background_tasks: BackgroundTasks):

@@ -131,6 +131,66 @@ def _train_and_save() -> object:
     return model
 
 
+def _train_and_save_with_feedback(feedback_rows: List[Dict]) -> object:
+    """Train LightGBM on a blend of synthetic data and real feedback."""
+    try:
+        import lightgbm as lgb
+    except ImportError:
+        logger.warning("lightgbm not installed — cannot train with feedback")
+        return None
+
+    X_synth, y_synth = _generate_synthetic_training_data(2000)
+
+    X_fb, y_fb = [], []
+    for row in feedback_rows:
+        try:
+            features_str = row.get("features", "")
+            if features_str:
+                import json
+                features = json.loads(features_str)
+                X_fb.append([features.get(f, 0) for f in FEATURES])
+                actual = float(row.get("actual_outcome", 0))
+                predicted = float(row.get("predicted_risk", 0))
+                y_fb.append(float(np.clip((actual + 1) / 2, 0, 1)))
+        except Exception:
+            continue
+
+    if len(X_fb) < 10:
+        logger.info("retrain: only %d valid feedback rows, using synthetic only", len(X_fb))
+        X, y = X_synth, y_synth
+    else:
+        X_fb = np.array(X_fb, dtype=np.float32)
+        y_fb = np.array(y_fb, dtype=np.float32)
+        n_synth = min(len(X_synth), len(X_fb) * 3)
+        indices = np.random.default_rng(42).choice(len(X_synth), n_synth, replace=False)
+        X = np.concatenate([X_synth[indices], X_fb])
+        y = np.concatenate([y_synth[indices], y_fb])
+        logger.info("retrain: blending %d synthetic + %d feedback rows", n_synth, len(X_fb))
+
+    split = int(len(X) * 0.9)
+    model = lgb.LGBMRegressor(
+        n_estimators=300,
+        learning_rate=0.05,
+        num_leaves=31,
+        max_depth=6,
+        subsample=0.8,
+        colsample_bytree=0.8,
+        reg_alpha=0.1,
+        reg_lambda=0.1,
+        random_state=42,
+        verbose=-1,
+    )
+    model.fit(
+        X[:split], y[:split],
+        eval_set=[(X[split:], y[split:])],
+        callbacks=[lgb.early_stopping(30, verbose=False), lgb.log_evaluation(period=-1)],
+    )
+    with open(MODEL_PATH, "wb") as f:
+        pickle.dump(model, f)
+    logger.info("LightGBM risk scorer retrained with feedback, saved to %s", MODEL_PATH)
+    return model
+
+
 class RiskScorer:
     """
     Scores an article's supply-chain risk on [0, 1].
@@ -207,14 +267,47 @@ class RiskScorer:
         return [{"feature": FEATURES[i], "value": round(float(X[0][i]), 3)} for i in range(len(FEATURES))]
 
     def retrain(self, feedback_rows: Optional[List[Dict]] = None):
-        """Called by APScheduler weekly to incorporate confirmed event outcomes."""
-        self._model = _train_and_save()
+        """Incorporate confirmed event outcomes into the risk scorer model.
+
+        If feedback_rows is provided, those are used directly.
+        Otherwise, unincorporated feedback is pulled from the database.
+        """
+        if feedback_rows is None:
+            try:
+                from app.services.database import get_unincorporated_feedback, mark_feedback_incorporated
+                db_rows = get_unincorporated_feedback(min_rows=50)
+                if len(db_rows) < 50:
+                    logger.info("retrain: only %d feedback rows (need 50), skipping", len(db_rows))
+                    return
+                feedback_rows = db_rows
+            except Exception as e:
+                logger.warning("retrain: could not load feedback from DB: %s", e)
+                return
+
+        if not feedback_rows:
+            logger.info("retrain: no feedback rows, skipping")
+            return
+
+        try:
+            self._model = _train_and_save_with_feedback(feedback_rows)
+        except Exception as e:
+            logger.warning("retrain: training with feedback failed: %s, falling back to synthetic", e)
+            self._model = _train_and_save()
+
         if self._model is not None:
             try:
                 import shap
                 self._explainer = shap.TreeExplainer(self._model)
             except (ImportError, Exception):
                 pass
+
+        try:
+            from app.services.database import mark_feedback_incorporated
+            row_ids = [r["id"] for r in feedback_rows if "id" in r]
+            mark_feedback_incorporated(row_ids)
+            logger.info("retrain: incorporated %d feedback rows", len(row_ids))
+        except Exception as e:
+            logger.warning("retrain: could not mark feedback as incorporated: %s", e)
 
 
 # Singleton
