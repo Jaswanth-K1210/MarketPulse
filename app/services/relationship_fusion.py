@@ -8,9 +8,11 @@ class RelationshipFusion:
         # Base confidence levels per source (Spec v3.0)
         self.SOURCE_CONFIDENCES = {
             "sec_edgar": 0.92,
+            "knowledge_graph": 0.85,
             "news_report": 0.70,
+            "news_context": 0.70,
             "company_website": 0.65,
-            "llm_inference": 0.45
+            "llm_inference": 0.45,
         }
 
     def fuse(self, relationships: List[Dict]) -> List[Dict]:

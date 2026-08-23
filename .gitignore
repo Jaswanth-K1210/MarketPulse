@@ -87,3 +87,6 @@ desktop/obj/
 # Runtime data files (regenerated on startup)
 app/data/*.json
 
+
+# Runtime log — was tracked, produced 180k-line diffs on every run
+app/data/*.log

@@ -141,21 +141,19 @@ class StockDataService:
         if ticker in fallback_prices:
             data = fallback_prices[ticker]
             current_price = data['price']
-            # Simulate small daily change (-1% to +1%)
-            import random
-            change_percent = random.uniform(-1.0, 1.0)
-            change = current_price * (change_percent / 100)
-            previous_close = current_price - change
-            
+
             return {
                 'ticker': ticker,
                 'current_price': round(current_price, 2),
-                'previous_close': round(previous_close, 2),
-                'change': round(change, 2),
-                'change_percent': round(change_percent, 2),
+                'previous_close': round(current_price, 2),
+                'change': 0,
+                'change_percent': 0,
                 'market_cap': data['cap'],
                 'currency': 'USD',
                 'company_name': data['name'],
+                'is_stale': True,
+                'data_source': 'static_fallback',
+                'as_of': '2024-12',
                 'timestamp': datetime.now().isoformat()
             }
         else:

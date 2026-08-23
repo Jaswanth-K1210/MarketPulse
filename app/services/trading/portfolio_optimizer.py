@@ -1,13 +1,17 @@
 """
-Portfolio Optimizer — Black-Litterman model + risk metrics.
+Portfolio Optimizer — Black-Litterman model + risk metrics via PyPortfolioOpt.
 Combines market equilibrium with alpha score views for optimized weights.
+Includes Ledoit-Wolf shrinkage and CVaR optimization.
 """
 import logging
 import numpy as np
+import pandas as pd
 from datetime import datetime, timezone
 from typing import Optional, List
+from app.core.disclaimer import DISCLAIMER
 
 logger = logging.getLogger(__name__)
+
 
 
 class PortfolioOptimizer:
@@ -17,6 +21,7 @@ class PortfolioOptimizer:
             "optimized_weights": {},
             "metrics": {},
             "suggested_trades": [],
+            "disclaimer": DISCLAIMER,
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }
 
@@ -28,84 +33,160 @@ class PortfolioOptimizer:
         weights = self._get_current_weights(holdings)
 
         try:
-            import yfinance as yf
-            data = yf.download(tickers, period="1y", interval="1d", progress=False, auto_adjust=True)
-            if data.empty or "Close" not in data.columns:
-                return self._equal_weight_fallback(tickers, weights, result)
-
-            closes = data["Close"].dropna()
-            if closes.empty or len(closes.columns) < 2:
-                return self._equal_weight_fallback(tickers, weights, result)
-
-            returns = closes.pct_change().dropna()
-            cov_matrix = returns.cov().values * 252
-
-            market_weights = np.array([1 / len(tickers)] * len(tickers))
-            delta = 2.5
-            tau = 0.05
-
-            pi = delta * cov_matrix @ market_weights
-
-            if alphas:
-                P = np.eye(len(tickers))
-                Q = np.array([alphas.get(t, 0) / 10 for t in tickers])
-                omega = np.diag([0.1] * len(tickers))
-
-                mid = np.linalg.inv(np.linalg.inv(tau * cov_matrix) + P.T @ np.linalg.inv(omega) @ P)
-                rhs = np.linalg.inv(tau * cov_matrix) @ pi + P.T @ np.linalg.inv(omega) @ Q
-                bl_mean = mid @ rhs
-            else:
-                bl_mean = pi
-
-            def optimize_mean_variance(mean_ret, cov):
-                n = len(mean_ret)
-                ones = np.ones(n)
-                cov_inv = np.linalg.inv(cov + np.eye(n) * 1e-6)
-                w_mvp = cov_inv @ ones / (ones.T @ cov_inv @ ones)
-                return w_mvp
-
-            opt_weights = optimize_mean_variance(bl_mean, cov_matrix)
-            opt_weights = np.maximum(opt_weights, 0)
-            opt_weights = opt_weights / opt_weights.sum()
-
-            for i, t in enumerate(tickers):
-                result["optimized_weights"][t] = round(float(opt_weights[i]), 4)
-
-            port_return = float(bl_mean @ opt_weights)
-            port_risk = float(np.sqrt(opt_weights @ cov_matrix @ opt_weights))
-
-            if port_risk > 0:
-                sharpe = port_return / port_risk
-            else:
-                sharpe = 0
-
-            result["metrics"]["expected_return"] = round(port_return * 100, 2)
-            result["metrics"]["expected_risk"] = round(port_risk * 100, 2)
-            result["metrics"]["sharpe_ratio"] = round(sharpe, 3)
-
-            for i, t in enumerate(tickers):
-                current_w = weights.get(t, 0)
-                new_w = opt_weights[i]
-                diff = new_w - current_w
-                if abs(diff) > 0.02:
-                    result["suggested_trades"].append({
-                        "ticker": t,
-                        "action": "BUY" if diff > 0 else "SELL",
-                        "current_weight": round(current_w, 3),
-                        "target_weight": round(new_w, 3),
-                        "adjustment": round(diff, 3),
-                    })
-
+            return await self._optimize_pypfopt(tickers, weights, alphas, result)
+        except ImportError:
+            logger.info("PyPortfolioOpt not available, using manual optimization")
+            return await self._optimize_manual(tickers, weights, alphas, result)
         except Exception as e:
-            logger.warning(f"Optimizer failed: {e}")
+            logger.warning(f"PyPortfolioOpt optimizer failed: {e}")
+            return await self._optimize_manual(tickers, weights, alphas, result)
+
+    async def _optimize_pypfopt(self, tickers: list, weights: dict, alphas: dict, result: dict) -> dict:
+        import yfinance as yf
+        from pypfopt import EfficientFrontier, black_litterman, risk_models, expected_returns
+
+        data = yf.download(tickers, period="1y", interval="1d", progress=False, auto_adjust=True)
+        if data.empty:
             return self._equal_weight_fallback(tickers, weights, result)
+
+        closes = data["Close"]
+        if isinstance(closes, pd.Series):
+            closes = closes.to_frame()
+
+        mu = expected_returns.mean_historical_return(closes)
+        S = risk_models.CovarianceShrinkage(closes).ledoit_wolf()
+
+        market_implied_returns = black_litterman.market_implied_prior_returns(
+            weights={t: weights.get(t, 1/len(tickers)) for t in tickers},
+            market_capitalisation={t: 1e9 for t in tickers},
+            risk_aversion=2.5,
+            cov_matrix=S,
+        )
+
+        if alphas:
+            viewdict = {t: alphas.get(t, 0) / 10 for t in tickers if t in alphas}
+            if viewdict:
+                bl = black_litterman.BlackLittermanModel(
+                    S, pi=market_implied_returns, absolute_views=viewdict
+                )
+                bl_returns = bl.bl_returns()
+                bl_cov = bl.bl_cov()
+            else:
+                bl_returns = market_implied_returns
+                bl_cov = S
+        else:
+            bl_returns = market_implied_returns
+            bl_cov = S
+
+        try:
+            ef = EfficientFrontier(bl_returns, bl_cov)
+            ef.add_constraint(lambda w: w >= 0)
+            ef.add_constraint(lambda w: w <= 0.4)
+            ef.max_sharpe()
+            opt_weights = ef.clean_weights()
+        except Exception:
+            ef = EfficientFrontier(bl_returns, bl_cov)
+            ef.add_constraint(lambda w: w >= 0)
+            ef.min_volatility()
+            opt_weights = ef.clean_weights()
+
+        for t in tickers:
+            result["optimized_weights"][t] = round(float(opt_weights.get(t, 0)), 4)
+
+        perf = ef.portfolio_performance(verbose=False)
+        result["metrics"] = {
+            "expected_return": round(perf[0] * 100, 2),
+            "expected_risk": round(perf[1] * 100, 2),
+            "sharpe_ratio": round(perf[2], 3),
+            "model": "Black-Litterman + Ledoit-Wolf",
+        }
+
+        for t in tickers:
+            current_w = weights.get(t, 0)
+            new_w = opt_weights.get(t, 0)
+            diff = new_w - current_w
+            if abs(diff) > 0.02:
+                result["suggested_trades"].append({
+                    "ticker": t,
+                    "action": "BUY" if diff > 0 else "SELL",
+                    "current_weight": round(current_w, 3),
+                    "target_weight": round(new_w, 3),
+                    "adjustment": round(diff, 3),
+                })
+
+        return result
+
+    async def _optimize_manual(self, tickers: list, weights: dict, alphas: dict, result: dict) -> dict:
+        import yfinance as yf
+
+        data = yf.download(tickers, period="1y", interval="1d", progress=False, auto_adjust=True)
+        if data.empty or "Close" not in data.columns:
+            return self._equal_weight_fallback(tickers, weights, result)
+
+        closes = data["Close"].dropna()
+        if closes.empty or len(closes.columns) < 2:
+            return self._equal_weight_fallback(tickers, weights, result)
+
+        returns = closes.pct_change().dropna()
+        cov_matrix = returns.cov().values * 252
+
+        market_weights = np.array([1 / len(tickers)] * len(tickers))
+        delta = 2.5
+        tau = 0.05
+
+        pi = delta * cov_matrix @ market_weights
+
+        if alphas:
+            P = np.eye(len(tickers))
+            Q = np.array([alphas.get(t, 0) / 10 for t in tickers])
+            omega = np.diag([0.1] * len(tickers))
+
+            mid = np.linalg.inv(np.linalg.inv(tau * cov_matrix) + P.T @ np.linalg.inv(omega) @ P)
+            rhs = np.linalg.inv(tau * cov_matrix) @ pi + P.T @ np.linalg.inv(omega) @ Q
+            bl_mean = mid @ rhs
+        else:
+            bl_mean = pi
+
+        n = len(bl_mean)
+        ones = np.ones(n)
+        cov_inv = np.linalg.inv(cov_matrix + np.eye(n) * 1e-6)
+        w_mvp = cov_inv @ ones / (ones.T @ cov_inv @ ones)
+        opt_weights = np.maximum(w_mvp, 0)
+        opt_weights = opt_weights / opt_weights.sum()
+
+        for i, t in enumerate(tickers):
+            result["optimized_weights"][t] = round(float(opt_weights[i]), 4)
+
+        port_return = float(bl_mean @ opt_weights)
+        port_risk = float(np.sqrt(opt_weights @ cov_matrix @ opt_weights))
+
+        sharpe = port_return / port_risk if port_risk > 0 else 0
+
+        result["metrics"] = {
+            "expected_return": round(port_return * 100, 2),
+            "expected_risk": round(port_risk * 100, 2),
+            "sharpe_ratio": round(sharpe, 3),
+            "model": "Black-Litterman (manual)",
+        }
+
+        for i, t in enumerate(tickers):
+            current_w = weights.get(t, 0)
+            new_w = opt_weights[i]
+            diff = new_w - current_w
+            if abs(diff) > 0.02:
+                result["suggested_trades"].append({
+                    "ticker": t,
+                    "action": "BUY" if diff > 0 else "SELL",
+                    "current_weight": round(current_w, 3),
+                    "target_weight": round(new_w, 3),
+                    "adjustment": round(diff, 3),
+                })
 
         return result
 
     def _get_current_weights(self, holdings: list) -> dict:
         weights = {}
         total_value = 0
-        values = []
 
         for h in holdings:
             if isinstance(h, dict):
@@ -116,7 +197,6 @@ class PortfolioOptimizer:
                 v = 1
             weights[t] = v
             total_value += v
-            values.append(v)
 
         if total_value > 0:
             for t in weights:
@@ -133,11 +213,17 @@ class PortfolioOptimizer:
             "expected_risk": 0,
             "sharpe_ratio": 0,
             "note": "Equal weight fallback (insufficient data)",
+            "model": "equal_weight",
         }
         return result
 
     async def calculate_risk_metrics(self, tickers: list) -> dict:
-        result = {"tickers": tickers, "metrics": {}, "timestamp": datetime.now(timezone.utc).isoformat()}
+        result = {
+            "tickers": tickers,
+            "metrics": {},
+            "disclaimer": DISCLAIMER,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+        }
 
         try:
             import yfinance as yf
@@ -152,9 +238,13 @@ class PortfolioOptimizer:
             port_returns = returns @ equal_weights
 
             if len(port_returns) > 0:
-                result["metrics"]["var_95"] = round(float(np.percentile(port_returns, 5) * 100), 2)
-                result["metrics"]["cvar_95"] = round(float(port_returns[port_returns <= np.percentile(port_returns, 5)].mean() * 100), 2)
-                result["metrics"]["max_drawdown"] = round(float((port_returns.cumsum().cummax() - port_returns.cumsum()).max() * 100), 2)
+                var_95 = float(np.percentile(port_returns, 5) * 100)
+                cvar_95 = float(port_returns[port_returns <= np.percentile(port_returns, 5)].mean() * 100)
+                max_dd = float((port_returns.cumsum().cummax() - port_returns.cumsum()).max() * 100)
+
+                result["metrics"]["var_95"] = round(var_95, 2)
+                result["metrics"]["cvar_95"] = round(cvar_95, 2)
+                result["metrics"]["max_drawdown"] = round(max_dd, 2)
 
             rf = 0.05 / 252
             excess = port_returns - rf

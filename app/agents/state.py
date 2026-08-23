@@ -1,4 +1,4 @@
-from typing import TypedDict, List, Dict, Optional
+from typing import Any, TypedDict, List, Dict, Optional
 
 class SupplyChainState(TypedDict):
     # ===== INPUTS =====
@@ -42,20 +42,44 @@ class SupplyChainState(TypedDict):
     alert_created: bool
     alert_id: str
 
+    # ===== QUANT TOOL DISPATCHER OUTPUT =====
+    # Structured output from all quantitative tools (technical, options, insider, etc.)
+    quant_tool_data: Dict[str, Dict]          # {ticker: {technical: {...}, options_flow: {...}, ...}}
+    quant_tool_summaries: List[str]           # Per-ticker LLM-ready summaries
+    quant_tools_dispatched: bool              # Whether tools were dispatched this run
+
     # ===== AGENT 2B OUTPUT (Alpha Scorer) =====
     alpha_score_total: float
     alpha_signal: str
     alpha_details: List[str]
     alpha_convergence_signals: List[str]
+    alpha_llm_synthesis: str                  # LLM synthesis of tool outputs (for audit)
 
     # ===== AGENT 2C OUTPUT (Convergence Detector) =====
     convergence_zones: List[Dict]
     converged_signals_count: int
     confidence_boost: float
     regime_factor_allocation: Dict
+    correlation_signals: List[Dict]           # From correlation engine
 
     # ===== ML / REGIME =====
     market_regime: str   # "bull" | "bear" | "sideways" | "volatile"
+
+    # ===== MEMORY AGENT OUTPUT =====
+    temporal_context: Dict[str, str]           # {ticker: temporal_context_string}
+    memory_signals_recorded: bool              # Whether signals were recorded to Redis
+
+    # ===== KNOWLEDGE GRAPH OUTPUT =====
+    kg_context: Dict[str, Any]                 # {ticker: kg_retrieval_result}
+    kg_entities_found: int                     # Total entities found across all tickers
+
+    # ===== QUALITY EVALUATOR OUTPUT =====
+    quality_scores: Dict[str, Any]             # AnalyScore 5-dimension evaluation
+    quality_grade: str                         # A/B/C/D/F
+
+    # ===== AUDIT OUTPUT =====
+    audit_summary: Dict[str, Any]              # Full pipeline audit trail
+    pipeline_id: str                           # Unique pipeline run identifier
 
     # ===== METADATA =====
     workflow_status: str

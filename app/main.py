@@ -14,7 +14,9 @@ from app.routers.intelligence import router as intelligence_router
 from app.routers.chat import router as chat_router
 from app.api.websocket import websocket_endpoint, manager
 from app.middleware.api_rate_limiter import APIRateLimiterMiddleware
+from app.middleware.disclaimer_header import DisclaimerHeaderMiddleware
 from app.services.news_aggregator import news_aggregator_layer
+from app.core.disclaimer import DISCLAIMER
 
 logger = logging.getLogger(__name__)
 
@@ -22,9 +24,10 @@ logger = logging.getLogger(__name__)
 # CREATE FASTAPI APP
 # ═══════════════════════════════════════════════════════════════════════
 
+
 app = FastAPI(
     title="MarketPulse-X API",
-    description="Real-time multi-signal geopolitical and market intelligence platform",
+    description="Real-time multi-signal geopolitical and market intelligence platform. " + DISCLAIMER,
     version="2.0.0"
 )
 
@@ -42,6 +45,9 @@ app.add_middleware(
 
 # v2: API Rate Limiting
 app.add_middleware(APIRateLimiterMiddleware)
+
+# Regulatory: every response carries the not-investment-advice notice
+app.add_middleware(DisclaimerHeaderMiddleware)
 
 # ═══════════════════════════════════════════════════════════════════════
 # INCLUDE ROUTERS
@@ -75,8 +81,9 @@ async def startup_event():
     logger.info("="*70)
 
     # Initialize SQLite (pipeline data: articles, alerts, relationships)
-    from app.services.database import init_db
+    from app.services.database import init_db, init_feedback_table
     init_db()
+    init_feedback_table()
     logger.info("SQLite database initialized")
 
     # Initialize MongoDB Atlas (user data: profiles, memory, sessions)
@@ -151,6 +158,7 @@ async def root():
         "version": "2.0.0",
         "status": "running",
         "description": "Real-time multi-signal geopolitical and market intelligence platform",
+        "disclaimer": DISCLAIMER,
         "endpoints": {
             "api": "/api",
             "intelligence": "/api/intelligence",

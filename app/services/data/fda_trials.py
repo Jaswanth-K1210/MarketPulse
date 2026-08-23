@@ -1,9 +1,8 @@
 """
-FDA / Clinical Trials Service — ClinicalTrials.gov API.
+FDA / Clinical Trials Service — ClinicalTrials.gov API v2.
 Tracks trial phases, status changes, drug pipeline progress.
 """
 import logging
-import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from typing import Optional
 
@@ -11,7 +10,49 @@ import httpx
 
 logger = logging.getLogger(__name__)
 
-CT_GOV_BASE = "https://clinicaltrials.gov/api/query/full_studies"
+# v1 (/api/query/full_studies) was retired and now returns 404.
+CT_GOV_BASE = "https://clinicaltrials.gov/api/v2/studies"
+
+_FIELDS = ",".join([
+    "NCTId", "BriefTitle", "OverallStatus", "Phase",
+    "StartDate", "PrimaryCompletionDate", "LeadSponsorName",
+])
+
+# v2 returns SCREAMING_SNAKE enums; the scorer and UI expect title case.
+_STATUS_MAP = {
+    "ACTIVE_NOT_RECRUITING": "Active, not recruiting",
+    "COMPLETED": "Completed",
+    "RECRUITING": "Recruiting",
+    "NOT_YET_RECRUITING": "Not yet recruiting",
+    "ENROLLING_BY_INVITATION": "Enrolling by invitation",
+    "SUSPENDED": "Suspended",
+    "TERMINATED": "Terminated",
+    "WITHDRAWN": "Withdrawn",
+    "UNKNOWN": "Unknown status",
+}
+
+
+def _norm_status(raw: str) -> str:
+    if not raw:
+        return ""
+    return _STATUS_MAP.get(raw, raw.replace("_", " ").title())
+
+
+def _norm_phases(raw: list) -> str:
+    """['PHASE2','PHASE3'] -> 'Phase 2/Phase 3'; ['NA'] -> 'N/A'."""
+    if not raw:
+        return ""
+    out = []
+    for ph in raw:
+        if ph in ("NA", "NOT_APPLICABLE"):
+            out.append("N/A")
+        elif ph.startswith("PHASE"):
+            out.append("Phase " + ph.replace("PHASE", "").strip())
+        elif ph == "EARLY_PHASE1":
+            out.append("Early Phase 1")
+        else:
+            out.append(ph.replace("_", " ").title())
+    return "/".join(out)
 
 
 class FDATrialsService:
@@ -23,59 +64,54 @@ class FDATrialsService:
             "phase_distribution": {},
             "status_distribution": {},
             "recent_milestones": [],
+            "available": False,
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }
 
         try:
             params = {
-                "expr": f"sponsor:{company} OR lead_sponsor:{company}",
-                "min_rnk": 1,
-                "max_rnk": limit,
-                "fmt": "json",
+                "query.lead": company,
+                "pageSize": min(limit, 100),
+                "fields": _FIELDS,
             }
 
             async with httpx.AsyncClient() as client:
-                resp = await client.get(CT_GOV_BASE, params=params, timeout=15)
+                resp = await client.get(CT_GOV_BASE, params=params, timeout=20)
                 if resp.status_code != 200:
-                    logger.warning(f"ClinicalTrials.gov API error: {resp.status_code}")
+                    logger.warning("ClinicalTrials.gov API error: %s", resp.status_code)
+                    result["error"] = f"ClinicalTrials.gov returned HTTP {resp.status_code}"
                     return result
 
-                data = resp.json()
-                studies = data.get("FullStudiesResponse", {}).get("FullStudy", [])
+                studies = resp.json().get("studies", [])
+                result["available"] = True
 
                 for study in studies:
-                    info = study.get("Study", {})
-                    protocol = info.get("ProtocolSection", {})
-                    id_module = protocol.get("IdentificationModule", {})
-                    status_module = protocol.get("StatusModule", {})
-                    design_module = protocol.get("DesignModule", {})
+                    protocol = study.get("protocolSection", {})
+                    id_module = protocol.get("identificationModule", {})
+                    status_module = protocol.get("statusModule", {})
+                    design_module = protocol.get("designModule", {})
+                    sponsor_module = protocol.get("sponsorCollaboratorsModule", {})
 
-                    nct_id = id_module.get("NCTId", "")
-                    title = id_module.get("BriefTitle", "")
-                    phase = design_module.get("Phase", "")
-                    status = status_module.get("OverallStatus", "")
-                    start_date = status_module.get("StartDateStruct", {}).get("StartDate", "")
-                    completion_date = status_module.get("PrimaryCompletionDateStruct", {}).get("PrimaryCompletionDate", "")
-
-                    trial = {
-                        "nct_id": nct_id,
-                        "title": title,
-                        "phase": phase,
-                        "status": status,
-                        "start_date": start_date,
-                        "completion_date": completion_date,
+                    result["trials"].append({
+                        "nct_id": id_module.get("nctId", ""),
+                        "title": id_module.get("briefTitle", ""),
+                        "phase": _norm_phases(design_module.get("phases", [])),
+                        "status": _norm_status(status_module.get("overallStatus", "")),
+                        "start_date": status_module.get("startDateStruct", {}).get("date", ""),
+                        "completion_date": status_module.get("primaryCompletionDateStruct", {}).get("date", ""),
+                        "sponsor": sponsor_module.get("leadSponsor", {}).get("name", ""),
+                        "url": f"https://clinicaltrials.gov/study/{id_module.get('nctId', '')}",
                         "source": "clinicaltrials.gov",
-                    }
-                    result["trials"].append(trial)
+                    })
 
                 result["total_trials"] = len(result["trials"])
 
                 phases = {}
                 statuses = {}
                 for t in result["trials"]:
-                    p = t.get("phase", "Unknown")
+                    p = t.get("phase") or "Unknown"
                     phases[p] = phases.get(p, 0) + 1
-                    s = t.get("status", "Unknown")
+                    s = t.get("status") or "Unknown"
                     statuses[s] = statuses.get(s, 0) + 1
 
                 result["phase_distribution"] = phases
@@ -93,7 +129,8 @@ class FDATrialsService:
                 result["recent_milestones"] = milestones[:5]
 
         except Exception as e:
-            logger.warning(f"ClinicalTrials.gov fetch failed: {e}")
+            logger.warning("ClinicalTrials.gov fetch failed: %s", e)
+            result["error"] = str(e)
 
         return result
 

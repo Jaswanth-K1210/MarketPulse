@@ -1,6 +1,8 @@
 """
 Earnings Transcripts Service — Parses earnings call transcripts.
-Uses free sources: SeekingAlpha (scraped), Yahoo Finance.
+Primary source is Motley Fool, which serves full transcript text without
+authentication. SeekingAlpha is kept as a fallback but returns 403 to
+unauthenticated clients as of 2026-08.
 Extracts forward guidance tone, key metrics, and management sentiment.
 """
 import logging
@@ -12,6 +14,12 @@ import httpx
 from bs4 import BeautifulSoup
 
 logger = logging.getLogger(__name__)
+
+FOOL_BASE = "https://www.fool.com"
+FOOL_UA = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
+)
 
 
 class EarningsTranscriptsService:
@@ -54,38 +62,104 @@ class EarningsTranscriptsService:
         return result
 
     async def _scrape_transcripts(self, ticker: str, limit: int) -> list:
-        transcripts = []
-        sources = [
-            ("seekingalpha", f"https://seekingalpha.com/symbol/{ticker}/earnings/transcripts"),
-        ]
+        """Fool first (works unauthenticated), SeekingAlpha as fallback."""
+        try:
+            transcripts = await self._scrape_fool(ticker, limit)
+            if transcripts:
+                return transcripts
+        except Exception as e:
+            logger.debug("Fool transcript scrape failed for %s: %s", ticker, e)
 
-        for source_name, url in sources:
-            try:
-                headers = {"User-Agent": "Mozilla/5.0"}
-                async with httpx.AsyncClient() as client:
-                    resp = await client.get(url, headers=headers, timeout=15, follow_redirects=True)
+        try:
+            return await self._scrape_seekingalpha(ticker, limit)
+        except Exception as e:
+            logger.debug("SeekingAlpha transcript scrape failed for %s: %s", ticker, e)
+            return []
+
+    async def _scrape_fool(self, ticker: str, limit: int) -> list:
+        headers = {"User-Agent": FOOL_UA}
+        links = []
+
+        async with httpx.AsyncClient(follow_redirects=True, headers=headers) as client:
+            # The quote page lists that company's transcripts. The exchange is
+            # part of the path and is not knowable up front, so try both.
+            for exchange in ("nasdaq", "nyse"):
+                url = f"{FOOL_BASE}/quote/{exchange}/{ticker.lower()}/"
+                try:
+                    resp = await client.get(url, timeout=20)
+                except Exception as e:
+                    logger.debug("Fool quote page %s failed: %s", url, e)
+                    continue
+                if resp.status_code != 200:
+                    continue
+                found = re.findall(r"/earnings/call-transcripts/[0-9]{4}/[0-9]{2}/[0-9]{2}/[a-z0-9\-]+/", resp.text)
+                if found:
+                    links = found
+                    break
+
+            if not links:
+                return []
+
+            # Slug carries the publication date; newest first.
+            links = sorted(set(links), reverse=True)[:limit]
+
+            transcripts = []
+            for link in links:
+                try:
+                    resp = await client.get(f"{FOOL_BASE}{link}", timeout=25)
                     if resp.status_code != 200:
                         continue
 
                     soup = BeautifulSoup(resp.text, "html.parser")
-                    articles = soup.find_all("article") or soup.find_all("div", class_=re.compile("transcript|article"))
+                    body = soup.find("div", class_="article-body") or soup.find("article")
+                    if body is None:
+                        continue
+                    text = body.get_text(" ", strip=True)
+                    if len(text) < 500:
+                        continue
 
-                    for article in articles[:limit]:
-                        text = article.get_text(strip=True)
-                        if len(text) > 500:
-                            transcript = {
-                                "source": source_name,
-                                "date": self._extract_date(text) or "",
-                                "text_preview": text[:1000],
-                                "guidance_sentiment": self._analyze_guidance_tone(text),
-                                "management_confidence": self._estimate_confidence(text),
-                                "key_metrics": self._extract_key_metrics(text),
-                            }
-                            transcripts.append(transcript)
-            except Exception as e:
-                logger.debug(f"Transcript scrape failed for {ticker} via {source_name}: {e}")
-                continue
+                    date_match = re.search(r"/(\d{4})/(\d{2})/(\d{2})/", link)
+                    transcripts.append({
+                        "source": "fool",
+                        "url": f"{FOOL_BASE}{link}",
+                        "date": "-".join(date_match.groups()) if date_match else self._extract_date(text),
+                        "text_preview": text[:1000],
+                        "guidance_sentiment": self._analyze_guidance_tone(text),
+                        "management_confidence": self._estimate_confidence(text),
+                        "key_metrics": self._extract_key_metrics(text),
+                    })
+                except Exception as e:
+                    logger.debug("Fool transcript %s failed: %s", link, e)
+                    continue
 
+            return transcripts
+
+    async def _scrape_seekingalpha(self, ticker: str, limit: int) -> list:
+        transcripts = []
+        url = f"https://seekingalpha.com/symbol/{ticker}/earnings/transcripts"
+        headers = {"User-Agent": FOOL_UA}
+
+        async with httpx.AsyncClient() as client:
+            resp = await client.get(url, headers=headers, timeout=15, follow_redirects=True)
+            if resp.status_code != 200:
+                logger.debug("SeekingAlpha HTTP %s for %s", resp.status_code, ticker)
+                return transcripts
+
+            soup = BeautifulSoup(resp.text, "html.parser")
+            articles = soup.find_all("article") or soup.find_all("div", class_=re.compile("transcript|article"))
+
+            for article in articles[:limit]:
+                text = article.get_text(strip=True)
+                if len(text) > 500:
+                    transcripts.append({
+                        "source": "seekingalpha",
+                        "url": url,
+                        "date": self._extract_date(text) or "",
+                        "text_preview": text[:1000],
+                        "guidance_sentiment": self._analyze_guidance_tone(text),
+                        "management_confidence": self._estimate_confidence(text),
+                        "key_metrics": self._extract_key_metrics(text),
+                    })
         return transcripts
 
     def _extract_date(self, text: str) -> str:

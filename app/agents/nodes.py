@@ -50,6 +50,98 @@ def llm_discovery(ticker: str) -> List[Dict]:
         print(f"LLM discovery error for {ticker}: {e}")
         return []
 
+def agent_quant_tool_dispatcher(state: SupplyChainState) -> Dict[str, Any]:
+    """Dispatch all quantitative tools in parallel for every relevant ticker.
+    This is the bridge between classification and analysis — tools run FIRST,
+    LLM nodes consume structured tool output.
+    """
+    print("---DISPATCHING QUANTITATIVE TOOLS---")
+
+    from app.services.data.quant_tools import quant_tool_dispatcher
+    from app.services.intelligence.correlation_engine import CorrelationEngine
+
+    classified = state.get("classified_articles", [])
+    portfolio = state.get("portfolio", [])
+
+    # Collect unique tickers from news + portfolio
+    tickers = set()
+    for article in classified:
+        t = article.get("ticker", "")
+        if t and t != "UNKNOWN":
+            tickers.add(t)
+    for t in portfolio:
+        if t:
+            tickers.add(t)
+
+    # Cap at 8 tickers to stay within rate limits
+    tickers = list(tickers)[:8]
+
+    if not tickers:
+        return {
+            "quant_tool_data": {},
+            "quant_tool_summaries": [],
+            "quant_tools_dispatched": False,
+            "correlation_signals": [],
+            "workflow_status": "No tickers to dispatch tools for",
+        }
+
+    print(f"  Dispatching tools for {len(tickers)} tickers: {', '.join(tickers)}")
+
+    # Fan out to all tools in parallel
+    tool_data = quant_tool_dispatcher.dispatch_all(tickers, timeout=30)
+
+    # Build LLM-ready summaries
+    summaries = [quant_tool_dispatcher.format_for_llm(t, d) for t, d in tool_data.items()]
+
+    # Run correlation engine on classified articles + market data
+    correlation_signals = []
+    try:
+        engine = CorrelationEngine()
+        # Build minimal market data from yfinance for correlation
+        import yfinance as yf
+        market_data = {"sectors": {}, "indices": {}}
+        try:
+            spy = yf.Ticker("SPY")
+            hist = spy.history(period="5d")
+            if not hist.empty and len(hist) >= 2:
+                change = (hist["Close"].iloc[-1] / hist["Close"].iloc[-2] - 1) * 100
+                market_data["indices"]["SPY"] = {"price": float(hist["Close"].iloc[-1]), "change_pct": round(change, 2)}
+        except Exception:
+            pass
+
+        corr_signals = engine.analyze(
+            classified_articles=classified,
+            market_data=market_data,
+        )
+        correlation_signals = [
+            {
+                "type": s.signal_type,
+                "description": s.description,
+                "confidence": round(s.confidence, 2),
+                "metadata": s.metadata,
+            }
+            for s in corr_signals
+        ]
+    except Exception as e:
+        print(f"  Correlation engine failed (non-fatal): {e}")
+
+    # Log summary
+    tools_ok = sum(1 for t, d in tool_data.items() if d.get("composite_scores", {}).get("tools_succeeded", 0) >= 3)
+    print(f"  Tools dispatched: {len(tickers)} tickers, {tools_ok} with 3+ tools succeeding")
+    print(f"  Correlation signals: {len(correlation_signals)}")
+
+    return {
+        "quant_tool_data": tool_data,
+        "quant_tool_summaries": summaries,
+        "quant_tools_dispatched": True,
+        "correlation_signals": correlation_signals,
+        "workflow_status": (
+            f"Quant tools dispatched for {len(tickers)} tickers "
+            f"({tools_ok} with full data), {len(correlation_signals)} correlations"
+        ),
+    }
+
+
 def agent_1_news_monitor(state: SupplyChainState) -> Dict[str, Any]:
     """Agent 1: Continuous news surveillance across all sources."""
     print("---EXECUTING AGENT 1: NEWS MONITOR (SPEC 3.0 INGESTION)---")
@@ -75,9 +167,17 @@ def agent_1_news_monitor(state: SupplyChainState) -> Dict[str, Any]:
             companies_mentioned=["TSMC", "Apple", "Nvidia"]
         )]
 
-    # Deduplicate and filter per spec
-    # ingest_all returns prioritized, deduplicated Article objects
-    filtered = articles
+    # ── SNR FILTER (FinGPT: data quality beats model quality) ────────────────
+    # Score and reject low-quality articles BEFORE they hit any LLM call.
+    from app.services.data.snr_filter import snr_filter
+    filtered, snr_stats = snr_filter.filter_articles(
+        articles,
+        portfolio=portfolio_tickers,
+        min_score=0.30,
+        max_articles=10,
+    )
+    print(f"  [SNR] {snr_stats['total']} ingested → {snr_stats['kept']} passed filter "
+          f"(avg score: {snr_stats['avg_score']}, dedup removed: {snr_stats['dedup_removed']})")
     
     # Format for state
     news_list = []
@@ -277,9 +377,8 @@ def agent_3b_discovery(state: SupplyChainState) -> Dict[str, Any]:
         print("   Executing 4 sources in parallel for relationships...")
 
         start_time = time.time()
-
-        # PARALLEL EXECUTION OF ALL 4 SOURCES
-        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+        # PARALLEL EXECUTION OF ALL 4 SOURCES + KG
+        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
             # SOURCE 1: SEC EDGAR filings (highest confidence) - Only for Public
             sec_future = None
             if c_type == "public":
@@ -315,8 +414,29 @@ def agent_3b_discovery(state: SupplyChainState) -> Dict[str, Any]:
 
             web_future = executor.submit(web_discovery, ticker)
 
+            # SOURCE 5: Knowledge Graph retrieval (FinKario two-stage)
+            def kg_discovery(t):
+                try:
+                    from app.services.kg_retriever import kg_retriever
+                    result = kg_retriever.retrieve(t, depth=1, max_entities=5)
+                    entities = result.get("stage1_entities", [])
+                    return [
+                        {
+                            "related_company": e["id"],
+                            "type": e.get("edge_type", "related"),
+                            "criticality": "high" if e.get("weight", 0) > 0.7 else "medium",
+                            "source": "knowledge_graph",
+                            "confidence": e.get("weight", 0.6),
+                        }
+                        for e in entities if e.get("id") != t
+                    ]
+                except Exception:
+                    return []
+
+            kg_future = executor.submit(kg_discovery, ticker)
+
             # Wait for all sources (max 10 seconds each)
-            results = {'sec': [], 'llm': [], 'news': [], 'web': []}
+            results = {'sec': [], 'llm': [], 'news': [], 'web': [], 'kg': []}
             
             # SEC Future (only if public)
             if sec_future:
@@ -342,20 +462,29 @@ def agent_3b_discovery(state: SupplyChainState) -> Dict[str, Any]:
                 except Exception as e:
                      print(f"   ✗ NEWS_CONTEXT: Failed ({str(e)[:30]})")
             
-             # Web Future
+            # Web Future
             if web_future:
                  try:
                     results['web'] = web_future.result(timeout=5) or []
                  except Exception:
                     pass
 
+            # KG Future
+            if kg_future:
+                try:
+                    results['kg'] = kg_future.result(timeout=8) or []
+                    print(f"   ✓ KNOWLEDGE_GRAPH: {len(results['kg'])} relationships")
+                except Exception as e:
+                    print(f"   ✗ KNOWLEDGE_GRAPH: Failed ({str(e)[:30]})")
+
         # FUSION: Merge all sources with confidence boosting
         sec_rels = results.get('sec', [])
         llm_rels = results.get('llm', [])
         news_rels = results.get('news', [])
         web_rels = results.get('web', [])
+        kg_rels = results.get('kg', [])
 
-        total_extracted = sec_rels + llm_rels + news_rels + web_rels
+        total_extracted = sec_rels + llm_rels + news_rels + web_rels + kg_rels
         fused = relationship_fusion.fuse(total_extracted)
 
         discovery_time = time.time() - start_time
@@ -364,7 +493,7 @@ def agent_3b_discovery(state: SupplyChainState) -> Dict[str, Any]:
         print(f"   ⚡ Total Discovery Time: {discovery_time:.1f}s")
         print(f"   📊 Raw Relationships: {len(total_extracted)}")
         print(f"   🔗 After Fusion: {len(fused)}")
-        print(f"   📡 Sources Used: {sources_used}/4")
+        print(f"   📡 Sources Used: {sources_used}/5 (SEC/LLM/News/Web/KG)")
 
         # PERSISTENCE: Save to cache
         # 1. Save Company Info
@@ -648,4 +777,152 @@ def agent_6_alerts(state: SupplyChainState) -> Dict[str, Any]:
         "monte_carlo":      mc_result,
         "workflow_status":  "Alert + Monte Carlo risk report persisted",
         "completed_at":     datetime.now().isoformat(),
+    }
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 3a: MEMORY AGENT NODE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def agent_memory_store(state: SupplyChainState) -> Dict[str, Any]:
+    """Record pipeline signals to Redis-backed memory and build temporal context.
+    This makes the system remember: 'third bearish signal on NVDA this week'.
+    """
+    print("---EXECUTING: MEMORY AGENT (Cross-Run Persistence)---")
+
+    from app.services.memory_agent import memory_agent
+
+    portfolio = state.get("portfolio", [])
+    classified = state.get("classified_articles", [])
+    stock_impacts = state.get("stock_impacts", [])
+    confidence = state.get("confidence_score", 0.5)
+
+    # Record signals to Redis
+    signals_recorded = 0
+    for article in classified:
+        ticker = article.get("ticker", "")
+        if not ticker or ticker == "UNKNOWN":
+            continue
+        impact = next(
+            (s.get("impact_pct", 0) for s in stock_impacts if s.get("ticker") == ticker),
+            0.0,
+        )
+        memory_agent.record_signal(
+            ticker=ticker,
+            sentiment=article.get("sentiment_score", 0),
+            impact_pct=impact,
+            confidence=confidence,
+            headline=article.get("title", "")[:200],
+            source="pipeline",
+        )
+        signals_recorded += 1
+
+    # Build temporal context for each portfolio ticker
+    temporal_context = {}
+    for ticker in portfolio:
+        if ticker:
+            temporal_context[ticker] = memory_agent.build_temporal_context(ticker)
+
+    print(f"  [Memory] Recorded {signals_recorded} signals, "
+          f"built temporal context for {len(temporal_context)} tickers")
+
+    return {
+        "temporal_context": temporal_context,
+        "memory_signals_recorded": signals_recorded > 0,
+    }
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 4b: KG RETRIEVAL NODE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def agent_kg_retrieval(state: SupplyChainState) -> Dict[str, Any]:
+    """Two-stage knowledge graph retrieval for each portfolio ticker.
+    Stage 1: Find related entities via graph traversal.
+    Stage 2: Fetch recent alerts, memory, and events for those entities.
+    """
+    print("---EXECUTING: KG RETRIEVAL (Two-Stage)---")
+
+    from app.services.kg_retriever import kg_retriever
+
+    portfolio = state.get("portfolio", [])
+    kg_context = {}
+    total_entities = 0
+
+    for ticker in portfolio[:8]:
+        if not ticker:
+            continue
+        try:
+            result = kg_retriever.retrieve(ticker, depth=2, max_entities=10)
+            kg_context[ticker] = result
+            total_entities += len(result.get("stage1_entities", []))
+        except Exception as e:
+            print(f"  [KG] Retrieval failed for {ticker}: {e}")
+
+    print(f"  [KG] Retrieved context for {len(kg_context)} tickers, "
+          f"{total_entities} total entities found")
+
+    return {
+        "kg_context": kg_context,
+        "kg_entities_found": total_entities,
+    }
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 5: QUALITY EVALUATOR NODE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def agent_quality_eval(state: SupplyChainState) -> Dict[str, Any]:
+    """Evaluate alert quality on 5 dimensions (FinSphere AnalyScore).
+    Runs automatically after every pipeline run.
+    """
+    print("---EXECUTING: QUALITY EVALUATOR (AnalyScore)---")
+
+    from app.services.quality_evaluator import quality_evaluator
+
+    result = quality_evaluator.evaluate(state)
+
+    grade = result.get("grade", "F")
+    overall = result.get("overall_score", 0)
+    dims = result.get("dimensions", {})
+
+    print(f"  [Quality] Grade: {grade} ({overall:.1%})")
+    for dim_name, dim_data in dims.items():
+        print(f"    {dim_name}: {dim_data['score']:.2f} — {dim_data.get('detail', '')}")
+
+    return {
+        "quality_scores": result,
+        "quality_grade": grade,
+    }
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PHASE 3b: AUDIT AGENT NODE (Final Pipeline Node)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+def agent_audit_final(state: SupplyChainState) -> Dict[str, Any]:
+    """Final audit node — logs the complete pipeline execution trail.
+    Enables "explain this signal" feature: click an alert, see everything.
+    """
+    print("---EXECUTING: AUDIT AGENT (Final Trail)---")
+
+    from app.services.audit_agent import audit_agent
+
+    # Build comprehensive audit summary
+    audit_summary = audit_agent.build_audit_summary(dict(state))
+
+    # Persist to SQLite agent_logs
+    audit_agent.persist()
+
+    pipeline_id = audit_agent.pipeline_id
+    duration = audit_summary.get("total_duration_ms", 0)
+    tools = audit_summary.get("total_tool_calls", 0)
+    llm_calls = audit_summary.get("total_llm_calls", 0)
+
+    print(f"  [Audit] Pipeline {pipeline_id}: "
+          f"{duration:.0f}ms, {tools} tool calls, {llm_calls} LLM calls")
+
+    return {
+        "audit_summary": audit_summary,
+        "pipeline_id": pipeline_id,
     }

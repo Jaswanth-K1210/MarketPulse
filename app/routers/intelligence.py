@@ -6,7 +6,7 @@ import logging
 from datetime import datetime, timezone
 from typing import Optional
 
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, Body
 
 from app.services.infrastructure.cache_manager import get_cache_manager
 
@@ -620,6 +620,32 @@ async def get_backtest(ticker: str, strategy: str = "alpha_momentum",
     return data
 
 
+# ── Trading: Walk-Forward Backtest ─────────────────────────────────────────────
+
+@router.get("/walk-forward/{ticker}")
+async def get_walk_forward(ticker: str, strategy: str = "alpha_momentum",
+                           start_date: str = None, end_date: str = None,
+                           initial_capital: float = 10000,
+                           train_days: int = 252, test_days: int = 63):
+    cache = get_cache_manager()
+    cache_key = f"walk_forward:{ticker.upper()}:{strategy}:{train_days}:{test_days}"
+
+    async def fetch():
+        try:
+            from app.services.trading.backtester import backtester
+            data = backtester.walk_forward(ticker, strategy, start_date, end_date,
+                                           initial_capital, train_days, test_days)
+            data["status"] = "live"
+            return data
+        except Exception as e:
+            logger.warning("walk-forward fetch failed: %s", e)
+            return None
+
+    result = await cache.get_or_fetch(cache_key, fetch, data_type="osint")
+    data = result.data if result and result.data else {"status": "bootstrap", "ticker": ticker.upper(), "strategy": strategy, "walk_forward": {}, "timestamp": _now()}
+    return data
+
+
 # ── Corporate Actions ───────────────────────────────────────────────────────────
 
 @router.get("/corporate-actions/{ticker}")
@@ -666,4 +692,55 @@ async def post_telegram_test(ticker: str = "AAPL", signal: str = "NEUTRAL", scor
         return {"status": "live", "sent": sent, "enabled": telegram_bot.enabled, "timestamp": _now()}
     except Exception as e:
         logger.warning("telegram test failed: %s", e)
+        return {"status": "error", "error": str(e), "timestamp": _now()}
+
+
+# ── ML: Anomaly Detection ─────────────────────────────────────────────────────
+
+@router.get("/anomaly/{ticker}")
+async def get_anomaly_detection(ticker: str):
+    cache = get_cache_manager()
+    cache_key = f"anomaly:{ticker.upper()}"
+
+    async def fetch():
+        try:
+            from app.ml.anomaly_detector import anomaly_detector
+            data = anomaly_detector.detect(ticker)
+            return data
+        except Exception as e:
+            logger.warning("anomaly detection failed: %s", e)
+            return None
+
+    result = await cache.get_or_fetch(cache_key, fetch, data_type="osint")
+    data = result.data if result and result.data else {"status": "bootstrap", "ticker": ticker.upper(), "is_anomaly": False, "timestamp": _now()}
+    return data
+
+
+# ── ML: Risk Feedback ────────────────────────────────────────────────────────
+
+@router.post("/ml/feedback")
+async def post_risk_feedback(payload: dict = Body(...)):
+    """Submit risk prediction feedback for model retraining.
+
+    Expected payload:
+    {
+        "ticker": "AAPL",
+        "predicted_risk": 0.75,
+        "actual_outcome": 0.3,
+        "features": {"source_tier": 1, "sentiment_score": -0.5, ...}
+    }
+    """
+    try:
+        import json
+        from app.services.database import store_feedback
+        ticker = payload.get("ticker", "").upper()
+        predicted_risk = float(payload.get("predicted_risk", 0))
+        actual_outcome = float(payload.get("actual_outcome", 0))
+        feedback_type = payload.get("feedback_type", "price_change")
+        features = json.dumps(payload.get("features", {}))
+
+        store_feedback(ticker, predicted_risk, actual_outcome, feedback_type, features)
+        return {"status": "success", "ticker": ticker, "message": "Feedback stored for retraining", "timestamp": _now()}
+    except Exception as e:
+        logger.warning("feedback submission failed: %s", e)
         return {"status": "error", "error": str(e), "timestamp": _now()}

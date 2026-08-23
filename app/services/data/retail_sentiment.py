@@ -2,6 +2,7 @@
 Retail Sentiment Service — StockTwits + Reddit (Pushshift) sentiment aggregation.
 All sources are free and publicly accessible.
 """
+import asyncio
 import logging
 import os
 import re
@@ -14,6 +15,15 @@ logger = logging.getLogger(__name__)
 STOCKTWITS_API = "https://api.stocktwits.com/api/2"
 STOCKTWITS_WEB = "https://stocktwits.com/symbol"
 STOCKTWITS_API_KEY = os.environ.get("STOCKTWITS_API_KEY", "")
+
+# Reddit OAuth (optional). Without these, we fall back to the public Atom
+# feed, which reddit rate-limits to roughly one request per burst per IP.
+REDDIT_CLIENT_ID = os.environ.get("REDDIT_CLIENT_ID", "")
+REDDIT_CLIENT_SECRET = os.environ.get("REDDIT_CLIENT_SECRET", "")
+REDDIT_USER_AGENT = os.environ.get("REDDIT_USER_AGENT", "python:marketpulse:v1.0")
+
+SUBREDDITS = ["wallstreetbets", "stocks", "investing", "options"]
+_RSS_DELAY_SECONDS = 2.0
 
 
 class RetailSentimentService:
@@ -145,29 +155,92 @@ class RetailSentimentService:
             return None
 
     async def _get_reddit_sentiment(self, ticker: str) -> Optional[dict]:
-        messages = []
-        pushshift_ok = False
-        try:
-            msgs = await self._reddit_via_pushshift(ticker)
-            if msgs:
-                messages.extend(msgs)
-                pushshift_ok = True
-        except Exception as e:
-            logger.debug(f"Pushshift failed for {ticker}: {e}")
+        """Try Reddit sources in order of reliability.
 
-        if not pushshift_ok:
+        RSS is first because reddit.com/search.json returns 403 to
+        unauthenticated clients, and the Pushshift/PullPush mirrors are
+        rate-limited (429) most of the time.
+        """
+        attempts = (
+            ("oauth", self._reddit_via_oauth),
+            ("rss", self._reddit_via_rss),
+            ("pushshift", self._reddit_via_pushshift),
+            ("json_api", self._reddit_via_json_api),
+        )
+        for name, fetch in attempts:
             try:
-                msgs = await self._reddit_via_json_api(ticker)
+                msgs = await fetch(ticker)
                 if msgs:
-                    messages.extend(msgs)
-            except Exception as e2:
-                logger.debug(f"Reddit JSON API also failed for {ticker}: {e2}")
+                    return {"messages": msgs, "total": len(msgs)}
+                logger.debug("Reddit %s returned nothing for %s", name, ticker)
+            except Exception as e:
+                logger.debug("Reddit %s failed for %s: %s", name, ticker, e)
+        return None
 
-        return {"messages": messages, "total": len(messages)} if messages else None
+    async def _reddit_via_rss(self, ticker: str) -> list:
+        """Reddit's Atom search feed — still served without authentication."""
+        import xml.etree.ElementTree as ET
+
+        ns = {"atom": "http://www.w3.org/2005/Atom"}
+        messages = []
+        subreddits = SUBREDDITS
+        headers = {"User-Agent": "MarketPulseOSINT/1.0"}
+
+        async with httpx.AsyncClient(follow_redirects=True) as client:
+            for idx, sub in enumerate(subreddits):
+                url = (
+                    f"https://www.reddit.com/r/{sub}/search.rss"
+                    f"?q={ticker}&restrict_sr=1&sort=new&limit=25&t=month"
+                )
+                try:
+                    if idx:
+                        await asyncio.sleep(_RSS_DELAY_SECONDS)
+
+                    resp = await self._get_with_backoff(client, url, headers)
+                    if resp is None or resp.status_code != 200:
+                        code = resp.status_code if resp is not None else "n/a"
+                        logger.debug("Reddit RSS %s HTTP %s", sub, code)
+                        # A 429 applies to the whole IP; further subreddits in
+                        # this pass will fail too, so stop rather than burn
+                        # the rate limit further.
+                        if resp is not None and resp.status_code == 429:
+                            break
+                        continue
+
+                    root = ET.fromstring(resp.content)
+                    for entry in root.findall("atom:entry", ns):
+                        title = (entry.findtext("atom:title", "", ns) or "").strip()
+                        if not title:
+                            continue
+                        # The ticker must appear as a whole word, not as a
+                        # substring of an unrelated word.
+                        body_html = entry.findtext("atom:content", "", ns) or ""
+                        if not re.search(rf"\b\$?{re.escape(ticker)}\b",
+                                         f"{title} {body_html}", re.IGNORECASE):
+                            continue
+
+                        author = (entry.findtext("atom:author/atom:name", "", ns) or "").lstrip("/u/")
+                        link_el = entry.find("atom:link", ns)
+                        link = link_el.get("href", "") if link_el is not None else ""
+
+                        messages.append({
+                            "source": f"reddit/{sub}",
+                            "user": author or "unknown",
+                            "body": title[:280],
+                            "sentiment": self._classify_sentiment(f"{title} {body_html}"),
+                            "created_at": entry.findtext("atom:updated", "", ns),
+                            "url": link,
+                            "score": 0,
+                        })
+                except ET.ParseError as e:
+                    logger.debug("Reddit RSS parse failed for %s: %s", sub, e)
+                except Exception as e:
+                    logger.debug("Reddit RSS fetch failed for %s: %s", sub, e)
+        return messages
 
     async def _reddit_via_pushshift(self, ticker: str) -> list:
         messages = []
-        subreddits = ["wallstreetbets", "stocks", "investing", "options"]
+        subreddits = SUBREDDITS
         async with httpx.AsyncClient() as client:
             for sub in subreddits:
                 try:
@@ -202,7 +275,7 @@ class RetailSentimentService:
 
     async def _reddit_via_json_api(self, ticker: str) -> list:
         messages = []
-        subreddits = ["wallstreetbets", "stocks", "investing", "options"]
+        subreddits = SUBREDDITS
         async with httpx.AsyncClient() as client:
             for sub in subreddits:
                 try:
@@ -232,6 +305,67 @@ class RetailSentimentService:
                 except Exception:
                     continue
         return messages
+
+    async def _get_with_backoff(self, client, url, headers, attempts: int = 3):
+        """GET with exponential backoff on 429, honouring Retry-After."""
+        resp = None
+        for attempt in range(attempts):
+            resp = await client.get(url, headers=headers, timeout=15)
+            if resp.status_code != 429:
+                return resp
+            if attempt == attempts - 1:
+                break
+            wait = float(resp.headers.get("Retry-After") or 0) or 2.0 * (2 ** attempt)
+            logger.debug("Reddit 429, backing off %.1fs", wait)
+            await asyncio.sleep(min(wait, 20.0))
+        return resp
+
+    async def _reddit_via_oauth(self, ticker: str) -> list:
+        """Authenticated Reddit search. Needs REDDIT_CLIENT_ID/SECRET.
+
+        This is the only Reddit path with a usable rate limit; the public
+        endpoints are best-effort.
+        """
+        if not (REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET):
+            return []
+
+        try:
+            import praw
+        except ImportError:
+            logger.debug("praw not installed; skipping Reddit OAuth")
+            return []
+
+        def _search() -> list:
+            reddit = praw.Reddit(
+                client_id=REDDIT_CLIENT_ID,
+                client_secret=REDDIT_CLIENT_SECRET,
+                user_agent=REDDIT_USER_AGENT,
+                check_for_async=False,
+            )
+            reddit.read_only = True
+            out = []
+            for sub in SUBREDDITS:
+                for post in reddit.subreddit(sub).search(
+                    ticker, sort="new", time_filter="week", limit=10
+                ):
+                    combined = f"{post.title} {getattr(post, 'selftext', '')}"
+                    if not re.search(rf"\b\$?{re.escape(ticker)}\b", combined, re.IGNORECASE):
+                        continue
+                    out.append({
+                        "source": f"reddit/{sub}",
+                        "user": str(getattr(post.author, "name", "unknown")),
+                        "body": post.title[:280],
+                        "sentiment": self._classify_sentiment(combined),
+                        "created_at": datetime.fromtimestamp(
+                            post.created_utc, tz=timezone.utc
+                        ).isoformat(),
+                        "url": f"https://reddit.com{post.permalink}",
+                        "score": int(post.score or 0),
+                    })
+            return out
+
+        # praw is synchronous; keep it off the event loop.
+        return await asyncio.to_thread(_search)
 
     def _classify_sentiment(self, text: str) -> str:
         text_lower = text.lower()

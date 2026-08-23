@@ -326,12 +326,19 @@ class InsiderTradesService:
         for t in trades:
             ttype = t.get("transaction_type", "")
             value = t.get("value", 0)
+            shares = t.get("shares", 0)
+            relationship = t.get("relationship", "")
+
+            officer_weight = 1.5 if "officer" in relationship.lower() or "CEO" in relationship.upper() else 1.0
+            director_weight = 1.2 if "director" in relationship.lower() else 1.0
+            weight = officer_weight * director_weight
+
             if "BUY" in ttype or "PURCHASE" in ttype or "ACQUIRE" in ttype:
                 buy_count += 1
-                buy_value += value
+                buy_value += value * weight
             elif "SELL" in ttype or "DISPOSITION" in ttype:
                 sell_count += 1
-                sell_value += value
+                sell_value += value * weight
 
         total = buy_count + sell_count
         if total == 0:
@@ -340,17 +347,29 @@ class InsiderTradesService:
         net_ratio = (buy_count - sell_count) / total
         score += net_ratio * 3.0
 
-        if buy_value > 1000000:
+        if buy_value > 5000000:
+            score += 2.0
+        elif buy_value > 1000000:
             score += 1.5
         elif buy_value > 500000:
             score += 1.0
         elif buy_value > 100000:
             score += 0.5
 
-        if sell_value > 5000000:
+        if sell_value > 10000000:
+            score -= 1.5
+        elif sell_value > 5000000:
             score -= 1.0
         elif sell_value > 1000000:
             score -= 0.5
+
+        cluster_bonus = 0
+        if buy_count >= 3:
+            cluster_bonus += 0.5
+        if sell_count >= 3:
+            cluster_bonus -= 0.5
+
+        score += cluster_bonus
 
         return max(-5.0, min(5.0, score))
 

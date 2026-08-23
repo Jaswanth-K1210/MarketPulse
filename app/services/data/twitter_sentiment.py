@@ -1,8 +1,14 @@
 """
 Twitter/X Sentiment Service — Searches public Twitter/X for ticker mentions.
-Uses Nitter (free, no API key) + keyword sentiment analysis.
+
+Uses Nitter instances, which no longer reliably serve search results: as of
+2026-08 nitter.net returns 200 with an empty timeline and the other public
+instances return 403. The service therefore reports itself unavailable
+rather than returning zeros that look like genuine silence. Set
+NITTER_INSTANCES (comma-separated) to point at a working/self-hosted instance.
 """
 import logging
+import os
 import re
 from datetime import datetime, timezone
 from typing import Optional
@@ -11,6 +17,11 @@ import httpx
 from bs4 import BeautifulSoup
 
 logger = logging.getLogger(__name__)
+
+_DEFAULT_NITTER = "https://nitter.net,https://nitter.poast.org,https://nitter.lacontrevoie.fr"
+NITTER_INSTANCES = [
+    i.strip() for i in os.environ.get("NITTER_INSTANCES", _DEFAULT_NITTER).split(",") if i.strip()
+]
 
 TWITTER_HASHTAGS = {
     "$TSLA", "$AAPL", "$NVDA", "$AMD", "$MSFT", "$GOOGL", "$GOOG", "$META",
@@ -33,12 +44,19 @@ class TwitterSentimentService:
             "bearish_pct": 0,
             "avg_sentiment": 0,
             "top_hashtags": [],
+            "available": False,
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }
 
         mentions = await self._search_nitter(ticker)
         if not mentions:
+            result["error"] = (
+                "No Nitter instance returned results. Public instances are "
+                "largely defunct; set NITTER_INSTANCES to a working instance."
+            )
             return result
+
+        result["available"] = True
 
         result["mentions"] = mentions[:50]
         result["total_mentions"] = len(mentions)
@@ -72,11 +90,7 @@ class TwitterSentimentService:
 
     async def _search_nitter(self, ticker: str) -> list:
         mentions = []
-        nitter_instances = [
-            "https://nitter.net",
-            "https://nitter.poast.org",
-            "https://nitter.lacontrevoie.fr",
-        ]
+        nitter_instances = NITTER_INSTANCES
 
         query = f"${ticker} OR #{ticker} OR {ticker} stock"
 
