@@ -1,0 +1,42 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "env": {
+      "value": "prod"
+    },
+    "location": {
+      "value": "westeurope"
+    },
+    "backendImage": {
+      "value": "ghcr.io/your-org/marketpulse-backend:latest"
+    },
+    "gatewayImage": {
+      "value": "ghcr.io/your-org/marketpulse-gateway:latest"
+    },
+    "openaiApiKey": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/<SUB_ID>/resourceGroups/<RG>/providers/Microsoft.KeyVault/vaults/<KV_NAME>"
+        },
+        "secretName": "openai-api-key"
+      }
+    },
+    "mongodbUri": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/<SUB_ID>/resourceGroups/<RG>/providers/Microsoft.KeyVault/vaults/<KV_NAME>"
+        },
+        "secretName": "mongodb-uri"
+      }
+    },
+    "jwtSecret": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/<SUB_ID>/resourceGroups/<RG>/providers/Microsoft.KeyVault/vaults/<KV_NAME>"
+        },
+        "secretName": "jwt-secret"
+      }
+    }
+  }
+}

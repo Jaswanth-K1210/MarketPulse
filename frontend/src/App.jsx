@@ -8,37 +8,44 @@ import Watchlist from './pages/Watchlist'
 import Alerts from './pages/Alerts'
 import Trends from './pages/Trends'
 import Settings from './pages/Settings'
+import CompanyDetail from './pages/CompanyDetail'
 import './App.css'
+import DisclaimerBanner from './components/DisclaimerBanner'
 
 function App() {
   const [user, setUser] = useState(null)
   const [activeTab, setActiveTab] = useState('dashboard')
   const [showTriggerModal, setShowTriggerModal] = useState(false)
+  const [companyTicker, setCompanyTicker] = useState(null)
 
   useEffect(() => {
-    // Check for existing session
     const savedUser = localStorage.getItem('marketpulse_user')
     if (savedUser) setUser(savedUser)
-
-    // Apply theme
     const savedTheme = localStorage.getItem('mp_theme') || 'dark'
     document.documentElement.setAttribute('data-theme', savedTheme)
   }, [])
+
+  const handleCompanySearch = (ticker) => {
+    setCompanyTicker(ticker)
+    setActiveTab('company')
+  }
 
   if (!user) {
     return <Login onLogin={setUser} />
   }
 
   return (
-    <div className="flex h-screen bg-dark text-primary">
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-      <main className="flex-1 overflow-auto bg-gradient-to-br from-dark to-darkBg">
-        {activeTab === 'dashboard' && <Dashboard onTrigger={() => setShowTriggerModal(true)} />}
-        {activeTab === 'search' && <Search />}
-        {activeTab === 'watchlist' && <Watchlist />}
-        {activeTab === 'alerts' && <Alerts />}
-        {activeTab === 'trends' && <Trends />}
-        {activeTab === 'settings' && <Settings onLogout={() => { localStorage.removeItem('marketpulse_user'); setUser(null); }} />}
+    <div className="flex h-screen text-primary overflow-hidden" style={{ background: '#0b1221' }}>
+      <Sidebar activeTab={activeTab} setActiveTab={(tab) => { setActiveTab(tab); if (tab !== 'company') setCompanyTicker(null) }} />
+      <main className="flex-1 overflow-hidden flex flex-col" style={{ background: '#0b1221' }}>
+        {activeTab === 'dashboard' && <Dashboard onTrigger={() => setShowTriggerModal(true)} onCompanyClick={handleCompanySearch} />}
+        {activeTab === 'search' && <div className="flex-1 overflow-auto"><Search onCompanyClick={handleCompanySearch} /></div>}
+        {activeTab === 'company' && <CompanyDetail ticker={companyTicker} onBack={() => setActiveTab('dashboard')} />}
+        {activeTab === 'watchlist' && <div className="flex-1 overflow-auto"><Watchlist onCompanyClick={handleCompanySearch} /></div>}
+        {activeTab === 'alerts' && <div className="flex-1 overflow-auto"><Alerts /></div>}
+        {activeTab === 'trends' && <div className="flex-1 overflow-auto"><Trends /></div>}
+        {activeTab === 'settings' && <div className="flex-1 overflow-auto"><Settings onLogout={() => { localStorage.removeItem('marketpulse_user'); setUser(null); }} /></div>}
+        <DisclaimerBanner />
       </main>
     </div>
   )

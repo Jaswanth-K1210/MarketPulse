@@ -163,7 +163,7 @@ class PersistenceService:
             if 'source_urls' in alert and alert['source_urls']:
                 try:
                     alert['source_urls'] = json.loads(alert['source_urls'])
-                except:
+                except (json.JSONDecodeError, ValueError):
                     alert['source_urls'] = []
             else:
                 alert['source_urls'] = []

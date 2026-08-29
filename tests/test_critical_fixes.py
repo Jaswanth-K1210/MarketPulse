@@ -146,15 +146,15 @@ class TestCriticalFixes:
         """
         INTEGRATION TEST: News Aggregator with feedparser
         
-        Verification: NewsAggregator can be initialized after feedparser upgrade
+        Verification: NewsIngestionLayer can be initialized after feedparser upgrade
         """
         try:
-            from app.services.news_aggregator import NewsAggregator
-            agg = NewsAggregator()
+            from app.services.news_aggregator import NewsIngestionLayer
+            agg = NewsIngestionLayer()
             assert agg is not None
-            print("✅ NewsAggregator initialized successfully")
+            print("✅ NewsIngestionLayer initialized successfully")
         except ImportError as e:
-            pytest.fail(f"NewsAggregator initialization failed: {e}")
+            pytest.fail(f"NewsIngestionLayer initialization failed: {e}")
 
 
 if __name__ == "__main__":

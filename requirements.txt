@@ -1,46 +1,109 @@
-# Core Framework
+# ── Core Framework ────────────────────────────────────────────────────────────
 fastapi>=0.109.0
-uvicorn>=0.27.0
+uvicorn[standard]>=0.27.0
+gunicorn>=21.2.0
 python-dotenv>=1.0.0
-# Relaxed pydantic to allow pre-built wheels
 pydantic>=2.5.0
-
-# News Aggregation
-feedparser>=6.0.10
-requests>=2.31.0
-beautifulsoup4>=4.12.0
-newspaper3k>=0.2.8
-
-# AI/LLM APIs
-google-generativeai>=0.4.0
-anthropic>=0.18.0
-
-# Stock Market Data
-yfinance>=0.2.30
-
-# Background Jobs
-APScheduler>=3.10.4
-
-# Database
-sqlalchemy>=2.0.25
-
-# Utilities
-PyYAML>=6.0.1
-redis>=5.0.1
 python-multipart>=0.0.9
 aiofiles>=23.2.1
 
-# Testing
-pytest>=7.4.0
-pytest-asyncio>=0.23.0
+# ── News Aggregation ──────────────────────────────────────────────────────────
+feedparser>=6.0.10
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+aiohttp>=3.9.0
 
-# WebSocket support
+# ── Agent Framework ───────────────────────────────────────────────────────────
+langchain>=0.3.0
+langchain-core>=0.3.0
+langchain-google-genai>=2.0.0
+langchain-groq>=0.2.0
+langchain-openai>=0.2.0
+langchain-ollama>=0.2.0
+langgraph>=0.2.0
+
+# ── LLM APIs ──────────────────────────────────────────────────────────────────
+google-generativeai>=0.8.0
+anthropic>=0.18.0
+
+# ── ML Core ───────────────────────────────────────────────────────────────────
+torch>=2.1.0
+transformers>=4.37.0
+scikit-learn>=1.4.0
+lightgbm>=4.3.0
+shap>=0.44.0
+optuna>=3.5.0
+
+# ── Time Series & Quant ───────────────────────────────────────────────────────
+hmmlearn>=0.3.0
+arch>=6.3.0
+statsmodels>=0.14.0
+neuralforecast>=1.7.0
+
+# ── Portfolio Optimization ────────────────────────────────────────────────────
+PyPortfolioOpt>=1.5.5
+cvxpy>=1.4.0
+
+# ── Graph Analytics ───────────────────────────────────────────────────────────
+networkx>=3.2.0
+python-louvain>=0.16
+
+# ── Feature Store ─────────────────────────────────────────────────────────────
+duckdb>=0.10.0
+
+# ── Caching ───────────────────────────────────────────────────────────────────
+upstash-redis>=1.0.0
+redis>=5.0.1
+
+# ── Stock Market Data ─────────────────────────────────────────────────────────
+yfinance>=1.6.0
+praw>=7.7.1  # optional: authenticated Reddit (public feeds are rate-limited)
+alpaca-py>=0.20.0
+
+# ── OSINT / Sentiment ─────────────────────────────────────────────────────────
+
+# ── Web Scraping ──────────────────────────────────────────────────────────────
+httpx>=0.27.0
+beautifulsoup4>=4.12.0
+
+# ── ML / Financial Analysis ──────────────────────────────────────────────────
+numpy>=1.24.0
+pandas>=2.0.0
+
+# ── PDF Reports ──────────────────────────────────────────────────────────────
+# weasyprint>=61.0  # Optional: uncomment for PDF generation
+
+# ── PDF / Dossier ────────────────────────────────────────────────────────────
+# reportlab>=4.0    # Alternative: uncomment for PDF generation
+
+# ── ML — FinBERT & GNN ────────────────────────────────────────────────────────
+# torch and transformers already listed above; these extend them:
+# torch-geometric is optional (for trained GNN weights); install separately:
+#   pip install torch-geometric
+websocket-client>=1.7.0
+
+# ── Database ──────────────────────────────────────────────────────────────────
+sqlalchemy>=2.0.25
+motor>=3.3.0
+pymongo>=4.6.0
+langchain-mongodb>=0.1.0
+
+# ── Background Jobs ───────────────────────────────────────────────────────────
+APScheduler>=3.10.4
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+PyYAML>=6.0.1
+
+# ── Auth ──────────────────────────────────────────────────────────────────────
+PyJWT>=2.8.0
+bcrypt>=4.1.0
+google-auth>=2.37.0
+
+# ── WebSocket ─────────────────────────────────────────────────────────────────
 websockets>=12.0
 python-socketio>=5.11.0
 python-engineio>=4.9.0
 
-# Agent Framework (Relaxed to avoid build conflicts)
-langchain>=0.1.0
-langchain-core>=0.1.20
-langchain-google-genai>=0.0.9
-langgraph>=0.0.20
+# ── Testing ───────────────────────────────────────────────────────────────────
+pytest>=7.4.0
+pytest-asyncio>=0.23.0
