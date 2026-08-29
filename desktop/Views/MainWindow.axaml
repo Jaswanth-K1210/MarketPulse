@@ -1,0 +1,64 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MarketPulse.Desktop.ViewModels"
+        xmlns:views="using:MarketPulse.Desktop.Views"
+        mc:Ignorable="d"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        x:Class="MarketPulse.Desktop.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="MarketPulse Enterprise"
+        Width="1280" Height="760"
+        MinWidth="900" MinHeight="600">
+
+  <Design.DataContext>
+    <vm:MainWindowViewModel/>
+  </Design.DataContext>
+
+  <Grid ColumnDefinitions="200,*">
+
+    <!-- ── Sidebar ──────────────────────────────────────────────────── -->
+    <Border Grid.Column="0" Background="#1a1a2e" BorderThickness="0,0,1,0" BorderBrush="#2d2d4e">
+      <StackPanel Margin="0,16,0,0">
+
+        <!-- Logo / title -->
+        <StackPanel Margin="16,0,16,24">
+          <TextBlock Text="MarketPulse" FontSize="18" FontWeight="Bold"
+                     Foreground="#6366f1"/>
+          <TextBlock Text="Enterprise Dashboard" FontSize="10"
+                     Foreground="#6b7280" Margin="0,2,0,0"/>
+        </StackPanel>
+
+        <!-- Nav buttons -->
+        <Button Content="📊  Dashboard"   Command="{Binding NavigateDashboardCommand}"
+                HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                Margin="8,2" Padding="12,10" Background="Transparent"
+                Classes.active="{Binding CurrentPageName, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+        <Button Content="🔔  Alerts"       Command="{Binding NavigateAlertsCommand}"
+                HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                Margin="8,2" Padding="12,10" Background="Transparent"/>
+        <Button Content="🔧  Equipment"    Command="{Binding NavigateEquipmentCommand}"
+                HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                Margin="8,2" Padding="12,10" Background="Transparent"/>
+        <Button Content="🗓  Maintenance"  Command="{Binding NavigateMaintenanceCommand}"
+                HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                Margin="8,2" Padding="12,10" Background="Transparent"/>
+        <Button Content="📄  Reports"      Command="{Binding NavigateReportsCommand}"
+                HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"
+                Margin="8,2" Padding="12,10" Background="Transparent"/>
+
+        <!-- Spacer -->
+        <Separator Margin="16,16" Background="#2d2d4e"/>
+        <TextBlock Text="Gateway: localhost:5000" Foreground="#9ca3af"
+                   FontSize="10" Margin="20,0" TextWrapping="Wrap"/>
+      </StackPanel>
+    </Border>
+
+    <!-- ── Content area ─────────────────────────────────────────────── -->
+    <Border Grid.Column="1" Background="#0f0f1a">
+      <ContentControl Content="{Binding CurrentPage}"/>
+    </Border>
+
+  </Grid>
+</Window>

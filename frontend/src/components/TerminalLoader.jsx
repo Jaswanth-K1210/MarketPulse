@@ -71,7 +71,7 @@ export default function TerminalLoader({ onComplete }) {
 
                     {/* Log Stream */}
                     <div ref={scrollRef} className="flex-1 overflow-y-auto space-y-3 custom-scrollbar pr-2">
-                        {lines.map((log, idx) => {
+                        {lines.filter(Boolean).map((log, idx) => {
                             const Icon = log.icon;
                             return (
                                 <div key={idx} className="flex items-start gap-3 animate-fade-in">

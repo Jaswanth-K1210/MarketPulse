@@ -1,0 +1,118 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MarketPulse.Desktop.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MarketPulse.Desktop.Views.DashboardView"
+             x:DataType="vm:DashboardViewModel">
+
+  <ScrollViewer>
+    <StackPanel Margin="24" Spacing="20">
+
+      <!-- Header -->
+      <Grid ColumnDefinitions="*,Auto">
+        <StackPanel>
+          <TextBlock Text="Fleet Dashboard" FontSize="22" FontWeight="Bold" Foreground="White"/>
+          <TextBlock Text="{Binding StatusMessage}" FontSize="11" Foreground="#9ca3af" Margin="0,4,0,0"/>
+        </StackPanel>
+        <Button Grid.Column="1" Content="↻  Refresh" Command="{Binding RefreshCommand}"
+                IsEnabled="{Binding !IsLoading}" Padding="14,8"
+                Background="#6366f1" Foreground="White"/>
+      </Grid>
+
+      <!-- Loading bar -->
+      <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsLoading}" Height="3"/>
+
+      <!-- KPI Cards row 1 -->
+      <Grid ColumnDefinitions="*,*,*,*" HorizontalAlignment="Stretch">
+
+        <Border Grid.Column="0" Background="#1e1e3f" CornerRadius="10" Margin="0,0,8,0" Padding="20">
+          <StackPanel>
+            <TextBlock Text="TOTAL UNITS" FontSize="10" Foreground="#9ca3af" FontWeight="SemiBold"/>
+            <TextBlock Text="{Binding TotalUnits}" FontSize="36" FontWeight="Bold" Foreground="White"/>
+            <TextBlock Text="MTU engines monitored" FontSize="10" Foreground="#6b7280"/>
+          </StackPanel>
+        </Border>
+
+        <Border Grid.Column="1" Background="#0f2d1f" CornerRadius="10" Margin="0,0,8,0" Padding="20">
+          <StackPanel>
+            <TextBlock Text="HEALTHY" FontSize="10" Foreground="#9ca3af" FontWeight="SemiBold"/>
+            <TextBlock Text="{Binding HealthyUnits}" FontSize="36" FontWeight="Bold" Foreground="#34d399"/>
+            <TextBlock Text="operating normally" FontSize="10" Foreground="#6b7280"/>
+          </StackPanel>
+        </Border>
+
+        <Border Grid.Column="2" Background="#2d2000" CornerRadius="10" Margin="0,0,8,0" Padding="20">
+          <StackPanel>
+            <TextBlock Text="WARNING" FontSize="10" Foreground="#9ca3af" FontWeight="SemiBold"/>
+            <TextBlock Text="{Binding WarningUnits}" FontSize="36" FontWeight="Bold" Foreground="#fbbf24"/>
+            <TextBlock Text="service due soon" FontSize="10" Foreground="#6b7280"/>
+          </StackPanel>
+        </Border>
+
+        <Border Grid.Column="3" Background="#2d0f0f" CornerRadius="10" Padding="20">
+          <StackPanel>
+            <TextBlock Text="CRITICAL" FontSize="10" Foreground="#9ca3af" FontWeight="SemiBold"/>
+            <TextBlock Text="{Binding CriticalUnits}" FontSize="36" FontWeight="Bold" Foreground="#f87171"/>
+            <TextBlock Text="immediate action required" FontSize="10" Foreground="#6b7280"/>
+          </StackPanel>
+        </Border>
+      </Grid>
+
+      <!-- KPI Cards row 2 -->
+      <Grid ColumnDefinitions="*,*,*" HorizontalAlignment="Stretch">
+
+        <Border Grid.Column="0" Background="#1e1e3f" CornerRadius="10" Margin="0,0,8,0" Padding="20">
+          <StackPanel>
+            <TextBlock Text="AVG HEALTH SCORE" FontSize="10" Foreground="#9ca3af" FontWeight="SemiBold"/>
+            <TextBlock FontSize="36" FontWeight="Bold" Foreground="#a78bfa">
+              <TextBlock.Text>
+                <MultiBinding StringFormat="{}{0}%">
+                  <Binding Path="AverageHealth"/>
+                </MultiBinding>
+              </TextBlock.Text>
+            </TextBlock>
+            <TextBlock Text="fleet-wide average" FontSize="10" Foreground="#6b7280"/>
+          </StackPanel>
+        </Border>
+
+        <Border Grid.Column="1" Background="#1a1a2e" CornerRadius="10" Margin="0,0,8,0" Padding="20">
+          <StackPanel>
+            <TextBlock Text="ACTIVE ALERTS" FontSize="10" Foreground="#9ca3af" FontWeight="SemiBold"/>
+            <TextBlock Text="{Binding AlertCount}" FontSize="36" FontWeight="Bold" Foreground="#fb923c"/>
+            <TextBlock Text="supply chain events" FontSize="10" Foreground="#6b7280"/>
+          </StackPanel>
+        </Border>
+
+        <Border Grid.Column="2" Background="#2d0f0f" CornerRadius="10" Padding="20">
+          <StackPanel>
+            <TextBlock Text="OVERDUE MRO" FontSize="10" Foreground="#9ca3af" FontWeight="SemiBold"/>
+            <TextBlock Text="{Binding OverdueCount}" FontSize="36" FontWeight="Bold" Foreground="#ef4444"/>
+            <TextBlock Text="past service interval" FontSize="10" Foreground="#6b7280"/>
+          </StackPanel>
+        </Border>
+      </Grid>
+
+      <!-- Status banner -->
+      <Border CornerRadius="8" Padding="16,12" Background="#1e1e3f">
+        <StackPanel Orientation="Horizontal" Spacing="12">
+          <Ellipse Width="10" Height="10" VerticalAlignment="Center" Fill="#22c55e"
+                   IsVisible="{Binding IsConnected}"/>
+          <Ellipse Width="10" Height="10" VerticalAlignment="Center" Fill="#ef4444"
+                   IsVisible="{Binding !IsConnected}"/>
+          <TextBlock Foreground="#d1d5db" VerticalAlignment="Center">
+            <Run Text="Gateway: "/>
+            <Run Text="Connected " FontWeight="Bold" Foreground="#22c55e"
+                 IsVisible="{Binding IsConnected}"/>
+            <Run Text="Disconnected " FontWeight="Bold" Foreground="#ef4444"
+                 IsVisible="{Binding !IsConnected}"/>
+            <Run Text="  Fleet status: "/>
+            <Run Text="{Binding OverallStatus}" FontWeight="Bold"/>
+          </TextBlock>
+        </StackPanel>
+      </Border>
+
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>
