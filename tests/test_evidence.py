@@ -150,3 +150,24 @@ class TestAggregate:
     def test_without_scores_there_is_no_value_key(self):
         results = {k: SourceResult.ok(k, {}) for k in WEIGHTS}
         assert "value" not in aggregate(results, WEIGHTS)
+
+
+from app.services.infrastructure.cache_manager import CacheResult
+
+
+class TestCacheResultLiveness:
+    def test_real_data_is_available(self):
+        for source in ("fresh", "memory", "redis"):
+            assert CacheResult(data={"x": 1}, source=source).available is True
+
+    def test_stale_cache_is_still_real_data(self):
+        # Stale data was genuinely fetched once; age is reported separately via
+        # as_of, not by pretending the source is dead.
+        assert CacheResult(data={"x": 1}, source="stale", age_seconds=9999).available is True
+
+    def test_bootstrap_seed_is_not_live_data(self):
+        assert CacheResult(data={"x": 1}, source="bootstrap").available is False
+
+    def test_miss_and_negative_are_not_live_data(self):
+        assert CacheResult(data=None, source="miss").available is False
+        assert CacheResult(data=None, source="negative").available is False

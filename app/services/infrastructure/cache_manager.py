@@ -43,12 +43,26 @@ class CacheEntry:
         return (time.time() - self.timestamp) > ttl
 
 
+# Cache layers that hold data some upstream really returned. "stale" belongs
+# here: it was live once, and its age is reported separately.
+LIVE_CACHE_SOURCES = {"fresh", "memory", "redis", "stale"}
+# Layers that hold no upstream answer at all. Bootstrap seed data is shipped in
+# the repo, not fetched — treating it as live is how a dead feed starts looking
+# like a calm market.
+DEAD_CACHE_SOURCES = {"bootstrap", "miss", "negative"}
+
+
 @dataclass
 class CacheResult:
     """Result from cache lookup."""
     data: Any
     source: str  # "memory", "redis", "stale", "bootstrap", "fresh", "miss", "negative"
     age_seconds: float = 0
+
+    @property
+    def available(self) -> bool:
+        """Did any upstream actually produce this, at any point?"""
+        return self.source in LIVE_CACHE_SOURCES
 
 
 # Default TTL configs by data type
