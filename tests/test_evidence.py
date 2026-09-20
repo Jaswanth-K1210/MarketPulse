@@ -65,3 +65,88 @@ class TestLedger:
         record(SourceResult.ok("copy_test", {}))
         snapshot().clear()
         assert "copy_test" in snapshot()
+
+
+from app.services.evidence import INSUFFICIENT_EVIDENCE, aggregate
+
+WEIGHTS = {"insider": 0.5, "sentiment": 0.3, "technical": 0.2}
+
+
+class TestAggregate:
+    def test_dead_source_never_spends_its_weight(self):
+        results = {
+            "insider": SourceResult.ok("insider", [{"x": 1}]),
+            "sentiment": SourceResult.dead("sentiment", "rate limited"),
+            "technical": SourceResult.ok("technical", {"rsi": 50}),
+        }
+        out = aggregate(results, WEIGHTS, scores={"insider": 10.0, "sentiment": 0.0,
+                                                  "technical": 0.0})
+        # Live weight is 0.7; the dead sentiment source contributes nothing at all.
+        assert out["value"] == 10.0 * 0.5 / 0.7
+        assert out["coverage"]["weight_fraction"] == 0.7
+
+    def test_coverage_lists_live_sources_sorted(self):
+        # alpha_aggregator's existing tests read coverage["live"] as a sorted
+        # list of names; aggregate() must keep emitting it.
+        results = {
+            "technical": SourceResult.ok("technical", {}),
+            "insider": SourceResult.ok("insider", [{"x": 1}]),
+            "sentiment": SourceResult.dead("sentiment", "down"),
+        }
+        assert aggregate(results, WEIGHTS)["coverage"]["live"] == ["insider", "technical"]
+
+    def test_coverage_counts_and_names_missing_sources(self):
+        results = {
+            "insider": SourceResult.ok("insider", [{"x": 1}]),
+            "sentiment": SourceResult.dead("sentiment", "rate limited"),
+            "technical": SourceResult.dead("technical", "no API key"),
+        }
+        cov = aggregate(results, WEIGHTS)["coverage"]
+        assert cov["live_count"] == 1
+        assert cov["total_count"] == 3
+        assert cov["missing"] == {"sentiment": "rate limited", "technical": "no API key"}
+
+    def test_source_absent_entirely_is_reported_not_ignored(self):
+        results = {"insider": SourceResult.ok("insider", [{"x": 1}])}
+        cov = aggregate(results, WEIGHTS)["coverage"]
+        assert cov["missing"]["sentiment"] == "source not reported"
+
+    def test_below_min_coverage_refuses_to_give_a_direction(self):
+        results = {
+            "insider": SourceResult.dead("insider", "down"),
+            "sentiment": SourceResult.dead("sentiment", "down"),
+            "technical": SourceResult.ok("technical", {"rsi": 50}),
+        }
+        out = aggregate(results, WEIGHTS, scores={"technical": 9.0})
+        assert out["sufficient"] is False
+        assert out["verdict"] == INSUFFICIENT_EVIDENCE
+        assert "1 of 3" in out["reason"]
+        assert "insider" in out["reason"]
+
+    def test_sufficient_coverage_gives_a_value_and_no_verdict(self):
+        results = {k: SourceResult.ok(k, {}) for k in WEIGHTS}
+        out = aggregate(results, WEIGHTS, scores={"insider": 1.0, "sentiment": 1.0,
+                                                  "technical": 1.0})
+        assert out["sufficient"] is True
+        assert out["value"] == 1.0
+        assert "verdict" not in out
+
+    def test_all_dead_yields_no_value(self):
+        results = {k: SourceResult.dead(k, "down") for k in WEIGHTS}
+        out = aggregate(results, WEIGHTS, scores={k: 5.0 for k in WEIGHTS})
+        assert out["value"] is None
+        assert out["coverage"]["weight_fraction"] == 0.0
+
+    def test_composite_reports_its_oldest_contributing_fact(self):
+        now = 1_000_000.0
+        results = {
+            "insider": SourceResult.ok("insider", {}, as_of=now - 10),
+            "sentiment": SourceResult.ok("sentiment", {}, as_of=now - 5000),
+            "technical": SourceResult.dead("technical", "down"),
+        }
+        # The dead source must not set the staleness floor.
+        assert aggregate(results, WEIGHTS)["oldest_as_of"] == now - 5000
+
+    def test_without_scores_there_is_no_value_key(self):
+        results = {k: SourceResult.ok(k, {}) for k in WEIGHTS}
+        assert "value" not in aggregate(results, WEIGHTS)
