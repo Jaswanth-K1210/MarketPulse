@@ -7,10 +7,10 @@ import {
 } from '../services/api'
 
 const C = {
-  bg: '#0b1221', panel: '#0f1a2e', card: '#131f35', cardHover: '#182540',
-  border: '#1c2f4a', borderDim: '#152340', text: '#dde8f5', muted: '#5d7a9a',
-  dim: '#243650', blue: '#4f91f6', green: '#22d18b', red: '#f06565',
-  orange: '#f5a523', purple: '#a07cf5',
+  bg: '#0a0a0a', panel: '#101010', card: '#141414', cardHover: '#1a1a1a',
+  border: '#2a2a2a', borderDim: '#1c1c1c', text: '#f5f5f5', muted: '#9ca3af',
+  dim: '#52525b', blue: '#4ade80', green: '#4ade80', red: '#f87171',
+  orange: '#fbbf24', purple: '#c084fc',
 }
 
 export default function CompanyDetail({ ticker: initialTicker, onBack }) {
@@ -62,7 +62,7 @@ export default function CompanyDetail({ ticker: initialTicker, onBack }) {
           <div className="relative flex-1 max-w-xs">
             <input value={inputTicker} onChange={e => setInputTicker(e.target.value.toUpperCase())}
               placeholder="Enter ticker (e.g. AAPL)"
-              className="w-full px-4 py-2 rounded-lg text-sm outline-none font-mono font-bold uppercase tracking-wider"
+              className="w-full px-4 py-2 rounded-lg text-sm outline-none font-mono font-bold"
               style={{ background: C.card, border: `1px solid ${C.border}`, color: C.text }}
             />
           </div>
@@ -88,50 +88,56 @@ export default function CompanyDetail({ ticker: initialTicker, onBack }) {
         {ticker && (
           <>
             <div className="flex items-center gap-4">
-              <h1 className="text-3xl font-black font-mono" style={{ color: C.text }}>{ticker}</h1>
-              <div className="px-4 py-2 rounded-xl" style={{ background: `${signalColor}15`, border: `1px solid ${signalColor}30` }}>
-                <span className="text-lg font-black" style={{ color: signalColor }}>{signal}</span>
+              <h1 className="text-3xl font-semibold font-mono" style={{ color: C.text }}>{ticker}</h1>
+              <div className="px-4 py-2 rounded-none" style={{ background: `${signalColor}15`, border: `1px solid ${signalColor}30` }}>
+                <span className="text-lg font-semibold" style={{ color: signalColor }}>{signal}</span>
                 <span className="ml-3 text-sm" style={{ color: C.muted }}>
-                  Score: {alpha.alpha_score != null ? `${alpha.alpha_score >= 0 ? '+' : ''}${alpha.alpha_score}` : '--'}
+                  {alpha.signal === 'INSUFFICIENT_DATA' ? (
+                    <span title={alpha.signal_note} style={{ color: C.orange }}>
+                      Insufficient evidence ({alpha.coverage?.live_count ?? 0}/{alpha.coverage?.total_count ?? 0} sources)
+                    </span>
+                  ) : (
+                    <>Score: {alpha.alpha_score != null ? `${alpha.alpha_score >= 0 ? '+' : ''}${alpha.alpha_score}` : '--'}</>
+                  )}
                 </span>
               </div>
             </div>
 
             <div className="grid grid-cols-3 gap-4">
-              <div className="rounded-xl p-4 border" style={{ background: C.card, borderColor: C.border }}>
+              <div className="rounded-none p-4 border" style={{ background: C.card, borderColor: C.border }}>
                 <div className="flex items-center gap-2 mb-3">
                   <Users size={14} style={{ color: C.purple }} />
-                  <span className="text-xs font-bold uppercase tracking-wider" style={{ color: C.muted }}>Insider Trades</span>
+                  <span className="text-xs font-bold" style={{ color: C.muted }}>Insider Trades</span>
                 </div>
-                <div className="text-2xl font-black" style={{ color: alpha?.components?.insider?.score > 0 ? C.green : C.red }}>
+                <div className="text-2xl font-semibold" style={{ color: alpha?.components?.insider?.score > 0 ? C.green : C.red }}>
                   {alpha?.components?.insider?.score != null ? `${alpha.components.insider.score >= 0 ? '+' : ''}${alpha.components.insider.score}` : '--'}
                 </div>
                 <div className="text-xs mt-1" style={{ color: C.muted }}>
                   {data.insider?.trades?.length || 0} filings
                 </div>
               </div>
-              <div className="rounded-xl p-4 border" style={{ background: C.card, borderColor: C.border }}>
+              <div className="rounded-none p-4 border" style={{ background: C.card, borderColor: C.border }}>
                 <div className="flex items-center gap-2 mb-3">
                   <BarChart2 size={14} style={{ color: C.orange }} />
-                  <span className="text-xs font-bold uppercase tracking-wider" style={{ color: C.muted }}>Short Interest</span>
+                  <span className="text-xs font-bold" style={{ color: C.muted }}>Short Interest</span>
                 </div>
-                <div className="text-2xl font-black" style={{ color: alpha?.components?.short_interest?.score > 0 ? C.green : C.red }}>
+                <div className="text-2xl font-semibold" style={{ color: alpha?.components?.short_interest?.score > 0 ? C.green : C.red }}>
                   {alpha?.components?.short_interest?.score != null ? `${alpha.components.short_interest.score >= 0 ? '+' : ''}${alpha.components.short_interest.score}` : '--'}
                 </div>
               </div>
-              <div className="rounded-xl p-4 border" style={{ background: C.card, borderColor: C.border }}>
+              <div className="rounded-none p-4 border" style={{ background: C.card, borderColor: C.border }}>
                 <div className="flex items-center gap-2 mb-3">
                   <Activity size={14} style={{ color: C.blue }} />
-                  <span className="text-xs font-bold uppercase tracking-wider" style={{ color: C.muted }}>Technical</span>
+                  <span className="text-xs font-bold" style={{ color: C.muted }}>Technical</span>
                 </div>
-                <div className="text-2xl font-black" style={{ color: alpha?.components?.technical?.score > 0 ? C.green : C.red }}>
+                <div className="text-2xl font-semibold" style={{ color: alpha?.components?.technical?.score > 0 ? C.green : C.red }}>
                   {alpha?.components?.technical?.score != null ? `${alpha.components.technical.score >= 0 ? '+' : ''}${alpha.components.technical.score}` : '--'}
                 </div>
               </div>
             </div>
 
             {data.sentiment && (
-              <div className="rounded-xl p-4 border" style={{ background: C.card, borderColor: C.border }}>
+              <div className="rounded-none p-4 border" style={{ background: C.card, borderColor: C.border }}>
                 <h3 className="text-sm font-bold mb-3" style={{ color: C.text }}>Retail Sentiment</h3>
                 <div className="flex gap-6">
                   <div>
@@ -151,7 +157,7 @@ export default function CompanyDetail({ ticker: initialTicker, onBack }) {
             )}
 
             {data.tech && (
-              <div className="rounded-xl p-4 border" style={{ background: C.card, borderColor: C.border }}>
+              <div className="rounded-none p-4 border" style={{ background: C.card, borderColor: C.border }}>
                 <h3 className="text-sm font-bold mb-3" style={{ color: C.text }}>Technical Indicators</h3>
                 <div className="grid grid-cols-4 gap-4">
                   <div>
@@ -181,7 +187,7 @@ export default function CompanyDetail({ ticker: initialTicker, onBack }) {
             )}
 
             {data.fund && (
-              <div className="rounded-xl p-4 border" style={{ background: C.card, borderColor: C.border }}>
+              <div className="rounded-none p-4 border" style={{ background: C.card, borderColor: C.border }}>
                 <h3 className="text-sm font-bold mb-3" style={{ color: C.text }}>Fundamentals</h3>
                 <div className="grid grid-cols-4 gap-4">
                   <div>
@@ -211,11 +217,11 @@ export default function CompanyDetail({ ticker: initialTicker, onBack }) {
             )}
 
             {data.insider?.trades?.length > 0 && (
-              <div className="rounded-xl p-4 border" style={{ background: C.card, borderColor: C.border }}>
+              <div className="rounded-none p-4 border" style={{ background: C.card, borderColor: C.border }}>
                 <h3 className="text-sm font-bold mb-3" style={{ color: C.text }}>Recent Insider Filings</h3>
                 <div className="space-y-2">
                   {data.insider.trades.slice(0, 5).map((t, i) => (
-                    <div key={i} className="flex justify-between items-center py-2 px-3 rounded-lg" style={{ background: `${C.bg}` }}>
+                    <div key={i} className="flex justify-between items-center py-2 px-3 rounded-none" style={{ background: `${C.bg}` }}>
                       <span className="text-xs font-mono" style={{ color: C.muted }}>{t.filing_date || t.trade_date}</span>
                       <span className="text-xs" style={{ color: C.text }}>{t.insider_name}</span>
                       <span className="text-xs font-bold" style={{ color: t.transaction_type === 'BUY' || t.transaction_type === 'PURCHASE' ? C.green : C.red }}>

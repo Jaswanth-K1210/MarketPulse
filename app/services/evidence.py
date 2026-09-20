@@ -141,3 +141,25 @@ def aggregate(
             f"({coverage:.0%} of weight). Missing: {', '.join(sorted(missing))}."
         )
     return out
+
+
+def record_reported(sources: dict | None) -> None:
+    """Re-register liveness that travelled inside a cached payload.
+
+    Cached responses are served without re-running their sources, so the ledger
+    would show nothing at all after a restart — reporting "0 of 0 sources" while
+    happily serving data whose liveness we captured at fetch time. The payload
+    already carries that liveness; this puts it back.
+
+    ponytail: fetched_at resets to now, since the serialised payload does not
+    carry it. as_of is the honest age signal and does survive.
+    """
+    for source_id, entry in (sources or {}).items():
+        if not isinstance(entry, dict):
+            continue
+        record(SourceResult(
+            source_id=source_id,
+            available=bool(entry.get("available")),
+            error=entry.get("error"),
+            as_of=entry.get("as_of"),
+        ))

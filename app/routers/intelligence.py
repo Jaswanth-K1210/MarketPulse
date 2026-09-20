@@ -101,6 +101,12 @@ async def get_signals():
     # the feeds are dead — and must not be overwritten by seed data.
     if data is None:
         data = _bootstrap("signals:all") or {"status": "bootstrap", "signals": [], "timestamp": _now()}
+
+    # A cache hit skips fetch(), so nothing called record(). Replay the liveness
+    # the payload is already carrying, or /api/evidence/health reports 0 of 0.
+    if isinstance(data, dict) and data.get("sources"):
+        from app.services.evidence import record_reported
+        record_reported(data["sources"])
     return data
 
 

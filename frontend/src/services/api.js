@@ -10,7 +10,10 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' 
  */
 async function fetchAPI(endpoint, options = {}) {
   const controller = new AbortController()
-  const timer = setTimeout(() => controller.abort(), 12000) // 12s timeout
+  // Render's free tier sleeps after ~15min idle; a cold start measured ~58s.
+  // A 12s timeout aborted every request on a sleeping backend, which is what
+  // made the dashboard render blank panels instead of data.
+  const timer = setTimeout(() => controller.abort(), options.timeout ?? 75000)
   try {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       ...options,
@@ -137,14 +140,6 @@ export async function triggerPipeline() {
  */
 export async function getHealth() {
   return fetchAPI('/api/health');
-}
-
-/**
- * Get Gemini budget status
- * GET /api/gemini-budget
- */
-export async function getGeminiBudget() {
-  return fetchAPI('/api/gemini-budget');
 }
 
 /**
@@ -381,6 +376,11 @@ export async function testTelegramAlert(ticker = 'AAPL', signal = 'NEUTRAL', sco
 // ── Chat Query ────────────────────────────────────────────────────────────────
 export async function chatQuery(query) {
   return fetchAPI(`/api/chat/query?q=${encodeURIComponent(query)}`).catch(() => null);
+}
+
+// ── Source Liveness ───────────────────────────────────────────────────────────
+export async function getEvidenceHealth() {
+  return fetchAPI('/api/evidence/health').catch(() => null);
 }
 
 export { API_BASE_URL };

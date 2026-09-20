@@ -275,3 +275,33 @@ class TestSignalsEvidence:
         out = asyncio.run(SignalAggregator().get_signals_with_evidence())
         signal = next(s for s in out["signals"] if s["source"] == "ucdp")
         assert signal["country"] != "713"
+
+
+from app.services.evidence import record_reported
+
+
+class TestRecordReported:
+    """Cached responses skip the fetch, so liveness must be replayable.
+
+    Without this the health endpoint reports 0/0 after a restart even though
+    every cached payload knows exactly which sources were dead.
+    """
+
+    def test_cached_payload_restores_liveness(self):
+        record_reported({
+            "replay_dead": {"available": False, "error": "no key", "as_of": None},
+            "replay_live": {"available": True, "error": None, "as_of": 123.0},
+        })
+        snap = snapshot()
+        assert snap["replay_dead"].available is False
+        assert snap["replay_dead"].error == "no key"
+        assert snap["replay_live"].available is True
+        assert snap["replay_live"].as_of == 123.0
+
+    def test_junk_entries_are_skipped(self):
+        record_reported({"replay_junk": "not a dict"})
+        assert "replay_junk" not in snapshot()
+
+    def test_empty_input_is_harmless(self):
+        record_reported({})
+        record_reported(None)

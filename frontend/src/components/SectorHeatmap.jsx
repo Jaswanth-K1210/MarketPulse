@@ -2,8 +2,8 @@ import React from 'react'
 import { TrendingUp, TrendingDown } from 'lucide-react'
 
 const C = {
-  bg: '#0b1221', card: '#131f35', border: '#1c2f4a', text: '#dde8f5',
-  muted: '#5d7a9a', green: '#22d18b', red: '#f06565',
+  bg: '#0a0a0a', card: '#141414', border: '#2a2a2a', text: '#f5f5f5',
+  muted: '#9ca3af', green: '#4ade80', red: '#f87171',
 }
 
 const SECTORS = [
@@ -26,13 +26,13 @@ export default function SectorHeatmap({ alphaScores = {} }) {
   }
 
   function getColor(score) {
-    if (!score || score === 0) return '#1a2740'
+    if (!score || score === 0) return '#1c1c1c'
     if (score > 0) {
       const intensity = getIntensity(score)
-      return `rgba(34, 209, 139, ${0.15 + intensity * 0.6})`
+      return `rgba(74, 222, 128, ${0.15 + intensity * 0.6})`
     }
     const intensity = getIntensity(score)
-    return `rgba(240, 101, 101, ${0.15 + intensity * 0.6})`
+    return `rgba(248, 113, 113, ${0.15 + intensity * 0.6})`
   }
 
   function getTextColor(score) {
@@ -41,21 +41,30 @@ export default function SectorHeatmap({ alphaScores = {} }) {
   }
 
   return (
-    <div className="rounded-xl p-4 border" style={{ background: C.card, borderColor: C.border }}>
+    <div className="rounded-none p-4 border" style={{ background: C.card, borderColor: C.border }}>
       <h3 className="text-sm font-bold mb-4" style={{ color: C.text }}>Sector Heatmap</h3>
       <div className="grid grid-cols-4 gap-3">
         {SECTORS.map(sector => {
-          const sectorScores = sector.companies.map(t => alphaScores[t] || 0)
-          const avgScore = sectorScores.reduce((a, b) => a + b, 0) / sectorScores.length || 0
+          // Do not coerce a missing score to 0 — that renders "we have no
+          // evidence" as a confident neutral cell, indistinguishable from a
+          // real neutral reading.
+          const sectorScores = sector.companies
+            .map(t => alphaScores[t])
+            .filter(s => typeof s === 'number')
+          const hasData = sectorScores.length > 0
+          const avgScore = hasData
+            ? sectorScores.reduce((a, b) => a + b, 0) / sectorScores.length
+            : 0
 
           return (
             <div key={sector.name}
-              className="rounded-xl p-3 border transition-all cursor-pointer hover:scale-105"
-              style={{ background: getColor(avgScore), borderColor: avgScore > 0 ? 'rgba(34,209,139,0.2)' : avgScore < 0 ? 'rgba(240,101,101,0.2)' : C.border }}>
+              className="rounded-none p-3 border transition-all cursor-pointer hover:scale-105"
+              style={{ background: hasData ? getColor(avgScore) : 'transparent', borderColor: !hasData ? C.borderDim : avgScore > 0 ? 'rgba(74,222,128,0.2)' : avgScore < 0 ? 'rgba(248,113,113,0.2)' : C.border }}>
               <div className="text-xs font-bold" style={{ color: C.text }}>{sector.name}</div>
               <div className="text-[10px] mt-0.5" style={{ color: C.muted }}>{sector.ticker}</div>
-              <div className="text-lg font-bold mt-2" style={{ color: getTextColor(avgScore) }}>
-                {avgScore > 0 ? '+' : ''}{avgScore.toFixed(1)}
+              <div className="text-lg font-bold mt-2"
+                   style={{ color: hasData ? getTextColor(avgScore) : C.dim }}>
+                {hasData ? `${avgScore > 0 ? '+' : ''}${avgScore.toFixed(1)}` : 'no data'}
               </div>
               <div className="flex flex-wrap gap-1 mt-2">
                 {sector.companies.slice(0, 3).map(t => (
