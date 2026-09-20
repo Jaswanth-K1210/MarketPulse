@@ -214,3 +214,64 @@ class TestEvidenceHealthEndpoint:
         record(SourceResult.dead("health_dead2", "down"))
         body = self._get("/api/evidence/health").json()
         assert body["live_count"] < body["total_count"]
+
+
+from app.services.data.conflict_data import ConflictDataService
+from app.services.intelligence.signal_aggregator import SignalAggregator
+
+
+class TestConflictSourceLiveness:
+    def test_unkeyed_acled_reports_why_it_is_dead(self, monkeypatch):
+        monkeypatch.setattr("app.services.data.conflict_data.ACLED_API_KEY", "")
+        monkeypatch.setattr("app.services.data.conflict_data.ACLED_EMAIL", "")
+        svc = ConflictDataService()
+        result = asyncio.run(svc.get_acled_events())
+        assert result == []
+        assert svc.source_results["acled"].available is False
+        assert "ACLED_API_KEY" in svc.source_results["acled"].error
+
+
+UCDP_EVENT = {
+    "id": "u1", "conflict_name": "Test conflict", "country": "Taiwan",
+    "country_code": "713", "latitude": 23.7, "longitude": 121.0,
+    "intensity_level": 2, "best_estimate": 12, "source": "ucdp",
+}
+
+
+def _patch_snapshot(monkeypatch, *, ucdp=(), sources=None):
+    """Replace get_conflict_snapshot, setting source_results on the instance.
+
+    source_results is assigned in __init__, so patching it as a class attribute
+    would be overwritten the moment get_signals_with_evidence constructs the
+    service. Setting it from inside the patched method is what actually sticks.
+    """
+    async def fake(self, *args, **kwargs):
+        self.source_results = sources or {}
+        return {"acled_events": [], "ucdp_conflicts": list(ucdp)}
+
+    monkeypatch.setattr(ConflictDataService, "get_conflict_snapshot", fake)
+
+
+class TestSignalsEvidence:
+    def test_empty_signals_are_explained_not_silent(self, monkeypatch):
+        _patch_snapshot(monkeypatch, sources={
+            "acled": SourceResult.dead("acled", "ACLED_API_KEY not configured"),
+            "ucdp": SourceResult.dead("ucdp", "timeout"),
+        })
+        out = asyncio.run(SignalAggregator().get_signals_with_evidence())
+        assert out["available"] is False
+        assert out["sources"]["acled"]["error"] == "ACLED_API_KEY not configured"
+
+    def test_ucdp_events_become_signals(self, monkeypatch):
+        _patch_snapshot(monkeypatch, ucdp=[UCDP_EVENT],
+                        sources={"ucdp": SourceResult.ok("ucdp", [{}])})
+        out = asyncio.run(SignalAggregator().get_signals_with_evidence())
+        assert out["available"] is True
+        assert any(s["source"] == "ucdp" for s in out["signals"])
+
+    def test_numeric_ucdp_country_id_is_not_passed_off_as_iso2(self, monkeypatch):
+        _patch_snapshot(monkeypatch, ucdp=[UCDP_EVENT],
+                        sources={"ucdp": SourceResult.ok("ucdp", [{}])})
+        out = asyncio.run(SignalAggregator().get_signals_with_evidence())
+        signal = next(s for s in out["signals"] if s["source"] == "ucdp")
+        assert signal["country"] != "713"

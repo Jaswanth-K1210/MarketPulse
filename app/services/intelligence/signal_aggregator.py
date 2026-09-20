@@ -137,6 +137,45 @@ class SignalAggregator:
 
         return count
 
+    def ingest_ucdp_signals(self, conflicts: list[dict]) -> int:
+        """Turn UCDP conflict events into signals.
+
+        UCDP's country_code is a UCDP-internal numeric id, not ISO-3166 alpha-2,
+        so it is deliberately not used as one — the country name carries the
+        location instead.
+        """
+        self.clear_type("ucdp_conflict")
+        count = 0
+        for event in conflicts:
+            intensity = event.get("intensity_level", 0)
+            deaths = event.get("best_estimate", 0)
+            if deaths >= 25 or intensity >= 2:
+                severity = "critical"
+            elif deaths >= 5:
+                severity = "high"
+            else:
+                severity = "medium"
+
+            raw_cc = str(event.get("country_code", ""))
+            country_code = raw_cc if raw_cc.isalpha() and len(raw_cc) == 2 else ""
+
+            self.signals.append(Signal(
+                id=f"ucdp_{event.get('id', count)}",
+                signal_type="ucdp_conflict",
+                country_code=country_code,
+                severity=severity,
+                title=f"{event.get('conflict_name', 'Conflict')}: {event.get('country', '')}",
+                description=f"{event.get('side_a', '')} vs {event.get('side_b', '')}",
+                latitude=event.get("latitude", 0),
+                longitude=event.get("longitude", 0),
+                timestamp=time.time(),
+                source="ucdp",
+                metadata={"deaths": deaths, "intensity_level": intensity,
+                          "country": event.get("country", "")},
+            ))
+            count += 1
+        return count
+
     def ingest_conflict_signals(self, acled_events: list[dict]) -> int:
         """Convert ACLED/UCDP conflict events into signals."""
         self.clear_type("conflict")
@@ -368,6 +407,34 @@ class SignalAggregator:
                     return cc
         return ""
 
+    async def get_signals_with_evidence(self) -> dict:
+        """Signals plus the liveness of every source that fed them.
+
+        An empty signal list means one of two very different things — a quiet
+        world, or dead feeds. This reports which.
+        """
+        sources: dict = {}
+        try:
+            from app.services.data.conflict_data import ConflictDataService
+            svc = ConflictDataService()
+            snapshot = await svc.get_conflict_snapshot()
+            self.ingest_conflict_signals(snapshot.get("acled_events", []))
+            self.ingest_ucdp_signals(snapshot.get("ucdp_conflicts", []))
+            sources = {
+                name: {"available": r.available, "error": r.error, "as_of": r.as_of}
+                for name, r in svc.source_results.items()
+            }
+        except Exception as e:
+            logger.warning("conflict ingestion failed: %s", e)
+            sources = {"conflict": {"available": False, "error": str(e), "as_of": None}}
+
+        self._prune_stale()
+        return {
+            "signals": await self.get_signals(),
+            "sources": sources,
+            "available": any(s["available"] for s in sources.values()) if sources else False,
+        }
+
     async def get_signals(self) -> list[dict]:
         """
         Return current signals as plain dicts for the intelligence API router.
@@ -380,6 +447,9 @@ class SignalAggregator:
             acled = snapshot.get("acled_events", [])
             if acled:
                 self.ingest_conflict_signals(acled)
+            ucdp = snapshot.get("ucdp_conflicts", [])
+            if ucdp:
+                self.ingest_ucdp_signals(ucdp)
         except Exception:
             pass
 

@@ -4,11 +4,14 @@ Provides real conflict/instability data for risk scoring.
 """
 
 import os
+import time
 import logging
 import aiohttp
 import asyncio
 from typing import Optional
 from datetime import datetime, timedelta
+
+from app.services.evidence import SourceResult, record
 
 logger = logging.getLogger(__name__)
 
@@ -26,6 +29,9 @@ class ConflictDataService:
 
     def __init__(self):
         self._session: Optional[aiohttp.ClientSession] = None
+        # Per-source liveness for this fetch cycle. An empty event list means
+        # nothing on its own — this says whether the source actually answered.
+        self.source_results: dict[str, SourceResult] = {}
 
     async def _get_session(self) -> aiohttp.ClientSession:
         if self._session is None or self._session.closed:
@@ -55,7 +61,12 @@ class ConflictDataService:
         Free academic access requires API key + email registration.
         """
         if not ACLED_API_KEY or not ACLED_EMAIL:
-            logger.debug("ACLED credentials not configured")
+            self.source_results["acled"] = record(SourceResult.dead(
+                "acled",
+                "ACLED_API_KEY / ACLED_EMAIL not configured — register free at "
+                "https://developer.acleddata.com",
+                origin=ACLED_BASE_URL,
+            ))
             return []
 
         session = await self._get_session()
@@ -78,11 +89,14 @@ class ConflictDataService:
             async with session.get(ACLED_BASE_URL, params=params) as resp:
                 if resp.status != 200:
                     logger.warning(f"ACLED API error: {resp.status}")
+                    self.source_results["acled"] = record(SourceResult.dead(
+                        "acled", f"ACLED API returned HTTP {resp.status}",
+                        origin=ACLED_BASE_URL))
                     return []
                 data = await resp.json()
                 events = data.get("data", [])
 
-                return [
+                normalised = [
                     {
                         "id": ev.get("event_id_cnty", ""),
                         "date": ev.get("event_date", ""),
@@ -100,8 +114,13 @@ class ConflictDataService:
                     }
                     for ev in events
                 ]
+                self.source_results["acled"] = record(SourceResult.ok(
+                    "acled", normalised, as_of=time.time(), origin=ACLED_BASE_URL))
+                return normalised
         except Exception as e:
             logger.warning(f"ACLED fetch error: {e}")
+            self.source_results["acled"] = record(SourceResult.dead(
+                "acled", str(e), origin=ACLED_BASE_URL))
             return []
 
     @staticmethod
@@ -134,11 +153,14 @@ class ConflictDataService:
             async with session.get(UCDP_BASE_URL, params=params) as resp:
                 if resp.status != 200:
                     logger.warning(f"UCDP API error: {resp.status}")
+                    self.source_results["ucdp"] = record(SourceResult.dead(
+                        "ucdp", f"UCDP API returned HTTP {resp.status}",
+                        origin=UCDP_BASE_URL))
                     return []
                 data = await resp.json()
                 results = data.get("Result", [])
 
-                return [
+                normalised = [
                     {
                         "id": ev.get("id", ""),
                         "year": ev.get("year", 0),
@@ -159,8 +181,13 @@ class ConflictDataService:
                     }
                     for ev in results
                 ]
+                self.source_results["ucdp"] = record(SourceResult.ok(
+                    "ucdp", normalised, as_of=time.time(), origin=UCDP_BASE_URL))
+                return normalised
         except Exception as e:
             logger.warning(f"UCDP fetch error: {e}")
+            self.source_results["ucdp"] = record(SourceResult.dead(
+                "ucdp", str(e), origin=UCDP_BASE_URL))
             return []
 
     # ============================================================

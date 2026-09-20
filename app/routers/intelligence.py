@@ -82,16 +82,24 @@ async def get_signals():
         try:
             from app.services.intelligence.signal_aggregator import SignalAggregator
             agg = SignalAggregator()
-            signals = await agg.get_signals()
-            return {"status": "live", "signals": signals, "total": len(signals), "timestamp": _now()}
+            out = await agg.get_signals_with_evidence()
+            return {
+                "status": "live" if out["available"] else "sources_unavailable",
+                "signals": out["signals"],
+                "sources": out["sources"],
+                "total": len(out["signals"]),
+                "timestamp": _now(),
+            }
         except Exception as e:
             logger.warning("signals fetch failed: %s", e)
             return None
 
     result = await cache.get_or_fetch("signals:all", fetch, data_type="signals")
     data = result.data if result and result.data else None
-    # Fall back to bootstrap if live signals list is empty
-    if not data or not data.get("signals"):
+    # Only reach for bootstrap when the fetch itself produced nothing. An empty
+    # signal list that came back WITH source liveness is a real answer — it says
+    # the feeds are dead — and must not be overwritten by seed data.
+    if data is None:
         data = _bootstrap("signals:all") or {"status": "bootstrap", "signals": [], "timestamp": _now()}
     return data
 
