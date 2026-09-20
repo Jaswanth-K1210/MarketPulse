@@ -29,10 +29,15 @@ class StockDataService:
         Returns:
             Dictionary with ticker prices and metadata
         """
-        # Check cache validity
-        if self.cache and self._is_cache_valid():
+        # Check cache validity.
+        # The cache is one dict for whichever ticker set was fetched first, so
+        # it may not cover the tickers being asked for now. Serving it blindly
+        # returned prices for the wrong symbols and nothing for the right ones
+        # (an index lookup got the portfolio's cache and reported "no quote").
+        # Only serve from cache when it actually covers this request.
+        if self.cache and self._is_cache_valid() and all(t in self.cache for t in tickers):
             logger.info("Returning cached stock prices")
-            return self.cache
+            return {t: self.cache[t] for t in tickers}
         
         logger.info(f"Fetching live prices for {len(tickers)} tickers")
         
@@ -104,7 +109,10 @@ class StockDataService:
                     prices[ticker] = fallback_data
             
             # Cache the results
-            self.cache = prices
+            # Merge rather than replace: callers ask for different ticker sets
+            # (portfolio, watchlist, a country's index), and overwriting would
+            # make each one evict the last.
+            self.cache.update(prices)
             self.cache_time = datetime.now()
             
             return prices

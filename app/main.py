@@ -13,6 +13,7 @@ from app.api.routes import router
 from app.routers.intelligence import router as intelligence_router
 from app.routers.chat import router as chat_router
 from app.routers.evidence import router as evidence_router
+from app.routers.country import router as country_router
 from app.api.websocket import websocket_endpoint, manager
 from app.middleware.api_rate_limiter import APIRateLimiterMiddleware
 from app.middleware.disclaimer_header import DisclaimerHeaderMiddleware
@@ -58,6 +59,7 @@ app.include_router(router, prefix="/api")
 app.include_router(intelligence_router)  # v2: Intelligence endpoints (/api/intelligence/*)
 app.include_router(chat_router)  # OSINT: Natural language queries (/api/chat/*)
 app.include_router(evidence_router)  # Source liveness (/api/evidence/*)
+app.include_router(country_router)  # Country intelligence (/api/country/*)
 
 # ═══════════════════════════════════════════════════════════════════════
 # WEBSOCKET ENDPOINT (Optional - not required for demo)
