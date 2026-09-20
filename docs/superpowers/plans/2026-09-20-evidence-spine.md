@@ -14,6 +14,7 @@
 
 - Run tests with `venv/bin/python -m pytest` — **not** `.venv/`, and never bare `pytest`. Console scripts in both venvs carry a dead shebang from the project's former `~/Desktop` path; only `python -m` works. `venv/` is the complete environment.
 - Async tests use `asyncio.run(coro)` inside a normal `def test_...`. Do not add `@pytest.mark.asyncio`; pytest-asyncio is not configured.
+- Do **not** use `fastapi.testclient.TestClient`: this venv has starlette 0.27.0 against httpx 0.28.1, and httpx 0.28 removed the `app=` shortcut TestClient relies on, so it raises `TypeError` on construction. Drive the ASGI app with `httpx.ASGITransport(app=app)` instead — same routing, no dependency change. (The venv has drifted again: requirements.txt asks for fastapi>=0.109.0, 0.104.1 is installed.)
 - A failing source returns `available=False` with an `error` string. It must never return a zero-valued or empty-but-healthy payload. This is the entire point of the sub-project.
 - `as_of` means "when the underlying fact was true". `fetched_at` means "when we retrieved it". Never use one to compute the other.
 - Existing behaviour of `alpha_aggregator.get_alpha_score` is the regression baseline: `tests/test_osint_coverage.py` (15 tests) must stay green after every task.

@@ -3,6 +3,7 @@
 A source that fails must say so. These tests exist so a dead upstream can
 never again be mistaken for a genuine neutral reading.
 """
+import asyncio
 import time
 
 from app.services.evidence import SourceResult, record, snapshot
@@ -171,3 +172,45 @@ class TestCacheResultLiveness:
     def test_miss_and_negative_are_not_live_data(self):
         assert CacheResult(data=None, source="miss").available is False
         assert CacheResult(data=None, source="negative").available is False
+
+
+import httpx
+
+
+class TestEvidenceHealthEndpoint:
+    """Drives the real ASGI app.
+
+    starlette 0.27 predates httpx 0.28's removal of the `app=` shortcut, so
+    TestClient cannot construct here. ASGITransport exercises the same routing
+    without pinning either package.
+    """
+
+    def _get(self, path):
+        from app.main import app
+
+        async def call():
+            transport = httpx.ASGITransport(app=app)
+            async with httpx.AsyncClient(transport=transport,
+                                         base_url="http://test") as client:
+                return await client.get(path)
+
+        return asyncio.run(call())
+
+    def test_health_lists_dead_sources_with_their_reason(self):
+        record(SourceResult.dead("health_dead", "no API key"))
+        body = self._get("/api/evidence/health").json()
+        entry = body["sources"]["health_dead"]
+        assert entry["available"] is False
+        assert entry["error"] == "no API key"
+
+    def test_health_reports_fact_age_not_fetch_age(self):
+        now = time.time()
+        record(SourceResult.ok("health_old", {"x": 1}, as_of=now - 3600))
+        entry = self._get("/api/evidence/health").json()["sources"]["health_old"]
+        assert entry["age_seconds"] >= 3600
+
+    def test_health_counts_live_against_total(self):
+        record(SourceResult.ok("health_live", {"x": 1}))
+        record(SourceResult.dead("health_dead2", "down"))
+        body = self._get("/api/evidence/health").json()
+        assert body["live_count"] < body["total_count"]
