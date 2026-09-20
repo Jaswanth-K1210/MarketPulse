@@ -197,6 +197,37 @@ Minimal in this sub-project — the surface work is C. Two changes:
 - Any component rendering an aggregate shows coverage, and renders
   `INSUFFICIENT_EVIDENCE` as an explicit state rather than a zero or a blank.
 
+## Relationship to `osint-research.md`
+
+The July 2026 research plan (`osint-research.md`) drove most of the current data
+layer and was largely implemented. This design amends one part of it and adopts
+two others.
+
+**Amended — §5.5 Graceful Degradation.** That section prescribes:
+
+```
+Primary source → Cache → Stale cache fallback → Keyword/rule fallback → Graceful null
+```
+
+Followed literally, this is the direct cause of the defect above: the chain
+terminates in a *silent* null, so a dead source is indistinguishable from a
+source that genuinely returned nothing. The chain itself is right — a dashboard
+must not crash — but the terminal state must carry a flag. Amended:
+
+```
+Primary → Cache → Stale cache → Rule fallback → Null WITH available=False + error + as_of
+```
+
+**Adopted — §5.2 Staleness Detection.** Its per-source thresholds become the
+concrete `as_of` limits: market data stale beyond 15 min (real-time) or 24 h
+(EOD); insider filings flagged beyond a 5-day delay; news rejected beyond 7 days
+or with no date. These belong in the source modules, checked against `as_of`.
+
+**Adopted — §5.4 Reliability Rankings.** The Gold/Silver/Bronze/Watch tiers are
+a natural input to `aggregate()` weights: a SEC EDGAR or FRED reading should not
+carry the same weight as a scraped Bronze-tier source. Not wired in sub-project
+A — noted so the tiering is not reinvented later.
+
 ## Error handling
 
 A source that throws returns `SourceResult(available=False, error=str(e))` —
