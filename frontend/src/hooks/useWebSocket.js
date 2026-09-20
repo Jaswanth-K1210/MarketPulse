@@ -1,6 +1,11 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { API_BASE_URL } from '../services/api';
 
-const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:8000/ws';
+// Derived from the API origin so production needs no separate env var.
+// http -> ws, https -> wss. Empty API_BASE_URL means same-origin.
+const WS_URL =
+  import.meta.env.VITE_WS_URL ||
+  `${(API_BASE_URL || window.location.origin).replace(/^http/, 'ws')}/ws`;
 
 /**
  * Custom hook for WebSocket connection to backend

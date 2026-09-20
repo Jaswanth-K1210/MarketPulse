@@ -28,9 +28,9 @@ export default function PortfolioCard({ holding }) {
   }, [currentPrice])
 
   return (
-    <div className="group relative overflow-hidden bg-white/5 border border-white/5 hover:border-blue-500/50 rounded-2xl p-5 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10">
+    <div className="group relative overflow-hidden bg-white/5 border border-white/5 hover:border-blue-500/50 rounded-none p-5 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10">
       {/* Gradient background on hover */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 to-purple-500/0 group-hover:from-blue-500/5 group-hover:to-purple-500/5 transition-all duration-300" />
+      <div className="absolute inset-0 bg-blue-500/0 transition-all duration-300" />
 
       {/* Price flash animation */}
       {priceFlash && (
@@ -40,14 +40,14 @@ export default function PortfolioCard({ holding }) {
       <div className="relative flex items-center justify-between">
         <div className="flex items-center gap-3 flex-1">
           {/* Ticker Icon */}
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform duration-300">
+          <div className="w-12 h-12 rounded-none bg-blue-500 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform duration-300">
             {holding.ticker?.charAt(0) || '?'}
           </div>
 
           {/* Company Info */}
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
-              <p className="font-black text-primary uppercase tracking-widest">{holding.ticker}</p>
+              <p className="font-semibold text-primary">{holding.ticker}</p>
               {dayChange !== 0 && (
                 <span className={`text-xs px-1.5 py-0.5 rounded animate-pulse ${isDayPositive ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
                   }`}>
@@ -55,16 +55,16 @@ export default function PortfolioCard({ holding }) {
                 </span>
               )}
             </div>
-            <p className="text-xs text-secondary font-bold truncate uppercase tracking-tighter opacity-70">{holding.company}</p>
-            <p className="text-[10px] text-secondary mt-1 font-bold uppercase tracking-widest">
-              {quantity} shares @ <span className="font-black text-primary">${currentPrice.toFixed(2)}</span>
+            <p className="text-xs text-secondary font-bold truncate opacity-70">{holding.company}</p>
+            <p className="text-[10px] text-secondary mt-1 font-bold">
+              {quantity} shares @ <span className="font-semibold text-primary">${currentPrice.toFixed(2)}</span>
             </p>
           </div>
         </div>
 
         {/* Value & Performance */}
         <div className="text-right">
-          <p className="text-lg font-black text-primary transition-all group-hover:scale-105">
+          <p className="text-lg font-semibold text-primary transition-all group-hover:scale-105">
             ${totalValue.toLocaleString('en-US', { maximumFractionDigits: 0 })}
           </p>
 
@@ -89,7 +89,7 @@ export default function PortfolioCard({ holding }) {
       {/* Bottom progress bar */}
       <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-700/30">
         <div
-          className={`h-full transition-all duration-500 ${isGainPositive ? 'bg-gradient-to-r from-green-500 to-emerald-400' : 'bg-gradient-to-r from-red-500 to-rose-400'
+          className={`h-full transition-all duration-500 ${isGainPositive ? 'bg-green-500' : 'bg-red-500'
             }`}
           style={{ width: `${Math.min(Math.abs(gainLossPercent) * 2, 100)}%` }}
         />

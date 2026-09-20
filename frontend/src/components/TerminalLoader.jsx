@@ -49,10 +49,9 @@ export default function TerminalLoader({ onComplete }) {
     return (
         <div className="fixed inset-0 bg-darker z-50 flex items-center justify-center p-4">
             {/* Background Effects */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 animate-pulse"></div>
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 pointer-events-none"></div>
+            <div className="absolute top-0 left-0 w-full h-1 bg-blue-500 animate-pulse"></div>
 
-            <div className="w-full max-w-2xl bg-black/90 rounded-xl border border-white/10 shadow-2xl overflow-hidden glass-terminal backdrop-blur-xl">
+            <div className="w-full max-w-2xl bg-black/90 rounded-none border border-white/10 shadow-2xl overflow-hidden glass-terminal backdrop-blur-xl">
                 {/* Header */}
                 <div className="bg-white/5 px-4 py-3 flex items-center justify-between border-b border-white/5">
                     <div className="flex items-center gap-2">
@@ -101,13 +100,13 @@ export default function TerminalLoader({ onComplete }) {
 
                     {/* Progress Bar */}
                     <div className="mt-6 pt-4 border-t border-white/10">
-                        <div className="flex justify-between text-xs text-secondary mb-2 uppercase tracking-widest">
+                        <div className="flex justify-between text-xs text-secondary mb-2">
                             <span>System Initialization</span>
                             <span>{Math.round(progress)}%</span>
                         </div>
                         <div className="h-1 bg-white/10 rounded-full overflow-hidden">
                             <div
-                                className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 ease-out"
+                                className="h-full bg-blue-500 transition-all duration-300 ease-out"
                                 style={{ width: `${progress}%` }}
                             ></div>
                         </div>

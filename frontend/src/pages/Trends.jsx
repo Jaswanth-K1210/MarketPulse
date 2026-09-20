@@ -13,6 +13,12 @@ const REGIME_COLORS = {
 const riskColor = (s) => s >= 70 ? 'bg-red-500' : s >= 50 ? 'bg-orange-500' : s >= 30 ? 'bg-yellow-500' : 'bg-green-500'
 const riskText  = (s) => s >= 70 ? 'text-red-400' : s >= 50 ? 'text-orange-400' : s >= 30 ? 'text-yellow-400' : 'text-green-400'
 
+// `.catch(() => null)` in api.js turns a failed request into null, while a
+// source that answered with nothing yields an object. Saying "loading..." for
+// both is why dead panels looked like slow ones.
+const emptyMsg = (raw, noun) =>
+  raw == null ? `Source unavailable \u2014 the request failed.` : `No ${noun} returned by the source.`
+
 export default function MarketTrends() {
   const [overview,     setOverview]     = useState(null)
   const [riskScores,   setRiskScores]   = useState(null)
@@ -67,7 +73,7 @@ export default function MarketTrends() {
       <div className="sticky top-0 z-40 bg-darkBg/95 backdrop-blur border-b border-darkBorder">
         <div className="px-8 py-6 flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-black text-primary uppercase tracking-tighter italic">Intelligence Hub</h1>
+            <h1 className="text-3xl font-semibold text-primary">Intelligence Hub</h1>
             <p className="text-secondary text-sm">Market regime · Macro indicators · Geopolitical risk · Signal correlations</p>
           </div>
           <button onClick={handleRefresh} disabled={refreshing} className="p-2 hover:bg-darkBorder rounded-lg disabled:opacity-50">
@@ -85,14 +91,14 @@ export default function MarketTrends() {
 
           {/* Row 1: 4 KPI cards */}
           <div className="grid grid-cols-4 gap-4">
-            <div className={`rounded-2xl p-5 border ${rc.bg} ${rc.border}`}>
+            <div className={`rounded-none p-5 border ${rc.bg} ${rc.border}`}>
               <div className="flex items-center gap-2 mb-2">
                 <Activity size={16} className={rc.text} />
-                <span className="text-xs font-black uppercase tracking-widest text-gray-400">Market Regime</span>
+                <span className="text-xs font-semibold text-gray-400">Market Regime</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className={`w-3 h-3 rounded-full animate-pulse ${rc.dot}`} />
-                <span className={`text-2xl font-black uppercase ${rc.text}`}>{regime}</span>
+                <span className={`text-2xl font-semibold  ${rc.text}`}>{regime}</span>
               </div>
               <p className="text-[10px] text-gray-500 mt-1">
                 Conf: {overview?.confidence != null ? `${(overview.confidence * 100).toFixed(0)}%` : '—'}
@@ -103,9 +109,9 @@ export default function MarketTrends() {
               { label: 'SPY 5-Day Return', val: overview?.spy_5d_return != null ? `${(overview.spy_5d_return * 100).toFixed(2)}%` : '—', sub: 'S&P 500 proxy', color: (overview?.spy_5d_return || 0) >= 0 ? 'text-green-400' : 'text-red-400' },
               { label: 'Fed Funds Rate',   val: macro?.fed_funds_rate != null ? `${macro.fed_funds_rate.toFixed(2)}%` : '—', sub: 'Current policy rate', color: 'text-blue-400' },
             ].map(c => (
-              <div key={c.label} className="glass-card rounded-2xl p-5">
-                <div className="text-[10px] text-gray-500 uppercase tracking-widest mb-1">{c.label}</div>
-                <div className={`text-2xl font-mono font-black ${c.color}`}>{c.val ?? '—'}</div>
+              <div key={c.label} className="glass-card rounded-none p-5">
+                <div className="text-[10px] text-gray-500 mb-1">{c.label}</div>
+                <div className={`text-2xl font-mono font-semibold ${c.color}`}>{c.val ?? '—'}</div>
                 <div className="text-[10px] text-gray-500 mt-1">{c.sub}</div>
               </div>
             ))}
@@ -113,10 +119,10 @@ export default function MarketTrends() {
 
           {/* Row 2: CII + Macro */}
           <div className="grid grid-cols-2 gap-6">
-            <div className="glass-card rounded-2xl p-6">
+            <div className="glass-card rounded-none p-6">
               <div className="flex items-center gap-2 mb-4">
                 <Globe size={18} className="text-orange-400" />
-                <h2 className="text-sm font-black uppercase tracking-widest text-gray-300">Country Instability Index (CII)</h2>
+                <h2 className="text-sm font-semibold text-gray-300">Country Instability Index (CII)</h2>
               </div>
               {topRisks.length > 0 ? (
                 <div className="space-y-3">
@@ -133,20 +139,20 @@ export default function MarketTrends() {
                 </div>
               ) : (
                 <div className="text-center py-8 text-gray-600 text-xs">
-                  <Globe size={32} className="mx-auto mb-2 opacity-20" />Risk data loading...
+                  <Globe size={32} className="mx-auto mb-2 opacity-20" />{emptyMsg(riskScores, 'risk scores')}
                 </div>
               )}
             </div>
 
-            <div className="glass-card rounded-2xl p-6">
+            <div className="glass-card rounded-none p-6">
               <div className="flex items-center gap-2 mb-4">
                 <BarChart2 size={18} className="text-purple-400" />
-                <h2 className="text-sm font-black uppercase tracking-widest text-gray-300">Macro Indicators</h2>
+                <h2 className="text-sm font-semibold text-gray-300">Macro Indicators</h2>
               </div>
               {macroItems.length > 0 ? (
                 <div className="grid grid-cols-2 gap-1">
                   {macroItems.map(item => (
-                    <div key={item.label} className="flex justify-between items-center py-1.5 px-2 rounded-lg hover:bg-white/5">
+                    <div key={item.label} className="flex justify-between items-center py-1.5 px-2 rounded-none hover:bg-white/5">
                       <span className="text-[10px] text-gray-500">{item.label}</span>
                       <span className="text-[11px] font-mono text-gray-200">
                         {item.prefix || ''}{typeof item.value === 'number' ? item.value.toFixed(2) : item.value}{item.suffix || ''}
@@ -156,7 +162,7 @@ export default function MarketTrends() {
                 </div>
               ) : (
                 <div className="text-center py-8 text-gray-600 text-xs">
-                  <BarChart2 size={32} className="mx-auto mb-2 opacity-20" />FRED + commodity data loading...
+                  <BarChart2 size={32} className="mx-auto mb-2 opacity-20" />{emptyMsg(macro, 'macro indicators')}
                 </div>
               )}
             </div>
@@ -164,17 +170,17 @@ export default function MarketTrends() {
 
           {/* Row 3: Sector ETFs */}
           {sectorEtfs.length > 0 && (
-            <div className="glass-card rounded-2xl p-6">
+            <div className="glass-card rounded-none p-6">
               <div className="flex items-center gap-2 mb-4">
                 <TrendingUp size={18} className="text-blue-400" />
-                <h2 className="text-sm font-black uppercase tracking-widest text-gray-300">Sector ETF Performance</h2>
+                <h2 className="text-sm font-semibold text-gray-300">Sector ETF Performance</h2>
               </div>
               <div className="grid grid-cols-6 gap-3">
                 {sectorEtfs.map(([sector, data]) => {
                   const chg = data?.change_pct ?? data?.change_percent ?? 0
                   return (
-                    <div key={sector} className="bg-white/5 rounded-xl p-3 text-center hover:bg-white/10 transition-all">
-                      <div className="text-[10px] text-gray-500 uppercase mb-1">{sector.replace('_', ' ')}</div>
+                    <div key={sector} className="bg-white/5 rounded-none p-3 text-center hover:bg-white/10 transition-all">
+                      <div className="text-[10px] text-gray-500 mb-1">{sector.replace('_', ' ')}</div>
                       <div className="text-xs font-mono text-gray-300">{data?.ticker || ''}</div>
                       <div className={`text-[11px] font-bold mt-1 ${chg >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                         {chg >= 0 ? '+' : ''}{Number(chg).toFixed(2)}%
@@ -188,15 +194,15 @@ export default function MarketTrends() {
 
           {/* Row 4: Signals + Correlations */}
           <div className="grid grid-cols-2 gap-6">
-            <div className="glass-card rounded-2xl p-6">
+            <div className="glass-card rounded-none p-6">
               <div className="flex items-center gap-2 mb-4">
                 <Zap size={18} className="text-yellow-400" />
-                <h2 className="text-sm font-black uppercase tracking-widest text-gray-300">Active Signals</h2>
+                <h2 className="text-sm font-semibold text-gray-300">Active Signals</h2>
               </div>
               {signalList.length > 0 ? (
                 <div className="space-y-2 max-h-60 overflow-y-auto">
                   {signalList.slice(0, 10).map((s, i) => (
-                    <div key={i} className="flex items-start gap-3 p-2 rounded-lg bg-white/5 hover:bg-white/10">
+                    <div key={i} className="flex items-start gap-3 p-2 rounded-none bg-white/5 hover:bg-white/10">
                       <span className={`mt-0.5 w-2 h-2 rounded-full flex-shrink-0 ${s.severity === 'high' ? 'bg-red-500' : s.severity === 'medium' ? 'bg-yellow-500' : 'bg-blue-500'}`} />
                       <div>
                         <p className="text-[11px] text-gray-300 leading-tight">{s.title || s.description || ''}</p>
@@ -206,36 +212,36 @@ export default function MarketTrends() {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-8 text-gray-600 text-xs">No active signals</div>
+                <div className="text-center py-8 text-gray-600 text-xs">{emptyMsg(signals, 'signals')}</div>
               )}
             </div>
 
-            <div className="glass-card rounded-2xl p-6">
+            <div className="glass-card rounded-none p-6">
               <div className="flex items-center gap-2 mb-4">
                 <Activity size={18} className="text-pink-400" />
-                <h2 className="text-sm font-black uppercase tracking-widest text-gray-300">Correlation Alerts</h2>
+                <h2 className="text-sm font-semibold text-gray-300">Correlation Alerts</h2>
               </div>
               {corrList.length > 0 ? (
                 <div className="space-y-2 max-h-60 overflow-y-auto">
                   {corrList.slice(0, 8).map((c, i) => (
-                    <div key={i} className="p-2 rounded-lg bg-white/5 hover:bg-white/10">
+                    <div key={i} className="p-2 rounded-none bg-white/5 hover:bg-white/10">
                       <p className="text-[11px] text-gray-300">{c.type || c.correlation_type}</p>
                       <p className="text-[9px] text-gray-500 mt-0.5">{c.description || c.detail || ''}</p>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-8 text-gray-600 text-xs">No correlation anomalies detected</div>
+                <div className="text-center py-8 text-gray-600 text-xs">{emptyMsg(correlations, 'correlations')}</div>
               )}
             </div>
           </div>
 
           {/* Row 5: Factor Rotation */}
           {factorRotation && (
-            <div className="glass-card rounded-2xl p-6">
+            <div className="glass-card rounded-none p-6">
               <div className="flex items-center gap-2 mb-4">
                 <PieChart size={18} className="text-cyan-400" />
-                <h2 className="text-sm font-black uppercase tracking-widest text-gray-300">
+                <h2 className="text-sm font-semibold text-gray-300">
                   Factor Rotation — <span className="text-cyan-300">{factorRotation.regime?.toUpperCase()}</span>
                 </h2>
               </div>
@@ -244,12 +250,12 @@ export default function MarketTrends() {
                   const isPrimary = factor === factorRotation.primary_factor
                   const isAvoid = factor === factorRotation.avoid_factor
                   return (
-                    <div key={factor} className={`rounded-xl p-3 text-center border ${isPrimary ? 'border-green-500/30' : isAvoid ? 'border-red-500/30' : 'border-white/10'}`}
-                      style={{ background: isPrimary ? 'rgba(34,209,139,0.08)' : isAvoid ? 'rgba(240,101,101,0.08)' : 'rgba(255,255,255,0.03)' }}>
-                      <div className="text-[10px] uppercase tracking-wider font-bold" style={{ color: isPrimary ? '#22d18b' : isAvoid ? '#f06565' : '#94a3b8' }}>
+                    <div key={factor} className={`rounded-none p-3 text-center border ${isPrimary ? 'border-green-500/30' : isAvoid ? 'border-red-500/30' : 'border-white/10'}`}
+                      style={{ background: isPrimary ? 'rgba(74,222,128,0.08)' : isAvoid ? 'rgba(248,113,113,0.08)' : 'rgba(255,255,255,0.03)' }}>
+                      <div className="text-[10px] font-bold" style={{ color: isPrimary ? '#4ade80' : isAvoid ? '#f87171' : '#a1a1aa' }}>
                         {factor}
                       </div>
-                      <div className="text-lg font-black mt-1 font-mono" style={{ color: isPrimary ? '#22d18b' : '#c8d6ee' }}>
+                      <div className="text-lg font-semibold mt-1 font-mono" style={{ color: isPrimary ? '#4ade80' : '#f5f5f5' }}>
                         {(alloc * 100).toFixed(0)}%
                       </div>
                       {isPrimary && <div className="text-[8px] mt-1 px-1.5 py-0.5 rounded-full bg-green-500/20 text-green-400">PRIMARY</div>}

@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react'
+import { API_BASE_URL } from '../services/api'
 import { Plus, Trash2, ArrowUpRight, ArrowDownRight, RefreshCw } from 'lucide-react'
 
 export default function Watchlist() {
@@ -11,7 +12,7 @@ export default function Watchlist() {
     const fetchWatchlist = async () => {
         try {
             setLoading(true)
-            const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/watchlist`)
+            const res = await fetch(`${API_BASE_URL}/api/watchlist`)
             const data = await res.json()
             if (data.status === 'success') {
                 setWatchlist(data.data)
@@ -35,7 +36,7 @@ export default function Watchlist() {
 
         setAdding(true)
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/watchlist`, {
+            const res = await fetch(`${API_BASE_URL}/api/watchlist`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ticker: tickerInput })
@@ -53,7 +54,7 @@ export default function Watchlist() {
 
     const handleRemove = async (ticker) => {
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/watchlist/${ticker}`, {
+            const res = await fetch(`${API_BASE_URL}/api/watchlist/${ticker}`, {
                 method: 'DELETE'
             })
             if (res.ok) {
@@ -76,7 +77,7 @@ export default function Watchlist() {
                 </button>
             </div>
 
-            <div className="bg-darkBg border border-darkBorder rounded-xl p-6 mb-8">
+            <div className="bg-darkBg border border-darkBorder rounded-none p-6 mb-8">
                 <form onSubmit={handleAdd} className="flex gap-4">
                     <input
                         type="text"
@@ -99,14 +100,14 @@ export default function Watchlist() {
             {loading && watchlist.length === 0 ? (
                 <div className="text-center py-20 text-gray-500">Loading watchlist...</div>
             ) : watchlist.length === 0 ? (
-                <div className="text-center py-20 bg-darkBg border border-darkBorder rounded-xl border-dashed">
+                <div className="text-center py-20 bg-darkBg border border-darkBorder rounded-none border-dashed">
                     <p className="text-gray-400">Your watchlist is empty.</p>
                     <p className="text-sm text-gray-500 mt-2">Add tickers above to start tracking.</p>
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {watchlist.map((item) => (
-                        <div key={item.ticker} className="bg-darkBg border border-darkBorder rounded-xl p-6 hover:border-gray-600 transition-colors">
+                        <div key={item.ticker} className="bg-darkBg border border-darkBorder rounded-none p-6 hover:border-gray-600 transition-colors">
                             <div className="flex items-start justify-between mb-4">
                                 <div>
                                     <h3 className="text-xl font-bold">{item.ticker}</h3>

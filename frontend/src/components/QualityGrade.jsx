@@ -40,7 +40,7 @@ export default function QualityGrade({ qualityGrade, qualityScores }) {
 
   if (!grade && Object.keys(scores).length === 0) {
     return (
-      <div className="rounded-xl border px-4 py-3" style={{ background: C.card, borderColor: C.border }}>
+      <div className="rounded-none border px-4 py-3" style={{ background: C.card, borderColor: C.border }}>
         <div className="flex items-center gap-2 mb-2">
           <Shield size={12} style={{ color: C.muted }} />
           <span className="text-[11px] font-bold" style={{ color: C.text }}>Quality Grade</span>
@@ -53,16 +53,16 @@ export default function QualityGrade({ qualityGrade, qualityScores }) {
   const overallPct = qualityScores?.overall_score != null ? Math.round(qualityScores.overall_score * 100) : null
 
   return (
-    <div className="rounded-xl border overflow-hidden" style={{ background: C.card, borderColor: C.border }}>
+    <div className="rounded-none border overflow-hidden" style={{ background: C.card, borderColor: C.border }}>
       {/* Header with grade badge */}
       <div className="flex items-center gap-3 px-4 py-3 border-b" style={{ borderColor: C.border }}>
-        <div className="w-10 h-10 rounded-xl flex items-center justify-center"
+        <div className="w-10 h-10 rounded-none flex items-center justify-center"
           style={{ background: config.bg, border: `2px solid ${config.ring}`, boxShadow: `0 0 20px ${config.ring}` }}>
           <Icon size={18} style={{ color: config.color }} />
         </div>
         <div className="flex-1">
           <div className="flex items-center gap-2">
-            <span className="text-[18px] font-black" style={{ color: config.color }}>{grade}</span>
+            <span className="text-[18px] font-semibold" style={{ color: config.color }}>{grade}</span>
             <span className="text-[10px] font-mono" style={{ color: C.muted }}>{config.label}</span>
           </div>
           {overallPct != null && (

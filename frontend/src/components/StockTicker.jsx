@@ -15,7 +15,7 @@ export default function StockTicker({
 
   if (compact) {
     return (
-      <div className="inline-flex items-center gap-2 rounded-lg bg-darkBorder/50 px-3 py-2">
+      <div className="inline-flex items-center gap-2 rounded-none bg-darkBorder/50 px-3 py-2">
         <span className="text-sm font-bold text-primary">{ticker}</span>
         <span className="text-lg font-bold text-primary">
           ${price.toFixed(2)}
@@ -30,17 +30,13 @@ export default function StockTicker({
   }
 
   return (
-    <div className="group relative overflow-hidden rounded-lg bg-gradient-to-br from-darkBorder/80 to-darkBorder/40 
-                    border border-darkBorder hover:border-blue-500/50 p-4 transition-all duration-300 
-                    hover:shadow-lg hover:shadow-blue-500/10">
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-purple-500/0 to-blue-500/0 
-                      group-hover:from-blue-500/5 group-hover:via-purple-500/5 group-hover:to-blue-500/5 
-                      transition-all duration-500" />
+    <div className="group relative overflow-hidden rounded-none bg-darkBorder/80 border border-darkBorder hover:border-blue-500/50 p-4 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10">
+      <div className="absolute inset-0 bg-blue-500/0 transition-all duration-500" />
 
       <div className="relative flex items-center justify-between">
         <div>
           <div className="flex items-center gap-2">
-            <p className="text-xs font-semibold text-secondary uppercase tracking-wider">
+            <p className="text-xs font-semibold text-secondary">
               {ticker}
             </p>
             <div className={`h-2 w-2 rounded-full ${isPositive ? 'bg-green-500' : isNeutral ? 'bg-gray-500' : 'bg-red-500'
@@ -80,9 +76,9 @@ export default function StockTicker({
       </div>
 
       <div className={`absolute bottom-0 left-0 h-0.5 w-0 transition-all duration-500 ease-out 
-                       group-hover:w-full ${isPositive ? 'bg-gradient-to-r from-green-500 to-emerald-400' :
-          isNeutral ? 'bg-gradient-to-r from-gray-500 to-gray-400' :
-            'bg-gradient-to-r from-red-500 to-rose-400'
+                       group-hover:w-full ${isPositive ? 'bg-green-500' :
+          isNeutral ? 'bg-gray-500' :
+            'bg-red-500'
         }`} />
     </div>
   )

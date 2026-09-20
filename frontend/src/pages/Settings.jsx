@@ -18,32 +18,32 @@ export default function Settings({ onLogout }) {
 
             <div className="space-y-6">
                 {/* Profile Section */}
-                <div className="bg-darkBg/50 backdrop-blur-md border border-darkBorder rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all">
+                <div className="bg-darkBg/50 backdrop-blur-md border border-darkBorder rounded-none p-6 shadow-xl hover:shadow-2xl transition-all">
                     <div className="flex items-center gap-6 mb-8">
-                        <div className="w-20 h-20 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-3xl font-bold text-white shadow-lg shadow-blue-500/20">
+                        <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center text-3xl font-bold text-white shadow-lg shadow-blue-500/20">
                             {localStorage.getItem('marketpulse_user')?.charAt(0).toUpperCase() || 'U'}
                         </div>
                         <div>
                             <h3 className="text-2xl font-bold">{localStorage.getItem('marketpulse_user') || 'User'}</h3>
-                            <p className="text-blue-400 font-medium tracking-wide prose-sm">@{localStorage.getItem('marketpulse_user')?.toLowerCase().replace(/\s/g, '') || 'user'}</p>
+                            <p className="text-blue-400 font-medium prose-sm">@{localStorage.getItem('marketpulse_user')?.toLowerCase().replace(/\s/g, '') || 'user'}</p>
                         </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="bg-dark/40 p-4 rounded-xl flex items-center gap-4 border border-white/5 group hover:bg-dark/60 transition-colors">
-                            <div className="p-2 bg-blue-500/10 rounded-lg group-hover:scale-110 transition-transform">
+                        <div className="bg-dark/40 p-4 rounded-none flex items-center gap-4 border border-white/5 group hover:bg-dark/60 transition-colors">
+                            <div className="p-2 bg-blue-500/10 rounded-none group-hover:scale-110 transition-transform">
                                 <User className="text-blue-500" size={20} />
                             </div>
                             <div>
-                                <div className="text-xs text-gray-500 uppercase font-bold tracking-tighter">Account Type</div>
+                                <div className="text-xs text-gray-500 font-bold">Account Type</div>
                                 <div className="font-semibold">Pro Plan</div>
                             </div>
                         </div>
-                        <div className="bg-dark/40 p-4 rounded-xl flex items-center gap-4 border border-white/5 group hover:bg-dark/60 transition-colors">
-                            <div className="p-2 bg-green-500/10 rounded-lg group-hover:scale-110 transition-transform">
+                        <div className="bg-dark/40 p-4 rounded-none flex items-center gap-4 border border-white/5 group hover:bg-dark/60 transition-colors">
+                            <div className="p-2 bg-green-500/10 rounded-none group-hover:scale-110 transition-transform">
                                 <Shield className="text-green-500" size={20} />
                             </div>
                             <div>
-                                <div className="text-xs text-gray-500 uppercase font-bold tracking-tighter">Security Status</div>
+                                <div className="text-xs text-gray-500 font-bold">Security Status</div>
                                 <div className="font-semibold">Secured</div>
                             </div>
                         </div>
@@ -51,7 +51,7 @@ export default function Settings({ onLogout }) {
                 </div>
 
                 {/* Theme Section */}
-                <div className="bg-darkBg/50 backdrop-blur-md border border-darkBorder rounded-2xl p-6 shadow-xl">
+                <div className="bg-darkBg/50 backdrop-blur-md border border-darkBorder rounded-none p-6 shadow-xl">
                     <h3 className="font-bold mb-6 flex items-center gap-2 text-lg">
                         <Moon size={20} className="text-purple-400" /> Interface Appearance
                     </h3>
@@ -64,10 +64,10 @@ export default function Settings({ onLogout }) {
                             <button
                                 key={t.id}
                                 onClick={() => changeTheme(t.id)}
-                                className={`flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all ${theme === t.id ? 'border-blue-500 bg-blue-500/5' : 'border-transparent bg-dark/40 hover:bg-dark/60'
+                                className={`flex flex-col items-center gap-2 p-4 rounded-none border-2 transition-all ${theme === t.id ? 'border-blue-500 bg-blue-500/5' : 'border-transparent bg-dark/40 hover:bg-dark/60'
                                     }`}
                             >
-                                <div className={`w-12 h-12 rounded-lg shadow-inner ${t.color}`} />
+                                <div className={`w-12 h-12 rounded-none shadow-inner ${t.color}`} />
                                 <span className="text-sm font-medium">{t.label}</span>
                                 {theme === t.id && <Check size={14} className="text-blue-500" />}
                             </button>
@@ -76,14 +76,14 @@ export default function Settings({ onLogout }) {
                 </div>
 
                 {/* Preferences */}
-                <div className="bg-darkBg/50 backdrop-blur-md border border-darkBorder rounded-2xl p-6 shadow-xl">
+                <div className="bg-darkBg/50 backdrop-blur-md border border-darkBorder rounded-none p-6 shadow-xl">
                     <h3 className="font-bold mb-4 flex items-center gap-2 text-lg">
                         <Globe size={20} className="text-blue-400" /> App Preferences
                     </h3>
                     <div className="space-y-4">
-                        <div className="flex items-center justify-between p-4 bg-dark/40 rounded-xl border border-white/5 hover:bg-dark/60 transition-colors">
+                        <div className="flex items-center justify-between p-4 bg-dark/40 rounded-none border border-white/5 hover:bg-dark/60 transition-colors">
                             <div className="flex items-center gap-4">
-                                <div className="p-2 bg-yellow-500/10 rounded-lg">
+                                <div className="p-2 bg-yellow-500/10 rounded-none">
                                     <Bell className="text-yellow-500" size={20} />
                                 </div>
                                 <div>
@@ -102,14 +102,14 @@ export default function Settings({ onLogout }) {
                 </div>
 
                 {/* Danger Zone */}
-                <div className="bg-red-500/5 border border-red-500/20 rounded-2xl p-6 shadow-xl">
+                <div className="bg-red-500/5 border border-red-500/20 rounded-none p-6 shadow-xl">
                     <h3 className="font-bold text-red-500 mb-2 flex items-center gap-2">
                         <LogOut size={18} /> Account Management
                     </h3>
                     <p className="text-sm text-gray-400 mb-6 font-medium">Clear session data and sign out securely.</p>
                     <button
                         onClick={onLogout}
-                        className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-red-600/90 hover:bg-red-600 text-white rounded-xl transition-all font-bold shadow-lg shadow-red-600/20 active:scale-95"
+                        className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-red-600/90 hover:bg-red-600 text-white rounded-none transition-all font-bold shadow-lg shadow-red-600/20 active:scale-95"
                     >
                         Sign Out
                     </button>

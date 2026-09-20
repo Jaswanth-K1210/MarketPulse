@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react'
+import { API_BASE_URL } from '../services/api'
 import { AlertCircle, AlertTriangle, Info, CheckCircle, ExternalLink } from 'lucide-react'
 
 export default function Alerts() {
@@ -9,7 +10,7 @@ export default function Alerts() {
     const fetchAlerts = async () => {
         try {
             setLoading(true)
-            const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/alerts`)
+            const res = await fetch(`${API_BASE_URL}/api/alerts`)
             const data = await res.json()
             if (data.status === 'success') {
                 // Normalize alerts
@@ -59,21 +60,21 @@ export default function Alerts() {
             {loading && alerts.length === 0 ? (
                 <div className="text-center py-20 text-gray-500">Loading alerts...</div>
             ) : alerts.length === 0 ? (
-                <div className="text-center py-20 bg-darkBg border border-darkBorder rounded-xl border-dashed">
+                <div className="text-center py-20 bg-darkBg border border-darkBorder rounded-none border-dashed">
                     <p className="text-gray-400">No active alerts detected.</p>
                     <p className="text-sm text-gray-500 mt-2">Your portfolio looks safe currently.</p>
                 </div>
             ) : (
                 <div className="space-y-4">
                     {alerts.map((alert, idx) => (
-                        <div key={alert.id || idx} className={`p-6 rounded-xl border ${getSeverityColor(alert.severity)}`}>
+                        <div key={alert.id || idx} className={`p-6 rounded-none border ${getSeverityColor(alert.severity)}`}>
                             <div className="flex items-start gap-4">
                                 <div className="mt-1">
                                     {getSeverityIcon(alert.severity)}
                                 </div>
                                 <div className="flex-1">
                                     <div className="flex items-center justify-between mb-2">
-                                        <span className="font-bold uppercase text-sm tracking-wider">{alert.severity} IMPLICATION</span>
+                                        <span className="font-bold text-sm">{alert.severity} IMPLICATION</span>
                                         <span className="text-xs opacity-70">{new Date(alert.timestamp).toLocaleString()}</span>
                                     </div>
                                     <h3 className="text-xl font-bold text-white mb-2">{alert.title}</h3>

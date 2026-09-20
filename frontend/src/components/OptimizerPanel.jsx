@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { BarChart2, RefreshCw, Plus, Trash2, PieChart } from 'lucide-react'
 
 const C = {
-  bg: '#0b1221', card: '#131f35', border: '#1c2f4a', text: '#dde8f5',
-  muted: '#5d7a9a', dim: '#243650', blue: '#4f91f6', green: '#22d18b',
-  red: '#f06565', orange: '#f5a523', purple: '#a07cf5',
+  bg: '#0a0a0a', card: '#141414', border: '#2a2a2a', text: '#f5f5f5',
+  muted: '#9ca3af', dim: '#52525b', blue: '#4ade80', green: '#4ade80',
+  red: '#f87171', orange: '#fbbf24', purple: '#c084fc',
 }
 
 export default function OptimizerPanel({ onOptimize, result = null, loading = false }) {
@@ -42,7 +42,7 @@ export default function OptimizerPanel({ onOptimize, result = null, loading = fa
 
   return (
     <div className="flex gap-6 h-full">
-      <div className="flex-1 rounded-xl p-4 border overflow-y-auto" style={{ background: C.card, borderColor: C.border }}>
+      <div className="flex-1 rounded-none p-4 border overflow-y-auto" style={{ background: C.card, borderColor: C.border }}>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <PieChart size={16} style={{ color: C.blue }} />
@@ -55,9 +55,9 @@ export default function OptimizerPanel({ onOptimize, result = null, loading = fa
 
         <div className="space-y-2 mb-4">
           {holdings.map((h, i) => (
-            <div key={i} className="flex items-center gap-2 p-2 rounded-lg" style={{ background: C.bg }}>
+            <div key={i} className="flex items-center gap-2 p-2 rounded-none" style={{ background: C.bg }}>
               <input value={h.ticker} onChange={e => updateHolding(i, 'ticker', e.target.value.toUpperCase())}
-                className="w-20 px-2 py-1 rounded text-xs font-mono font-bold uppercase outline-none"
+                className="w-20 px-2 py-1 rounded text-xs font-mono font-bold outline-none"
                 style={{ background: C.card, border: `1px solid ${C.border}`, color: C.text }} />
               <input value={h.value} onChange={e => updateHolding(i, 'value', Number(e.target.value))}
                 type="number" className="flex-1 px-2 py-1 rounded text-xs font-mono outline-none"
@@ -72,10 +72,10 @@ export default function OptimizerPanel({ onOptimize, result = null, loading = fa
           ))}
         </div>
 
-        <div className="flex items-center gap-2 p-2 rounded-lg" style={{ background: C.bg }}>
+        <div className="flex items-center gap-2 p-2 rounded-none" style={{ background: C.bg }}>
           <input value={newTicker} onChange={e => setNewTicker(e.target.value.toUpperCase())}
             placeholder="TICKER" maxLength={5}
-            className="w-20 px-2 py-1 rounded text-xs font-mono font-bold uppercase outline-none"
+            className="w-20 px-2 py-1 rounded text-xs font-mono font-bold outline-none"
             style={{ background: C.card, border: `1px solid ${C.border}`, color: C.text }} />
           <input value={newValue} onChange={e => setNewValue(Number(e.target.value))}
             type="number" placeholder="Value" className="flex-1 px-2 py-1 rounded text-xs font-mono outline-none"
@@ -86,13 +86,13 @@ export default function OptimizerPanel({ onOptimize, result = null, loading = fa
         </div>
 
         <button onClick={handleOptimize} disabled={loading || holdings.length < 2}
-          className="w-full mt-4 py-3 rounded-xl text-sm font-bold transition-all active:scale-95 disabled:opacity-40"
-          style={{ background: 'linear-gradient(135deg,#2563eb,#7c3aed)', color: '#fff' }}>
+          className="w-full mt-4 py-3 rounded-none text-sm font-bold transition-all active:scale-95 disabled:opacity-40"
+          style={{ background: '#15803d', color: '#ecfdf5', border: '1px solid #4ade80' }}>
           {loading ? 'Optimizing...' : 'Optimize Portfolio'}
         </button>
       </div>
 
-      <div className="w-96 rounded-xl p-4 border overflow-y-auto" style={{ background: C.card, borderColor: C.border }}>
+      <div className="w-96 rounded-none p-4 border overflow-y-auto" style={{ background: C.card, borderColor: C.border }}>
         <h3 className="text-sm font-bold mb-4" style={{ color: C.text }}>Optimization Results</h3>
 
         {!result && (
@@ -110,7 +110,7 @@ export default function OptimizerPanel({ onOptimize, result = null, loading = fa
                 const currentWeight = current ? current.value / totalValue : 0
                 const diff = weight - currentWeight
                 return (
-                  <div key={ticker} className="flex items-center justify-between p-2 rounded-lg" style={{ background: C.bg }}>
+                  <div key={ticker} className="flex items-center justify-between p-2 rounded-none" style={{ background: C.bg }}>
                     <span className="text-xs font-bold font-mono" style={{ color: C.text }}>{ticker}</span>
                     <div className="flex items-center gap-3">
                       <span className="text-xs" style={{ color: C.muted }}>{(currentWeight * 100).toFixed(1)}%</span>
@@ -128,7 +128,7 @@ export default function OptimizerPanel({ onOptimize, result = null, loading = fa
             </div>
 
             {result.metrics && (
-              <div className="space-y-2 p-3 rounded-lg" style={{ background: `${C.bg}` }}>
+              <div className="space-y-2 p-3 rounded-none" style={{ background: `${C.bg}` }}>
                 <div className="flex justify-between text-xs">
                   <span style={{ color: C.muted }}>Expected Return</span>
                   <span className="font-bold" style={{ color: (result.metrics.expected_return || 0) > 0 ? C.green : C.red }}>

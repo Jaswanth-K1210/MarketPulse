@@ -33,7 +33,7 @@ export default function KGContext({ kgContext, ticker }) {
 
   if (!ctx.found && neighbors.length === 0) {
     return (
-      <div className="rounded-xl border px-4 py-3" style={{ background: C.card, borderColor: C.border }}>
+      <div className="rounded-none border px-4 py-3" style={{ background: C.card, borderColor: C.border }}>
         <div className="flex items-center gap-2 mb-1">
           <GitBranch size={12} style={{ color: C.muted }} />
           <span className="text-[11px] font-bold" style={{ color: C.text }}>
@@ -46,7 +46,7 @@ export default function KGContext({ kgContext, ticker }) {
   }
 
   return (
-    <div className="rounded-xl border overflow-hidden" style={{ background: C.card, borderColor: C.border }}>
+    <div className="rounded-none border overflow-hidden" style={{ background: C.card, borderColor: C.border }}>
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b" style={{ borderColor: C.border }}>
         <div className="flex items-center gap-2">

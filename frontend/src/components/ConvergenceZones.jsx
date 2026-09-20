@@ -30,13 +30,13 @@ function ZoneCard({ zone }) {
   const SignalIcon = isBearish ? TrendingDown : isBullish ? TrendingUp : Zap
 
   return (
-    <div className="rounded-lg border px-3 py-2.5" style={{ background: C.card, borderColor: color + '30' }}>
+    <div className="rounded-none border px-3 py-2.5" style={{ background: C.card, borderColor: color + '30' }}>
       <div className="flex items-center justify-between mb-1.5">
         <div className="flex items-center gap-2">
-          <span className="text-[11px] font-black font-mono" style={{ color }}>{ticker}</span>
+          <span className="text-[11px] font-semibold font-mono" style={{ color }}>{ticker}</span>
           <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded" style={{ background: bg }}>
             <SignalIcon size={8} style={{ color }} />
-            <span className="text-[8px] font-bold uppercase" style={{ color }}>{signal}</span>
+            <span className="text-[8px] font-bold" style={{ color }}>{signal}</span>
           </div>
         </div>
         {typeof score === 'number' && (
@@ -69,7 +69,7 @@ export default function ConvergenceZones({ convergenceZones }) {
 
   if (!zones.length) {
     return (
-      <div className="rounded-xl border px-4 py-3" style={{ background: C.card, borderColor: C.border }}>
+      <div className="rounded-none border px-4 py-3" style={{ background: C.card, borderColor: C.border }}>
         <div className="flex items-center gap-2 mb-1">
           <Network size={12} style={{ color: C.muted }} />
           <span className="text-[11px] font-bold" style={{ color: C.text }}>Convergence Zones</span>
@@ -80,7 +80,7 @@ export default function ConvergenceZones({ convergenceZones }) {
   }
 
   return (
-    <div className="rounded-xl border overflow-hidden" style={{ background: C.card, borderColor: C.border }}>
+    <div className="rounded-none border overflow-hidden" style={{ background: C.card, borderColor: C.border }}>
       <div className="flex items-center justify-between px-4 py-3 border-b" style={{ borderColor: C.border }}>
         <div className="flex items-center gap-2">
           <Network size={12} style={{ color: C.purple }} />

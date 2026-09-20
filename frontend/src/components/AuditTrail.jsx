@@ -73,7 +73,7 @@ export default function AuditTrail({ auditSummary }) {
 
   if (!summary.pipeline_id && !summary.node_breakdown?.length) {
     return (
-      <div className="rounded-xl border px-4 py-3" style={{ background: C.card, borderColor: C.border }}>
+      <div className="rounded-none border px-4 py-3" style={{ background: C.card, borderColor: C.border }}>
         <div className="flex items-center gap-2 mb-1">
           <ClipboardList size={12} style={{ color: C.muted }} />
           <span className="text-[11px] font-bold" style={{ color: C.text }}>Audit Trail</span>
@@ -87,7 +87,7 @@ export default function AuditTrail({ auditSummary }) {
   const slowest = summary.slowest_nodes?.[0]
 
   return (
-    <div className="rounded-xl border overflow-hidden" style={{ background: C.card, borderColor: C.border }}>
+    <div className="rounded-none border overflow-hidden" style={{ background: C.card, borderColor: C.border }}>
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b" style={{ borderColor: C.border }}>
         <div className="flex items-center gap-2">

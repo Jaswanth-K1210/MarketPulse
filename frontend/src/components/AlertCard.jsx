@@ -47,21 +47,21 @@ export default function AlertCard({ alert, onExplain }) {
       case 'high':
         return {
           border: 'border-l-red-500',
-          bg: 'bg-gradient-to-br from-red-500/10 to-red-600/5',
+          bg: 'bg-red-500/10',
           hover: 'hover:border-l-red-400',
           badge: 'bg-red-500/20 text-red-300'
         }
       case 'medium':
         return {
           border: 'border-l-yellow-500',
-          bg: 'bg-gradient-to-br from-yellow-500/10 to-yellow-600/5',
+          bg: 'bg-yellow-500/10',
           hover: 'hover:border-l-yellow-400',
           badge: 'bg-yellow-500/20 text-yellow-300'
         }
       default:
         return {
           border: 'border-l-green-500',
-          bg: 'bg-gradient-to-br from-green-500/10 to-green-600/5',
+          bg: 'bg-green-500/10',
           hover: 'hover:border-l-green-400',
           badge: 'bg-green-500/20 text-green-300'
         }
@@ -71,13 +71,13 @@ export default function AlertCard({ alert, onExplain }) {
   const styles = getSeverityStyles(severity)
 
   return (
-    <div className={`group relative overflow-hidden rounded-xl border-l-4 p-6 backdrop-blur-sm transition-all hover:shadow-2xl ${styles.border} ${styles.bg} ${styles.hover}`}>
+    <div className={`group relative overflow-hidden rounded-none border-l-4 p-6 backdrop-blur-sm transition-all hover:shadow-2xl ${styles.border} ${styles.bg} ${styles.hover}`}>
       {/* Alert Header */}
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
           <span className="text-2xl">{icon}</span>
           <div>
-            <h3 className="text-lg font-black text-primary">{alert.title}</h3>
+            <h3 className="text-lg font-semibold text-primary">{alert.title}</h3>
             <p className="text-xs text-secondary">{new Date(created_at).toLocaleString()}</p>
           </div>
         </div>
@@ -88,15 +88,15 @@ export default function AlertCard({ alert, onExplain }) {
 
       {/* Impact Summary */}
       <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="rounded-lg bg-dark/40 p-3">
+        <div className="rounded-none bg-dark/40 p-3">
           <p className="text-xs text-secondary">Portfolio Impact</p>
-          <p className={`text-2xl font-black ${impact_percent > 0 ? 'text-green-400' : 'text-red-400'}`}>
+          <p className={`text-2xl font-semibold ${impact_percent > 0 ? 'text-green-400' : 'text-red-400'}`}>
             {impact_percent > 0 ? '+' : ''}{impact_percent.toFixed(2)}%
           </p>
         </div>
-        <div className="rounded-lg bg-dark/40 p-3">
+        <div className="rounded-none bg-dark/40 p-3">
           <p className="text-xs text-secondary">Confidence</p>
-          <p className="text-2xl font-black text-blue-400">
+          <p className="text-2xl font-semibold text-blue-400">
             {(confidence * 100).toFixed(0)}%
           </p>
         </div>
@@ -105,7 +105,7 @@ export default function AlertCard({ alert, onExplain }) {
       {/* Affected Holdings */}
       {affected_holdings.length > 0 && (
         <div className="mb-4">
-          <p className="text-sm font-black text-primary mb-2">💼 Affected Holdings:</p>
+          <p className="text-sm font-semibold text-primary mb-2">💼 Affected Holdings:</p>
           <div className="space-y-2">
             {affected_holdings.map((holding, idx) => (
               <div key={idx} className="flex items-center justify-between rounded bg-black/30 px-3 py-2">
@@ -122,7 +122,7 @@ export default function AlertCard({ alert, onExplain }) {
 
       {/* Supply Chain */}
       {chain && (
-        <div className="mb-4 rounded-lg bg-black/20 p-3">
+        <div className="mb-4 rounded-none bg-black/20 p-3">
           <p className="text-xs font-semibold text-gray-300 mb-2">⛓️ Supply Chain:</p>
           <p className="text-sm text-gray-400">{chain}</p>
         </div>
@@ -130,8 +130,8 @@ export default function AlertCard({ alert, onExplain }) {
 
       {/* Explanation */}
       {explanation && (
-        <div className="mb-4 rounded-lg bg-blue-500/10 border border-blue-500/20 p-3">
-          <p className="text-xs font-black text-blue-300 mb-1">📊 Analysis:</p>
+        <div className="mb-4 rounded-none bg-blue-500/10 border border-blue-500/20 p-3">
+          <p className="text-xs font-semibold text-blue-300 mb-1">📊 Analysis:</p>
           <p className="text-sm text-secondary font-medium">{explanation}</p>
         </div>
       )}
@@ -171,7 +171,7 @@ export default function AlertCard({ alert, onExplain }) {
       )}
 
       {/* Recommendation */}
-      <div className="flex items-center gap-2 rounded-lg bg-purple-500/10 border border-purple-500/20 p-3 mb-4">
+      <div className="flex items-center gap-2 rounded-none bg-purple-500/10 border border-purple-500/20 p-3 mb-4">
         <span className="text-lg">💡</span>
         <div>
           <p className="text-xs text-gray-400">Recommendation</p>
@@ -194,7 +194,7 @@ export default function AlertCard({ alert, onExplain }) {
       )}
 
       {/* Hover Effect */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="absolute inset-0 -z-10 bg-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
     </div>
   )
 }

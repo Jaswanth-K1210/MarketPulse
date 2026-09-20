@@ -1,61 +1,66 @@
 /**
  * MarketPulse Design Tokens — Single source of truth.
  *
- * All components import from here instead of redefining colors.
- * Supports dark/light/grey themes via CSS variables.
+ * "Ops-center" terminal aesthetic (World Monitor family): near-black ground,
+ * hairline-bordered panels, monospace numerics, one green live/accent colour.
  */
 
 // ── Dark theme (default) ──────────────────────────────────────────────────
 const dark = {
   // Backgrounds
-  bg:          '#0b1221',
-  bgDeep:      '#060c18',
-  panel:       '#0f1a2e',
-  card:        '#131f35',
-  cardHover:   '#182540',
-  elevated:    '#1a2d4a',
+  bg:          '#0a0a0a',
+  bgDeep:      '#050505',
+  panel:       '#101010',
+  card:        '#141414',
+  cardHover:   '#1a1a1a',
+  elevated:    '#1f1f1f',
 
-  // Borders
-  border:      '#1c2f4a',
-  borderDim:   '#152340',
-  borderFocus: '#4f91f6',
+  // Borders — hairlines carry structure
+  border:      '#2a2a2a',
+  borderDim:   '#1c1c1c',
+  borderFocus: '#4ade80',
 
   // Text
-  text:        '#dde8f5',
-  muted:       '#5d7a9a',
-  dim:         '#243650',
+  text:        '#f5f5f5',
+  muted:       '#9ca3af',
+  dim:         '#52525b',
   white:       '#ffffff',
 
-  // Semantic colors
-  blue:        '#4f91f6',
-  blueSoft:    'rgba(79,145,246,0.10)',
-  blueMid:     'rgba(79,145,246,0.20)',
-  green:       '#22d18b',
-  greenSoft:   'rgba(34,209,139,0.10)',
-  greenMid:    'rgba(34,209,139,0.20)',
-  red:         '#f06565',
-  redSoft:     'rgba(240,101,101,0.10)',
-  redMid:      'rgba(240,101,101,0.20)',
-  orange:      '#f5a523',
-  orangeSoft:  'rgba(245,165,35,0.10)',
-  orangeMid:   'rgba(245,165,35,0.20)',
-  purple:      '#a07cf5',
-  purpleSoft:  'rgba(160,124,245,0.10)',
-  purpleMid:   'rgba(160,124,245,0.20)',
-  cyan:        '#22d3ee',
-  cyanSoft:    'rgba(34,211,238,0.10)',
-  yellow:      '#fbbf24',
-  yellowSoft:  'rgba(251,191,36,0.10)',
-  pink:        '#f472b6',
-  pinkSoft:    'rgba(244,114,182,0.10)',
+  // Interaction accent: live signal green (World Monitor family)
+  blue:        '#4ade80',
+  blueSoft:    'rgba(74,222,128,0.10)',
+  blueMid:     'rgba(74,222,128,0.22)',
 
-  // Gradients
-  gradBlue:    'linear-gradient(135deg, #4f91f6, #818cf8)',
-  gradGreen:   'linear-gradient(135deg, #22d18b, #34d399)',
-  gradRed:     'linear-gradient(135deg, #f06565, #fb7185)',
-  gradPurple:  'linear-gradient(135deg, #a07cf5, #c084fc)',
-  gradCyan:    'linear-gradient(135deg, #22d3ee, #67e8f9)',
-  gradBrand:   'linear-gradient(135deg, #4f91f6, #a07cf5, #22d3ee)',
+  // Direction. The green family is shared with the accent, red stays reserved.
+  green:       '#4ade80',
+  greenSoft:   'rgba(74,222,128,0.12)',
+  greenMid:    'rgba(74,222,128,0.25)',
+  red:         '#f87171',
+  redSoft:     'rgba(248,113,113,0.12)',
+  redMid:      'rgba(248,113,113,0.25)',
+
+  // Categorical hues — for encoding *kinds*, kept muted so no single one shouts.
+  orange:      '#fbbf24',
+  orangeSoft:  'rgba(251,191,36,0.12)',
+  orangeMid:   'rgba(251,191,36,0.25)',
+  purple:      '#c084fc',
+  purpleSoft:  'rgba(192,132,252,0.12)',
+  purpleMid:   'rgba(192,132,252,0.25)',
+  cyan:        '#22d3ee',
+  cyanSoft:    'rgba(34,211,238,0.12)',
+  cyanMid:     'rgba(34,211,238,0.25)',
+  yellow:      '#facc15',
+  yellowSoft:  'rgba(250,204,21,0.12)',
+  pink:        '#f472b6',
+  pinkSoft:    'rgba(244,114,182,0.12)',
+
+  // Flat, not gradients. An instrument panel has no wash on it.
+  gradBlue:    '#4ade80',
+  gradGreen:   '#4ade80',
+  gradRed:     '#f87171',
+  gradPurple:  '#c084fc',
+  gradCyan:    '#22d3ee',
+  gradBrand:   '#4ade80',
 }
 
 // ── Export ─────────────────────────────────────────────────────────────────
@@ -63,11 +68,11 @@ export const T = dark
 
 // Convenience: grade-specific colors
 export const GRADE_COLORS = {
-  A: { color: T.green,  bg: T.greenSoft,  border: T.greenMid,  ring: 'rgba(34,209,139,0.35)' },
-  B: { color: T.blue,   bg: T.blueSoft,   border: T.blueMid,   ring: 'rgba(79,145,246,0.35)' },
-  C: { color: T.orange, bg: T.orangeSoft,  border: T.orangeMid, ring: 'rgba(245,165,35,0.35)' },
-  D: { color: T.red,    bg: T.redSoft,    border: T.redMid,    ring: 'rgba(240,101,101,0.35)' },
-  F: { color: T.red,    bg: T.redSoft,    border: T.redMid,    ring: 'rgba(240,101,101,0.45)' },
+  A: { color: T.green,  bg: T.greenSoft,  border: T.greenMid,  ring: 'rgba(74,222,128,0.35)' },
+  B: { color: T.blue,   bg: T.blueSoft,   border: T.blueMid,   ring: 'rgba(74,222,128,0.35)' },
+  C: { color: T.orange, bg: T.orangeSoft,  border: T.orangeMid, ring: 'rgba(251,191,36,0.35)' },
+  D: { color: T.red,    bg: T.redSoft,    border: T.redMid,    ring: 'rgba(248,113,113,0.35)' },
+  F: { color: T.red,    bg: T.redSoft,    border: T.redMid,    ring: 'rgba(248,113,113,0.45)' },
 }
 
 // Edge type colors for KG

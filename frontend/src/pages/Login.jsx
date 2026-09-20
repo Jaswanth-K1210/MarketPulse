@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import { ArrowRight, Loader, Plus, Trash2, Zap, Eye, EyeOff, Shield, Activity } from 'lucide-react'
 import { useGoogleLogin } from '@react-oauth/google'
 import TerminalLoader from '../components/TerminalLoader'
-import { authLogin, authRegister, authGoogle } from '../services/api'
+import { authLogin, authRegister, authGoogle, API_BASE_URL } from '../services/api'
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 const GOOGLE_ENABLED = !!import.meta.env.VITE_GOOGLE_CLIENT_ID
 
 export default function Login({ onLogin }) {
@@ -166,7 +165,7 @@ export default function Login({ onLogin }) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden" style={{ background: '#020617' }}>
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden" style={{ background: '#0a0a0a' }}>
       {/* Dynamic Ambient Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute -top-[20%] -left-[10%] w-[70vw] h-[70vw] bg-indigo-600/10 blur-[150px] rounded-full mix-blend-screen animate-pulse-slow"></div>
@@ -177,28 +176,28 @@ export default function Login({ onLogin }) {
       </div>
 
       <div className="max-w-[480px] w-full relative z-10 animate-fade-in transition-all duration-500">
-        <div className="bg-[#0b1021]/80 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-10 shadow-[0_0_80px_-20px_rgba(79,70,229,0.25)] relative overflow-hidden">
+        <div className="bg-[#101010]/80 backdrop-blur-2xl border border-[#2a2a2a] rounded-none p-10 shadow-[0_0_80px_-20px_rgba(74,222,128,0.25)] relative overflow-hidden">
           
           {/* Subtle top inner glow */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"></div>
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-transparent"></div>
 
           {/* Header */}
           <div className="text-center mb-10 relative">
             <div className="relative inline-block mb-6 group">
-              <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400 to-indigo-500 blur-xl opacity-40 group-hover:opacity-70 transition-opacity duration-500 animate-pulse"></div>
-              <div className="relative w-20 h-20 bg-gradient-to-br from-[#0b1021] to-[#1a233a] border border-white/10 rounded-2xl flex items-center justify-center shadow-2xl transform rotate-3 group-hover:rotate-0 transition-transform duration-500">
+              <div className="absolute inset-0 bg-cyan-400 blur-xl opacity-40 group-hover:opacity-70 transition-opacity duration-500 animate-pulse"></div>
+              <div className="relative w-20 h-20 bg-[#141414] border border-[#2a2a2a] rounded-none flex items-center justify-center shadow-2xl transform rotate-3 group-hover:rotate-0 transition-transform duration-500">
                 <Activity className="text-cyan-400 w-10 h-10 group-hover:scale-110 transition-transform duration-500" />
               </div>
             </div>
-            <h1 className="text-4xl font-black mb-2 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-indigo-300">MarketPulse</h1>
-            <p className="text-indigo-200/60 text-sm font-semibold tracking-widest uppercase">Intelligence Hub</p>
+            <h1 className="text-4xl font-semibold mb-2 bg-clip-text text-transparent bg-white">MarketPulse</h1>
+            <p className="text-indigo-200/60 text-sm font-semibold">Intelligence Hub</p>
           </div>
 
           {/* ── STEP 1: AUTH ── */}
           {step === 1 && (
             <div className="space-y-7 animate-fade-in">
               <div className="text-center">
-                <h2 className="text-2xl font-bold text-white tracking-tight">
+                <h2 className="text-2xl font-bold text-white">
                   {isNewUser ? 'Create Account' : 'Welcome Back'}
                 </h2>
                 <p className="text-sm text-indigo-200/50 mt-1.5 font-medium">
@@ -207,7 +206,7 @@ export default function Login({ onLogin }) {
               </div>
 
               {error && (
-                <div className="bg-red-500/10 border border-red-500/20 rounded-2xl px-5 py-3.5 text-red-400 text-sm font-medium text-center flex items-center justify-center gap-2">
+                <div className="bg-red-500/10 border border-red-500/20 rounded-none px-5 py-3.5 text-red-400 text-sm font-medium text-center flex items-center justify-center gap-2">
                   <Shield className="w-4 h-4" />
                   {error}
                 </div>
@@ -220,7 +219,7 @@ export default function Login({ onLogin }) {
                     type="button"
                     onClick={() => { setError(''); googleLogin() }}
                     disabled={googleLoading}
-                    className="w-full py-4 px-6 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 shadow-lg active:scale-[0.98] disabled:opacity-50"
+                    className="w-full py-4 px-6 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold rounded-none transition-all duration-300 flex items-center justify-center gap-3 shadow-lg active:scale-[0.98] disabled:opacity-50"
                   >
                     {googleLoading ? (
                       <Loader className="animate-spin w-5 h-5" />
@@ -237,7 +236,7 @@ export default function Login({ onLogin }) {
 
                   <div className="flex items-center gap-4 my-2">
                     <div className="flex-1 h-px bg-white/5" />
-                    <span className="text-[10px] text-white/30 uppercase tracking-widest font-bold">or</span>
+                    <span className="text-[10px] text-white/30 font-bold">or</span>
                     <div className="flex-1 h-px bg-white/5" />
                   </div>
                 </>
@@ -246,12 +245,12 @@ export default function Login({ onLogin }) {
               {/* Username / password form */}
               <form onSubmit={handleNext} className="space-y-4">
                 <div className="space-y-1.5">
-                  <label className="text-[11px] font-bold text-indigo-200/60 uppercase tracking-widest ml-1">Username</label>
+                  <label className="text-[11px] font-bold text-indigo-200/60 ml-1">Username</label>
                   <input
                     type="text"
                     required
                     autoFocus
-                    className="w-full px-5 py-4 bg-black/20 border border-white/10 rounded-2xl text-white placeholder-white/20 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all font-medium shadow-inner"
+                    className="w-full px-5 py-4 bg-black/20 border border-white/10 rounded-none text-white placeholder-white/20 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all font-medium shadow-inner"
                     placeholder="Enter your username"
                     value={formData.username}
                     onChange={e => setFormData({ ...formData, username: e.target.value })}
@@ -260,11 +259,11 @@ export default function Login({ onLogin }) {
 
                 {isNewUser && (
                   <div className="space-y-1.5">
-                    <label className="text-[11px] font-bold text-indigo-200/60 uppercase tracking-widest ml-1">Email</label>
+                    <label className="text-[11px] font-bold text-indigo-200/60 ml-1">Email</label>
                     <input
                       type="email"
                       required
-                      className="w-full px-5 py-4 bg-black/20 border border-white/10 rounded-2xl text-white placeholder-white/20 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all font-medium shadow-inner"
+                      className="w-full px-5 py-4 bg-black/20 border border-white/10 rounded-none text-white placeholder-white/20 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all font-medium shadow-inner"
                       placeholder="your@email.com"
                       value={formData.email}
                       onChange={e => setFormData({ ...formData, email: e.target.value })}
@@ -273,13 +272,13 @@ export default function Login({ onLogin }) {
                 )}
                 
                 <div className="space-y-1.5 relative">
-                  <label className="text-[11px] font-bold text-indigo-200/60 uppercase tracking-widest ml-1">Password</label>
+                  <label className="text-[11px] font-bold text-indigo-200/60 ml-1">Password</label>
                   <div className="relative">
                     <input
                       type={showPassword ? 'text' : 'password'}
                       required
                       minLength={isNewUser ? 6 : 4}
-                      className="w-full px-5 py-4 bg-black/20 border border-white/10 rounded-2xl text-white placeholder-white/20 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all font-medium pr-14 shadow-inner"
+                      className="w-full px-5 py-4 bg-black/20 border border-white/10 rounded-none text-white placeholder-white/20 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all font-medium pr-14 shadow-inner"
                       placeholder={isNewUser ? 'Create a password (min 6 chars)' : 'Enter your password'}
                       value={formData.password}
                       onChange={e => setFormData({ ...formData, password: e.target.value })}
@@ -296,11 +295,11 @@ export default function Login({ onLogin }) {
 
                 {isNewUser && (
                   <div className="space-y-1.5 relative">
-                    <label className="text-[11px] font-bold text-indigo-200/60 uppercase tracking-widest ml-1">Confirm Password</label>
+                    <label className="text-[11px] font-bold text-indigo-200/60 ml-1">Confirm Password</label>
                     <input
                       type="password"
                       required
-                      className="w-full px-5 py-4 bg-black/20 border border-white/10 rounded-2xl text-white placeholder-white/20 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all font-medium shadow-inner"
+                      className="w-full px-5 py-4 bg-black/20 border border-white/10 rounded-none text-white placeholder-white/20 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all font-medium shadow-inner"
                       placeholder="Confirm your password"
                       value={formData.confirmPassword}
                       onChange={e => setFormData({ ...formData, confirmPassword: e.target.value })}
@@ -310,7 +309,7 @@ export default function Login({ onLogin }) {
                 
                 <button
                   type="submit"
-                  className="w-full py-4 mt-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 hover:opacity-90 text-white font-bold rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(99,102,241,0.4)] hover:shadow-[0_0_30px_rgba(99,102,241,0.6)] active:scale-[0.98]"
+                  className="w-full py-4 mt-2 bg-indigo-500 hover:opacity-90 text-white font-bold rounded-none transition-all duration-300 flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(99,102,241,0.4)] hover:shadow-[0_0_30px_rgba(99,102,241,0.6)] active:scale-[0.98]"
                 >
                   {isNewUser ? 'Create Account' : 'Sign In'}
                   <ArrowRight size={18} />
@@ -321,7 +320,7 @@ export default function Login({ onLogin }) {
                 <button
                   type="button"
                   onClick={() => { setIsNewUser(true); setError('') }}
-                  className="w-full py-4 px-6 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 hover:from-emerald-500/30 hover:to-teal-500/30 border border-emerald-500/30 text-emerald-300 font-bold rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 active:scale-[0.98]"
+                  className="w-full py-4 px-6 bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 font-bold rounded-none transition-all duration-300 flex items-center justify-center gap-3 active:scale-[0.98]"
                 >
                   <Plus size={18} />
                   Create Account
@@ -346,12 +345,12 @@ export default function Login({ onLogin }) {
           {step === 2 && (
             <div className="space-y-7 animate-fade-in">
               <div className="text-center">
-                <h2 className="text-2xl font-bold text-white tracking-tight">Setup Portfolio</h2>
+                <h2 className="text-2xl font-bold text-white">Setup Portfolio</h2>
                 <p className="text-sm text-indigo-200/50 mt-1.5 font-medium">
                   Add tickers for <b>{formData.username || 'you'}</b> to monitor
                   {pendingGoogleAuth && <span className="ml-1 text-green-400">(Signed in with Google ✓)</span>}
                 </p>
-                <div className="mt-4 p-4 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl flex items-start text-left gap-3">
+                <div className="mt-4 p-4 bg-indigo-500/10 border border-indigo-500/20 rounded-none flex items-start text-left gap-3">
                   <div className="mt-0.5"><Shield className="w-4 h-4 text-indigo-400" /></div>
                   <div>
                     <p className="text-xs text-indigo-300 font-medium leading-relaxed">
@@ -364,7 +363,7 @@ export default function Login({ onLogin }) {
               <form onSubmit={addTicker} className="flex gap-3">
                 <input
                   type="text"
-                  className="flex-1 px-5 py-4 bg-black/20 border border-white/10 rounded-2xl text-white placeholder-white/20 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 font-bold tracking-widest text-lg uppercase transition-all shadow-inner"
+                  className="flex-1 px-5 py-4 bg-black/20 border border-white/10 rounded-none text-white placeholder-white/20 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 font-bold text-lg transition-all shadow-inner"
                   placeholder="TICKER"
                   value={currentTicker}
                   onChange={e => setCurrentTicker(e.target.value.toUpperCase())}
@@ -372,21 +371,21 @@ export default function Login({ onLogin }) {
                 <button
                   type="submit"
                   disabled={!currentTicker.trim()}
-                  className="bg-white/10 hover:bg-white/20 border border-white/10 px-5 rounded-2xl disabled:opacity-30 transition-all active:scale-[0.96]"
+                  className="bg-white/10 hover:bg-white/20 border border-white/10 px-5 rounded-none disabled:opacity-30 transition-all active:scale-[0.96]"
                 >
                   <Plus size={24} className="text-white" />
                 </button>
               </form>
 
-              <div className="min-h-[140px] bg-black/20 rounded-2xl p-5 flex flex-wrap content-start gap-3 border border-white/5 shadow-inner relative">
+              <div className="min-h-[140px] bg-black/20 rounded-none p-5 flex flex-wrap content-start gap-3 border border-white/5 shadow-inner relative">
                 {formData.tickers.length === 0 && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-white/20 text-xs font-bold uppercase tracking-widest">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-white/20 text-xs font-bold">
                     <Activity size={24} className="mb-2 opacity-30" />
                     No Tickers Added
                   </div>
                 )}
                 {formData.tickers.map(ticker => (
-                  <span key={ticker} className="bg-gradient-to-r from-indigo-500/20 to-cyan-500/20 text-cyan-100 border border-cyan-500/30 px-4 py-2 rounded-xl text-sm font-bold tracking-widest flex items-center gap-2 animate-fade-in shadow-lg backdrop-blur-md">
+                  <span key={ticker} className="bg-indigo-500/20 text-cyan-100 border border-cyan-500/30 px-4 py-2 rounded-none text-sm font-bold flex items-center gap-2 animate-fade-in shadow-lg backdrop-blur-md">
                     {ticker}
                     <button onClick={() => removeTicker(ticker)} className="text-cyan-400/50 hover:text-red-400 transition-colors">
                       <Trash2 size={14} />
@@ -398,14 +397,14 @@ export default function Login({ onLogin }) {
               <div className="flex gap-3">
                 <button
                   onClick={() => { setStep(1); setPendingGoogleAuth(null) }}
-                  className="px-6 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold rounded-2xl transition-all active:scale-[0.98]"
+                  className="px-6 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold rounded-none transition-all active:scale-[0.98]"
                 >
                   Back
                 </button>
                 <button
                   onClick={handleSubmit}
                   disabled={loading}
-                  className={`flex-1 py-4 px-6 bg-gradient-to-r ${formData.tickers.length === 0 ? 'from-white/10 to-white/5 text-white/50 border border-white/10' : 'from-indigo-500 to-cyan-500 text-white shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)]'} hover:opacity-90 font-bold rounded-2xl transition-all flex items-center justify-center gap-3 active:scale-[0.98] disabled:opacity-50`}
+                  className={`flex-1 py-4 px-6 bg-accent ${formData.tickers.length === 0 ? ' text-white/50 border border-white/10' : ' text-white shadow-[0_0_20px_rgba(74,222,128,0.35)] hover:shadow-[0_0_30px_rgba(74,222,128,0.5)]'} hover:opacity-90 font-bold rounded-none transition-all flex items-center justify-center gap-3 active:scale-[0.98] disabled:opacity-50`}
                 >
                   {loading ? (
                     <Loader className="animate-spin" size={20} />

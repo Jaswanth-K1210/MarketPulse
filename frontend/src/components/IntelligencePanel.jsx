@@ -37,7 +37,7 @@ export default function IntelligencePanel() {
   }, [])
 
   if (loading) return (
-    <div className="glass-card rounded-2xl p-6 animate-pulse">
+    <div className="glass-card rounded-none p-6 animate-pulse">
       <div className="h-4 bg-white/5 rounded w-1/3 mb-4"></div>
       <div className="h-32 bg-white/5 rounded"></div>
     </div>
@@ -51,25 +51,25 @@ export default function IntelligencePanel() {
     <div className="space-y-4">
       {/* Market Regime */}
       {overview && (
-        <div className="glass-card rounded-2xl p-5">
+        <div className="glass-card rounded-none p-5">
           <div className="flex items-center gap-2 mb-3">
             <Activity size={16} className="text-blue-400" />
-            <h3 className="text-xs font-black uppercase tracking-widest text-gray-400">Market Regime</h3>
+            <h3 className="text-xs font-semibold text-gray-400">Market Regime</h3>
           </div>
-          <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm font-black uppercase ${regimeClass}`}>
+          <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-none border text-sm font-semibold  ${regimeClass}`}>
             <span className="w-2 h-2 rounded-full bg-current animate-pulse"></span>
             {regime}
           </div>
           <div className="mt-3 grid grid-cols-2 gap-2">
             {overview.vix != null && (
-              <div className="bg-white/5 rounded-lg p-2 text-center">
-                <div className="text-[10px] text-gray-500 uppercase">VIX</div>
+              <div className="bg-white/5 rounded-none p-2 text-center">
+                <div className="text-[10px] text-gray-500">VIX</div>
                 <div className="text-lg font-mono text-primary">{overview.vix?.toFixed(1)}</div>
               </div>
             )}
             {overview.spy_5d_return != null && (
-              <div className="bg-white/5 rounded-lg p-2 text-center">
-                <div className="text-[10px] text-gray-500 uppercase">SPY 5D</div>
+              <div className="bg-white/5 rounded-none p-2 text-center">
+                <div className="text-[10px] text-gray-500">SPY 5D</div>
                 <div className={`text-lg font-mono ${overview.spy_5d_return >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                   {(overview.spy_5d_return * 100).toFixed(2)}%
                 </div>
@@ -81,10 +81,10 @@ export default function IntelligencePanel() {
 
       {/* Country Risk Scores */}
       {topRisks.length > 0 && (
-        <div className="glass-card rounded-2xl p-5">
+        <div className="glass-card rounded-none p-5">
           <div className="flex items-center gap-2 mb-3">
             <Globe size={16} className="text-orange-400" />
-            <h3 className="text-xs font-black uppercase tracking-widest text-gray-400">Country Risk (CII)</h3>
+            <h3 className="text-xs font-semibold text-gray-400">Country Risk (CII)</h3>
           </div>
           <div className="space-y-2">
             {topRisks.map((c) => (
@@ -105,10 +105,10 @@ export default function IntelligencePanel() {
 
       {/* Macro Indicators */}
       {macro && (
-        <div className="glass-card rounded-2xl p-5">
+        <div className="glass-card rounded-none p-5">
           <div className="flex items-center gap-2 mb-3">
             <BarChart2 size={16} className="text-purple-400" />
-            <h3 className="text-xs font-black uppercase tracking-widest text-gray-400">Macro Indicators</h3>
+            <h3 className="text-xs font-semibold text-gray-400">Macro Indicators</h3>
           </div>
           <div className="space-y-2">
             {[

@@ -42,7 +42,7 @@ export default function ProcessingStatus() {
   }
 
   return (
-    <div className="rounded-lg border border-purple-500/30 bg-gradient-to-r from-purple-500/10 to-blue-500/10 p-6">
+    <div className="rounded-none border border-purple-500/30 bg-purple-500/10 p-6">
       <div className="flex items-center gap-3 mb-4">
         <div className={`h-3 w-3 rounded-full ${isProcessing ? 'bg-purple-500 animate-pulse' : 'bg-green-500'}`}></div>
         <h3 className="font-bold text-primary">
@@ -101,7 +101,7 @@ export default function ProcessingStatus() {
       <div className="mt-4">
         <div className="h-1 w-full rounded-full bg-gray-700 overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full transition-all duration-300"
+            className="h-full bg-purple-500 rounded-full transition-all duration-300"
             style={{ width: `${progress}%` }}
           ></div>
         </div>
