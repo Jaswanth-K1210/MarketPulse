@@ -173,3 +173,21 @@ class TestHonestDegradation:
         out = asyncio.run(patents_service.get_patents("Apple Inc"))
         if not out["available"]:
             assert out.get("error"), "unavailable sources must explain themselves"
+
+
+class TestSharedAggregateContract:
+    def test_missing_names_carry_their_reason(self, stub):
+        stub(insider=[{"transaction_type": "BUY", "value": 1_000_000}])
+        missing = _run(AlphaAggregator())["coverage"]["missing"]
+        assert isinstance(missing, dict)
+        assert "sentiment" in missing
+        for reason in missing.values():
+            assert isinstance(reason, str) and reason
+
+    def test_composite_reports_oldest_contributing_fact(self, stub):
+        stub(insider=[{"transaction_type": "BUY", "value": 1_000_000}])
+        assert "oldest_as_of" in _run(AlphaAggregator())
+
+    def test_live_list_survives_the_refactor(self, stub):
+        stub(insider=[{"transaction_type": "BUY", "value": 1_000_000}])
+        assert _run(AlphaAggregator())["coverage"]["live"] == ["insider"]

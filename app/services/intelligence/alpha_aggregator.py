@@ -25,9 +25,7 @@ SIGNAL_WEIGHTS = {
     "fundamentals": 0.25,
 }
 
-# Fraction of total weight that must be backed by live data before the
-# aggregate is allowed to express a directional call.
-MIN_COVERAGE = 0.5
+from app.services.evidence import MIN_COVERAGE, SourceResult, aggregate
 
 
 def _has_data(component: str, raw) -> bool:
@@ -148,38 +146,39 @@ class AlphaAggregator:
             "fundamentals": fund_score,
         }
 
-        live_weight = sum(w for name, w in self.weights.items() if live[name])
-        total_weight = sum(self.weights.values())
-        coverage = live_weight / total_weight if total_weight else 0.0
-
-        result["coverage"] = {
-            "live": sorted(n for n in live if live[n]),
-            "missing": sorted(n for n in live if not live[n]),
-            "live_count": sum(live.values()),
-            "total_count": len(live),
-            "weight_fraction": round(coverage, 3),
-            "sufficient": coverage >= MIN_COVERAGE,
+        # Wrap each component in the shared evidence contract. Sources that
+        # already return a SourceResult pass straight through; the rest are
+        # judged by _has_data until they are converted.
+        raws = {
+            "insider": insider_raw,
+            "short_interest": short_raw,
+            "sentiment": sent_raw,
+            "technical": tech_raw,
+            "fundamentals": fund_raw,
         }
+        results = {}
+        for name, raw in raws.items():
+            if isinstance(raw, SourceResult):
+                results[name] = raw
+            elif _has_data(name, raw):
+                results[name] = SourceResult.ok(name, raw)
+            else:
+                reason = "no data returned"
+                if isinstance(raw, dict) and raw.get("error"):
+                    reason = str(raw["error"])
+                results[name] = SourceResult.dead(name, reason)
 
-        if live_weight > 0:
-            # Renormalise over live sources only: a missing source should not
-            # count as a neutral vote.
-            alpha = sum(
-                scores[name] * w for name, w in self.weights.items() if live[name]
-            ) / live_weight
-        else:
-            alpha = 0.0
+        agg = aggregate(results, self.weights, scores=scores,
+                        min_coverage=MIN_COVERAGE)
+        result["coverage"] = agg["coverage"]
+        result["oldest_as_of"] = agg["oldest_as_of"]
 
+        alpha = agg["value"] if agg["value"] is not None else 0.0
         result["alpha_score"] = round(alpha, 2)
 
         if not result["coverage"]["sufficient"]:
             result["signal"] = "INSUFFICIENT_DATA"
-            result["signal_note"] = (
-                f"Only {result['coverage']['live_count']} of "
-                f"{result['coverage']['total_count']} sources returned data "
-                f"({coverage:.0%} of weight). Missing: "
-                f"{', '.join(result['coverage']['missing'])}."
-            )
+            result["signal_note"] = agg["reason"]
         elif alpha >= 5:
             result["signal"] = "STRONG_BUY"
         elif alpha >= 2:
