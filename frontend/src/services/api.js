@@ -378,6 +378,11 @@ export async function chatQuery(query) {
   return fetchAPI(`/api/chat/query?q=${encodeURIComponent(query)}`).catch(() => null);
 }
 
+// ── Country Intelligence ──────────────────────────────────────────────────────
+export async function getCountry(iso2) {
+  return fetchAPI(`/api/country/${encodeURIComponent(iso2)}`).catch(() => null);
+}
+
 // ── Source Liveness ───────────────────────────────────────────────────────────
 export async function getEvidenceHealth() {
   return fetchAPI('/api/evidence/health').catch(() => null);

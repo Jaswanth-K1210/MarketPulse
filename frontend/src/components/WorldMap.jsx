@@ -36,7 +36,7 @@ const TIME_RANGES = [
   { id: 'all', label: 'All' },
 ]
 
-export default function WorldMap({ onRegionChange, onLayerToggle, activeLayers, timeRange, onTimeRangeChange }) {
+export default function WorldMap({ onRegionChange, onLayerToggle, activeLayers, timeRange, onTimeRangeChange, onCountrySelect, selectedCountry }) {
   const [geoUrl, setGeoUrl] = useState(null)
   const [position, setPosition] = useState({ coordinates: [0, 20], zoom: 1 })
   const [activeRegion, setActiveRegion] = useState('global')
@@ -46,8 +46,10 @@ export default function WorldMap({ onRegionChange, onLayerToggle, activeLayers, 
   const [is3D, setIs3D] = useState(false)
 
   useEffect(() => {
-    // Load world geography data
-    setGeoUrl('https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson')
+    // Served from public/ rather than raw.githubusercontent.com: a third-party
+    // CDN has no business in the data path, and this copy carries iso2/iso3,
+    // which the upstream file does not.
+    setGeoUrl('/world-countries.geojson')
   }, [])
 
   const handleRegionClick = useCallback((region) => {
@@ -111,20 +113,37 @@ export default function WorldMap({ onRegionChange, onLayerToggle, activeLayers, 
           >
             <Geographies geography={geoUrl}>
               {({ geographies }) =>
-                geographies.map((geo) => (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    fill={C.panel}
-                    stroke={C.border}
-                    strokeWidth={0.5}
-                    style={{
-                      default: { fill: C.panel, stroke: C.border, strokeWidth: 0.5 },
-                      hover: { fill: C.cardHover, stroke: C.blue, strokeWidth: 1 },
-                      pressed: { fill: C.card, stroke: C.blue, strokeWidth: 1 }
-                    }}
-                  />
-                ))
+                geographies.map((geo) => {
+                  const iso2 = geo.properties?.iso2
+                  const isSelected = iso2 && iso2 === selectedCountry
+                  // The three disputed territories carry no ISO code and so
+                  // have nothing to look up; they stay visible but inert.
+                  const clickable = Boolean(iso2 && onCountrySelect)
+                  return (
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      onClick={clickable ? () => onCountrySelect(iso2, geo.properties.name) : undefined}
+                      style={{
+                        default: {
+                          fill: isSelected ? C.blue : C.panel,
+                          stroke: isSelected ? C.blue : C.border,
+                          strokeWidth: isSelected ? 1.2 : 0.5,
+                          outline: 'none',
+                          cursor: clickable ? 'pointer' : 'default',
+                        },
+                        hover: {
+                          fill: clickable ? C.cardHover : C.panel,
+                          stroke: clickable ? C.blue : C.border,
+                          strokeWidth: 1,
+                          outline: 'none',
+                          cursor: clickable ? 'pointer' : 'default',
+                        },
+                        pressed: { fill: C.card, stroke: C.blue, strokeWidth: 1, outline: 'none' },
+                      }}
+                    />
+                  )
+                })
               }
             </Geographies>
           </ZoomableGroup>

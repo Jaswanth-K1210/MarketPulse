@@ -12,6 +12,7 @@ import ConvergenceZones from '../components/ConvergenceZones'
 import KGContext from '../components/KGContext'
 import WorldMonitorHeader from '../components/WorldMonitorHeader'
 import WorldMap from '../components/WorldMap'
+import CountryPanel from '../components/CountryPanel'
 import PanelManager from '../components/PanelManager'
 import ConfigurablePanel from '../components/ConfigurablePanel'
 import {
@@ -558,6 +559,7 @@ function IntelligenceLayer({ pipelineResult, portfolio, temporalData, kgData }) 
 
 // ── Main Dashboard ────────────────────────────────────────────────────────────
 export default function Dashboard({ onCompanyClick }) {
+  const [country, setCountry] = useState(null)   // { iso2, name } from a map click
   const [alerts,         setAlerts]         = useState([])
   const [articles,       setArticles]       = useState([])
   const [portfolio,      setPortfolio]      = useState({ holdings: [] })
@@ -765,6 +767,15 @@ export default function Dashboard({ onCompanyClick }) {
         activeLayers={activeLayers}
         timeRange={timeRange}
         onTimeRangeChange={handleTimeRangeChange}
+        onCountrySelect={(iso2, name) => setCountry({ iso2, name })}
+        selectedCountry={country?.iso2}
+      />
+
+      <CountryPanel
+        iso2={country?.iso2}
+        name={country?.name}
+        onClose={() => setCountry(null)}
+        onCompanyClick={onCompanyClick}
       />
 
       {/* Panel Manager */}
