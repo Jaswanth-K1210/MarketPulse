@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import { ArrowLeft, TrendingUp, TrendingDown, Activity, Users, BarChart2, Globe, RefreshCw } from 'lucide-react'
+import React, { useState, useEffect, useRef } from 'react'
+import { ArrowLeft, TrendingUp, TrendingDown, Activity, Users, BarChart2, Globe, RefreshCw, Download } from 'lucide-react'
+import html2canvas from 'html2canvas'
+import jsPDF from 'jspdf'
 import SignalTimeline from '../components/SignalTimeline'
 import {
   getInsiderTrades, getShortInterest, getRetailSentiment,
@@ -18,6 +20,34 @@ export default function CompanyDetail({ ticker: initialTicker, onBack }) {
   const [inputTicker, setInputTicker] = useState(initialTicker || '')
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState({})
+  const [exporting, setExporting] = useState(false)
+  const [exportError, setExportError] = useState(null)
+  const reportRef = useRef(null)
+
+  // Ported from the old Search page, which exported a price-only report. This
+  // view carries the actual intelligence, so it is the one worth exporting.
+  async function downloadPDF() {
+    if (!reportRef.current || !ticker) return
+    setExporting(true)
+    setExportError(null)
+    try {
+      const canvas = await html2canvas(reportRef.current, {
+        scale: 2, backgroundColor: C.bg, logging: false, useCORS: true,
+      })
+      const imgData = canvas.toDataURL('image/png')
+      const pdf = new jsPDF('p', 'mm', 'a4')
+      const props = pdf.getImageProperties(imgData)
+      const width = pdf.internal.pageSize.getWidth()
+      pdf.addImage(imgData, 'PNG', 0, 0, width, (props.height * width) / props.width)
+      pdf.save(`${ticker}_Intelligence_Report.pdf`)
+    } catch (err) {
+      // An alert() here would block the page; surface it inline instead.
+      console.error('PDF generation failed:', err)
+      setExportError('PDF export failed')
+    } finally {
+      setExporting(false)
+    }
+  }
 
   useEffect(() => {
     if (initialTicker) {
@@ -76,9 +106,19 @@ export default function CompanyDetail({ ticker: initialTicker, onBack }) {
           className="p-2 rounded-lg hover:bg-white/5">
           <RefreshCw size={16} style={{ color: C.muted }} className={loading ? 'animate-spin' : ''} />
         </button>
+        {ticker && (
+          <button onClick={downloadPDF} disabled={exporting}
+            title={exportError || 'Export this report as PDF'}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold hover:bg-white/5"
+            style={{ border: `1px solid ${exportError ? C.red : C.border}`,
+                     color: exportError ? C.red : C.muted }}>
+            <Download size={14} />
+            {exporting ? 'Exporting…' : exportError ? 'Retry PDF' : 'PDF'}
+          </button>
+        )}
       </div>
 
-      <div className="flex-1 overflow-y-auto p-6 space-y-6">
+      <div ref={reportRef} className="flex-1 overflow-y-auto p-6 space-y-6">
         {!ticker && (
           <div className="flex items-center justify-center h-64">
             <p className="text-sm" style={{ color: C.muted }}>Search for a ticker to begin</p>

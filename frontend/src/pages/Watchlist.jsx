@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { API_BASE_URL } from '../services/api'
 import { Plus, Trash2, ArrowUpRight, ArrowDownRight, RefreshCw } from 'lucide-react'
 
-export default function Watchlist() {
+export default function Watchlist({ onSelect }) {
     const [watchlist, setWatchlist] = useState([])
     const [loading, setLoading] = useState(true)
     const [tickerInput, setTickerInput] = useState('')
@@ -107,14 +107,16 @@ export default function Watchlist() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {watchlist.map((item) => (
-                        <div key={item.ticker} className="bg-darkBg border border-darkBorder rounded-none p-6 hover:border-gray-600 transition-colors">
+                        <div key={item.ticker}
+                            onClick={() => onSelect?.(item.ticker)}
+                            className={`bg-darkBg border border-darkBorder rounded-none p-6 transition-colors ${onSelect ? 'cursor-pointer hover:border-green-600' : 'hover:border-gray-600'}`}>
                             <div className="flex items-start justify-between mb-4">
                                 <div>
                                     <h3 className="text-xl font-bold">{item.ticker}</h3>
                                     <p className="text-xs text-gray-400">{item.company || 'Stock'}</p>
                                 </div>
                                 <button
-                                    onClick={() => handleRemove(item.ticker)}
+                                    onClick={(e) => { e.stopPropagation(); handleRemove(item.ticker) }}
                                     className="text-gray-500 hover:text-red-400 p-1"
                                 >
                                     <Trash2 size={18} />
@@ -132,10 +134,6 @@ export default function Watchlist() {
                                             {Math.abs(item.change_percent).toFixed(2)}%
                                         </div>
                                     )}
-                                </div>
-                                {/* Mini chart placeholder */}
-                                <div className="w-24 h-12 bg-dark/50 rounded flex items-center justify-center text-xs text-gray-600">
-                                    CHART
                                 </div>
                             </div>
                         </div>

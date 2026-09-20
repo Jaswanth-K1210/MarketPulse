@@ -1,5 +1,5 @@
 import React from 'react'
-import { LayoutDashboard, Search, Bell, Star, TrendingUp, Settings, Globe, BarChart2, PieChart } from 'lucide-react'
+import { LayoutDashboard, Bell, TrendingUp, Settings, BarChart2 } from 'lucide-react'
 
 const C = {
   bg:     '#0d0d0d',
@@ -12,13 +12,11 @@ const C = {
 }
 
 const nav = [
-  { id: 'dashboard', label: 'Dashboard',        icon: LayoutDashboard },
-  { id: 'search',    label: 'Company Search',    icon: Search },
-  { id: 'company',   label: 'Company Deep Dive', icon: BarChart2 },
-  { id: 'alerts',    label: 'Alerts',            icon: Bell },
-  { id: 'watchlist', label: 'Watchlist',         icon: Star },
-  { id: 'trends',    label: 'Market Trends',     icon: TrendingUp },
-  { id: 'settings',  label: 'Settings',          icon: Settings },
+  { id: 'dashboard', label: 'Dashboard',     icon: LayoutDashboard },
+  { id: 'research',  label: 'Research',      icon: BarChart2 },
+  { id: 'trends',    label: 'Market',        icon: TrendingUp },
+  { id: 'alerts',    label: 'Alerts',        icon: Bell },
+  { id: 'settings',  label: 'Settings',      icon: Settings },
 ]
 
 export default function Sidebar({ activeTab, setActiveTab }) {
