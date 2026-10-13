@@ -23,16 +23,16 @@ export default function Sidebar({ activeTab, setActiveTab }) {
   const user = localStorage.getItem('marketpulse_user') || 'User'
 
   return (
-    <div className="flex flex-col shrink-0 border-r" style={{ width: 200, background: C.bg, borderColor: C.border }}>
+    <div className="flex flex-col shrink-0 border-r w-14 lg:w-[200px]" style={{ background: C.bg, borderColor: C.border }}>
 
       {/* Brand */}
-      <div className="px-4 py-5 border-b" style={{ borderColor: C.border }}>
+      <div className="px-3 lg:px-4 py-5 border-b" style={{ borderColor: C.border }}>
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-none flex items-center justify-center text-sm font-semibold shrink-0"
             style={{ background: '#14532d', border: '1px solid #4ade80', color: '#4ade80' }}>
             ⚡
           </div>
-          <div>
+          <div className="hidden lg:block">
             <div className="text-[13px] font-semibold leading-none tracking-tight" style={{ color: C.text }}>
               MarketPulse
             </div>
@@ -48,8 +48,8 @@ export default function Sidebar({ activeTab, setActiveTab }) {
         {nav.map(({ id, label, icon: Icon }) => {
           const active = activeTab === id
           return (
-            <button key={id} onClick={() => setActiveTab(id)}
-              className="w-full flex items-center gap-3 px-3 py-2 rounded text-left transition-all group"
+            <button key={id} onClick={() => setActiveTab(id)} aria-label={label} title={label}
+              className="w-full flex items-center justify-center lg:justify-start gap-3 px-3 py-2 rounded text-left transition-all group"
               style={{
                 background: active ? C.active : 'transparent',
                 border: `1px solid ${active ? 'rgba(74,222,128,0.22)' : 'transparent'}`,
@@ -57,14 +57,14 @@ export default function Sidebar({ activeTab, setActiveTab }) {
               <Icon size={15}
                 style={{ color: active ? C.blue : C.muted, strokeWidth: active ? 2.2 : 1.8 }}
                 className="shrink-0 transition-colors group-hover:text-gray-300" />
-              <span className="text-[12px] font-semibold transition-colors"
+              <span className="hidden lg:inline text-[12px] font-semibold transition-colors"
                 style={{ color: active ? C.text : C.muted }}
                 onMouseEnter={e => { if (!active) e.target.style.color = '#d4d4d4' }}
                 onMouseLeave={e => { if (!active) e.target.style.color = C.muted }}>
                 {label}
               </span>
               {id === 'alerts' && (
-                <span className="ml-auto text-[9px] font-semibold px-1.5 py-0.5 rounded-full"
+                <span className="hidden lg:inline ml-auto text-[9px] font-semibold px-1.5 py-0.5 rounded-full"
                   style={{ background: 'rgba(248,113,113,0.12)', color: '#f87171' }}>
                   •
                 </span>
@@ -81,7 +81,7 @@ export default function Sidebar({ activeTab, setActiveTab }) {
             style={{ background: '#14532d', border: '1px solid rgba(74,222,128,0.4)', color: '#86efac' }}>
             {user.charAt(0).toUpperCase()}
           </div>
-          <div className="min-w-0">
+          <div className="min-w-0 hidden lg:block">
             <div className="text-[11px] font-semibold truncate" style={{ color: C.text }}>{user}</div>
             <div className="text-[9px] truncate" style={{ color: C.muted }}>Portfolio Manager</div>
           </div>

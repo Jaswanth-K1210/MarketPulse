@@ -1,18 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { X, Lightbulb, Zap } from 'lucide-react'
+import React from 'react'
+import { X, Lightbulb } from 'lucide-react'
 
 export default function ExplanationModal({ alert, onClose }) {
-  const [isLoading, setIsLoading] = useState(true)
-  const [explanation, setExplanation] = useState('')
-
-  useEffect(() => {
-    // Simulate API call to get AI explanation
-    const timer = setTimeout(() => {
-      setExplanation(alert.explanation || "Unable to generate explanation at this time.")
-      setIsLoading(false)
-    }, 1500)
-    return () => clearTimeout(timer)
-  }, [alert])
+  const explanation = alert.explanation || "No explanation was provided for this alert."
 
   // Normalize Chain Data
   const chainObj = alert.impactChain || alert.chain || {}
@@ -74,21 +64,9 @@ export default function ExplanationModal({ alert, onClose }) {
               <div className="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
               Strategic assessment
             </h3>
-            {isLoading ? (
-              <div className="flex flex-col items-center justify-center py-12 bg-dark/20 rounded-none border border-dashed border-white/5">
-                <div className="relative">
-                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Zap size={16} className="text-blue-500 animate-pulse" />
-                  </div>
-                </div>
-                <span className="mt-6 text-[10px] font-semibold text-gray-500 animate-pulse">Running Neural Synthesis...</span>
-              </div>
-            ) : (
-              <div className="bg-blue-500/10 border border-white/5 rounded-none p-6 text-gray-300 leading-relaxed shadow-lg">
-                <p className="text-sm lg:text-base font-medium">{explanation}</p>
-              </div>
-            )}
+            <div className="bg-blue-500/10 border border-white/5 rounded-none p-6 text-gray-300 leading-relaxed shadow-lg">
+              <p className="text-sm lg:text-base font-medium">{explanation}</p>
+            </div>
           </div>
 
           {/* Impact Chain */}

@@ -8,7 +8,6 @@ function NeighborRow({ neighbor }) {
   const edgeType = neighbor.edge_type || 'related'
   const weight = neighbor.weight || 0
   const color = EDGE_COLORS[edgeType] || C.muted
-  const nodeType = neighbor.node_type || 'company'
 
   return (
     <div className="flex items-center gap-2 px-2 py-1.5 rounded-md" style={{ background: 'rgba(255,255,255,0.02)' }}>

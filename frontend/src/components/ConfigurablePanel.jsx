@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import { 
   GripVertical, X, ChevronDown, ChevronUp, 
   Maximize2, Minimize2, Settings
@@ -6,6 +6,9 @@ import {
 import { T as C } from '../theme'
 
 // World Monitor style configurable panel
+// Clamp spans to the columns the dashboard grid has at each breakpoint (1 / md:2 / xl:3).
+const SPAN_CLASS = { 2: 'md:col-span-2', 3: 'md:col-span-2 xl:col-span-3', 4: 'md:col-span-2 xl:col-span-3' }
+
 export default function ConfigurablePanel({ 
   icon: Icon, 
   title, 
@@ -26,7 +29,6 @@ export default function ConfigurablePanel({
   const [isMaximized, setIsMaximized] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [span, setSpan] = useState(defaultSpan)
-  const [isDragging, setIsDragging] = useState(false)
   const panelRef = useRef(null)
 
   const handleSpanChange = (newSpan) => {
@@ -53,11 +55,11 @@ export default function ConfigurablePanel({
   return (
     <section 
       ref={panelRef}
-      className={`flex flex-col border overflow-hidden transition-all duration-200 ${className || ''}`}
+      className={`flex flex-col border overflow-hidden transition-all duration-200 ${isMaximized ? '' : SPAN_CLASS[span] || ''} ${className || ''}`}
       style={{
         background: C.panel,
         borderColor: C.border,
-        gridColumn: isMaximized ? '1 / -1' : `span ${span}`,
+        gridColumn: isMaximized ? '1 / -1' : undefined,
         gridRow: isMaximized ? '1 / -1' : 'auto',
         minHeight: isExpanded ? '168px' : '44px',
         ...style
@@ -72,9 +74,8 @@ export default function ConfigurablePanel({
           borderColor: C.border,
           userSelect: 'none'
         }}
-        onMouseDown={(e) => {
+        onMouseDown={() => {
           // Add drag functionality here if needed
-          setIsDragging(true)
         }}
       >
         {/* Drag handle */}
@@ -86,13 +87,13 @@ export default function ConfigurablePanel({
         {Icon && <Icon size={12} strokeWidth={2.2} style={{ color: color || C.blue }} />}
 
         {/* Title */}
-        <h3 className="text-[10px] font-bold uppercase tracking-[0.12em]" style={{ color: C.text }}>
+        <h3 className="text-[10px] font-bold uppercase tracking-[0.12em] whitespace-nowrap truncate min-w-0" style={{ color: C.text }}>
           {title}
         </h3>
 
         {/* Right side controls */}
         <div className="ml-auto flex items-center gap-1">
-          {right && <div className="flex items-center gap-2 mr-2">{right}</div>}
+          {right && <div className="hidden sm:flex items-center gap-2 mr-2">{right}</div>}
 
           {/* Expand/Collapse */}
           <button

@@ -1,10 +1,6 @@
 import React from 'react'
-import { TrendingUp, TrendingDown } from 'lucide-react'
 
-const C = {
-  bg: '#0a0a0a', card: '#141414', border: '#2a2a2a', text: '#f5f5f5',
-  muted: '#9ca3af', green: '#4ade80', red: '#f87171',
-}
+import { T as C } from '../theme'
 
 const SECTORS = [
   { name: 'Technology', ticker: 'XLK', companies: ['AAPL', 'MSFT', 'NVDA', 'AMD', 'INTC'] },

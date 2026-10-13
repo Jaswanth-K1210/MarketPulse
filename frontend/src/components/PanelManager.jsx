@@ -28,7 +28,6 @@ const DEFAULT_PANELS = [
 
 export default function PanelManager({ 
   panels = DEFAULT_PANELS, 
-  onPanelsChange,
   onAddPanel,
   onRemovePanel,
   onTogglePanel,

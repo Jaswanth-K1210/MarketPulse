@@ -67,16 +67,12 @@ export default function Login({ onLogin }) {
       setGoogleLoading(true)
       setError('')
       try {
-        const userInfo = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-          headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
-        }).then(r => r.json())
-
         const data = await authGoogle(tokenResponse.access_token)
         setGoogleLoading(false)
         setPendingGoogleAuth({ token: data.token, user: data.user })
         setFormData(prev => ({ ...prev, username: data.user.username }))
         setStep(2)
-      } catch (err) {
+      } catch {
         setGoogleLoading(false)
         setError('Google sign-in failed. Try username/password instead.')
       }

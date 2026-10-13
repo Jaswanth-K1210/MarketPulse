@@ -37,7 +37,8 @@ export default function WorldMonitorHeader({
   const [time, setTime] = useState(new Date())
   const [showVariants, setShowVariants] = useState(false)
   const [showDataFreshness, setShowDataFreshness] = useState(false)
-  const [signalCount, setSignalCount] = useState(12)
+  // ponytail: hardcoded placeholder, never updated; wire to a real source count
+  const signalCount = 12
   const [showSettings, setShowSettings] = useState(false)
   const [evidence, setEvidence] = useState(null)
 
@@ -64,7 +65,7 @@ export default function WorldMonitorHeader({
   const delayedSources = totalSources - activeSources
 
   return (
-    <div className="flex items-center gap-3 px-4 border-b shrink-0"
+    <div className="flex items-center gap-2 sm:gap-3 px-2 sm:px-4 border-b shrink-0"
       style={{ height: 44, background: C.panel, borderColor: C.border }}>
 
       {/* Brand block */}
@@ -73,7 +74,7 @@ export default function WorldMonitorHeader({
           style={{ borderColor: '#2f8f68', color: '#4ade80', background: '#14532d' }}>
           M
         </div>
-        <div>
+        <div className="hidden lg:block">
           <span className="text-[13px] font-bold tracking-tight" style={{ color: C.text }}>
             MarketPulse
           </span>
@@ -98,7 +99,7 @@ export default function WorldMonitorHeader({
             size: 12, 
             style: { color: C.blue } 
           })}
-          <span className="text-[10px] font-semibold" style={{ color: C.text }}>
+          <span className="hidden sm:inline text-[10px] font-semibold" style={{ color: C.text }}>
             {VARIANTS.find(v => v.id === currentVariant)?.label || 'World'}
           </span>
           <ChevronDown size={10} style={{ color: C.muted }} />
@@ -142,7 +143,7 @@ export default function WorldMonitorHeader({
       </div>
 
       {/* Search - mobile responsive */}
-      <div className="relative ml-2 hidden sm:block">
+      <div className="relative ml-2 hidden md:block">
         <Search size={11} className="absolute left-2.5 top-1/2 -translate-y-1/2" style={{ color: C.dim }} />
         <input
           placeholder="Search companies, events… (Cmd+K)"
@@ -157,7 +158,7 @@ export default function WorldMonitorHeader({
       </div>
 
       {/* Mobile: search icon only */}
-      <button className="sm:hidden w-8 h-8 flex items-center justify-center"
+      <button aria-label="Search" className="md:hidden w-8 h-8 flex items-center justify-center"
         style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: '2px' }}>
         <Search size={12} style={{ color: C.muted }} />
       </button>
@@ -257,7 +258,7 @@ export default function WorldMonitorHeader({
         }} />
 
         {/* UTC time - hide on mobile */}
-        <div className="hidden sm:flex items-center gap-1.5 px-2 py-1"
+        <div className="hidden lg:flex items-center gap-1.5 px-2 py-1"
           style={{ 
             background: C.card, 
             border: `1px solid ${C.border}`,

@@ -40,8 +40,8 @@ export default function WorldMap({ onRegionChange, onLayerToggle, activeLayers, 
   const [geoUrl, setGeoUrl] = useState(null)
   const [position, setPosition] = useState({ coordinates: [0, 20], zoom: 1 })
   const [activeRegion, setActiveRegion] = useState('global')
-  const [showControls, setShowControls] = useState(true)
-  const [showLayers, setShowLayers] = useState(true)
+  const [showControls, setShowControls] = useState(false)
+  const [showLayers, setShowLayers] = useState(false)
   const [isPinned, setIsPinned] = useState(false)
   const [is3D, setIs3D] = useState(false)
 
@@ -84,7 +84,7 @@ export default function WorldMap({ onRegionChange, onLayerToggle, activeLayers, 
       <div className="flex items-center justify-center h-full" style={{ background: C.bgDeep }}>
         <div className="text-center space-y-3">
           <Globe size={24} className="mx-auto animate-pulse" style={{ color: C.dim }} />
-          <p className="text-[10px] font-mono" style={{ color: C.dim }}>Loading map data...</p>
+          <p className="text-[10px] font-mono" style={{ color: C.muted }}>Loading map data...</p>
         </div>
       </div>
     )

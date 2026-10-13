@@ -26,7 +26,8 @@ export default function MarketTrends() {
   const [signals,      setSignals]      = useState(null)
   const [correlations, setCorrelations] = useState(null)
   const [factorRotation, setFactorRotation] = useState(null)
-  const [alphaScores, setAlphaScores] = useState({})
+  // ponytail: nothing ever populated this, so the heatmap always shows "no data"; load real alpha scores here
+  const alphaScores = {}
   const [loading,      setLoading]      = useState(true)
   const [refreshing,   setRefreshing]   = useState(false)
 

@@ -5,6 +5,7 @@ import {
   BookOpen, ExternalLink, Star, Brain, Radio, Zap, Shield, BarChart2
 } from 'lucide-react'
 import ExplanationModal from '../components/ExplanationModal'
+import AlertCard, { fmt, sevColor } from '../components/AlertCard'
 import QualityGrade from '../components/QualityGrade'
 import TemporalMemory from '../components/TemporalMemory'
 import AuditTrail from '../components/AuditTrail'
@@ -17,7 +18,7 @@ import PanelManager from '../components/PanelManager'
 import ConfigurablePanel from '../components/ConfigurablePanel'
 import {
   getAlerts, getPortfolio, getStats, fetchAndAnalyzeNews,
-  getArticles, getStockPrices, getMarketOverview,
+  getArticles, getStockPrices,
   getTemporalMemory, getKGContext, runIntelligencePipeline
 } from '../services/api'
 import { transformAlert, transformPortfolio, transformStats } from '../utils/dataTransform'
@@ -26,29 +27,6 @@ import { useWebSocket } from '../hooks/useWebSocket'
 import { T as C } from '../theme'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
-const fmt  = n => n == null ? '—' : typeof n === 'number' ? n.toFixed(2) : n
-const ago  = ts => {
-  if (!ts) return ''
-  const d = Math.floor((Date.now() - new Date(ts)) / 1000)
-  if (d < 60) return `${d}s ago`
-  if (d < 3600) return `${Math.floor(d / 60)}m ago`
-  return `${Math.floor(d / 3600)}h ago`
-}
-const sevColor = s => {
-  if (!s) return C.blue
-  const u = s.toUpperCase()
-  if (u === 'CRITICAL' || u === 'HIGH') return C.red
-  if (u === 'MEDIUM'   || u === 'MODERATE') return C.orange
-  return C.green
-}
-const sevBg = s => {
-  if (!s) return C.blueSoft
-  const u = s.toUpperCase()
-  if (u === 'CRITICAL' || u === 'HIGH') return C.redSoft
-  if (u === 'MEDIUM'   || u === 'MODERATE') return C.orangeSoft
-  return C.greenSoft
-}
-
 // Terminal-style status chip (Global / Live / UTC / counts)
 function Chip({ children, live, muted }) {
   return (
@@ -83,7 +61,7 @@ function AlertTrendChart({ alerts }) {
   const area = `${line} L${pts.at(-1).x.toFixed(1)},${(H - pb).toFixed(1)} L${pts[0].x.toFixed(1)},${(H - pb).toFixed(1)} Z`
 
   return (
-    <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{ overflow: 'visible' }}>
+    <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{ overflow: 'visible', maxHeight: 80 }}>
       <defs>
         <linearGradient id="trendFill" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%"   stopColor={C.blue} stopOpacity="0.22" />
@@ -108,13 +86,7 @@ function AlertTrendChart({ alerts }) {
 
 
 // ── Market Pulse hero panel (situation readout + alert trend) ───────────────
-function MarketPulseHero({ alerts, stats, portfolio, lastUpdated, onRefresh, refreshing, className }) {
-  const [secs, setSecs] = useState(0)
-  useEffect(() => {
-    setSecs(0)
-    const t = setInterval(() => setSecs(s => s + 1), 1000)
-    return () => clearInterval(t)
-  }, [lastUpdated])
+function MarketPulseHero({ alerts, stats, portfolio }) {
 
   const watched = portfolio?.holdings?.length ?? stats?.watchedCompanies ?? 0
   const impact  = stats?.marketImpactScore ?? 7.2
@@ -172,7 +144,7 @@ function MarketPulseHero({ alerts, stats, portfolio, lastUpdated, onRefresh, ref
 }
 
 // ── Stock panels (one readout per ticker) ────────────────────────────────────
-function StockPanel({ ticker, d, isPlaceholder }) {
+function StockPanel({ d, isPlaceholder }) {
   const price = d?.current_price ?? d?.price ?? 0
   const chg   = d?.change_percent ?? 0
   const up    = chg >= 0
@@ -257,25 +229,7 @@ function RecentAlertsPanel({ alerts, onExplain }) {
             ))}
           </div>
           {alerts.slice(0, 14).map((a, i) => (
-            <div key={i} onClick={() => onExplain(a)}
-              className="grid grid-cols-[80px_1fr_60px_64px] items-center px-3 py-2.5 border-b cursor-pointer transition-all"
-              style={{ borderColor: C.borderDim }}
-              onMouseEnter={e => e.currentTarget.style.background = C.cardHover}
-              onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
-              <div>
-                <span className="text-[9px] font-semibold px-1.5 py-0.5 border"
-                  style={{ background: sevBg(a.severity), color: sevColor(a.severity), borderColor: `${sevColor(a.severity)}33` }}>
-                  {(a.severity || 'LOW').slice(0, 6)}
-                </span>
-              </div>
-              <span className="text-[11px] truncate pr-2" style={{ color: C.text }}>
-                {a.ticker ? `${a.ticker} — ` : ''}{(a.description || a.event || 'Market event').slice(0, 55)}
-              </span>
-              <span className="text-[11px] font-semibold" style={{ color: a.impact_percent >= 0 ? C.green : C.red }}>
-                {a.impact_percent != null ? `${a.impact_percent >= 0 ? '+' : ''}${fmt(a.impact_percent)}%` : '—'}
-              </span>
-              <span className="text-[10px]" style={{ color: C.muted }}>{ago(a.timestamp)}</span>
-            </div>
+            <AlertCard key={i} alert={a} onExplain={onExplain} />
           ))}
         </>
       )}
@@ -497,32 +451,6 @@ function AIAnalysisPanel({ analyzing, analysisResult, onAnalyze }) {
 
 // ── Intelligence Layer (quality / audit / convergence / per-ticker) ─────────
 function IntelligenceLayer({ pipelineResult, portfolio, temporalData, kgData }) {
-  const quickStats = pipelineResult && (
-    <>
-      {/* A score of exactly 0 used to hide this chip entirely — which is what
-          INSUFFICIENT_DATA scores. Silence read as "nothing to report". */}
-      {pipelineResult.alpha_score != null && (
-        pipelineResult.signal === 'INSUFFICIENT_DATA' ? (
-          <Chip muted><span title={pipelineResult.signal_note}>α n/a</span></Chip>
-        ) : (
-          <Chip>
-            α {pipelineResult.alpha_score > 0 ? '+' : ''}{typeof pipelineResult.alpha_score === 'number' ? pipelineResult.alpha_score.toFixed(1) : pipelineResult.alpha_score}
-          </Chip>
-        )
-      )}
-      {pipelineResult.convergence_zones?.length > 0 && (
-        <Chip>{pipelineResult.convergence_zones.length} zones</Chip>
-      )}
-      {pipelineResult.audit_summary?.total_duration_ms != null && (
-        <Chip muted>
-          {pipelineResult.audit_summary.total_duration_ms < 1000
-            ? `${Math.round(pipelineResult.audit_summary.total_duration_ms)}ms`
-            : `${(pipelineResult.audit_summary.total_duration_ms / 1000).toFixed(1)}s`}
-        </Chip>
-      )}
-    </>
-  )
-
   return (
     <div className="p-2 flex flex-col gap-2">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
@@ -581,7 +509,6 @@ export default function Dashboard({ onCompanyClick }) {
   const [theme, setTheme] = useState('dark')
   const [activeLayers, setActiveLayers] = useState(['stocks', 'news', 'geopolitical'])
   const [timeRange, setTimeRange] = useState('24h')
-  const [activeRegion, setActiveRegion] = useState('global')
   
   // Panel management state
   const [panels, setPanels] = useState([
@@ -638,7 +565,7 @@ export default function Dashboard({ onCompanyClick }) {
         setStockPrices(valid)
         setPriceUpdated(Date.now())
       }
-    } catch {}
+    } catch { /* keep the last good prices */ }
   }
 
   async function handleAnalyze() {
@@ -703,8 +630,7 @@ export default function Dashboard({ onCompanyClick }) {
     // Could trigger data filtering based on time range
   }
   
-  const handleRegionChange = (region) => {
-    setActiveRegion(region)
+  const handleRegionChange = () => {
     // Could trigger region-specific data loading
   }
   
@@ -739,7 +665,7 @@ export default function Dashboard({ onCompanyClick }) {
             <div className="absolute inset-2 rounded-full border border-b-transparent animate-spin"
               style={{ borderColor: `${C.purple} ${C.purple} ${C.purple} transparent`, animationDuration: '0.7s', animationDirection: 'reverse' }} />
           </div>
-          <p className="text-[10px] font-mono" style={{ color: C.dim }}>
+          <p className="text-[10px] font-mono" style={{ color: C.muted }}>
             Initializing Intel Platform
           </p>
         </div>
@@ -789,7 +715,7 @@ export default function Dashboard({ onCompanyClick }) {
 
       {/* Scrollable ops-center dashboard */}
       <div className="flex-1 overflow-y-auto">
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(290px,1fr))] auto-rows-[minmax(168px,auto)] gap-[4px] p-[4px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 grid-flow-dense auto-rows-[minmax(168px,auto)] gap-[4px] p-[4px]">
           {panels.filter(p => p.active).map(panel => {
             switch (panel.type) {
               case 'market_pulse':
@@ -824,7 +750,6 @@ export default function Dashboard({ onCompanyClick }) {
                   >
                     <MarketPulseHero
                       alerts={alerts} stats={stats} portfolio={portfolio}
-                      lastUpdated={priceUpdated} onRefresh={loadStockPrices} refreshing={refreshing}
                     />
                   </ConfigurablePanel>
                 )
