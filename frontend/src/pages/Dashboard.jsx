@@ -21,7 +21,7 @@ import {
   getArticles, getStockPrices,
   getTemporalMemory, getKGContext, runIntelligencePipeline
 } from '../services/api'
-import { transformAlert, transformPortfolio, transformStats } from '../utils/dataTransform'
+import { transformAlert, transformPortfolio, transformStats, alertCountsLast7Days } from '../utils/dataTransform'
 import { useWebSocket } from '../hooks/useWebSocket'
 
 import { T as C } from '../theme'
@@ -46,9 +46,8 @@ function Chip({ children, live, muted }) {
 }
 
 // ── Alert sparkline (7-day trend) ─────────────────────────────────────────────
-function AlertTrendChart({ alerts }) {
-  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-  const base = [2, 5, 3, 8, 4, 6, alerts.length || 4]
+function AlertTrendChart({ days }) {
+  const base = days.map(d => d.count)
   const max  = Math.max(...base, 1)
   const W = 320, H = 64
   const pl = 4, pr = 4, pt = 8, pb = 18
@@ -73,10 +72,10 @@ function AlertTrendChart({ alerts }) {
       {pts.map((p, i) => (
         <circle key={i} cx={p.x} cy={p.y} r="2.2" fill={C.blue} />
       ))}
-      {days.map((d, i) => (
-        <text key={d} x={pts[i].x} y={H - 4} textAnchor="middle"
+      {days.map(({ label }, i) => (
+        <text key={i} x={pts[i].x} y={H - 4} textAnchor="middle"
           style={{ fontSize: '8px', fill: C.dim, fontFamily: 'monospace' }}>
-          {d}
+          {label}
         </text>
       ))}
     </svg>
@@ -86,19 +85,21 @@ function AlertTrendChart({ alerts }) {
 
 
 // ── Market Pulse hero panel (situation readout + alert trend) ───────────────
-function MarketPulseHero({ alerts, stats, portfolio }) {
+export function MarketPulseHero({ alerts, stats, portfolio }) {
 
   const watched = portfolio?.holdings?.length ?? stats?.watchedCompanies ?? 0
-  const impact  = stats?.marketImpactScore ?? 7.2
+  const impact  = stats?.marketImpactScore ?? null
   const events  = stats?.eventsDetected ?? 0
 
   const rows = [
     { label: 'ACTIVE ALERTS', value: alerts.length,           color: C.orange },
     { label: 'WATCHED COS',   value: watched,                 color: C.blue },
-    { label: 'IMPACT SCORE',  value: typeof impact === 'number' ? impact.toFixed(1) : impact, color: C.green },
+    { label: 'IMPACT SCORE',  value: impact == null ? '—' : typeof impact === 'number' ? impact.toFixed(1) : impact, color: C.green },
     { label: 'EVENTS',        value: events,                  color: C.purple },
   ]
 
+  // null when no alert carries a usable timestamp: hide the chart rather than draw a made-up trend.
+  const trend = alertCountsLast7Days(alerts)
   const high = alerts.filter(a => ['HIGH','CRITICAL'].includes(a.severity?.toUpperCase())).length
   const med  = alerts.filter(a => ['MEDIUM','MODERATE'].includes(a.severity?.toUpperCase())).length
 
@@ -119,11 +120,15 @@ function MarketPulseHero({ alerts, stats, portfolio }) {
       </div>
 
       <div className="mt-auto">
-        <div className="flex items-center justify-between mb-1">
-          <span className="text-[9px] font-bold tracking-wider" style={{ color: C.muted }}>ALERT TREND</span>
-          <span className="text-[9px]" style={{ color: C.dim }}>7 days</span>
-        </div>
-        <AlertTrendChart alerts={alerts} />
+        {trend && (
+          <>
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[9px] font-bold tracking-wider" style={{ color: C.muted }}>ALERT TREND</span>
+              <span className="text-[9px]" style={{ color: C.dim }}>7 days</span>
+            </div>
+            <AlertTrendChart days={trend} />
+          </>
+        )}
         <div className="flex items-center justify-between mt-1">
           <div className="flex items-center gap-1">
             <span className="text-[13px] font-bold font-mono" style={{ color: high > 0 ? C.red : C.green }}>{high}</span>
@@ -677,6 +682,7 @@ export default function Dashboard({ onCompanyClick }) {
     <div className="flex flex-col h-full overflow-hidden" style={{ background: C.bg }}>
       {/* World Monitor Header */}
       <WorldMonitorHeader 
+        signalCount={alerts.length}
         isConnected={isConnected} 
         refreshing={refreshing} 
         onRefresh={handleRefresh}

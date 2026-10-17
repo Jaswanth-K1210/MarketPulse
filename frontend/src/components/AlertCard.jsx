@@ -1,12 +1,13 @@
 import React from 'react'
 
 import { T as C } from '../theme'
+import { parseTimestamp } from '../utils/dataTransform'
 
 export const fmt  = n => n == null ? '—' : typeof n === 'number' ? n.toFixed(2) : n
 export const ago  = ts => {
-  if (!ts) return ''
-  const d = Math.floor((Date.now() - new Date(ts)) / 1000)
-  if (Number.isNaN(d)) return ''
+  const t = parseTimestamp(ts)
+  if (!t) return ''
+  const d = Math.floor((Date.now() - t) / 1000)
   if (d < 60) return `${d}s ago`
   if (d < 3600) return `${Math.floor(d / 60)}m ago`
   return `${Math.floor(d / 3600)}h ago`
@@ -45,7 +46,7 @@ export default function AlertCard({ alert: a, onExplain }) {
       <span className="text-[11px] font-semibold" style={{ color: a.impact_percent >= 0 ? C.green : C.red }}>
         {a.impact_percent != null ? `${a.impact_percent >= 0 ? '+' : ''}${fmt(a.impact_percent)}%` : '—'}
       </span>
-      <span className="text-[10px]" style={{ color: C.muted }}>{ago(a.timestamp)}</span>
+      <span className="text-[10px]" style={{ color: C.muted }}>{ago(a.created_at ?? a.timestamp)}</span>
     </div>
   )
 }

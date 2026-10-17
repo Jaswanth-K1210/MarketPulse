@@ -26,3 +26,9 @@ test('a failed upstream node (null impact, no timestamp) shows no fabricated num
   expect(screen.getByText('—')).toBeInTheDocument()
   expect(container.textContent).not.toMatch(/0\.00%|NaN|ago/)
 })
+
+test('reads the backend created_at format and ignores a relative timestamp string', () => {
+  const twoHoursAgo = new Date(Date.now() - 2 * 3600e3).toISOString().replace('T', ' ').replace('Z', '')
+  render(<AlertCard alert={{ created_at: twoHoursAgo, timestamp: '2 hours ago' }} onExplain={() => {}} />)
+  expect(screen.getByText('2h ago')).toBeInTheDocument()
+})

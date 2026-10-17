@@ -32,13 +32,12 @@ export default function WorldMonitorHeader({
   currentVariant = 'world',
   onVariantChange,
   theme = 'dark',
-  onThemeToggle 
+  onThemeToggle,
+  signalCount = 0,
 }) {
   const [time, setTime] = useState(new Date())
   const [showVariants, setShowVariants] = useState(false)
   const [showDataFreshness, setShowDataFreshness] = useState(false)
-  // ponytail: hardcoded placeholder, never updated; wire to a real source count
-  const signalCount = 12
   const [showSettings, setShowSettings] = useState(false)
   const [evidence, setEvidence] = useState(null)
 
@@ -167,6 +166,8 @@ export default function WorldMonitorHeader({
       <div className="relative ml-auto">
         <button
           onClick={() => setShowDataFreshness(!showDataFreshness)}
+          title={`${signalCount} active alerts`}
+          aria-label={`${signalCount} active alerts, show data source status`}
           className="flex items-center gap-2 px-2 py-1.5"
           style={{ 
             background: delayedSources > 0 ? 'rgba(248,113,113,0.12)' : C.card, 

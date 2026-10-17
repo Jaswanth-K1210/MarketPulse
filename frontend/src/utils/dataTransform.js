@@ -42,7 +42,7 @@ export function transformAlert(backendAlert) {
     impact: backendAlert.impact_percent || backendAlert.portfolio_impact_percent || 0,
     impact_percent: backendAlert.impact_percent || backendAlert.portfolio_impact_percent || 0,
     description: backendAlert.explanation || backendAlert.event_summary || backendAlert.title,
-    timestamp: formatTimestamp(backendAlert.created_at),
+    timestamp: backendAlert.created_at,
     created_at: backendAlert.created_at,
     confidence: backendAlert.confidence || 0.85,
     recommendation: backendAlert.recommendation || 'MONITOR',
@@ -124,7 +124,6 @@ export function transformStats(backendStats) {
     scoreChange:       0.5,
     eventsDetected:    backendStats.articles_processed ?? backendStats.total_events      ?? 0,
     eventsThisWeek:    backendStats.events_this_week   ?? 0,
-    alertTrendData:    generateTrendData(backendStats.recent_alerts || [])
   };
 }
 
@@ -132,54 +131,44 @@ export function transformStats(backendStats) {
  * Calculate market impact score from stats
  */
 function calculateMarketImpactScore(stats) {
-  // Simple scoring: average of absolute impact percentages
-  if (stats.average_impact) {
-    return Math.abs(stats.average_impact * 10).toFixed(1);
+  // Simple scoring: average of absolute impact percentages.
+  // No average means no score: return null rather than inventing one (a real 0 is still a score).
+  if (typeof stats.average_impact !== 'number' || Number.isNaN(stats.average_impact)) return null;
+  return Math.abs(stats.average_impact * 10).toFixed(1);
+}
+
+/**
+ * Parse a backend timestamp. The backend writes naive datetime.now() strings
+ * ("2026-10-06 22:42:03.394186"); servers run in UTC, so read them as UTC.
+ * Returns a Date, or null when the value isn't a usable timestamp.
+ */
+export function parseTimestamp(ts) {
+  if (ts == null || ts === '') return null;
+  let v = ts;
+  if (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}/.test(v)) {
+    v = v.replace(' ', 'T');
+    if (!/(Z|[+-]\d{2}:?\d{2})$/.test(v)) v += 'Z';
   }
-  return 7.2; // Default
+  const d = new Date(v);
+  return Number.isNaN(d.getTime()) ? null : d;
 }
 
 /**
- * Generate trend data from recent alerts
+ * Alert counts for the last 7 local days, oldest first, ending today.
+ * Returns null when no alert has a usable timestamp, so callers can hide the chart.
  */
-function generateTrendData(recentAlerts) {
-  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  const counts = new Array(7).fill(0);
-
-  // Group alerts by day of week (simplified)
-  recentAlerts.forEach(alert => {
-    if (alert.created_at) {
-      const date = new Date(alert.created_at);
-      const dayIndex = date.getDay();
-      counts[dayIndex] = (counts[dayIndex] || 0) + 1;
-    }
+export function alertCountsLast7Days(alerts, now = new Date()) {
+  const times = (alerts || []).map(a => parseTimestamp(a.created_at ?? a.timestamp)).filter(Boolean);
+  if (times.length === 0) return null;
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  return Array.from({ length: 7 }, (_, i) => {
+    const start = new Date(today.getFullYear(), today.getMonth(), today.getDate() - (6 - i));
+    const end = new Date(start.getFullYear(), start.getMonth(), start.getDate() + 1);
+    return {
+      label: start.toLocaleDateString('en-US', { weekday: 'short' }),
+      count: times.filter(t => t >= start && t < end).length,
+    };
   });
-
-  return days.map((day, index) => ({
-    day,
-    alerts: counts[index] || 0
-  }));
-}
-
-/**
- * Format timestamp to relative time
- */
-export function formatTimestamp(timestamp) {
-  if (!timestamp) return 'Unknown';
-
-  const date = new Date(timestamp);
-  const now = new Date();
-  const diffMs = now - date;
-  const diffMins = Math.floor(diffMs / 60000);
-  const diffHours = Math.floor(diffMs / 3600000);
-  const diffDays = Math.floor(diffMs / 86400000);
-
-  if (diffMins < 1) return 'just now';
-  if (diffMins < 60) return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`;
-  if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-  if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
-
-  return date.toLocaleDateString();
 }
 
 /**

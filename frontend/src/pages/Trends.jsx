@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { TrendingUp, Globe, Activity, BarChart2, RefreshCw, Zap, PieChart } from 'lucide-react'
 import { getRiskScores, getMacroData, getMarketOverview, getSignals, getCorrelations, getFactorRotation } from '../services/api'
-import SectorHeatmap from '../components/SectorHeatmap'
 
 const REGIME_COLORS = {
   bull:     { bg: 'bg-green-500/10',  border: 'border-green-500/30',  text: 'text-green-400',  dot: 'bg-green-500' },
@@ -26,8 +25,6 @@ export default function MarketTrends() {
   const [signals,      setSignals]      = useState(null)
   const [correlations, setCorrelations] = useState(null)
   const [factorRotation, setFactorRotation] = useState(null)
-  // ponytail: nothing ever populated this, so the heatmap always shows "no data"; load real alpha scores here
-  const alphaScores = {}
   const [loading,      setLoading]      = useState(true)
   const [refreshing,   setRefreshing]   = useState(false)
 
@@ -267,9 +264,6 @@ export default function MarketTrends() {
               </div>
             </div>
           )}
-
-          {/* Row 6: Sector Heatmap */}
-          <SectorHeatmap alphaScores={alphaScores} />
 
         </div>
       )}
